@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\FileManagerController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('filemanager', [FileManagerController::class, 'index']);
 
 Route::get('/', function () {
     return view('welcome');
