@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\AdministracionController;
+use App\Http\Controllers\ComisionController;
 
 
 
@@ -42,6 +43,7 @@ Route::get('/', function () {
 });
 
 Route::get('/administracion', [AdministracionController::class, 'index']);
+Route::get('/comision', [ComisionController::class, 'index']);
 
 /*
 require __DIR__.'/administrador.php';

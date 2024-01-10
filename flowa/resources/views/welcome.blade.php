@@ -17,7 +17,7 @@
           <div>
             <h1 class="text-5xl font-bold">Flowa - UNS </h1>
             <p class="py-6">Bienvenido al sistema para la gestión de planes de materias . <br> ¿Qué rol tiene dentro de la universidad?</p>
-            <a href="/comision_academica" class="mx-2 btn btn-primary">Soy miembro de Comisión Académica</a>
+            <a href="/comision" class="mx-2 btn btn-primary">Soy miembro de Comisión Académica</a>
             <a href="/profesor" class="mx-2 btn btn-primary">Soy Profesor</a>
             <a href="/administracion" class="mx-2 btn btn-primary">Soy miembro de Administración</a>
           </div>
