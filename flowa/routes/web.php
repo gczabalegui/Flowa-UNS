@@ -4,6 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FileManagerController;
+use App\Http\Controllers\AdministracionController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +40,8 @@ require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/administracion', [AdministracionController::class, 'index']);
 
 /*
 require __DIR__.'/administrador.php';

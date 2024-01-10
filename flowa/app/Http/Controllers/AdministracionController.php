@@ -9,7 +9,7 @@ class AdministracionController extends Controller
     public function index()
     {
         // Lógica para la página principal de administración
-      //  return view('administracion.index');
+        return view('administracion.dashboard');
     }
 
     /*
