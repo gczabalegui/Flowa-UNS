@@ -33,3 +33,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::get('/', function () {
+    return view('welcome');
+});
+
+/*
+require __DIR__.'/administrador.php';
+require __DIR__.'/profesor.php';
+require __DIR__.'/alumno.php';
+*/
