@@ -47,6 +47,7 @@ Route::get('/', function () {
 Route::get('/administracion', [AdministracionController::class, 'index']);
 Route::get('/comision', [ComisionController::class, 'index']);
 Route::get('/profesor', [ProfesorController::class, 'index']);
+Route::get('/materia', [MateriaController::class, 'index']);
 
 /*
 require __DIR__.'/administrador.php';
