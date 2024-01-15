@@ -12,4 +12,8 @@ class Administracion extends Model
     {
         return $this->belongsTo(Departamento::class);
     }
+    public function materia()
+    {
+        return $this->hasMany(Materia::class);
+    }
 }

@@ -18,4 +18,9 @@ class Materia extends Model
     {
         return $this->belongsToMany(Carrera::class);
     }
+
+    public function administracion()
+    {
+        return $this->belongsTo(Administracion::class);
+    }
 }
