@@ -14,6 +14,9 @@ return new class extends Migration
         Schema::create('administracions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->unsignedBigInteger('departamento_id')->unique();
+            $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');
         });
     }
 
