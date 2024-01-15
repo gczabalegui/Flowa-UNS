@@ -23,4 +23,8 @@ class Materia extends Model
     {
         return $this->belongsTo(Administracion::class);
     }
+    public function plan()
+    {
+        return $this->hasMany(Plan::class);
+    }
 }
