@@ -9,7 +9,8 @@ class Profesor extends Model
 {
     use HasFactory;
 
-    public function materia(){
+    public function materia()
+    {
         return $this->hasMany(Materia::class);
     }
 }

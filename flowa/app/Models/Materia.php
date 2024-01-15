@@ -9,7 +9,13 @@ class Materia extends Model
 {
     use HasFactory;
 
-    public function profesor(){
+    public function profesor()
+    {
         return $this->belongsTo(Profesor::class);
+    }
+
+    public function carrera()
+    {
+        return $this->belongsToMany(Carrera::class);
     }
 }
