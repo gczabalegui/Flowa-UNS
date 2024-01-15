@@ -17,4 +17,10 @@ class Carrera extends Model
     {
         return $this->belongsTo(Departamento::class);
     }
+
+    public function comision()
+    {
+        return $this->hasOne(Comision::class);
+    }
 }
+

@@ -14,6 +14,10 @@ return new class extends Migration
         Schema::create('comisions', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->unsignedBigInteger('carrera_id')->unique();
+            
+            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
         });
     }
 
