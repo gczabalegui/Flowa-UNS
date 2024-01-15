@@ -12,4 +12,9 @@ class Carrera extends Model
     {
         return $this->belongsToMany(Materia::class);
     }
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class);
+    }
 }

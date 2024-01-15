@@ -14,6 +14,11 @@ return new class extends Migration
         Schema::create('carreras', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('nombre');
+            $table->unsignedBigInteger('departamento_id');
+            
+            $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');
         });
     }
 
