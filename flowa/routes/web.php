@@ -7,6 +7,7 @@ use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\ComisionController;
 use App\Http\Controllers\ProfesorController;
+use App\Http\Controllers\ImageController;
 
 
 
@@ -48,6 +49,12 @@ Route::get('/administracion', [AdministracionController::class, 'index']);
 Route::get('/comision', [ComisionController::class, 'index']);
 Route::get('/profesor', [ProfesorController::class, 'index']);
 Route::get('/materia', [MateriaController::class, 'index']);
+
+
+
+
+Route::get('image-upload', [ ImageController::class, 'upload' ])->name('image.upload');
+Route::post('image-store', [ ImageController::class, 'store' ])->name('image.upload.post');
 
 /*
 require __DIR__.'/administrador.php';
