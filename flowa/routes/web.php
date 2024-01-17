@@ -7,7 +7,7 @@ use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\ComisionController;
 use App\Http\Controllers\ProfesorController;
-use App\Http\Controllers\ImageController;
+use App\Http\Controllers\ArchivoController;
 
 
 
@@ -51,8 +51,8 @@ Route::get('/profesor', [ProfesorController::class, 'index']);
 //Route::get('/materia', [MateriaController::class, 'index']);
 
 
-Route::get('image-upload', [ ImageController::class, 'upload' ])->name('image.upload');
-Route::post('image-store', [ ImageController::class, 'store' ])->name('image.upload.post');
+Route::get('archivo-upload', [ ArchivoController::class, 'upload' ])->name('archivo.upload');
+Route::post('archivo-store', [ ArchivoController::class, 'store' ])->name('archivo.upload.post');
 
 
 /*
@@ -64,8 +64,8 @@ require __DIR__.'/alumno.php';
 /* ACA LAS RUTAS PARA LAS COSAS DE ADMINISTRACION */
 
 
-Route::get('/administracion/cargarplan', [ImageController::class, 'upload'])
-    ->name('image.upload');
+Route::get('/administracion/cargarplan', [ArchivoController::class, 'upload'])
+    ->name('archivo.upload');
 
     
 

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Image;
+use App\Models\Archivo;
 
-class ImageController extends Controller
+class ArchivoController extends Controller
 {
     public function upload()
     {
