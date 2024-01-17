@@ -15,7 +15,13 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
+            $table->string('nombre_profesor');
+            $table->bigInteger('legajo')->unique();
             $table->string('nombre');
+            $table->string('apellido');
+            $table->bigInteger('DNI')->unique();
+            $table->string('email')->unique();
+
         });
     }
 
