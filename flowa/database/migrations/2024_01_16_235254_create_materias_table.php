@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('nombre');
+            $table->string('nombre_materia')->unique();
+            $table->bigInteger('codigo')->unique();
             
             $table->unsignedBigInteger('profesor_id');        
             $table->foreign('profesor_id')->references('id')->on('profesors')->onDelete('cascade');
