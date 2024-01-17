@@ -13,6 +13,8 @@
                     <ul class="p-2 bg-base-100 z-50">
                     <li><a href="/administracion/crearplan">Crear nuevo plan de materia</a></li>
                     <li><a href="/administracion/crearprofesor">Crear nuevo profesor</a></li>
+                    <li><a href="/administracion/cargarplan">Cargar plan de materia anterior</a></li>
+
                     </ul>
                 </li>
             </ul>
@@ -21,7 +23,5 @@
         <div class="navbar-center flex items-center justify-center">
         <a class="btn btn-primary normal-case text-2xl">Flowa - UNS</a>
     </div>
-
-    <div class="navbar-end">
 
 </div>

@@ -21,8 +21,5 @@ Route::prefix('administracion')->name('administracion')->group(function () {
 
     Route::post('/login', [AuthenticatedSessionController::class, 'store'])
         ->middleware('guest:administracion');
-
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->middleware('auth:administracion')
-        ->name('logout');
+        
 });

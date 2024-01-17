@@ -48,16 +48,24 @@ Route::get('/', function () {
 Route::get('/administracion', [AdministracionController::class, 'index']);
 Route::get('/comision', [ComisionController::class, 'index']);
 Route::get('/profesor', [ProfesorController::class, 'index']);
-Route::get('/materia', [MateriaController::class, 'index']);
-
-
+//Route::get('/materia', [MateriaController::class, 'index']);
 
 
 Route::get('image-upload', [ ImageController::class, 'upload' ])->name('image.upload');
 Route::post('image-store', [ ImageController::class, 'store' ])->name('image.upload.post');
 
+
 /*
-require __DIR__.'/administrador.php';
-require __DIR__.'/profesor.php';
+require __DIR__.'/administracion.php';
+require __DIR__.'profesor.php';
 require __DIR__.'/alumno.php';
 */
+
+/* ACA LAS RUTAS PARA LAS COSAS DE ADMINISTRACION */
+
+
+Route::get('/administracion/cargarplan', [ImageController::class, 'upload'])
+    ->name('image.upload');
+
+    
+
