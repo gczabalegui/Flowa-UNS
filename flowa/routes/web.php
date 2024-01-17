@@ -9,9 +9,6 @@ use App\Http\Controllers\ComisionController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\ArchivoController;
 
-
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
