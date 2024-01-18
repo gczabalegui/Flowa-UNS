@@ -15,6 +15,14 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
+            $table->string('nombre_administrativo');
+            $table->unsignedInteger('legajo')->unique();
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->unsignedInteger('DNI')->unique();
+            $table->string('email')->unique();
+
+
             $table->unsignedBigInteger('departamento_id')->unique();
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');
         });

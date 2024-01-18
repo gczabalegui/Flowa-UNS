@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('nombre');
+            $table->unsignedInteger('codigo_departamento');
+            $table->string('nombre_departamento');
+            $table->string('direccion');
+            $table->string('sitio_web');
         });
     }
 

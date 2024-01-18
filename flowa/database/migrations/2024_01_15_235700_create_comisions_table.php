@@ -15,8 +15,15 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
+            $table->string('nombre_comision');
+            $table->unsignedInteger('legajo')->unique();
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->unsignedInteger('DNI')->unique();
+            $table->string('email')->unique();
+            $table->string('carrera_responsable');
+
             $table->unsignedBigInteger('carrera_id')->unique();
-            
             $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
         });
     }
