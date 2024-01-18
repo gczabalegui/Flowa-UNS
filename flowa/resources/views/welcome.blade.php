@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div class="hero bg-white-200 h-screen text-center" style="">
+    <div class="hero bg-white-200 h-screen text-center">
         <div class="hero-content flex-col lg:flex-row">
           <div>
             <h1 class="text-5xl font-bold">Flowa - UNS </h1>

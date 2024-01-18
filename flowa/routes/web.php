@@ -66,5 +66,15 @@ require __DIR__.'/alumno.php';
 Route::get('/administracion/cargarplan', [ArchivoController::class, 'upload'])
     ->name('archivo.upload');
 
+/* SECRETARIA ACADEMICA */
+
+Route::get('/secretaria/creardocente', [ProfesorController::class, 'create'])
+    ->name('creardocente');
+
+    Route::get('/secretaria/creardocente', [ProfesorController::class, 'store'])
+    ->name('creardocente');
+
+
+
     
 

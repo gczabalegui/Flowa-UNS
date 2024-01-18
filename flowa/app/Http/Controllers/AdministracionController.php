@@ -18,12 +18,7 @@ class AdministracionController extends Controller
         // Lógica para la página de crear plan
         return view('administracion.crearplan');
     }
-
-    public function crearProfesor()
-    {
-        // Lógica para la página de crear profesor
-        return view('administracion.crearprofesor');
-    }
     */
+
 }
 

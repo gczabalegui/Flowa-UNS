@@ -17,8 +17,6 @@
                     
                     <li><a href="/secretaria/creardocente">Crear usuario Docente</a></li>
                     <li><a href="/secretaria/crearcoordinador">Crear usuario Coordinador Comisión Curricular</a></li>  
-                    <li><a href="/secretaria/creardocente">Crear usuario Docente</a></li>
-                    <li><a href="/secretaria/crearplan">Crear usuario Docente</a></li>  
                 </ul>
                 </li>
             </ul>

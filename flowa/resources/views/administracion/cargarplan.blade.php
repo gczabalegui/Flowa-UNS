@@ -53,7 +53,7 @@
                         <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
                         <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
                         <li><a href="/administracion/crearsecretaria">Crear usuario de Secretaría Académica</a></li>
-                        <li><a href="/administracion/crearprofesor">Crear usuario Administración</a></li>
+                        <li><a href="/administracion/crearadministracion">Crear usuario Administración</a></li>
                         <li><a href="/administracion/cargarplan">Cargar plan de materia - versión anterior</a></li>
                         </ul>
                     </li>
