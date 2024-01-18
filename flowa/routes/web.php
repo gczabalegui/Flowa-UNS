@@ -9,6 +9,7 @@ use App\Http\Controllers\ComisionController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\SecretariaController;
+use App\Http\Controllers\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,5 +77,14 @@ Route::get('/secretaria/creardocente', [ProfesorController::class, 'create'])
 
 
 
+
+//CREAR UN PLAN NUEVO    
+Route::get('/administracion/crearplan', [PlanController::class, 'create'])
+    ->name('crearplan');
+
+Route::get('/administracion/crearplan', [PlanController::class, 'store'])
+    ->name('crearplan');
+
+//FIN CREAR UN PLAN NUEVO
     
 
