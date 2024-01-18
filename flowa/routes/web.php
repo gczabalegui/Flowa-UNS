@@ -8,6 +8,7 @@ use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\ComisionController;
 use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\ArchivoController;
+use App\Http\Controllers\SecretariaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,7 @@ Route::get('/', function () {
 Route::get('/administracion', [AdministracionController::class, 'index']);
 Route::get('/comision', [ComisionController::class, 'index']);
 Route::get('/profesor', [ProfesorController::class, 'index']);
+Route::get('/secretaria', [SecretariaController::class, 'index']);
 //Route::get('/materia', [MateriaController::class, 'index']);
 
 
