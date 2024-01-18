@@ -16,10 +16,10 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('nombre_profesor');
-            $table->bigInteger('legajo')->unique();
+            $table->unsignedInteger('legajo')->unique();
             $table->string('nombre');
             $table->string('apellido');
-            $table->bigInteger('DNI')->unique();
+            $table->unsignedInteger('DNI')->unique();
             $table->string('email')->unique();
 
         });
