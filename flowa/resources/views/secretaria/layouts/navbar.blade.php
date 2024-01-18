@@ -14,11 +14,12 @@
                     <li><a href="/administracion/crearplan">Crear nuevo plan de materia</a></li>
                     <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
                     <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
-                    <li><a href="/administracion/crearsecretaria">Crear usuario de Secretaría Académica</a></li>
-                    <li><a href="/administracion/crearprofesor">Crear usuario Administración</a></li>
-                    <li><a href="/administracion/cargarplan">Cargar plan de materia - versión anterior</a></li>
-
-                    </ul>
+                    
+                    <li><a href="/secretaria/creardocente">Crear usuario Docente</a></li>
+                    <li><a href="/secretaria/crearcoordinador">Crear usuario Coordinador Comisión Curricular</a></li>  
+                    <li><a href="/secretaria/creardocente">Crear usuario Docente</a></li>
+                    <li><a href="/secretaria/crearplan">Crear usuario Docente</a></li>  
+                </ul>
                 </li>
             </ul>
         </div>
@@ -26,5 +27,7 @@
         <div class="navbar-center flex items-center justify-center">
         <a class="btn btn-primary normal-case text-2xl">Flowa - UNS</a>
     </div>
+
+    <div class="navbar-end">
 
 </div>
