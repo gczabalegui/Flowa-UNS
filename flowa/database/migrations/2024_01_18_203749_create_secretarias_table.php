@@ -14,6 +14,17 @@ return new class extends Migration
         Schema::create('secretarias', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->string('nombre_secretaria');
+            $table->unsignedInteger('legajo')->unique();
+            $table->string('nombre');
+            $table->string('apellido');
+            $table->unsignedInteger('DNI')->unique();
+            $table->string('email')->unique();
+
+            $table->unsignedBigInteger('departamento_id');
+            $table->foreign('departamento_id')->references('id')->on('departamentos');
+
         });
     }
 

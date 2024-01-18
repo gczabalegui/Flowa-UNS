@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('nombre_departamento');
             $table->string('direccion');
             $table->string('sitio_web');
+
+            $table->unsignedBigInteger('secretaria_id')->nullable();
         });
     }
 

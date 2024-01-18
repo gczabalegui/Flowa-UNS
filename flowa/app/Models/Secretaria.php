@@ -7,5 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Secretaria extends Model
 {
-    use HasFactory;
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class);
+    }
 }
