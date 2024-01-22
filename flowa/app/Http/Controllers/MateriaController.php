@@ -19,7 +19,7 @@ class MateriaController extends Controller
      */
     public function create()
     {
-        //
+        return view('administracion.crearmateria');
     }
 
     /**
