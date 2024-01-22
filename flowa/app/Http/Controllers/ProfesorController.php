@@ -47,9 +47,8 @@ class ProfesorController extends Controller
         
             
             $request->validate([
-                'nombre' => 'required|max:255|string',
-                'apellido' => 'required|max:255|string',
                 'nombre_profesor' => 'required|max:255|string',
+                'apellido' => 'required|max:255|string',
                 'DNI' => 'required|numeric',
                 'email' => 'required|email',
                 'legajo' => 'required|numeric',
@@ -58,9 +57,8 @@ class ProfesorController extends Controller
             $profesors = new Profesor();
 
             
-            $profesors->nombre = $request->get('nombre');
-            $profesors->apellido = $request->get('apellido');
             $profesors->nombre_profesor = $request->get('nombre_profesor');
+            $profesors->apellido = $request->get('apellido');
             $profesors->DNI = $request->get('DNI');
             $profesors->legajo = $request->get('legajo');
             $profesors->email = $request->get('email');

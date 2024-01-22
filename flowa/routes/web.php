@@ -66,25 +66,16 @@ require __DIR__.'/administracion.php';
 require __DIR__.'profesor.php';
 require __DIR__.'/alumno.php';
 */
+
 /* ACA LAS RUTAS PARA LAS COSAS DE ADMINISTRACION */
 Route::get('/administracion/cargarplan', [ArchivoController::class, 'upload'])
     ->name('archivo.upload');
     
-
-/* SECRETARIA ACADEMICA */
-
-Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'create'])
-    ->name('crearprofesor');
-
-    Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'store'])
-    ->name('crearprofesor');
-
-
 //CREAR UN PLAN NUEVO    
 Route::get('/administracion/crearplan', [PlanController::class, 'create'])
     ->name('crearplan');
 
-Route::get('/administracion/crearplan', [PlanController::class, 'store'])
+Route::post('/administracion/crearplan', [PlanController::class, 'store'])
     ->name('crearplan');
 
 //FIN CREAR UN PLAN NUEVO
@@ -93,7 +84,15 @@ Route::get('/administracion/crearplan', [PlanController::class, 'store'])
 Route::get('/administracion/crearmateria', [MateriaController::class, 'create'])
     ->name('crearmateria');
 
-Route::get('/administracion/crearmateria', [MateriaController::class, 'store'])
+Route::post('/administracion/crearmateria', [MateriaController::class, 'store'])
     ->name('crearmateria');
 
 //FIN CREAR UNA MATERIA NUEVA
+
+/* SECRETARIA ACADEMICA */
+
+Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'create'])
+    ->name('crearprofesor');
+
+Route::post('/secretaria/crearprofesor', [ProfesorController::class, 'store'])
+    ->name('crearprofesor');
