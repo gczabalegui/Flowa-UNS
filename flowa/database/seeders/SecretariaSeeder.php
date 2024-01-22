@@ -16,7 +16,7 @@ class SecretariaSeeder extends Seeder
         $data = [
             [
                'nombre_secretaria' => 'ceciliapellegrini',
-               'legajo' => '11222',
+               'legajo' => '7791',
                'nombre' => 'Cecilia Noemi',
                'apellido' => 'Pellegrini',
                'DNI' => '16775272',
