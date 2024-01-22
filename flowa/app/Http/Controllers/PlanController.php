@@ -58,7 +58,7 @@ class PlanController extends Controller
                 'programa_analitico' => 'required|string',
                 'act_practicas' => 'required|string',
                 'modalidad' => 'required|string',
-                'bibliografía' => 'required|string',
+                'bibliografia' => 'required|string',
             ]);
             $planes = new Plan();
             $planes->anio = $request->get('anio');
