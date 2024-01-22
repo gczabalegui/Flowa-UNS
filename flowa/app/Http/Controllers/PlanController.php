@@ -18,7 +18,9 @@ class PlanController extends Controller
      */
     public function create()
     {
-        return view('administracion.crearplan');
+        /*$profesores = Profesor::orderBy("apellido")->get();
+        $materias = Materia::orderBy("nombre_materia")->get();*/
+        return view('administracion.crearplan')/*->with('materia',$materias)*/;
     }
 
     /**
