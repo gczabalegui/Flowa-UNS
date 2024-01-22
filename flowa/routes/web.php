@@ -73,11 +73,11 @@ Route::get('/administracion/cargarplan', [ArchivoController::class, 'upload'])
 
 /* SECRETARIA ACADEMICA */
 
-Route::get('/secretaria/creardocente', [ProfesorController::class, 'create'])
-    ->name('creardocente');
+Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'create'])
+    ->name('crearprofesor');
 
-    Route::get('/secretaria/creardocente', [ProfesorController::class, 'store'])
-    ->name('creardocente');
+    Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'store'])
+    ->name('crearprofesor');
 
 
 //CREAR UN PLAN NUEVO    

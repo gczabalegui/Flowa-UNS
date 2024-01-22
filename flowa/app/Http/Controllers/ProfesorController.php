@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Profesor;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+
 
 class ProfesorController extends Controller
 {
@@ -12,6 +14,8 @@ class ProfesorController extends Controller
     {
         // Lógica para la página principal del profesor
         return view('profesor.dashboard');
+
+        Log::info("Se ha accedido a la página principal del profesor");
     }
 
     /*
@@ -27,7 +31,7 @@ class ProfesorController extends Controller
      */
     public function create()
     {
-        return view('secretaria.creardocente');
+        return view('secretaria.crearprofesor');
     }
 
     /**
@@ -40,29 +44,36 @@ class ProfesorController extends Controller
     {
         
         
-        try{
-            /*
+        
+            
             $request->validate([
                 'nombre' => 'required|max:255|string',
                 'apellido' => 'required|max:255|string',
+                'nombre_profesor' => 'required|max:255|string',
+                'DNI' => 'required|numeric',
+                'email' => 'required|email',
+                'legajo' => 'required|numeric',
             ]);
-            */
 
             $profesors = new Profesor();
 
-            /*
+            
             $profesors->nombre = $request->get('nombre');
             $profesors->apellido = $request->get('apellido');
+            $profesors->nombre_profesor = $request->get('nombre_profesor');
+            $profesors->DNI = $request->get('DNI');
+            $profesors->legajo = $request->get('legajo');
+            $profesors->email = $request->get('email');
            
           //  $profesors->password =  Hash::make($request->get('lu'));
-          */
+          
 
+          
             $profesors->save();
 
             return redirect('/secretaria')->with('estado','El profesor fue creado correctamente.');
-        }catch(\Exception $e){
-            return redirect('/secretaria')->with('warning','Ya existe un profesor con ese legajo, DNI o email');
-        }
+       
+        
     
     }
 }
