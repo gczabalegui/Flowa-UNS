@@ -27,7 +27,22 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'nombre_materia' => 'required|max:255|string',
+                'codigo' => 'required|numeric',
+            ]);
+
+            $materias = new Materia();
+            $materias->nombre_materia = $request->get('nombre_materia');
+            $materias->codigo = $request->get('codigo');
+
+            $materias->save();
+            return redirect('/administracion')->with('estado', 'Nueva materia creada exitosamente.'); 
+        }
+        catch(\Exception $e){
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
+        }     
     }
 
     /**
