@@ -8,6 +8,8 @@ use App\Http\Controllers\ProfesorController;
 use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\MateriaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -86,3 +88,12 @@ Route::get('/administracion/crearplan', [PlanController::class, 'store'])
     ->name('crearplan');
 
 //FIN CREAR UN PLAN NUEVO
+
+//CREAR UNA MATERIA NUEVA 
+Route::get('/administracion/crearmateria', [MateriaController::class, 'create'])
+    ->name('crearmateria');
+
+Route::get('/administracion/crearmateria', [MateriaController::class, 'store'])
+    ->name('crearmateria');
+
+//FIN CREAR UNA MATERIA NUEVA
