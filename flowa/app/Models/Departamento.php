@@ -14,7 +14,7 @@ class Departamento extends Model
     }
     public function administracion()
     {
-        return $this->hasOne(Administracion::class);
+        return $this->hasMany(Administracion::class);
     }
 
     public function secretaria()

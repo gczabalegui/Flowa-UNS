@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('nombre_profesor');
+            $table->string('nombre');
             $table->string('apellido');     
             $table->unsignedInteger('DNI')->unique();
             $table->unsignedInteger('legajo')->unique();
