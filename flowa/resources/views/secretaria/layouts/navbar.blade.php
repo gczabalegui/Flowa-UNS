@@ -11,10 +11,6 @@
                         </svg>
                     </a>
                     <ul class="p-2 bg-base-100 z-50">
-                    <li><a href="/administracion/crearplan">Crear nuevo plan de materia</a></li>
-                    <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
-                    <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
-                    
                     <li><a href="/secretaria/crearprofesor">Crear usuario Profesor</a></li>
                     <li><a href="/secretaria/crearcoordinador">Crear usuario Coordinador Comisión Curricular</a></li>  
                 </ul>

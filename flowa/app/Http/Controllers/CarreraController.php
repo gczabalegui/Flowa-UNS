@@ -27,7 +27,29 @@ class CarreraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try{
+            $request->validate([
+                'codigo_carrera' => 'required|numeric', 
+                'nombre_carrera' => 'required|max:255|string',
+                'plan_version' => 'required|numeric',
+                'duracion' => 'required|max:255|string',
+                'cant_materias' => 'required|numeric',
+
+            ]);
+
+            $carreras = new Carrera();
+            $carreras->codigo_carrera = $request->get('codigo_carrera');
+            $carreras->nombre_carrera = $request->get('nombre_carrera');
+            $carreras->plan_version = $request->get('plan_version');
+            $carreras->duracion = $request->get('duracion');
+            $carreras->cant_materias = $request->get('cant_materias');
+
+            $carreras->save();
+            return redirect('/administracion')->with('estado', 'Nuevo plan creado exitosamente.');
+        }
+        catch(\Exception $e){
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
+        }
     }
 
     /**
