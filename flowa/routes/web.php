@@ -118,6 +118,14 @@ Route::post('/administracion/crearprofesor', [ProfesorController::class, 'store'
     ->name('crearprofesor');
 //FIN CREAR UN PROFESOR
 
+//CREAR UN COORDINAR DE LA COMISION CURRICULAR  
+Route::get('/administracion/crearcomision', [ComisionController::class, 'createByAdmin'])
+    ->name('crearcomision');
+
+Route::post('/administracion/crearcomision', [ComisionController::class, 'store'])
+    ->name('crearcomision');
+//FIN CREAR UN COORDINAR DE LA COMISION CURRICULAR  
+
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
@@ -140,3 +148,11 @@ Route::post('/secretaria/crearsecretaria', [SecretariaController::class, 'store'
 ->name('crearsecretaria');
 
 //FIN CREAR UN USUARIO SECRETARÍA ACADÉMICA
+
+//CREAR UN COORDINAR DE LA COMISION CURRICULAR  
+Route::get('/secretaria/crearcomision', [ComisionController::class, 'createBySec'])
+    ->name('crearcomision');
+
+Route::post('/secretaria/crearcomision', [ComisionController::class, 'store'])
+    ->name('crearcomision');
+//FIN CREAR UN COORDINAR DE LA COMISION CURRICULAR  
