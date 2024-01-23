@@ -70,33 +70,42 @@ require __DIR__.'/alumno.php';
 /* ACA LAS RUTAS PARA LAS COSAS DE ADMINISTRACION */
 Route::get('/administracion/cargarplan', [ArchivoController::class, 'upload'])
     ->name('archivo.upload');
-    
-//CREAR UN PLAN NUEVO    
+
+//CREAR UN USUARIO ADMINISTRATIVO
+Route::get('/administracion/crearadministrativo', [AdministracionController::class, 'create'])
+->name('crearadministrativo');
+
+Route::post('/administracion/crearadministrativo', [AdministracionController::class, 'store'])
+->name('crearadministrativo');
+
+//FIN CREAR UN USUARIO ADMINISTRATIVO
+
+//CREAR UN PLAN     
 Route::get('/administracion/crearplan', [PlanController::class, 'create'])
     ->name('crearplan');
 
 Route::post('/administracion/crearplan', [PlanController::class, 'store'])
     ->name('crearplan');
 
-//FIN CREAR UN PLAN NUEVO
+//FIN CREAR UN PLAN 
 
-//CREAR UNA MATERIA NUEVA 
+//CREAR UNA MATERIA  
 Route::get('/administracion/crearmateria', [MateriaController::class, 'create'])
     ->name('crearmateria');
 
 Route::post('/administracion/crearmateria', [MateriaController::class, 'store'])
     ->name('crearmateria');
 
-//FIN CREAR UNA MATERIA NUEVA
+//FIN CREAR UNA MATERIA 
 
-//CREAR UNA CARRERA NUEVA 
+//CREAR UNA CARRERA  
 Route::get('/administracion/crearcarrera', [CarreraController::class, 'create'])
     ->name('crearcarrera');
 
 Route::post('/administracion/crearcarrera', [CarreraController::class, 'store'])
     ->name('crearcarrera');
 
-//FIN CREAR UNA MATERIA NUEVA
+//FIN CREAR UNA CARRERA 
 
 
 
