@@ -11,7 +11,7 @@
     </head>
 
     <body>
-        @include('comision.layouts.navbar')
+        @include('comision.layouts.navbardashboard')
 
         @if (session('estado'))
         <div class="alert alert-success shadow-lg my-5 mx-auto max-w-screen-lg text-white">
@@ -25,6 +25,11 @@
             </div>
         </div>
     @endif
+
+    <div class="flex flex-col items-center justify-center min-h-screen">
+        <h2 class="text-2xl font-bold mb-4">¿Qué desea hacer?</h2>
+    <a href="/comision/verplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Ver planes de materias</a>
+    </div>
 
     @if (session('warning'))
     <div class="alert alert-warning shadow-lg my-5 mx-auto max-w-screen-lg text-white">

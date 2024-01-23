@@ -21,7 +21,7 @@
     </div>
 
     <div class="navbar-end">
-        <a href="/logout" class="text-black">Cerrar sesión</a>
+        <a href="/logout" class="text-black mr-4">Cerrar sesión</a>
     </div>
 
 </div>
