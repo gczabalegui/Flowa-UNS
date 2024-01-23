@@ -13,13 +13,7 @@ use App\Http\Controllers\CarreraController;
 
 /*
 |--------------------------------------------------------------------------
-
-    
-          
-            
-    
-
-          
+  
           Expand Down
           
             
@@ -105,19 +99,23 @@ Route::get('/administracion/crearcarrera', [CarreraController::class, 'create'])
 Route::post('/administracion/crearcarrera', [CarreraController::class, 'store'])
     ->name('crearcarrera');
 
-//FIN CREAR UNA CARRERA 
+//FIN CREAR UNA CARRERA
 
+//CREAR UN PROFESOR  
+Route::get('/administracion/crearprofesor', [ProfesorController::class, 'createByAdmin'])
+    ->name('crearprofesor');
 
+Route::post('/administracion/crearprofesor', [ProfesorController::class, 'store'])
+    ->name('crearprofesor');
+//FIN CREAR UN PROFESOR
 
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
-
-
 
 /* SECRETARIA ACADEMICA */
 
-Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'create'])
+Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'createBySec'])
     ->name('crearprofesor');
 
 Route::post('/secretaria/crearprofesor', [ProfesorController::class, 'store'])

@@ -23,13 +23,21 @@ class ProfesorController extends Controller
         return view('profesor.modificarplan');
     }
     */
-
+        /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function createByAdmin()
+    {
+        return view('administracion.crearprofesor');
+    }
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function createBySec()
     {
         return view('secretaria.crearprofesor');
     }
