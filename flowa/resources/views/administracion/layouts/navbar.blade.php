@@ -10,29 +10,29 @@
                         </svg>
                     </a>
                     <ul class="p-2 bg-base-100 z-50">
-                    <li><a href="/administracion/crearmateria">Crear materia</a></li>                    
-                    <li><a href="/administracion/crearcarrera">Crear carrera</a></li>
-                    <li><a href="/administracion/crearplan">Crear plan de materia</a></li>
-                    <li><a href="/administracion/crearsecretaria">Crear usuario Secretaría Académica</a></li>
-                    <li><a href="/administracion/crearadministrativo">Crear usuario Administración</a></li>
-                    <li><a href="/administracion/crearprofesor">Crear usuario Profesor</a></li>
-                    <li><a href="/administracion/crearcomision">Crear usuario Coordinador Comisión Curricular</a></li>  
-                    <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
-                    <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>                  
-                    <li><a href="/administracion/cargarplan">Cargar plan de materia - versión anterior</a></li>
+                        <li><a href="/administracion/crearmateria">Crear materia</a></li>
+                        <li><a href="/administracion/crearcarrera">Crear carrera</a></li>
+                        <li><a href="/administracion/crearplan">Crear plan de materia</a></li>
+                        <li><a href="/administracion/crearsecretaria">Crear usuario Secretaría Académica</a></li>
+                        <li><a href="/administracion/crearadministrativo">Crear usuario Administración</a></li>
+                        <li><a href="/administracion/crearprofesor">Crear usuario Profesor</a></li>
+                        <li><a href="/administracion/crearcomision">Crear usuario Coordinador Comisión Curricular</a></li>
+                        <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
+                        <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
+                        <li><a href="/administracion/cargarplan">Cargar plan de materia - versión anterior</a></li>
 
                     </ul>
                 </li>
             </ul>
         </div>
+    </div>
 
-        <div class="navbar-center flex items-center justify-center">
-            <a href="/administracion" class="btn btn-primary normal-case text-2xl">Flowa - UNS</a>
-        </div>
+    <div class="navbar-center flex items-center justify-center">
+        <a href="/administracion" class="btn btn-primary normal-case text-2xl">Flowa - UNS</a>
+    </div>
 
-        <div class="navbar-end">
-            <a href="/logout" class="btn btn-primary">Cerrar sesión</a>
-        </div>
+    <div class="navbar-end">
+        <a href="/logout" class="text-black">Cerrar sesión</a>
     </div>
 
 </div>

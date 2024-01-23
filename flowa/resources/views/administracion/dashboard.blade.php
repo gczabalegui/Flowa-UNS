@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    @include('administracion.layouts.navbar')
+    @include('administracion.layouts.navbardashboard')
     @if (session('estado'))
     <div class="alert alert-success shadow-lg my-5 mx-auto max-w-screen-lg text-white">
         <div>
@@ -25,7 +25,8 @@
     @endif
 
     <div class="flex flex-col items-center justify-center min-h-screen">
-        <a href="/administracion/crearmateria" class="btn btn-primary m-2 w-full max-w-xs text-center" >Crear materia</a>
+        <h2 class="text-2xl font-bold mb-4">¿Qué desea hacer?</h2>
+        <a href="/administracion/crearmateria" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear materia</a>
         <a href="/administracion/crearcarrera" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear carrera</a>
         <a href="/administracion/crearplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear plan de materia</a>
         <a href="/administracion/crearsecretaria" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Secretaría Académica</a>
