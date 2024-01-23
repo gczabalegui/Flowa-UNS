@@ -41,10 +41,10 @@ class AdministracionController extends Controller
             $administraciones->email = $request->get('email');
 
             $administraciones->save();
-            return redirect('/administracion')->with('estado', 'Nuevo usuario administrador creado exitosamente.'); 
+            return redirect('/administracion')->with('estado', 'Nuevo usuario Administrativo creado exitosamente.'); 
         }
         catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el usuario administrador.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario.');
         }     
         
     

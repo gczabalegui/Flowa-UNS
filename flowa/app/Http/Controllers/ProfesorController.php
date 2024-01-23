@@ -50,10 +50,7 @@ class ProfesorController extends Controller
      */
     public function store(Request $request)
     {
-        
-        
-        
-            
+        try{               
             $request->validate([
                 'nombre_profesor' => 'required|max:255|string',
                 'apellido' => 'required|max:255|string',
@@ -73,14 +70,13 @@ class ProfesorController extends Controller
            
           //  $profesors->password =  Hash::make($request->get('lu'));
           
-
-          
             $profesors->save();
 
-            return redirect('/secretaria')->with('estado','El profesor fue creado correctamente.');
-       
-        
-    
+            return redirect('/')->with('estado', 'Nuevo usuario Profesor creado exitosamente.'); 
+        }
+        catch(\Exception $e){
+            return redirect('/')->with('warning', 'No se ha podido crear el nuevo usuario.');
+        }      
     }
 }
 
