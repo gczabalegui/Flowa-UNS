@@ -9,7 +9,7 @@ use App\Http\Controllers\ArchivoController;
 use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\MateriaController;
-
+use App\Http\Controllers\CarreraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +88,23 @@ Route::post('/administracion/crearmateria', [MateriaController::class, 'store'])
     ->name('crearmateria');
 
 //FIN CREAR UNA MATERIA NUEVA
+
+//CREAR UNA CARRERA NUEVA 
+Route::get('/administracion/crearcarrera', [CarreraController::class, 'create'])
+    ->name('crearcarrera');
+
+Route::post('/administracion/crearcarrera', [CarreraController::class, 'store'])
+    ->name('crearcarrera');
+
+//FIN CREAR UNA MATERIA NUEVA
+
+
+
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+
 
 /* SECRETARIA ACADEMICA */
 

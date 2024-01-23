@@ -19,7 +19,7 @@ class CarreraController extends Controller
      */
     public function create()
     {
-        //
+        return view('administracion.crearcarrera');
     }
 
     /**
@@ -45,10 +45,10 @@ class CarreraController extends Controller
             $carreras->cant_materias = $request->get('cant_materias');
 
             $carreras->save();
-            return redirect('/administracion')->with('estado', 'Nuevo plan creado exitosamente.');
+            return redirect('/administracion')->with('estado', 'Nueva carrera creada exitosamente.');
         }
         catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear la carrera.');
         }
     }
 
