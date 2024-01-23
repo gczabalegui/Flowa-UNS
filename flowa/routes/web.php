@@ -74,6 +74,15 @@ Route::post('/administracion/crearadministrativo', [AdministracionController::cl
 
 //FIN CREAR UN USUARIO ADMINISTRATIVO
 
+//CREAR UN USUARIO SECRETARIA ACADÉMICA
+Route::get('/administracion/crearsecretaria', [SecretariaController::class, 'createByAdmin'])
+->name('crearsecretaria');
+
+Route::post('/administracion/crearsecretaria', [SecretariaController::class, 'store'])
+->name('crearsecretaria');
+
+//FIN CREAR UN USUARIO SECRETARÍA ACADÉMICA
+
 //CREAR UN PLAN     
 Route::get('/administracion/crearplan', [PlanController::class, 'create'])
     ->name('crearplan');
@@ -115,8 +124,19 @@ Route::post('/administracion/crearprofesor', [ProfesorController::class, 'store'
 
 /* SECRETARIA ACADEMICA */
 
+//CREAR UN PROFESOR  
 Route::get('/secretaria/crearprofesor', [ProfesorController::class, 'createBySec'])
     ->name('crearprofesor');
 
 Route::post('/secretaria/crearprofesor', [ProfesorController::class, 'store'])
     ->name('crearprofesor');
+//FIN CREAR UN PROFESOR
+
+//CREAR UN USUARIO SECRETARIA ACADÉMICA
+Route::get('/secretaria/crearsecretaria', [SecretariaController::class, 'createBySec'])
+->name('crearsecretaria');
+
+Route::post('/secretaria/crearsecretaria', [SecretariaController::class, 'store'])
+->name('crearsecretaria');
+
+//FIN CREAR UN USUARIO SECRETARÍA ACADÉMICA
