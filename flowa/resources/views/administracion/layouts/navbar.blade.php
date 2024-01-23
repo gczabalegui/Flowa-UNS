@@ -11,12 +11,13 @@
                         </svg>
                     </a>
                     <ul class="p-2 bg-base-100 z-50">
-                    <li><a href="/administracion/crearmateria">Crear nueva materia</a></li>
-                    <li><a href="/administracion/crearplan">Crear nuevo plan de materia</a></li>
-                    <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
-                    <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
+                    <li><a href="/administracion/crearmateria">Crear materia</a></li>                    
+                    <li><a href="/administracion/crearcarrera">Crear carrera</a></li>
+                    <li><a href="/administracion/crearplan">Crear  plan de materia</a></li>
                     <li><a href="/administracion/crearsecretaria">Crear usuario Secretaría Académica</a></li>
-                    <li><a href="/administracion/crearadministracion">Crear usuario Administración</a></li>
+                    <li><a href="/administracion/crearadministrativo">Crear usuario Administración</a></li>
+                    <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
+                    <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>                  
                     <li><a href="/administracion/cargarplan">Cargar plan de materia - versión anterior</a></li>
 
                     </ul>
