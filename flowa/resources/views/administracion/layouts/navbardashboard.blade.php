@@ -1,6 +1,8 @@
 <div class="navbar bg-base-100">
     <div class="navbar-start">
-        <!-- Espacio vacío para centrar el título -->
+    <a href="/administracion">
+            <img src="{{ asset('logouns.png') }}" alt="Logo" class="h-8 w-auto ml-4" style="width: 80px; height: 80px;" >
+        </a>
     </div>
 
     <div class="navbar-center flex items-center justify-center">
