@@ -32,6 +32,7 @@
         <a href="/administracion/crearsecretaria" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Secretaría Académica</a>
         <a href="/administracion/crearadministrativo" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Administración</a>
         <a href="/administracion/crearprofesor" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Profesor</a>
+        <a href="/administracion/crearcomision" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Coordinador Comisión Curricular</a>
         <a href="/administracion/modificarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Modificar plan de materia</a>
         <a href="/administracion/eliminarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Eliminar plan de materia</a>
         <a href="/administracion/cargarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Cargar plan de materia - versión anterior</a>
