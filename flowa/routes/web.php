@@ -1,6 +1,7 @@
 <?php
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\FileManagerController;
 use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\ComisionController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\CarreraController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -156,3 +158,27 @@ Route::get('/secretaria/crearcomision', [ComisionController::class, 'createBySec
 Route::post('/secretaria/crearcomision', [ComisionController::class, 'store'])
     ->name('crearcomision');
 //FIN CREAR UN COORDINAR DE LA COMISION CURRICULAR  
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+//INICIO DE SESION
+
+
+// Ruta para la Comisión Académica
+//Route::get('/comision', [LoginController::class, 'showLoginForm'])->middleware('guest:comision')->name('comision.login');
+
+// Ruta para el Profesor
+//Route::get('/profesor', [LoginController::class, 'showLoginForm'])->middleware('guest:profesor')->name('profesor.login');
+
+// Ruta para la Administración
+//Route::get('/administracion', [LoginController::class, 'showLoginForm'])->middleware('guest:administracion')->name('administracion.login');
+
+// Ruta para la Secretaría Académica
+//Route::get('/secretaria', [LoginController::class, 'showLoginForm'])->middleware('guest:secretaria')->name('secretaria.login');
