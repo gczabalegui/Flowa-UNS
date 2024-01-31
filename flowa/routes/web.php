@@ -172,7 +172,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 // Ruta para la Comisión Académica
-//Route::get('/comision', [LoginController::class, 'showLoginForm'])->middleware('guest:comision')->name('comision.login');
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+        ->middleware('guest:comision')
+        ->name('login');
+
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+        ->middleware('guest:comision');
+
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
+        ->middleware('auth:comision')
+        ->name('logout');
 
 // Ruta para el Profesor
 //Route::get('/profesor', [LoginController::class, 'showLoginForm'])->middleware('guest:profesor')->name('profesor.login');
