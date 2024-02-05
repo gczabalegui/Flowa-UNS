@@ -8,8 +8,12 @@ class ComisionController extends Controller
 {
     public function index()
     {
-        // Lógica para la página principal de comision
-        return view('comision.dashboard');
+
+    }
+
+    public function dashboard(){
+         // Lógica para la página principal de comision
+         return view('comision.dashboard');       
     }
         /**
      * Show the form for creating a new resource.

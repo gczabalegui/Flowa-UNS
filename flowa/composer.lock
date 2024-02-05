@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c3def0d2f2ce254f1c5e07d798149694",
+    "content-hash": "053d337ee89c72c36ff36fe94f956966",
     "packages": [
         {
             "name": "alexusmai/laravel-file-manager",
@@ -164,6 +164,117 @@
                 "source": "https://github.com/auth0/auth0-PHP/tree/8.11.1"
             },
             "time": "2024-01-11T15:28:10+00:00"
+        },
+        {
+            "name": "auth0/login",
+            "version": "7.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/auth0/laravel-auth0.git",
+                "reference": "c07591b341d2f84b74ef63a4e8602ff5592f65bb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/auth0/laravel-auth0/zipball/c07591b341d2f84b74ef63a4e8602ff5592f65bb",
+                "reference": "c07591b341d2f84b74ef63a4e8602ff5592f65bb",
+                "shasum": ""
+            },
+            "require": {
+                "auth0/auth0-php": "^8.10",
+                "ext-json": "*",
+                "illuminate/contracts": "^9 || ^10",
+                "illuminate/http": "^9 || ^10",
+                "illuminate/support": "^9 || ^10",
+                "php": "^8.1",
+                "psr-discovery/all": "^1",
+                "psr/cache": "^2 || ^3"
+            },
+            "require-dev": {
+                "ergebnis/composer-normalize": "^2",
+                "friendsofphp/php-cs-fixer": "^3",
+                "mockery/mockery": "^1",
+                "nunomaduro/larastan": "^2",
+                "orchestra/testbench": "^7 || ^8",
+                "pestphp/pest": "^2",
+                "pestphp/pest-plugin-laravel": "^2",
+                "phpstan/phpstan": "^1",
+                "phpstan/phpstan-strict-rules": "^1",
+                "psalm/plugin-laravel": "^2",
+                "psr-mock/http": "^1",
+                "rector/rector": "0.17.0",
+                "squizlabs/php_codesniffer": "^3",
+                "symfony/cache": "^6",
+                "vimeo/psalm": "^5",
+                "wikimedia/composer-merge-plugin": "^2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "aliases": {
+                        "Auth0": "Auth0\\Laravel\\Facade\\Auth0"
+                    },
+                    "providers": [
+                        "Auth0\\Laravel\\ServiceProvider"
+                    ]
+                },
+                "merge-plugin": {
+                    "ignore-duplicates": false,
+                    "include": [
+                        "composer.local.json"
+                    ],
+                    "merge-dev": true,
+                    "merge-extra": false,
+                    "merge-extra-deep": false,
+                    "merge-scripts": false,
+                    "recurse": true,
+                    "replace": true
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Auth0\\Laravel\\": [
+                        "src/",
+                        "deprecated/"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Auth0",
+                    "email": "support@auth0.com",
+                    "homepage": "https://auth0.com/"
+                }
+            ],
+            "description": "Auth0 Laravel SDK. Straight-forward and tested methods for implementing authentication, and accessing Auth0's Management API endpoints.",
+            "homepage": "https://github.com/auth0/laravel-auth0",
+            "keywords": [
+                "Authentication",
+                "JSON Web Token",
+                "JWK",
+                "OpenId",
+                "api",
+                "auth",
+                "auth0",
+                "authorization",
+                "json web key",
+                "jwt",
+                "laravel",
+                "login",
+                "oauth",
+                "protect",
+                "secure"
+            ],
+            "support": {
+                "email": "support@auth0.com",
+                "forum": "https://community.auth0.com",
+                "issues": "https://github.com/auth0/laravel-auth0/issues",
+                "source": "https://github.com/auth0/laravel-auth0"
+            },
+            "time": "2023-12-11T15:06:41+00:00"
         },
         {
             "name": "aws/aws-crt-php",
@@ -10366,5 +10477,5 @@
         "php": "^8.1"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }

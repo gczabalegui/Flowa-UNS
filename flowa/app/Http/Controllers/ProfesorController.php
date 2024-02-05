@@ -12,6 +12,10 @@ class ProfesorController extends Controller
 {
     public function index()
     {
+
+    }
+
+    public function dashboard(){
         // Lógica para la página principal del profesor
         return view('profesor.dashboard');
 

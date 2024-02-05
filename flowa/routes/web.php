@@ -50,11 +50,11 @@ require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/administracion', [AdministracionController::class, 'index']);
-Route::get('/comision', [ComisionController::class, 'index']);
-Route::get('/profesor', [ProfesorController::class, 'index']);
-Route::get('/secretaria', [SecretariaController::class, 'index']);
-//Route::get('/materia', [MateriaController::class, 'index']);
+Route::get('/administracion', [AdministracionController::class, 'dashboard']);
+Route::get('/comision', [ComisionController::class, 'dashboard']);
+Route::get('/profesor', [ProfesorController::class, 'dashboard']);
+Route::get('/secretaria', [SecretariaController::class, 'dashboard']);
+//Route::get('/materia', [MateriaController::class, 'dashboard']);
 Route::get('archivo-upload', [ ArchivoController::class, 'upload' ])->name('archivo.upload');
 Route::post('archivo-store', [ ArchivoController::class, 'store' ])->name('archivo.upload.post');
 /*

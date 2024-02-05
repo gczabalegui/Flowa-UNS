@@ -8,8 +8,12 @@ class AdministracionController extends Controller
 {
     public function index()
     {
+       
+    }
+
+    public function dashboard(){
         // Lógica para la página principal de administración
-        return view('administracion.dashboard');
+        return view('administracion.dashboard');        
     }
 
         /**

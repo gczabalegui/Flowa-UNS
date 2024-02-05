@@ -8,10 +8,13 @@ class SecretariaController extends Controller
 {
     public function index()
     {
+
+    }
+
+    public function dashboard(){
         // Lógica para la página principal de administración
         return view('secretaria.dashboard');
     }
-
 
     /**
      * Show the form for creating a new resource.

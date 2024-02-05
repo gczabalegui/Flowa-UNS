@@ -8,6 +8,7 @@
         "php": "^8.1",
         "alexusmai/laravel-file-manager": "^3.1",
         "auth0/auth0-php": "^8.11",
+        "auth0/login": "^7.12",
         "aws/aws-sdk-php-laravel": "^3.8",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
