@@ -19,6 +19,14 @@
             <div class="mx-5 my-5">
                 <h2 class="card-title mx-auto">Crear nuevo plan de materia</h2>
                 <div class="my-3">
+                    <label class="label"><span class="label-text">ESTADO</span> </label>
+                    <select id="area_tematica" name="area_tematica" class="select select-bordered w-full" tabindex="2" required>
+                        @foreach(\App\Models\Plan::ESTADO as $estado)
+                        <option value="{{ $estado }}">{{ ucfirst(str_replace('', ' ', $estado)) }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="my-3">
                     <label class="label"><span class="label-text">AÑO</span></label>
                     <input id="anio" name="anio" type="number" class="input input-bordered w-full"
                         tabindex="1" required value="{{ old('anio') }}" placeholder="Ingrese el año">
@@ -55,8 +63,11 @@
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">ÁREA TEMÁTICA</span> </label>
-                    <input id="area_tematica" name="area_tematica" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('area_tematica') }}" placeholder="Seleccione el área temática">
+                    <select id="area_tematica" name="area_tematica" class="select select-bordered w-full" tabindex="2" required>
+                        @foreach(\App\Models\Plan::AREA_TEMATICA as $area)
+                        <option value="{{ $area }}">{{ ucfirst(str_replace('', ' ', $area)) }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">FUNDAMENTACIÓN</span> </label>
