@@ -12,7 +12,8 @@ class ProfesorController extends Controller
 {
     public function index()
     {
-
+        $profesores = Profesor::all();
+        return view('administracion.verprofesores')->with('profesores', $profesores);
     }
 
     public function dashboard(){
