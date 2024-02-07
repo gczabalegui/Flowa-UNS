@@ -6,13 +6,21 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
+        "alexusmai/laravel-file-manager": "^3.1",
+        "auth0/auth0-php": "^8.11",
+        "auth0/login": "^7.12",
+        "aws/aws-sdk-php-laravel": "^3.8",
+        "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/breeze": "^1.27",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/tinker": "^2.8"
+        "laravel/tinker": "^2.8",
+        "laravel/ui": "^4.4",
+        "league/flysystem-aws-s3-v3": "^3.22"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.9",
         "fakerphp/faker": "^1.9.1",
         "laravel/pint": "^1.0",
         "laravel/sail": "^1.18",

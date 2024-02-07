@@ -1,0 +1,52 @@
+{
+  "name": "proy-final",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "cliui": "^8.0.1",
+    "ansi-styles": "^4.3.0",
+    "color-convert": "^2.0.1",
+    "ansi-regex": "^5.0.1",
+    "color-name": "^1.1.4",
+    "emoji-regex": "^8.0.0",
+    "get-caller-file": "^2.0.5",
+    "escalade": "^3.1.1",
+    "faye-websocket": "^0.11.4",
+    "http-parser-js": "^0.5.8",
+    "firebase": "^10.7.1",
+    "idb": "^7.1.1",
+    "is-fullwidth-code-point": "^3.0.0",
+    "lodash.camelcase": "^4.3.0",
+    "long": "^5.2.3",
+    "safe-buffer": "^5.2.1",
+    "tslib": "^2.6.2",
+    "string-width": "^4.2.3",
+    "require-directory": "^2.1.1",
+    "strip-ansi": "^6.0.1",
+    "undici-types": "^5.26.5",
+    "websocket-driver": "^0.7.4",
+    "wrap-ansi": "^7.0.0",
+    "websocket-extensions": "^0.1.4",
+    "yargs": "^17.7.2",
+    "y18n": "^5.0.8",
+    "protobufjs": "^7.2.5",
+    "yargs-parser": "^21.1.1",
+    "undici": "^5.26.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gczabalegui/flowa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gczabalegui/flowa/issues"
+  },
+  "homepage": "https://github.com/gczabalegui/flowa#readme"
+}
