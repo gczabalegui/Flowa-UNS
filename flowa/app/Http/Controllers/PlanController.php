@@ -30,6 +30,7 @@ class PlanController extends Controller
     {
         try{
             $request->validate([
+                'estado' => 'required|in:Creado por Administración,Incompleto por Administración,Completo por Administración,Incompleto por Profesor,Completo por profesor,Incompleto por S.A.,Completo por S.A.,En revisión por S.A.,Aprobado por S.A.,Desaprobado por S.A., Plan completo y aprobado',
                 'anio' => 'required|numeric',
                 'horas_totales' => 'required|numeric',
                 'horas_teoricas' => 'required|numeric',
@@ -37,7 +38,7 @@ class PlanController extends Controller
                 'DTE' => 'required|numeric',
                 'RTF' => 'required|numeric',
                 'creditos_academicos' => 'required|numeric',
-                'area_tematica' => ['required', 'string', 'in:form_basica,form_aplicada,form_profesional'],
+                'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
                 'fundamentacion' => ['required', 'string', function ($attribute, $value, $fail) {
 
                     if (!is_string($value)) {

@@ -21,7 +21,7 @@
                 <div class="my-3">
                     <label class="label"><span class="label-text">AÑO</span></label>
                     <input id="anio" name="anio" type="number" class="input input-bordered w-full"
-                        tabindex="1" required value="{{ old('anio') }}" placeholder="Ingrese el anio">
+                        tabindex="1" required value="{{ old('anio') }}" placeholder="Ingrese el año">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">HORAS TOTALES</span> </label>

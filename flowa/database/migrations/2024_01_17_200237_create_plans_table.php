@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
+            $table->enum('estado', ['Creado por Administración', 'Incompleto por Administración', 'Completo por Administración', 'Incompleto por Profesor', 'Completo por profesor', 'Incompleto por S.A.', 'Completo por S.A.', 'En revisión por S.A.', 'Aprobado por S.A.', 'Desaprobado por S.A.', 'Plan completo y aprobado']);
             //ENCABEZADO
             $table->unsignedBigInteger('materia_id');
             $table->foreign('materia_id')->references('id')->on('materias')->onDelete('cascade');
@@ -32,7 +33,7 @@ return new class extends Migration
             $table->unsignedInteger('RTF');
             $table->unsignedInteger('creditos_academicos');
 
-            $table->enum('area_tematica', ['form_basica', 'form_aplicada', 'form_profesional']);
+            $table->enum('area_tematica', ['Formación básica', 'Formación aplicada', 'Formación profesional'])->nullable();
 
             /*
             Aprobadas y desaprobadas creo que sería un combo box y cuando trae la materia, también trae el código. 
