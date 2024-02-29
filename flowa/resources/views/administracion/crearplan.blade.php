@@ -13,7 +13,7 @@
 
 <body>
     @include('administracion.layouts.navbar')
-    <div class="card bg-base-100 shadow-xl max-w-xl mx-auto mt-12">
+    <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
         <form action="/administracion/crearplan" method="POST">
             @csrf
             <div class="mx-5 my-5">
@@ -70,12 +70,18 @@
                     </select>
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">FUNDAMENTACIÓN</span> </label>
-                    <input id="fundamentacion" name="fundamentacion" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('fundamentacion') }}" placeholder="Ingrese una fundamentación">
+                    <label class="label"><span class="label-text">FUNDAMENTACIÓN</span></label>
+                    <p class="help-text" style="text-align: justify;">&#x2754; Redacte un párrafo de <b>hasta 200 palabras</b> teniendo como guía la siguiente pregunta: <em>¿por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em></p>
+                    <textarea id="fundamentacion" name="fundamentacion" class="input input-bordered w-full" 
+                        style="height: 250px; resize: none;"     
+                        tabindex="2" required oninput="limitarPalabras(this)" 
+                        placeholder="Ingrese una fundamentación">{{ old('fundamentacion') }}</textarea>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">CONTENIDOS MÍNIMOS</span> </label>
+                    <p class="help-text" style="text-align: justify;">&#x2754; Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la Resolución 1537/21, Anexo I para asegurar la inclusión de aquellos allí definidos y aquellos que se agreguen al Plan de Estudio en función de los alcances del título. 
+                    <br><b>Aclaración.</b> Los descriptores de conocimiento correspondientes a la Formación Profesional incluyen enunciados multidimensionales y transversales. Los mismos requieren la articulación de conocimientos y de prácticas y fundamentan el ejercicio profesional. No involucran una referencia directa a una disciplina o asignatura del plan de estudios.</br></p>
+
                     <input id="cont_minimos" name="cont_minimos" type="text" class="input input-bordered w-full"
                         tabindex="2" required value="{{ old('cont_minimos') }}" placeholder="Ingrese los contenidos mínimos">
                 </div>
@@ -105,6 +111,16 @@
                 </div>
             </div>
         </form>
+        <script>
+            function limitarPalabras(textarea) {
+                var maxPalabras = 200;
+                var palabras = textarea.value.split(' ');
+                if (palabras.length > maxPalabras) {
+                    alert('Has superado el límite de ' + maxPalabras + ' palabras');
+                    textarea.value = palabras.slice(0, maxPalabras).join(' ');
+                }
+            }
+        </script>
     </div>
 </body>
 
