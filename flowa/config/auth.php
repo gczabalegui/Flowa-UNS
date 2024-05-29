@@ -62,7 +62,11 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\Administracion::class,
+            'model' => App\Models\Comision::class,
+            'model' => App\Models\Profesor::class,
+            'model' => App\Models\Secretaria::class,
+           // 'model' => App\Models\User::class,
         ],
 
         // 'users' => [

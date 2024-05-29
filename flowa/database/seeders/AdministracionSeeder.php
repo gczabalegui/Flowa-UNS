@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AdministracionSeeder extends Seeder
 {
@@ -22,7 +22,7 @@ class AdministracionSeeder extends Seeder
                 'DNI' => '42000000',
                 'email' => 'guadus.c@gmail.com',
                 'departamento_id' => '1',
-
+                'contraseña' => Hash::make('guadalupe'),
             ]
         ];
 

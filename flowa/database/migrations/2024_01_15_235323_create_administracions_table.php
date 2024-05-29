@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('apellido');
             $table->unsignedInteger('DNI')->unique();
             $table->unsignedInteger('legajo')->unique();
+            $table->string('contraseña');
             $table->string('email')->unique();
 
             $table->unsignedBigInteger('departamento_id')->nullable();

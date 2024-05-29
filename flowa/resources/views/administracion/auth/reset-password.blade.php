@@ -1,4 +1,4 @@
-<x-alumno-guest-layout>
+<x-administrador-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
@@ -45,4 +45,4 @@
             </div>
         </form>
     </x-auth-card>
-</x-alumno-guest-layout>
+</x-administrador-guest-layout>

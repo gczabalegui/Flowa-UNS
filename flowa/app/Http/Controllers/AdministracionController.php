@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Administracion;
 
 class AdministracionController extends Controller
 {
@@ -43,6 +44,7 @@ class AdministracionController extends Controller
             $administraciones->DNI = $request->get('DNI');
             $administraciones->legajo = $request->get('legajo');
             $administraciones->email = $request->get('email');
+            $administraciones->password = $request->get('password');
 
             $administraciones->save();
             return redirect('/administracion')->with('estado', 'Nuevo usuario Administrativo creado exitosamente.'); 
