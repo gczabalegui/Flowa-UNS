@@ -1,8 +1,13 @@
 <?php
+
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
 use Illuminate\Support\Facades\Auth;
+
 use App\Http\Controllers\FileManagerController;
+use App\Http\Controllers\AuthenticatedSessionController;
+
 use App\Http\Controllers\AdministracionController;
 use App\Http\Controllers\ComisionController;
 use App\Http\Controllers\ProfesorController;
@@ -12,20 +17,8 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\CarreraController;
 
-
 /*
 |--------------------------------------------------------------------------
-  
-          Expand Down
-          
-            
-    
-
-          
-          Expand Up
-    
-    @@ -66,5 +67,14 @@
-  
 | Web Routes
 |--------------------------------------------------------------------------
 |
@@ -34,18 +27,55 @@ use App\Http\Controllers\CarreraController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('filemanager', [FileManagerController::class, 'index']);
+
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::middleware(['auth:comision'])->group(function () {
+    Route::get('/comision/dashboard', function () {
+        // Solo accesible para usuarios autenticados con el guardia 'comision'
+        return view('comision.dashboard');
+    });
+});
+
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login');
+Route::post('/login', [AuthenticatedSessionController::class, 'store']);
+Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
+
+require __DIR__.'/auth.php';
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+/*------------------------------------------------------------------------------------------ */
+
+
+Route::get('filemanager', [FileManagerController::class, 'index']);
+Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
 require __DIR__.'/auth.php';
 Route::get('/', function () {
     return view('welcome');
@@ -58,14 +88,26 @@ Route::get('/secretaria', [SecretariaController::class, 'dashboard']);
 Route::get('archivo-upload', [ ArchivoController::class, 'upload' ])->name('archivo.upload');
 Route::post('archivo-store', [ ArchivoController::class, 'store' ])->name('archivo.upload.post');
 /*
+Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('login', [LoginController::class, 'login']);
+Route::post('logout', [LoginController::class, 'logout'])->name('logout');
 require __DIR__.'/administracion.php';
 require __DIR__.'profesor.php';
 require __DIR__.'/alumno.php';
 */
 
+/*
+Route::middleware(['auth'])->group(function () {
+    Route::get('/comision', [ComisionController::class, 'index'])->name('comision');
+    Route::get('/profesor', [ProfesorController::class, 'index'])->name('profesor');
+    Route::get('/administracion', [AdministracionController::class, 'index'])->name('administracion');
+    Route::get('/secretaria', [SecretariaController::class, 'index'])->name('secretaria');
+});
+*/
 /* ACA LAS RUTAS PARA LAS COSAS DE ADMINISTRACION */
 Route::get('/administracion/cargarplan', [ArchivoController::class, 'upload'])
     ->name('archivo.upload');
+
 
 //CREAR UN USUARIO ADMINISTRATIVO
 Route::get('/administracion/crearadministrativo', [AdministracionController::class, 'create'])
