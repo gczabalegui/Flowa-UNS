@@ -1,11 +1,11 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <div class="div" style="opacity: 50%; font-size: 40px">
+        <div class="div" style="opacity: 50%; font-size: 40px">
                 Flowa - UNS
             </div>
             <div class="div" style="opacity: 50%; font-size: 18px; text-align: center;">
-                administración
+                Administración
             </div>
         </x-slot>
 
@@ -18,11 +18,10 @@
         <form method="POST" action="{{ route('administracion.login') }}">
             @csrf
 
-            <!-- usuario -->
+            <!-- Legajo -->
             <div>
-                <x-label for="usuario" :value="__('Usuario')" />
-
-                <x-input id="usuario" class="block mt-1 w-full" type="text" name="usuario" :value="old('usuario')" required autofocus />
+                <x-label for="legajo" :value="__('legajo')" />
+                <x-input id="legajo" class="block mt-1 w-full" type="text" name="legajo" :value="old('legajo')" required autofocus />
             </div>
 
             <!-- Password -->
@@ -30,9 +29,9 @@
                 <x-label for="password" :value="__('Contraseña')" />
 
                 <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="current-password" />
+                    type="password"
+                    name="password"
+                    required autocomplete="current-password" />
             </div>
 
             <!-- Remember Me -->
