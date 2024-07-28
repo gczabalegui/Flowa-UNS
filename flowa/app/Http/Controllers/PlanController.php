@@ -67,7 +67,7 @@ class PlanController extends Controller
             $planes->anio = $request->get('anio');
             $planes->horas_totales = $request->get('horas_totales');
             $planes->horas_teoricas = $request->get('horas_teoricas');
-            $planes->horas_practicas = $request->get('horas_practicass');
+            $planes->horas_practicas = $request->get('horas_practicas');
             $planes->DTE = $request->get('DTE');
             $planes->RTF = $request->get('RTF');
             $planes->creditos_academicos = $request->get('creditos_academicos');
@@ -83,7 +83,7 @@ class PlanController extends Controller
             return redirect('/administracion')->with('estado', 'Nuevo plan creado exitosamente.');
         }
         catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el plannnnnnnnnnnnn.');
         }
     }
 

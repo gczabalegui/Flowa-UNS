@@ -25,7 +25,8 @@
     @endif
 
     <div class="flex flex-col items-center justify-center min-h-screen">
-        <h2 class="text-2xl font-bold mb-4">¿Qué desea hacer?</h2>
+    <h2 class="text-2xl font-bold mb-4">¿Qué desea hacer?</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a href="/administracion/crearmateria" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear materia</a>
         <a href="/administracion/crearcarrera" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear carrera</a>
         <a href="/administracion/crearplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear plan de materia</a>
@@ -37,6 +38,7 @@
         <a href="/administracion/eliminarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Eliminar plan de materia</a>
         <a href="/administracion/cargarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Cargar plan de materia - versión anterior</a>
     </div>
+</div>
 
     @if (session('warning'))
     <div class="alert alert-warning shadow-lg my-5 mx-auto max-w-screen-lg text-white">

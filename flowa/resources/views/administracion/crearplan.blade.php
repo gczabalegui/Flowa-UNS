@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html data-theme="autumn">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Crear nuevo plan de materia</title>
 </head>
-
 <body>
     @include('administracion.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
@@ -107,7 +104,8 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
-                    <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>
+                    <button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>
+                    <button type="submit" class="btn btn-success" tabindex="8">Guardar y Descargar PDF</button>
                 </div>
             </div>
         </form>

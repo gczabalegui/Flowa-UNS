@@ -16,6 +16,7 @@ use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\CarreraController;
+use App\Http\Controllers\PDFController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,15 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+//CREAR EL PDF
+//Route::post('/administracion/crearplan', [PDFController::class, 'crearPlan'])->name('crearplan');
+
+Route::get('/crearplan', [PDFController::class, 'create'])->name('crearplan');
+Route::post('/crearplan', [PDFController::class, 'generatePDF'])->name('generarPDF');
+
+
+/*--------PRUEBA------------*/
+Route::get('/comision/pdfprueba', [PDFController::class, 'generatePDF2']);
 
 /*------------------------------------------------------------------------------------------ */
 
@@ -128,6 +138,7 @@ Route::post('/administracion/crearsecretaria', [SecretariaController::class, 'st
 //FIN CREAR UN USUARIO SECRETARÍA ACADÉMICA
 
 //CREAR UN PLAN     
+
 Route::get('/administracion/crearplan', [PlanController::class, 'create'])
     ->name('crearplan');
 

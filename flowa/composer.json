@@ -8,6 +8,7 @@
         "php": "^8.1",
         "alexusmai/laravel-file-manager": "^3.1",
         "aws/aws-sdk-php-laravel": "^3.8",
+        "barryvdh/laravel-dompdf": "^2.2",
         "doctrine/dbal": "^3.7",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^10.10",
