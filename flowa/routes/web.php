@@ -72,7 +72,12 @@ Route::post('/crearplan', [PDFController::class, 'generatePDF'])->name('generarP
 
 
 /*--------PRUEBA------------*/
-Route::get('/comision/pdfprueba', [PDFController::class, 'generatePDF2']);
+Route::post('/comision/generar-pdf', [PDFController::class, 'generatePDF2']);
+
+Route::get('/comision/pdfprueba', function() {
+    return view('pdf_form');
+});
+
 
 /*------------------------------------------------------------------------------------------ */
 

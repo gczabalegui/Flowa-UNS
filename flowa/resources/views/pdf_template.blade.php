@@ -5,6 +5,6 @@
     <title>PDF Document</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1>{{ $texto }}</h1>
 </body>
 </html>
