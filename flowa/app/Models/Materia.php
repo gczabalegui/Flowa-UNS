@@ -8,7 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Materia extends Model
 {
     use HasFactory;
-
+    protected $table = ' materias'; 
+    protected $fillable = [
+        'nombre_materia',
+        'codigo',
+        'horas_semanales',
+        'horas_totales',
+        'profesor_id',
+        'carrera_id',
+        'administracion_id',
+    ];
+    
     public function profesor()
     {
         return $this->belongsTo(Profesor::class);

@@ -29,24 +29,17 @@ class MateriaController extends Controller
     public function store(Request $request)
     {
         try {
-            // Validación de los datos del formulario
+
             $request->validate([
                 'nombre_materia' => 'required|max:255|string',
                 'codigo' => 'required|numeric|unique:materias,codigo',
             ]);
 
-            // Creación de una nueva instancia del modelo Materia
-            $materias = new Materia();
-            $materias->nombre_materia = $request->get('nombre_materia');
-            $materias->codigo = $request->get('codigo');
+            Materia::create($request->all());
 
-            // Guardar la nueva materia en la base de datos
-            $materias->save();
-
-            // Redirigir con un mensaje de éxito
             return redirect('/administracion')->with('estado', 'Nueva materia creada exitosamente.');
         } catch (\Exception $e) {
-            // Capturar cualquier excepción y redirigir con un mensaje de error
+
             return redirect('/administracion')->with('warning', 'No se ha podido crear la materia. Error: ' . $e->getMessage());
         }
     }

@@ -63,13 +63,7 @@ class ProfesorController extends Controller
                 'legajo' => 'required||digits_between:1,5|numeric|unique:profesors,legajo',
             ]);
 
-            Profesor::create([
-                'nombre_profesor' => $request->input('nombre_profesor'),
-                'apellido' => $request->input('apellido'),
-                'DNI' => $request->input('DNI'),
-                'email' => $request->get('email'),
-                'legajo' => $request->get('legajo'),
-            ]);
+            Profesor::create($request->all());
           
             return redirect('/administracion')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
         }
