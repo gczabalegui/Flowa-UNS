@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Materia;
 use App\Models\Profesor;
+use Exception;
 
 class MateriaController extends Controller
 {
@@ -21,8 +22,17 @@ class MateriaController extends Controller
      */
     public function create()
     {   
-        $profesores = Profesor::all();
-        return view('administracion.crearmateria', compact('profesores'));
+        try {
+            $profesores = Profesor::all();
+    
+            if ($profesores->isEmpty()) {
+                throw new Exception('No hay profesores disponibles. Por favor, cree un profesor antes de crear una materia.');
+            }
+    
+            return view('crearmateria', compact('profesores'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
