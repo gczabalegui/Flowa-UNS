@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Materia;
+use App\Models\Profesor;
 
 class MateriaController extends Controller
 {
@@ -19,8 +20,9 @@ class MateriaController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('administracion.crearmateria');
+    {   
+        $profesores = Profesor::all();
+        return view('administracion.crearmateria', compact('profesores'));
     }
 
     /**
