@@ -14,8 +14,8 @@
 <body>
     @include('administracion.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-xl mx-auto mt-12">
-        <form action="/administracion/crearprofesor" method="POST">
-            @csrf
+        <form action="/administracion/crearprofesor" method="POST">         
+           @csrf
             <div class="mx-5 my-5">
                 <h2 class="card-title mx-auto">Crear nuevo profesor</h2>
                 
@@ -36,7 +36,7 @@
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Legajo</span> </label>
-                    <input id="legajo" name="lu" type="number" min="1" class="input input-bordered w-full"
+                    <input id="legajo" name="legajo" type="number" min="1" class="input input-bordered w-full"
                         tabindex="5" required value="{{ old('legajo') }}" placeholder="Ingrese el legajo">
                 </div>
                 <div class="my-3">

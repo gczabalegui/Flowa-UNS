@@ -58,28 +58,23 @@ class ProfesorController extends Controller
             $request->validate([
                 'nombre_profesor' => 'required|max:255|string',
                 'apellido' => 'required|max:255|string',
-                'DNI' => 'required|numeric',
-                'email' => 'required|email',
-                'legajo' => 'required|numeric',
+                'DNI' => 'required||digits_between:1,8|numeric|unique:profesors,DNI',
+                'email' => 'required|email|unique:profesors,email',
+                'legajo' => 'required||digits_between:1,5|numeric|unique:profesors,legajo',
             ]);
 
-            $profesors = new Profesor();
-
-            
-            $profesors->nombre_profesor = $request->get('nombre_profesor');
-            $profesors->apellido = $request->get('apellido');
-            $profesors->DNI = $request->get('DNI');
-            $profesors->legajo = $request->get('legajo');
-            $profesors->email = $request->get('email');
-           
-          //  $profesors->password =  Hash::make($request->get('lu'));
+            Profesor::create([
+                'nombre_profesor' => $request->input('nombre_profesor'),
+                'apellido' => $request->input('apellido'),
+                'DNI' => $request->input('DNI'),
+                'email' => $request->get('email'),
+                'legajo' => $request->get('legajo'),
+            ]);
           
-            $profesors->save();
-
-            return redirect('/')->with('estado', 'Nuevo usuario Profesor creado exitosamente.'); 
+            return redirect('/administracion')->with('success', 'Nuevo usuario Profesor creado exitosamente.');
         }
         catch(\Exception $e){
-            return redirect('/')->with('warning', 'No se ha podido crear el nuevo usuario.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
         }      
     }
 }
