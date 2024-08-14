@@ -14,7 +14,7 @@
 <body>
     @include('administracion.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-xl mx-auto mt-12">
-        <form action="/administracion/crearmateria" method="POST">
+        <form action="/administracion/crearcarrera" method="POST">
             @csrf
             <div class="mx-5 my-5">
                 <h2 class="card-title mx-auto">Crear nueva carrera</h2>
@@ -34,9 +34,9 @@
                         tabindex="2" required value="{{ old('plan_version') }}" placeholder="Ingrese el numero de versión del plan">
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Duracion</span> </label>
+                    <label class="label"><span class="label-text">Duración (en cuatrimestres)</span> </label>
                     <input id="duracion" name="duracion" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('duracion') }}" placeholder="Ingrese la duración de la carrera">
+                        tabindex="2" required value="{{ old('duracion') }}" placeholder="Ingrese la cantidad de cuatrimestres que dura la carrera">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Cantidad de materias</span> </label>

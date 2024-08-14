@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Carrera;
 
 class CarreraController extends Controller
 {
@@ -37,18 +38,12 @@ class CarreraController extends Controller
 
             ]);
 
-            $carreras = new Carrera();
-            $carreras->codigo_carrera = $request->get('codigo_carrera');
-            $carreras->nombre_carrera = $request->get('nombre_carrera');
-            $carreras->plan_version = $request->get('plan_version');
-            $carreras->duracion = $request->get('duracion');
-            $carreras->cant_materias = $request->get('cant_materias');
-
-            $carreras->save();
+            Carrera::create($request->all());
+ 
             return redirect('/administracion')->with('estado', 'Nueva carrera creada exitosamente.');
         }
         catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear la carrera.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear la carrera. Error: ' . $e->getMessage());
         }
     }
 
