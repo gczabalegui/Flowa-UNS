@@ -71,7 +71,7 @@ class ProfesorController extends Controller
                 'legajo' => $request->get('legajo'),
             ]);
           
-            return redirect('/administracion')->with('success', 'Nuevo usuario Profesor creado exitosamente.');
+            return redirect('/administracion')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
         }
         catch(\Exception $e){
             return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
