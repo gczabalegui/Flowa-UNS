@@ -26,23 +26,23 @@
                 </div>            
                 <div class="my-3">
                     <label class="label"><span class="label-text">Apellido</span> </label>
-                    <input id="apellido" name="apellido" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('apellido') }}" placeholder="Ingrese el apellido">
+                    <input id="apellido_profesor" name="apellido_profesor" type="text" class="input input-bordered w-full"
+                        tabindex="2" required value="{{ old('apellido_profesor') }}" placeholder="Ingrese el apellido">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">DNI</span> </label>
-                    <input id="DNI" name="DNI" type="number" min="1" class="input input-bordered w-full"
-                        tabindex="4" required value="{{ old('DNI') }}" placeholder="Ingrese el DNI">
+                    <input id="DNI_profesor" name="DNI_profesor" type="number" min="1" class="input input-bordered w-full"
+                        tabindex="4" required value="{{ old('DNI_profesor') }}" placeholder="Ingrese el DNI">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Legajo</span> </label>
-                    <input id="legajo" name="legajo" type="number" min="1" class="input input-bordered w-full"
-                        tabindex="5" required value="{{ old('legajo') }}" placeholder="Ingrese el legajo">
+                    <input id="legajo_profesor" name="legajo_profesor" type="number" min="1" class="input input-bordered w-full"
+                        tabindex="5" required value="{{ old('legajo_profesor') }}" placeholder="Ingrese el legajo">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Email</span> </label>
-                    <input id="email" name="email" type="email" class="input input-bordered w-full"
-                        tabindex="email" required value="{{ old('email') }}" placeholder="Ingrese el email">
+                    <input id="email_profesor" name="email_profesor" type="email_profesor" class="input input-bordered w-full"
+                        tabindex="email" required value="{{ old('email_profesor') }}" placeholder="Ingrese el email">
                 </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/secretaria" class="btn btn-secondary " tabindex="7">Cancelar</a>

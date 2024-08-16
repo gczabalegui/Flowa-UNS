@@ -17,10 +17,11 @@ return new class extends Migration
 
             $table->unsignedInteger('codigo_departamento');
             $table->string('nombre_departamento');
-            $table->string('direccion');
-            $table->string('sitio_web');
+            $table->string('calle_departamento');
+            $table->unsignedInteger('numero_departamento');
+            $table->string('sitio_web_departamento');
 
-            $table->unsignedBigInteger('secretaria_id')->nullable();
+           /* $table->unsignedBigInteger('secretaria_id')->nullable();*/
         });
     }
 

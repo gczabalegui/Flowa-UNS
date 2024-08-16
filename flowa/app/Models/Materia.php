@@ -8,15 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Materia extends Model
 {
     use HasFactory;
-    protected $table = ' materias'; 
+    protected $table = 'materias'; 
     protected $fillable = [
         'nombre_materia',
-        'codigo',
+        'codigo_materia',
         'horas_semanales',
         'horas_totales',
         'profesor_id',
-        'carrera_id',
-        'administracion_id',
+        'carrrera_id',
+        /*'administracion_id',*/
     ];
     
     public function profesor()
@@ -26,13 +26,13 @@ class Materia extends Model
 
     public function carrera()
     {
-        return $this->belongsToMany(Carrera::class);
+        return $this->belongsToMany(Carrera::class, 'carrera_materia');
     }
 
-    public function administracion()
+    /*public function administracion()
     {
         return $this->belongsTo(Administracion::class);
-    }
+    }*/
     public function plan()
     {
         return $this->hasMany(Plan::class);

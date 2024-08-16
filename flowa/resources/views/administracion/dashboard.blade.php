@@ -36,6 +36,7 @@
         <a href="/administracion/crearcomision" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Coordinador Comisión Curricular</a>
         <a href="/administracion/modificarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Modificar plan de materia</a>
         <a href="/administracion/eliminarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Eliminar plan de materia</a>
+        <a href="/administracion/creardepartamento" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear departamento</a>
         <a href="/administracion/cargarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Cargar plan de materia - versión anterior</a>
     </div>
 </div>

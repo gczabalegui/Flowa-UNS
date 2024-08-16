@@ -17,9 +17,18 @@ class DepartamentoSeeder extends Seeder
             [
                 'codigo_departamento' => '1',
                 'nombre_departamento' => 'Departamento de Agronomia',
-                'direccion' => 'San Andres 612, Bahía Blanca, Provincia de Buenos Aires',
-                'sitio_web' => 'https://www.uns.edu.ar/deptos/agronomia',
-                'secretaria_id' => '1',
+                'calle_departamento' => 'San Andres',
+                'numero_departamento' => '612',
+                'sitio_web_departamento' => 'https://www.uns.edu.ar/deptos/agronomia',
+                ////'secretaria_id' => '1'
+            ],
+            [
+                'codigo_departamento' => '2',
+                'nombre_departamento' => 'DCIC',
+                'calle_departamento' => 'San Andres',
+                'numero_departamento' => '8000',
+                'sitio_web_departamento' => 'https://cs.uns.edu.ar/~devcs/',
+                //'secretaria_id' => '1'
             ],
         ];
 

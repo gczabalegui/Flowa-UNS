@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Materia;
 use App\Models\Profesor;
+use App\Models\CarreraMateria;
+use App\Models\Carrera; // Add this line
 use Exception;
 
 class MateriaController extends Controller
@@ -24,12 +26,16 @@ class MateriaController extends Controller
     {   
         try {
             $profesores = Profesor::all();
+            $carreras = Carrera::all();
     
             if ($profesores->isEmpty()) {
-                throw new Exception('No hay profesores disponibles. Por favor, cree un profesor antes de crear una materia.');
+                return redirect('/administracion')->with('warning', 'No hay profesores. Por favor, cree un profesor antes de crear una materia.');
+            }
+            if ($carreras->isEmpty()) {
+                return redirect('/administracion')->with('warning', 'No hay carreras. Por favor, cree una carrera antes de crear una materia.');
             }
     
-            return view('crearmateria', compact('profesores'));
+            return view('administracion.crearmateria', compact('profesores', 'carreras'));
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
@@ -44,10 +50,17 @@ class MateriaController extends Controller
 
             $request->validate([
                 'nombre_materia' => 'required|max:255|string',
-                'codigo' => 'required|numeric|unique:materias,codigo',
+                'codigo_materia' => 'required|numeric|unique:materias,codigo',
+                'horas_semanales' => 'required|numeric|digits_between:1,2',
+                'horas_totales' => 'required|numeric|digits_between:1,2',
+                'profesor_id' => 'required|numeric',
+                'carreras' => 'required|array',
+                'carreras.*' => 'exists:carreras,id',
             ]);
-
-            Materia::create($request->all());
+    
+            $materia = Materia::create($request->only(['nombre_materia', 'codigo', 'profesor_id', 'horas_semanales', 'horas_totales']));
+    
+            $materia->carrera()->attach($request->carreras);
 
             return redirect('/administracion')->with('estado', 'Nueva materia creada exitosamente.');
         } catch (\Exception $e) {

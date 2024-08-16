@@ -57,10 +57,10 @@ class ProfesorController extends Controller
         try{               
             $request->validate([
                 'nombre_profesor' => 'required|max:255|string',
-                'apellido' => 'required|max:255|string',
-                'DNI' => 'required||digits_between:1,8|numeric|unique:profesors,DNI',
-                'email' => 'required|email|unique:profesors,email',
-                'legajo' => 'required||digits_between:1,5|numeric|unique:profesors,legajo',
+                'apellido_profesor' => 'required|max:255|string',
+                'DNI_profesor' => 'required||digits_between:1,8|numeric|unique:profesors,DNI',
+                'email_profesor' => 'required|email|unique:profesors,email',
+                'legajo_profesor' => 'required||digits_between:1,5|numeric|unique:profesors,legajo',
             ]);
 
             Profesor::create($request->all());

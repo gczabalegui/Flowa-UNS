@@ -43,6 +43,14 @@
                     <input id="cant_materias" name="cant_materias" type="number" class="input input-bordered w-full"
                         tabindex="2" required value="{{ old('cant_materias') }}" placeholder="Ingrese la cantidad de materias">
                 </div>
+                <div class="my-3">
+                    <label class="label"><span class="label-text">Seleccione a qué Departamento pertenece</span> </label>
+                    <select id="departamento_id" name="departamento_id" class="input input-bordered w-full" required>
+                        @foreach($departamentos as $departamento)
+                            <option value="{{ $departamento->id }}">{{ $departamento->nombre_departamento }}</option>
+                        @endforeach
+                    </select>
+                </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
                     <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>

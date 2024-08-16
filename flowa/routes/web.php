@@ -16,6 +16,7 @@ use App\Http\Controllers\SecretariaController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\MateriaController;
 use App\Http\Controllers\CarreraController;
+use App\Http\Controllers\DepartamentoController;
 use App\Http\Controllers\PDFController;
 
 /*
@@ -142,8 +143,7 @@ Route::post('/administracion/crearsecretaria', [SecretariaController::class, 'st
 
 //FIN CREAR UN USUARIO SECRETARÍA ACADÉMICA
 
-//CREAR UN PLAN     
-
+//CREAR UN PLAN
 Route::get('/administracion/crearplan', [PlanController::class, 'create'])
     ->name('crearplan');
 
@@ -169,6 +169,15 @@ Route::post('/administracion/crearcarrera', [CarreraController::class, 'store'])
     ->name('crearcarrera');
 
 //FIN CREAR UNA CARRERA
+
+//CREAR UN DEPARTAMENTO  
+Route::get('/administracion/creardepartamento', [DepartamentoController::class, 'create'])
+    ->name('creardepartamento');
+
+Route::post('/administracion/creardepartamento', [DepartamentoController::class, 'store'])
+    ->name('creardepartamento');
+
+//FIN CREAR UN DEPARTAMENTO
 
 //CREAR UN PROFESOR  
 Route::get('/administracion/crearprofesor', [ProfesorController::class, 'createByAdmin'])

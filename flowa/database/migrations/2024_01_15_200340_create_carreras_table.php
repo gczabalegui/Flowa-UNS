@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string('plan_version'); //ej: plan 1998-11
             $table->string('duracion'); //como String porque se mide en cuatrimestres. ej: 10 cuat.
             $table->unsignedInteger('cant_materias');
-            $table->unsignedBigInteger('departamento_id');
-            
+
+            $table->unsignedBigInteger('departamento_id');            
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');
         });
     }

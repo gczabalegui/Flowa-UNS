@@ -12,10 +12,10 @@ class Profesor extends Model
     
     protected $fillable = [
         'nombre_profesor',
-        'apellido',
-        'DNI',
-        'email',
-        'legajo',
+        'apellido_profesor',
+        'DNI_profesor',
+        'email_profesor',
+        'legajo_profesor',
     ];
 
     public function materia()
