@@ -23,13 +23,14 @@ class Departamento extends Model
     {
         return $this->hasMany(Carrera::class);
     }
-    /*public function administracion()
-    {
-        return $this->hasMany(Administracion::class);
-    }
 
+    public function administracion()
+    {
+        return $this->hasOne(Administracion::class);
+    }
+    
     public function secretaria()
     {
         return $this->hasOne(Secretaria::class);
-    }*/
+    }
 }

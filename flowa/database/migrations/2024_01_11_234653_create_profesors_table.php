@@ -21,6 +21,9 @@ return new class extends Migration
             $table->string('email_profesor')->unique();            
             $table->unsignedInteger('legajo_profesor')->unique();
 
+            $table->unsignedBigInteger('carrera_id')->nullable(); //TODO
+            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
+
         });
     }
 

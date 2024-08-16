@@ -17,9 +17,9 @@ class Carrera extends Model
         'cant_materias',
         'departamento_codigo'];
         
-    public function materia()
+   public function materia()
     {
-        return $this->belongsToMany(Materia::class, 'carrera_materia');
+        return $this->hasMany(Materia::class);
     }
 
     public function departamento()
@@ -30,6 +30,11 @@ class Carrera extends Model
     public function comision()
     {
         return $this->hasOne(Comision::class);
+    }
+
+    public function profesor()
+    {
+        return $this->hasMany(Profesor::class);
     }
 }
 

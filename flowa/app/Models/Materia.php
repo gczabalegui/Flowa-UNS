@@ -12,6 +12,7 @@ class Materia extends Model
     protected $fillable = [
         'nombre_materia',
         'codigo_materia',
+        'codigo',
         'horas_semanales',
         'horas_totales',
         'profesor_id',

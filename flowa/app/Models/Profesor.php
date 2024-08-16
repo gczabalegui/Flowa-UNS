@@ -16,10 +16,17 @@ class Profesor extends Model
         'DNI_profesor',
         'email_profesor',
         'legajo_profesor',
+        'carrera_id',
     ];
 
+    
     public function materia()
     {
         return $this->hasMany(Materia::class);
+    }
+        
+    public function carrera()
+    {
+        return $this->belongsTo(Carrera::class);
     }
 }
