@@ -13,7 +13,8 @@ class PlanController extends Controller
      */
     public function index()
     {
-        //
+        $planes = Plan::with(['materia.profesor'])->get();
+        return view('administracion.verplanes', compact('planes'));
     }
     /**
      * Show the form for creating a new resource.

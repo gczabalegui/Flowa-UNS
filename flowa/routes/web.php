@@ -195,6 +195,11 @@ Route::post('/administracion/crearcomision', [ComisionController::class, 'store'
     ->name('crearcomision');
 //FIN CREAR UN COORDINAR DE LA COMISION CURRICULAR  
 
+//VER LOS PLANES EXISTENTES
+Route::get('/administracion/verplanes', [PlanController::class, 'index'])
+    ->name('verplanes');
+//FIN VER LOS PLANES EXISTENTES
+
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
