@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Plan;
+use App\Models\Materia;
+use Exception;
 
 class PlanController extends Controller
 {
@@ -17,20 +19,32 @@ class PlanController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        /*$profesores = Profesor::orderBy("apellido")->get();
-        $materias = Materia::orderBy("nombre_materia")->get();*/
-        return view('administracion.crearplan')/*->with('materia',$materias)*/;
+    {   
+        try{
+            $materias = Materia::with('profesor')->orderBy("nombre_materia")->get();
+
+            if($materias->isEmpty()){
+                return redirect('/administracion')->with('warning','No hay materias creadas. Por favor, cree una materia antes de crear un plan de materia.');    
+            }
+
+            return view('administracion.crearplan')->with('materias', $materias);
+        }
+        catch(Exception $e){
+            dd($e);
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    //crear una funcion store que lo haga para un store de borrador, sin el required
+    public function storeByAdmin(Request $request)
     {
         try{
-            $request->validate([
-                'estado' => 'required|in:Creado por Administración,Incompleto por Administración,Completo por Administración,Incompleto por Profesor,Completo por profesor,Incompleto por S.A.,Completo por S.A.,En revisión por S.A.,Aprobado por S.A.,Desaprobado por S.A., Plan completo y aprobado',
+            $request->validate([                
+                'materia_id'=> 'required|numeric|exists:materias,id',
                 'anio' => 'required|numeric',
                 'horas_totales' => 'required|numeric',
                 'horas_teoricas' => 'required|numeric',
@@ -38,52 +52,38 @@ class PlanController extends Controller
                 'DTE' => 'required|numeric',
                 'RTF' => 'required|numeric',
                 'creditos_academicos' => 'required|numeric',
-                'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
-                'fundamentacion' => ['required', 'string', function ($attribute, $value, $fail) {
-
-                    if (!is_string($value)) {
-                        $fail('La fundamentación debe ser un texto.');
-                        return;
-                    }
-
-                    // Contar las palabras en la fundamentación
-                    $numeroPalabras = str_word_count($value);
-
-                    // Establecer el límite de palabras (200)
-                    $limitePalabras = 200;
-
-                    // Validar el límite de palabras
-                    if ($numeroPalabras > $limitePalabras) {
-                        $fail("La fundamentación no puede tener más de $limitePalabras palabras.");
-                    }
-                }], 
-                'cont_minimos' => 'required|string',
-                'programa_analitico' => 'required|string',
-                'act_practicas' => 'required|string',
-                'modalidad' => 'required|string',
-                'bibliografia' => 'required|string',
             ]);
+
             $planes = new Plan();
-            $planes->anio = $request->get('anio');
-            $planes->horas_totales = $request->get('horas_totales');
-            $planes->horas_teoricas = $request->get('horas_teoricas');
-            $planes->horas_practicas = $request->get('horas_practicas');
-            $planes->DTE = $request->get('DTE');
-            $planes->RTF = $request->get('RTF');
-            $planes->creditos_academicos = $request->get('creditos_academicos');
-            $planes->area_tematica = $request->get('area_tematica');
-            $planes->fundamentacion = $request->get('fundamentacion');
-            $planes->cont_minimos = $request->get('cont_minimos');
-            $planes->programa_analitico = $request->get('programa_analitico');
-            $planes->act_practicas = $request->get('act_practicas');
-            $planes->modalidad = $request->get('modalidad');
-            $planes->bibliografia = $request->get('bibliografia');
+            $planes->estado = 'Completo por administración.';
+            $planes->fill($request->only([
+                'materia_id',
+                'anio',
+                'horas_totales',
+                'horas_teoricas',
+                'horas_practicas',
+                'DTE',
+                'RTF',
+                'creditos_academicos'
+            ]));
+            $planes->area_tematica = null;
+            $planes->fundamentacion = '';
+            $planes->obj_conceptuales = '';
+            $planes->obj_procedimeentales = '';
+            $planes->obj_actitudinales = '';
+            $planes->obj_especificos = '';
+            $planes->cont_minimos = '';
+            $planes->programa_analitico = '';
+            $planes->act_practicas = '';
+            $planes->modalidad = '';
+            $planes->bibliografia = '';
 
             $planes->save();
             return redirect('/administracion')->with('estado', 'Nuevo plan creado exitosamente.');
         }
         catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el plannnnnnnnnnnnn.');
+            dd($e);
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
         }
     }
 

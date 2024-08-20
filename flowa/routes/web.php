@@ -147,7 +147,7 @@ Route::post('/administracion/crearsecretaria', [SecretariaController::class, 'st
 Route::get('/administracion/crearplan', [PlanController::class, 'create'])
     ->name('crearplan');
 
-Route::post('/administracion/crearplan', [PlanController::class, 'store'])
+Route::post('/administracion/crearplan', [PlanController::class, 'storeByAdmin'])
     ->name('crearplan');
 
 //FIN CREAR UN PLAN 

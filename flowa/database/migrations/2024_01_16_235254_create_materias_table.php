@@ -19,7 +19,6 @@ return new class extends Migration
             $table->unsignedInteger('codigo_materia')->unique();
             $table->unsignedInteger('horas_semanales');
             $table->unsignedInteger('horas_totales');
-            $table->integer('codigo');
             
             $table->unsignedBigInteger('profesor_id');        
             $table->foreign('profesor_id')->references('id')->on('profesors')->onDelete('cascade');

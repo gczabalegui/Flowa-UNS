@@ -16,11 +16,10 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('nombre_secretaria');
-            $table->string('nombre');
-            $table->string('apellido');
-            $table->unsignedInteger('DNI')->unique();            
-            $table->unsignedInteger('legajo')->unique();
-            $table->string('email')->unique();
+            $table->string('apellido_secretaria');
+            $table->unsignedInteger('DNI_secretaria')->unique();            
+            $table->unsignedInteger('legajo_secretaria')->unique();
+            $table->string('email_secretaria')->unique();
 
             $table->unsignedBigInteger('departamento_id');
             $table->foreign('departamento_id')->references('id')->on('departamentos');

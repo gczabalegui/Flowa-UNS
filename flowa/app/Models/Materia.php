@@ -22,7 +22,7 @@ class Materia extends Model
     
     public function profesor()
     {
-        return $this->belongsTo(Profesor::class);
+        return $this->belongsTo(Profesor::class, 'profesor_id');
     }
 
     public function carrera()

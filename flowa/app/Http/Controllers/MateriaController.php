@@ -25,8 +25,8 @@ class MateriaController extends Controller
     public function create()
     {   
         try {
-            $profesores = Profesor::all();
-            $carreras = Carrera::all();
+            $profesores = Profesor::orderBy("apellido_profesor")->get();
+            $carreras = Carrera::orderBy("nombre_carrera")->get();
     
             if ($profesores->isEmpty()) {
                 return redirect('/administracion')->with('warning', 'No hay profesores. Por favor, cree un profesor antes de crear una materia.');
@@ -53,7 +53,7 @@ class MateriaController extends Controller
                 'codigo_materia' => 'required|numeric|unique:materias,codigo',
                 'horas_semanales' => 'required|numeric|digits_between:1,2',
                 'horas_totales' => 'required|numeric|digits_between:1,2',
-                'profesor_id' => 'required|numeric',
+                'profesor_id' => 'required|numeric|exists:profesors,id',
                 'carreras' => 'required|array',
                 'carreras.*' => 'exists:carreras,id',
             ]);

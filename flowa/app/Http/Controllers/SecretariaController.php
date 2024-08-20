@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Secretaria;
 
 class SecretariaController extends Controller
 {
@@ -40,18 +41,13 @@ class SecretariaController extends Controller
         try{
             $request->validate([
                 'nombre_secretaria' => 'required|max:255|string',
-                'apellido' => 'required|max:255|string',
-                'DNI' => 'required|numeric',
-                'legajo' => 'required|numeric',
-                'email' => 'required|max:255|string',
+                'apellido_secretaria' => 'required|max:255|string',
+                'DNI_secretaria' => 'required|digits_between:1,8|numeric|unique:secreatarias,DNI_secretaria',
+                'legajo_secretaria' => 'required|digits_between:1,5|numeric|unique:secretarias,legajo_secretaria',
+                'email_secretaria' => 'required|max:255|string|unique:secretarias,email_secretaria',
             ]);
 
-            $secretarias = new Secretaria();
-            $secretarias->nombre_secretaria = $request->get('nombre_secretaria');
-            $secretarias->apellido = $request->get('apellido');
-            $secretarias->DNI = $request->get('DNI');
-            $secretarias->legajo = $request->get('legajo');
-            $secretarias->email = $request->get('email');
+            $secretarias = new Secretaria(request()->all());
 
 
             $secretarias->save();

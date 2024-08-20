@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->enum('estado', ['Creado por Administración', 'Incompleto por Administración', 'Completo por Administración', 'Incompleto por Profesor', 'Completo por profesor', 'Incompleto por S.A.', 'Completo por S.A.', 'En revisión por S.A.', 'Aprobado por S.A.', 'Desaprobado por S.A.', 'Plan completo y aprobado']);
-            //ENCABEZADO
+            $table->string('estado');
             $table->unsignedBigInteger('materia_id');
             $table->foreign('materia_id')->references('id')->on('materias')->onDelete('cascade');
             //Con la materia, podríamos conseguir el código de materia y el departamento al que pertenece (datos que van en el plan)

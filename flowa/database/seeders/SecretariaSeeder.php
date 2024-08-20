@@ -15,12 +15,11 @@ class SecretariaSeeder extends Seeder
     {
         $data = [
             [
-               'nombre_secretaria' => 'ceciliapellegrini',
-               'legajo' => '7791',
-               'nombre' => 'Cecilia Noemi',
-               'apellido' => 'Pellegrini',
-               'DNI' => '16775272',
-               'email' => 'cecilia.pellegrini@uns.edu.ar', 
+                'nombre_secretaria' => 'Cecilia Noemi',
+               'apellido_secretaria' => 'Pellegrini',
+               'DNI_secretaria' => '16775272',
+               'legajo_secretaria' => '7791',
+               'email_secretaria' => 'cecilia.pellegrini@uns.edu.ar', 
                'departamento_id' => '1',
             ],
         ];
