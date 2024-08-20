@@ -11,10 +11,18 @@ class PlanController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function indexAdmin()
     {
         $planes = Plan::with(['materia.profesor'])->get();
         return view('administracion.verplanes', compact('planes'));
+    }
+
+    public function indexProfesor()
+    {
+        $planes = Plan::with(['materia.profesor']) 
+                        ->where('estado', 'Completo por administración.') 
+                        ->get();
+        return view('profesor.verplanes', compact('planes'));
     }
     /**
      * Show the form for creating a new resource.
@@ -88,6 +96,63 @@ class PlanController extends Controller
         }
     }
 
+    public function storeByProfesor(Request $request, string $id)
+    {
+        try {
+            // Buscar el plan por su ID
+            $plan = Plan::findOrFail($id);
+
+            // Validar los datos del request
+            $validatedData = $request->validate([
+                'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
+                'fundamentacion' => ['required', 'string', function ($attribute, $value, $fail) {
+
+                    if (!is_string($value)) {
+                        $fail('La fundamentación debe ser un texto.');
+                        return;
+                    }
+
+                    // Contar las palabras en la fundamentación
+                    $numeroPalabras = str_word_count($value);
+
+                    // Establecer el límite de palabras (200)
+                    $limitePalabras = 200;
+
+                    // Validar el límite de palabras
+                    if ($numeroPalabras > $limitePalabras) {
+                        $fail("La fundamentación no puede tener más de $limitePalabras palabras.");
+                    }
+                }], 
+                'obj_conceptuales' => 'required|string',
+                'obj_procedimentales' => 'required|string',
+                'obj_actitudinales' => 'required|string',
+                'obj_especificos' => 'required|string',
+                'cont_minimos' => 'required|string',
+                'programa_analitico' => 'required|string',
+                'act_practicas' => 'required|string',
+                'modalidad' => 'required|string|max:100',
+                'bibliografia' => 'required|string',
+
+            ]);
+
+            // Actualizar los campos del plan con los nuevos datos
+            $plan->fill($validatedData);
+            $plan->estado = 'Completo por profesor.';
+
+            $plan->save();
+
+            return redirect('/profesor')->with('estado', 'El plan ha sido actualizado exitosamente.');
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect('/profesor')->with('warning', 'No se ha podido actualizar el plan.');
+        }
+    }
+
+    public function showCompletePlanForm($id)
+    {
+        $plan = Plan::findOrFail($id);
+        return view('profesor.completarinfoplan', compact('plan'));
+    }
     /**
      * Display the specified resource.
      */
@@ -98,9 +163,11 @@ class PlanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editByProfesor(string $id)
     {
-        //
+        $plan = Plan::find($id);
+        return view('profesor.completarinfoplan', compact('plan'));
+
     }
     /**
      * Update the specified resource in storage.

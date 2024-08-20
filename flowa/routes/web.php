@@ -196,7 +196,7 @@ Route::post('/administracion/crearcomision', [ComisionController::class, 'store'
 //FIN CREAR UN COORDINAR DE LA COMISION CURRICULAR  
 
 //VER LOS PLANES EXISTENTES
-Route::get('/administracion/verplanes', [PlanController::class, 'index'])
+Route::get('/administracion/verplanes', [PlanController::class, 'indexAdmin'])
     ->name('verplanes');
 //FIN VER LOS PLANES EXISTENTES
 
@@ -239,6 +239,30 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
+/* PROFESOR */
+
+//VER PLANES PENDIENTES DE REVISIÓN
+Route::get('/profesor/verplanes', [PlanController::class, 'indexProfesor'])
+    ->name('verplanes');
+    
+//MOSTRAR FORMULARIO PARA COMPLETAR INFORMACIÓN DEL PLAN
+Route::get('/profesor/completarinfoplan/{id}', [PlanController::class, 'showCompletePlanForm'])
+->name('showCompletePlanForm');
+
+
+//COMPLETAR INFORMACIÓN DEL PLAN
+Route::post('/profesor/completarinfoplan/{id}', [PlanController::class, 'storeByProfesor'])
+    ->name('completarinfoplan');
+
+
+
+    /*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
 
 //INICIO DE SESION
 
