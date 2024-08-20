@@ -32,7 +32,7 @@
                     <label class="label"><span class="label-text">Dirección</span> </label>
                     <div class="grid grid-cols-2 gap-4">
                         <input id="calle_departamento" name="calle_departamento" type="text" class="input input-bordered w-full" tabindex="3" required value="{{ old('calle_departamento') }}" placeholder="Ingrese la calle">
-                        <input id="numero_departamento" name="numero_departamento" type="number" class="input input-bordered w-full" tabindex="4" required value="{{ old('numero_departamento) }}" placeholder="Ingrese el número">
+                        <input id="numero_departamento" name="numero_departamento" type="number" class="input input-bordered w-full" tabindex="4" required value="{{ old('numero_departamento') }}" placeholder="Ingrese el número">
                     </div>
                 </div>
                 <div class="my-3">

@@ -38,6 +38,7 @@
         <a href="/administracion/eliminarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Eliminar plan de materia</a>
         <a href="/administracion/creardepartamento" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear departamento</a>
         <a href="/administracion/cargarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Cargar plan de materia - versión anterior</a>
+        <a href="/administracion/verplanes" class="btn btn-primary m-2 w-full max-w-xs text-center">Ver planes existentes</a>
     </div>
 </div>
 
