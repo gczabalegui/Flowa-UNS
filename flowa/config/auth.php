@@ -29,6 +29,8 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+            'table' => 'users',
+            'username' => 'legajo', // Añadir esta línea
         ],
 
         // 'users' => [

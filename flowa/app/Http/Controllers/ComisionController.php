@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Comision;
+use Illuminate\Support\Facades\Auth;
 
 class ComisionController extends Controller
 {
@@ -70,4 +71,23 @@ class ComisionController extends Controller
         return view('comision.verplan');
     }
     */
+
+    public function showLoginForm()
+    {
+        return view('comision.login');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('/comision/dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'Las credenciales no coinciden con nuestros registros.',
+        ]);
+    }
 }

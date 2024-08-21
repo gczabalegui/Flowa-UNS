@@ -21,11 +21,11 @@
                         @csrf
 
                         <div class="form-control">
-                            <label for="email" class="label">
-                                <span class="label-text">{{ __('Email') }}</span>
+                            <label for="legajo" class="label">
+                                <span class="label-text">{{ __('Legajo') }}</span>
                             </label>
-                            <input id="email" type="email" class="input input-bordered @error('email') input-error @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                            @error('email')
+                            <input id="legajo" type="text" class="input input-bordered @error('legajo') input-error @enderror" name="legajo" value="{{ old('legajo') }}" required autocomplete="legajo" autofocus>
+                            @error('legajo')
                                 <span class="text-error" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -44,23 +44,10 @@
                             @enderror
                         </div>
 
-                        <div class="form-control mt-4 flex items-center">
-                             <input class="checkbox mr-2" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                 <label class="label-text mb-0" for="remember">
-                                     {{ __('Recordarme') }}
-                                 </label>
-                        </div>
-
                         <div class="form-control mt-6">
                             <button type="submit" class="btn btn-primary">
                                 {{ __('Iniciar sesión') }}
                             </button>
-
-                            @if (Route::has('password.request'))
-                                <a class="link link-primary mt-2" href="{{ route('password.request') }}">
-                                    {{ __('¿Olvidaste tu contraseña?') }}
-                                </a>
-                            @endif
                         </div>
                     </form>
                 </div>
