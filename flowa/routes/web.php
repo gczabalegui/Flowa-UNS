@@ -231,6 +231,21 @@ Route::post('/secretaria/crearcomision', [ComisionController::class, 'store'])
     ->name('crearcomision');
 //FIN CREAR UN COORDINAR DE LA COMISION CURRICULAR  
 
+//VER PLANES PENDIENTES DE APROBACIÓN
+Route::get('/secretaria/verplanes', [PlanController::class, 'indexSecretaria'])
+    ->name('verplanes');
+//FIN VER PLANES PENDIENTES DE APROBACIÓN
+
+//MOSTRAR FORMULARIO DEL PLAN
+Route::get('/secretaria/traerinfoplan/{id}', [PlanController::class, 'bringInfoPlan'])
+    ->name('traerinfoplan');
+//MOSTRAR FORMULARIO DEL PLAN
+
+Route::post('/aprobarplan/{id}', [PlanController::class, 'aprobarPlan'])
+    ->name('aprobarplan');
+Route::post('/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])
+    ->name('rechazarplan');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -250,8 +265,8 @@ Route::get('/profesor/verplanes', [PlanController::class, 'indexProfesor'])
     ->name('verplanes');
     
 //MOSTRAR FORMULARIO PARA COMPLETAR INFORMACIÓN DEL PLAN
-Route::get('/profesor/completarinfoplan/{id}', [PlanController::class, 'showCompletePlanForm'])
-->name('showCompletePlanForm');
+Route::get('/profesor/completarinfoplan/{id}', [PlanController::class, 'bringPlanForm'])
+->name('completarinfoplan');
 
 
 //COMPLETAR INFORMACIÓN DEL PLAN

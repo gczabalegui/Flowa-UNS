@@ -24,6 +24,14 @@ class PlanController extends Controller
                         ->get();
         return view('profesor.verplanes', compact('planes'));
     }
+    
+    public function indexSecretaria()
+    {
+        $planes = Plan::with(['materia.profesor']) 
+                        ->where('estado', 'Completo por profesor.') 
+                        ->get();
+        return view('secretaria.verplanes', compact('planes'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -78,7 +86,7 @@ class PlanController extends Controller
             $planes->area_tematica = null;
             $planes->fundamentacion = '';
             $planes->obj_conceptuales = '';
-            $planes->obj_procedimeentales = '';
+            $planes->obj_procedimentales = '';
             $planes->obj_actitudinales = '';
             $planes->obj_especificos = '';
             $planes->cont_minimos = '';
@@ -148,11 +156,36 @@ class PlanController extends Controller
         }
     }
 
-    public function showCompletePlanForm($id)
+    public function bringPlanForm($id)
     {
         $plan = Plan::findOrFail($id);
         return view('profesor.completarinfoplan', compact('plan'));
     }
+
+    public function bringInfoPlan($id)
+    {
+        $plan = Plan::findOrFail($id);
+        return view('secretaria.traerinfoplan', compact('plan'));
+    }
+    
+    public function aprobarPlan($id)
+    {
+        $plan = Plan::findOrFail($id);
+        $plan->estado = 'Aprobado por Secretaría Académica';
+        $plan->save();
+
+        return redirect()->route('/dashboard')->with('estado', 'Plan aprobado.');
+    }
+
+    public function rechazarPlan($id)
+    {
+        $plan = Plan::findOrFail($id);
+        $plan->estado = 'Rechazado por Secretaría Académica.';
+        $plan->save();
+
+        return redirect()->route('/dashboard')->with('success', 'Plan rechazado.');
+    }
+
     /**
      * Display the specified resource.
      */

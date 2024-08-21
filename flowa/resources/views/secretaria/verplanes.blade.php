@@ -11,7 +11,7 @@
 <body>
 @include('administracion.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
-        <form action="/profesor/verplanes" method="GET">
+        <form action="/secretaria/verplanes" method="GET">
             @csrf
             <div class="mx-5 my-5">
                 <table class="table-auto w-full">
@@ -31,7 +31,7 @@
                             <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                             <td class="border px-4 py-2 text-center">
-                                <a href="{{ route('completarinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Editar</a>
+                                <a href="{{ route('traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Revisar</a>
                             </td>
                         </tr>
                         @endforeach

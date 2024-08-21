@@ -50,7 +50,7 @@ return new class extends Migration
             //Objetivos: 
                 //Generales
                 $table->text('obj_conceptuales'); 
-                $table->text('obj_procedimeentales'); 
+                $table->text('obj_procedimentales'); 
                 $table->text('obj_actitudinales'); 
             $table->text('obj_especificos'); 
 

@@ -27,7 +27,7 @@
                         @foreach($planes as $plan)
                         <tr>
                             <td class="border px-4 py-2 text-center" >{{ $plan->materia->nombre_materia }}</td>
-                            <td class="border px-4 py-2 text-center">{{ $plan->materia->profesor->apellido_profesor }},{{ $plan->materia->profesor->nombre_profesor }}</td>
+                            <td class="border px-4 py-2 text-center">{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                         </tr>

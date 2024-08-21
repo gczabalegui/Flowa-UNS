@@ -65,8 +65,9 @@
                 </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
-                    <button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>
-                    <button type="submit" class="btn btn-success" tabindex="8">Guardar y Descargar PDF</button>
+                    <!--<button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
+                    <!--<button type="submit" name="borrador" value="1" class="btn btn-warning" tabindex="8" onclick="removeRequiredAttributes()">Guardar borrador</button>-->
+                    <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>
                 </div>
             </div>
             <script>
@@ -75,6 +76,16 @@
                     var profesor = selectedOption.getAttribute('data-profesor');
                     document.getElementById('profesor').value = profesor;
                 });
+            </script>
+            <script>
+                function removeRequiredAttributes() {
+                    const fields = document.querySelectorAll('input');
+                    fields.forEach(field => {
+                        if (field.id !== 'materia_id' && field.id !== 'profesor') {
+                            field.removeAttribute('required');
+                        }
+                    });
+                }
             </script>
         </form>        
     </div>
