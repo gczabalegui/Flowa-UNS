@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Plan;
 use App\Models\Materia;
-use App\Models\Profesor;
 use Exception;
 
 class PlanController extends Controller
@@ -40,14 +39,12 @@ class PlanController extends Controller
     {   
         try{
             $materias = Materia::with('profesor')->orderBy("nombre_materia")->get();
-            $profesores = Profesor::all();
 
             if($materias->isEmpty()){
                 return redirect('/administracion')->with('warning','No hay materias creadas. Por favor, cree una materia antes de crear un plan de materia.');    
             }
 
-            return view('administracion.crearplan', compact('materias', 'profesores'));
-
+            return view('administracion.crearplan')->with('materias', $materias);
         }
         catch(Exception $e){
             dd($e);

@@ -27,8 +27,7 @@
 
     <div class="flex flex-col items-center justify-center min-h-screen">
         <h2 class="text-2xl font-bold mb-4">¿Qué desea hacer?</h2>
-        <a href="/profesor/verplanes" class="btn btn-primary m-2 w-full max-w-xs text-center">Ver planes pendientes</a>
-        <a href="/profesor/completarinfoplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Modificar plan de materia</a>
+        <a href="/profesor/modificarplan" class="btn btn-primary m-2 w-full max-w-xs text-center">Modificar plan de materia</a>
     </div>
 
     @if (session('warning'))

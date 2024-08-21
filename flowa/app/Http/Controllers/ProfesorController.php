@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Profesor;
 use Illuminate\Support\Facades\Log;
-use App\Models\Plan;
-use App\Models\Materia;
 
 
 class ProfesorController extends Controller
@@ -72,20 +70,6 @@ class ProfesorController extends Controller
         catch(\Exception $e){
             return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
         }      
-    }
-
-    public function completarInfoPlan()
-    {
-        $plan = Plan::find(1);
-        $materia = Materia::find($plan->materia_id);
-        $profesor = Profesor::find($materia->profesor_id);
-
-        // Verificar si el plan existe
-        if (!$plan) {
-        return redirect('/profesor')->with('warning', 'El plan con id 1 no existe.');
-    }
-        // Lógica para manejar la vista completarinfoplan
-        return view('profesor.completarinfoplan', compact('plan', 'materia', 'profesor'));
     }
 }
 
