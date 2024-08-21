@@ -80,6 +80,10 @@ Route::get('/comision/pdfprueba', function() {
 });
 
 
+//INICIAR SESION COMISION ACADEMICA 
+Route::get('/comision/login', [ComisionController::class, 'showLoginForm'])->name('comision.login');
+Route::post('/comision/login', [ComisionController::class, 'login']);
+
 /*------------------------------------------------------------------------------------------ */
 
 
@@ -265,6 +269,7 @@ Route::get('/profesor/verplanes', [PlanController::class, 'indexProfesor'])
     ->name('verplanes');
     
 //MOSTRAR FORMULARIO PARA COMPLETAR INFORMACIÓN DEL PLAN
+/*
 Route::get('/profesor/completarinfoplan/{id}', [PlanController::class, 'bringPlanForm'])
 ->name('completarinfoplan');
 
@@ -272,8 +277,10 @@ Route::get('/profesor/completarinfoplan/{id}', [PlanController::class, 'bringPla
 //COMPLETAR INFORMACIÓN DEL PLAN
 Route::post('/profesor/completarinfoplan/{id}', [PlanController::class, 'storeByProfesor'])
     ->name('completarinfoplan');
+    */
 
-
+//MUESTRA TODOS LOS PLANES INCOMPLETOS, HASTA QUE ESTEN DEFINIDOS LOS USUARIOS
+Route::get('/profesor/completarinfoplan', [ProfesorController::class, 'completarInfoPlan'])->name('profesor.completarinfoplan');
 
     /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
