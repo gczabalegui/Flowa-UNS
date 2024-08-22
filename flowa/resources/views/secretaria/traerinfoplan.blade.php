@@ -11,7 +11,7 @@
 <body>
     @include('secretaria.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
-        <form action="{{ route('completarinfoplan', ['id' => $plan->id]) }}" method="POST">
+        <form action="{{ route('traerinfoplan', ['id' => $plan->id]) }}" method="GET">
             @csrf
                 <div class="mx-5 my-5">
                     <h2 class="card-title mx-auto">Completar la información del plan</h2>
@@ -99,22 +99,22 @@
                         <label class="label"><span class="label-text">Bibliografía</span></label>
                         <p class="text-lg">{{ $plan->bibliografia }}</p>
                     </div>
-                    <div class="flex justify-center space-x-4 mt-6">
-                        <form action="{{ route('aprobarplan', ['id' => $plan->id]) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-success" tabindex="8">Aprobar plan</button>
-                        </form>
-                        <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-warning" tabindex="9">Rechazar plan</button>
-                        </form>
-                    </div>
-                    <div class="flex justify-center mt-6">
-                        <a href="/secretaria" class="btn btn-secondary w-1/6" tabindex="10">Cancelar</a>
-                    </div>
                 </div>    
             </div>
-        </form>        
+        </form> 
+        <div class="flex justify-center space-x-4 mt-6">
+            <form action="{{ route('aprobarplan', ['id' => $plan->id]) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-success" tabindex="8">Aprobar plan</button>
+            </form>
+            <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
+                @csrf
+                <button type="submit" class="btn btn-warning" tabindex="9">Rechazar plan</button>
+            </form>
+        </div>
+        <div class="flex justify-center mt-6">
+            <a href="/secretaria" class="btn btn-secondary w-1/6" tabindex="10">Cancelar</a>
+        </div>                  
     </div>
 </body>
 </html>

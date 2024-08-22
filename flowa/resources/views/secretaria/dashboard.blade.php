@@ -30,6 +30,7 @@
         <a href="/secretaria/crearsecretaria" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Secretaría Académica</a>
         <a href="/secretaria/crearprofesor" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Profesor</a>
         <a href="/secretaria/crearcomision" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear usuario Coordinador Comisión Curricular</a>
+        <a href="/secretaria/verplanes" class="btn btn-primary m-2 w-full max-w-xs text-center">Ver planes para aprobar/desaprobar</a>
     </div>
 
     @if (session('warning'))

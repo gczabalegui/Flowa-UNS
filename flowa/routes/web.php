@@ -236,14 +236,16 @@ Route::get('/secretaria/verplanes', [PlanController::class, 'indexSecretaria'])
     ->name('verplanes');
 //FIN VER PLANES PENDIENTES DE APROBACIÓN
 
-//MOSTRAR FORMULARIO DEL PLAN
+//PEDIR FORMULARIO DEL PLAN
 Route::get('/secretaria/traerinfoplan/{id}', [PlanController::class, 'bringInfoPlan'])
     ->name('traerinfoplan');
-//MOSTRAR FORMULARIO DEL PLAN
+//PEDIR FORMULARIO DEL PLAN
 
-Route::post('/aprobarplan/{id}', [PlanController::class, 'aprobarPlan'])
+
+Route::post('/secretaria/aprobarplan/{id}', [PlanController::class, 'aprobarPlan'])
     ->name('aprobarplan');
-Route::post('/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])
+    
+Route::post('/secretaria/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])
     ->name('rechazarplan');
 
 Auth::routes();

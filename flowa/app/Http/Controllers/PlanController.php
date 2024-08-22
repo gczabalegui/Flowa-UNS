@@ -170,20 +170,40 @@ class PlanController extends Controller
     
     public function aprobarPlan($id)
     {
-        $plan = Plan::findOrFail($id);
-        $plan->estado = 'Aprobado por Secretaría Académica';
-        $plan->save();
-
-        return redirect()->route('/dashboard')->with('estado', 'Plan aprobado.');
+        try{    
+            $plan = Plan::find($id);
+            if($plan){
+                $plan->estado = 'Aprobado por Secretaría Académica';
+                $plan->save();
+                return redirect('/secretaria')->with('estado', 'Plan aprobado.');
+            }
+            else{
+                return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
+            } 
+        }
+        catch(Exception $e){
+            dd($e);
+            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
+        }
     }
 
     public function rechazarPlan($id)
     {
-        $plan = Plan::findOrFail($id);
-        $plan->estado = 'Rechazado por Secretaría Académica.';
-        $plan->save();
-
-        return redirect()->route('/dashboard')->with('success', 'Plan rechazado.');
+        try{    
+            $plan = Plan::find($id);
+            if($plan){
+                $plan->estado = 'Rechazado por Secretaría Académica';
+                $plan->save();
+                return redirect('/secretaria')->with('estado', 'Plan rechazado.');
+            }
+            else{
+                return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
+            } 
+        }
+        catch(Exception $e){
+            dd($e);
+            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
+        }
     }
 
     /**
