@@ -21,6 +21,7 @@ class PlanController extends Controller
     {
         $planes = Plan::with(['materia.profesor']) 
                         ->where('estado', 'Completo por administración.') 
+                        ->orWhere('estado', 'Rechazado por secretaría académica.')
                         ->get();
         return view('profesor.verplanes', compact('planes'));
     }
@@ -108,8 +109,8 @@ class PlanController extends Controller
     {
         try {
             // Buscar el plan por su ID
-            $plan = Plan::findOrFail($id);
-
+            $plan = Plan::find($id);
+            
             // Validar los datos del request
             $validatedData = $request->validate([
                 'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
@@ -142,11 +143,11 @@ class PlanController extends Controller
                 'bibliografia' => 'required|string',
 
             ]);
-
+                
             // Actualizar los campos del plan con los nuevos datos
             $plan->fill($validatedData);
             $plan->estado = 'Completo por profesor.';
-
+          
             $plan->save();
 
             return redirect('/profesor')->with('estado', 'El plan ha sido actualizado exitosamente.');
@@ -156,10 +157,18 @@ class PlanController extends Controller
         }
     }
 
-    public function bringPlanForm($id)
+    public function bringPlanForm($id, $mode)
     {
         $plan = Plan::findOrFail($id);
-        return view('profesor.completarinfoplan', compact('plan'));
+        if($mode === 'completar'){
+            return view('profesor.completarinfoplan', compact('plan'));
+        }    
+        elseif($mode === 'modificar'){
+            return view('profesor.modificarinfoplan', compact('plan'));
+        }
+        else {
+            abort(404); 
+        }
     }
 
     public function bringInfoPlan($id, $role)
@@ -167,9 +176,11 @@ class PlanController extends Controller
         $plan = Plan::findOrFail($id);
         if ($role === 'secretaria') {
             return view('secretaria.traerinfoplan', compact('plan'));
-        } elseif ($role === 'administracion') {
+        } 
+        elseif ($role === 'administracion') {
             return view('administracion.traerinfoplan', compact('plan'));
-        } else {
+        } 
+        else {
             abort(404); 
         }
     }    
@@ -179,7 +190,7 @@ class PlanController extends Controller
         try{    
             $plan = Plan::find($id);
             if($plan){
-                $plan->estado = 'Aprobado por Secretaría Académica';
+                $plan->estado = 'Aprobado por secretaría académica.';
                 $plan->save();
                 return redirect('/secretaria')->with('estado', 'Plan aprobado.');
             }
@@ -198,7 +209,7 @@ class PlanController extends Controller
         try{    
             $plan = Plan::find($id);
             if($plan){
-                $plan->estado = 'Rechazado por Secretaría Académica';
+                $plan->estado = 'Rechazado por secretaría académica.';
                 $plan->save();
                 return redirect('/secretaria')->with('estado', 'Plan rechazado.');
             }
@@ -222,11 +233,18 @@ class PlanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function editByProfesor(string $id)
+    public function updateByProfesor(Request $request, $id)
     {
-        $plan = Plan::find($id);
-        return view('profesor.completarinfoplan', compact('plan'));
-
+        try {
+            $plan = Plan::find($id);
+            $plan->fill($request->all());
+            $plan->update();
+        
+            return redirect('/profesor')->with('success', 'Información del plan actualizada correctamente.');
+        } catch (\Exception $e) {
+            dd($e);
+            return redirect('/profesor')->with('error', 'Ocurrió un error al actualizar la información del plan.');
+        }
     }
     /**
      * Update the specified resource in storage.

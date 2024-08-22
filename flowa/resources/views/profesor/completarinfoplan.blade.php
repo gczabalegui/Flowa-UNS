@@ -13,6 +13,7 @@
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
         <form action="{{ route('completarinfoplan', ['id' => $plan->id]) }}" method="POST">
             @csrf
+            <input type="hidden" name="mode" value="completar">
             <div class="mx-5 my-5">
                 <h2 class="card-title mx-auto">Completar la información del plan</h2>
                 <div class="my-3">
@@ -35,21 +36,20 @@
                     <label class="label"><span class="label-text">Objetivos generales</span> </label>
     
                     <div class="my-3">
-                        <label class="label"><span class="label-text">Objetivos conceptuales</span> </label>
-                        <input id="obj_conceptuales" name="obj_conceptuales" type="text" class="input input-bordered w-full"
-                            tabindex="2" required value="{{ old('obj_conceptuales') }}" placeholder="Ingrese los objetivos conceptuales">
-                    </div>
-                    
+                        <label class="label"><span class="label-text">Objetivos conceptuales</span></label>
+                        <textarea id="obj_conceptuales" name="obj_conceptuales" class="textarea textarea-bordered w-full" 
+                        style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos conceptuales">{{ old('obj_conceptuales') }}</textarea>
+                    </div>                    
                     <div class="my-3">
-                        <label class="label"><span class="label-text">Objetivos procedimentales</span> </label>
-                        <input id="obj_procedimentales" name="obj_procedimentales" type="text" class="input input-bordered w-full"
-                            tabindex="2" required value="{{ old('obj_procedimentales') }}" placeholder="Ingrese los objetivos procedimentales">
+                        <label class="label"><span class="label-text">Objetivos procedimentales</span></label>
+                        <textarea id="obj_procedimentales" name="obj_procedimentales" class="textarea textarea-bordered w-full" 
+                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos procedimentales">{{ old('obj_procedimentales') }}</textarea>
                     </div>
-                    
+
                     <div class="my-3">
-                        <label class="label"><span class="label-text">Objetivos actitudinales</span> </label>
-                        <input id="obj_actitudinales" name="obj_actitudinales" type="text" class="input input-bordered w-full"
-                            tabindex="2" required value="{{ old('obj_actitudinales') }}" placeholder="Ingrese los objetivos actitudinales">
+                        <label class="label"><span class="label-text">Objetivos actitudinales</span></label>
+                        <textarea id="obj_actitudinales" name="obj_actitudinales" class="textarea textarea-bordered w-full" 
+                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos actitudinales">{{ old('obj_actitudinales') }}</textarea>
                     </div>
                 </div>
                 <div class="my-3">
@@ -58,32 +58,31 @@
                         style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos específicos">{{ old('obj_especificos') }}</textarea>
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Contenidos mínimos</span> </label>
+                    <label class="label"><span class="label-text">Contenidos mínimos</span></label>
                     <p class="help-text" style="text-align: justify;">&#x2754; Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la Resolución 1537/21, Anexo I para asegurar la inclusión de aquellos allí definidos y aquellos que se agreguen al Plan de Estudio en función de los alcances del título. 
                     <br><b>Aclaración.</b> Los descriptores de conocimiento correspondientes a la Formación Profesional incluyen enunciados multidimensionales y transversales. Los mismos requieren la articulación de conocimientos y de prácticas y fundamentan el ejercicio profesional. No involucran una referencia directa a una disciplina o asignatura del plan de estudios.</br></p>
-
-                    <input id="cont_minimos" name="cont_minimos" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('cont_minimos') }}" placeholder="Ingrese los contenidos mínimos">
+                    <textarea id="cont_minimos" name="cont_minimos" class="textarea textarea-bordered w-full" 
+                        style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los contenidos mínimos">{{ old('cont_minimos') }}</textarea>
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Programa analítico</span> </label>
-                    <input id="programa_analitico" name="programa_analitico" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('programa_analitico') }}" placeholder="Ingrese un detalle del programa analítico">
+                    <label class="label"><span class="label-text">Programa analítico</span></label>
+                    <textarea id="programa_analitico" name="programa_analitico" class="textarea textarea-bordered w-full" 
+                        style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese el programa analítico">{{ old('programa_analitico') }}</textarea>
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Actividades prácticas</span> </label>
-                    <input id="act_practicas" name="act_practicas" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('act_practicas') }}" placeholder="Ingrese un detalle de las actividades prácticas">
+                    <label class="label"><span class="label-text">Actividades prácticas</span></label>
+                    <textarea id="act_practicas" name="act_practicas" class="textarea textarea-bordered w-full" 
+                        style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese las actividades prácticas">{{ old('act_practicas') }}</textarea>
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Modalidad</span> </label>
-                    <input id="modalidad" name="modalidad" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('modalidad') }}" placeholder="Ingrese la modalidad">
+                    <label class="label"><span class="label-text">Modalidad</span></label>
+                    <textarea id="modalidad" name="modalidad" class="textarea textarea-bordered w-full" 
+                        style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese la modalidad">{{ old('modalidad') }}</textarea>
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Bibliografía</span> </label>
-                    <input id="bibliografia" name="bibliografia" type="text" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('bibliografia') }}" placeholder="Ingrese la bibliografía">
+                    <label class="label"><span class="label-text">Bibliografía</span></label>
+                    <textarea id="bibliografia" name="bibliografia" class="textarea textarea-bordered w-full" 
+                        style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese la bibliografía">{{ old('bibliografia') }}</textarea>
                 </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>

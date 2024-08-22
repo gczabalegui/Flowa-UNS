@@ -31,7 +31,11 @@
                             <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                             <td class="border px-4 py-2 text-center">
-                                <a href="{{ route('completarinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Editar</a>
+                                @if($plan->estado == 'Completo por administración.')
+                                <a href="{{ route('completarinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Completar información del plan</a>
+                                @elseif($plan->estado == 'Rechazado por secretaría académica.')
+                                <a href="{{ route('modificarinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Revisar información del plan</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach

@@ -273,16 +273,31 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //VER PLANES PENDIENTES DE REVISIÓN
 Route::get('/profesor/verplanes', [PlanController::class, 'indexProfesor'])
     ->name('verplanes');
+//FIN VER PLANES PENDIENTES DE REVISIÓN
     
 //MOSTRAR FORMULARIO PARA COMPLETAR INFORMACIÓN DEL PLAN
-Route::get('/profesor/completarinfoplan/{id}', [PlanController::class, 'bringPlanForm'])
-->name('completarinfoplan');
+Route::get('/profesor/completarinfoplan/{id}', function($id) {
+            return app(PlanController::class)->bringPlanForm($id, 'completar');
+        })
+        ->name('completarinfoplan');
+//FIN MOSTRAR FORMULARIO PARA COMPLETAR INFORMACIÓN DEL PLAN
 
 
 //COMPLETAR INFORMACIÓN DEL PLAN
 Route::post('/profesor/completarinfoplan/{id}', [PlanController::class, 'storeByProfesor'])
     ->name('completarinfoplan');
+//FIN COMPLETAR INFORMACIÓN DEL PLAN
 
+//MOSTRAR FORMULARIO PARA MODIFICAR LA INFORMACIÓN DEL PLAN
+Route::get('/profesor/modificarinfoplan/{id}', function($id) {
+            return app(PlanController::class)->bringPlanForm($id, 'modificar');
+        })
+        ->name('modificarinfoplan');
+
+//MODIFICAR INFORMACIÓN DEL PLAN
+Route::put('/profesor/modificarinfoplan/{id}', [PlanController::class, 'storeByProfesor'])
+    ->name('modificarinfoplan');
+//FIN MODIFICAR INFORMACIÓN DEL PLAN
 
 
     /*--------------------------------------------------------------------------------------------------------------------------------------*/
