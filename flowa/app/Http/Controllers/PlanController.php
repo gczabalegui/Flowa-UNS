@@ -162,11 +162,17 @@ class PlanController extends Controller
         return view('profesor.completarinfoplan', compact('plan'));
     }
 
-    public function bringInfoPlan($id)
+    public function bringInfoPlan($id, $role)
     {
         $plan = Plan::findOrFail($id);
-        return view('secretaria.traerinfoplan', compact('plan'));
-    }
+        if ($role === 'secretaria') {
+            return view('secretaria.traerinfoplan', compact('plan'));
+        } elseif ($role === 'administracion') {
+            return view('administracion.traerinfoplan', compact('plan'));
+        } else {
+            abort(404); 
+        }
+    }    
     
     public function aprobarPlan($id)
     {

@@ -200,6 +200,12 @@ Route::get('/administracion/verplanes', [PlanController::class, 'indexAdmin'])
     ->name('verplanes');
 //FIN VER LOS PLANES EXISTENTES
 
+//VISTA PREVIA DE LA INFORMACIÓN DEL PLAN
+Route::get('/administracion/traerinfoplan/{id}', function($id) {
+    return app(PlanController::class)->bringInfoPlan($id, 'administracion');
+})->name('administracion.traerinfoplan');
+//FIN VISTA PREVIA DE LA INFORMACIÓN DEL PLAN
+
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
@@ -237,8 +243,10 @@ Route::get('/secretaria/verplanes', [PlanController::class, 'indexSecretaria'])
 //FIN VER PLANES PENDIENTES DE APROBACIÓN
 
 //PEDIR FORMULARIO DEL PLAN
-Route::get('/secretaria/traerinfoplan/{id}', [PlanController::class, 'bringInfoPlan'])
-    ->name('traerinfoplan');
+Route::get('/secretaria/traerinfoplan/{id}', function($id) {
+            return app(PlanController::class)->bringInfoPlan($id, 'secretaria');
+        })
+        ->name('secretaria.traerinfoplan');
 //PEDIR FORMULARIO DEL PLAN
 
 

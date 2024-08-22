@@ -30,6 +30,9 @@
                             <td class="border px-4 py-2 text-center">{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
+                            <td class="border px-4 py-2 text-center">
+                                <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
+                            </td>
                         </tr>
                         @endforeach
                     </tbody>

@@ -11,11 +11,11 @@
 <body>
     @include('secretaria.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
-        <form action="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" method="GET">
+        <form action="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" method="GET">
             @csrf
-                <input type="hidden" name="role" value="secretaria">
+                <input type="hidden" name="role" value="administracion">
                 <div class="mx-5 my-5">
-                    <h2 class="card-title mx-auto">Revisar la información del plan</h2>
+                    <h2 class="card-title mx-auto">Ver la información del plan</h2>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Materia</span></label>
                         <p class="text-lg">{{ $plan->materia->nombre_materia }}</p>
@@ -103,18 +103,8 @@
                 </div>    
             </div>
         </form> 
-        <div class="flex justify-center space-x-4 mt-6">
-            <form action="{{ route('aprobarplan', ['id' => $plan->id]) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-success" tabindex="8">Aprobar plan</button>
-            </form>
-            <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-warning" tabindex="9">Rechazar plan</button>
-            </form>
-        </div>
         <div class="flex justify-center mt-6">
-            <a href="/secretaria" class="btn btn-secondary w-1/6" tabindex="10">Cancelar</a>
+            <a href="/administracion" class="btn btn-warning w-1/6" tabindex="10">Regresar</a>
         </div>                  
     </div>
 </body>
