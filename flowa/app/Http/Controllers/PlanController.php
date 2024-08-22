@@ -34,6 +34,14 @@ class PlanController extends Controller
                         ->get();
         return view('secretaria.verplanes', compact('planes'));
     }
+
+    public function indexComision()
+    {
+        $planes = Plan::with(['materia.profesor']) 
+                        ->where('estado', 'Aprobado por secretaría académica.') 
+                        ->get();
+        return view('comision.verplanes', compact('planes'));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -181,6 +189,9 @@ class PlanController extends Controller
         } 
         elseif ($role === 'administracion') {
             return view('administracion.traerinfoplan', compact('plan'));
+        } 
+        elseif ($role === 'comision') {
+            return view('comision.traerinfoplan', compact('plan'));
         } 
         else {
             abort(404); 

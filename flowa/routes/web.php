@@ -304,6 +304,21 @@ Route::put('/profesor/modificarinfoplan/{id}', [PlanController::class, 'storeByP
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
+//COMISION
+
+//VER PLANES APROBADOS POR SECRETARIA ACADEMICA
+Route::get('/comision/verplanes', [PlanController::class, 'indexComision'])
+    ->name('comision.verplanes');
+
+//VISTA DE LA INFORMACIÓN DEL PLAN DE LA COMISION
+Route::get('/comision/traerinfoplan/{id}', function($id) {
+    return app(PlanController::class)->bringInfoPlan($id, 'comision');
+})->name('comision.traerinfoplan');
+
+    /*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------------------------------------------------------------------*/
+
 //INICIO DE SESION
 
 
