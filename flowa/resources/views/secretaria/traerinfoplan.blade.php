@@ -99,18 +99,18 @@
                         <label class="label"><span class="label-text">Bibliografía</span></label>
                         <p class="text-lg">{{ $plan->bibliografia }}</p>
                     </div>
-                    <div class="grid grid-cols-2 gap-2 content-center mt-10">
+                    <div class="flex justify-center space-x-4 mt-6">
                         <form action="{{ route('aprobarplan', ['id' => $plan->id]) }}" method="POST">
                             @csrf
                             <button type="submit" class="btn btn-success" tabindex="8">Aprobar plan</button>
                         </form>
                         <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-danger" tabindex="9">Rechazar plan</button>
+                            <button type="submit" class="btn btn-warning" tabindex="9">Rechazar plan</button>
                         </form>
                     </div>
-                    <div class="grid grid-cols-4 gap-4 content-center mt-10">
-                        <a href="/secretaria" class="btn btn-secondary w-full" tabindex="10">Cancelar</a>
+                    <div class="flex justify-center mt-6">
+                        <a href="/secretaria" class="btn btn-secondary w-1/6" tabindex="10">Cancelar</a>
                     </div>
                 </div>    
             </div>
