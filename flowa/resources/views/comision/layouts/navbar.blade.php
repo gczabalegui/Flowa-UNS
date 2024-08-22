@@ -22,7 +22,7 @@
     </div>
 
     <div class="navbar-end">
-        <a href="/logout" class="text-black mr-4">Cerrar sesión</a>
+        <a href="/" class="text-black mr-4">Cerrar sesión</a>
     </div>
 
 </div>
