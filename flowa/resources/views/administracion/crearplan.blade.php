@@ -20,25 +20,22 @@
                     <select name="materia_id" id="materia_id" class="input input-bordered w-full" required>
                         <option value="">Seleccione una materia</option>
                         @foreach($materias as $materia)
-                            <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">
-                                ({{$materia->codigo_materia}}): {{ $materia->nombre_materia }}</option>
+                            <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">{{ $materia->nombre_materia }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Profesor</span></label>
-                    <select name="profesor_id" id="profesor_id" class="input input-bordered w-full" required>
-                        <option value="">Seleccione un profesor</option>
-                        @foreach($profesores as $profesor)
-                        <option value="{{ $profesor->id }}">
-                            Legajo ({{ $profesor->legajo_profesor }}): {{ $profesor->apellido_profesor }}, {{ $profesor->nombre_profesor }}</option>
-                        @endforeach
-                    </select>
+                    <input id="profesor" type="text" class="input input-bordered w-full" readonly>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Año</span></label>
-                    <input id="anio" name="anio" type="number" class="input input-bordered w-full"
-                        tabindex="1" required value="{{ old('anio') }}" placeholder="Ingrese el año">
+                    <select name="anio" id="anio" class="input input-bordered w-full" required>
+                        <option value="">Seleccione el año</option>
+                        @foreach($years as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas totales</span> </label>
@@ -73,8 +70,8 @@
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
                     <!--<button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
-                    <!--<button type="submit" name="borrador" value="1" class="btn btn-warning" tabindex="8" onclick="removeRequiredAttributes()">Guardar borrador</button>-->
-                    <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>
+                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning" tabindex="8" onclick="removeRequiredAttributes()">Guardar borrador</button>
+                    <button type="submit" name="action" value="guardar" class="btn btn-success" tabindex="8">Guardar</button>
                 </div>
             </div>
             <script>

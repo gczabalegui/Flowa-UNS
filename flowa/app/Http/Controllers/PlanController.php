@@ -49,13 +49,15 @@ class PlanController extends Controller
     {   
         try{
             $materias = Materia::with('profesor')->orderBy("nombre_materia")->get();
-            $profesores = Profesor::all();
-
+    
             if($materias->isEmpty()){
                 return redirect('/administracion')->with('warning','No hay materias creadas. Por favor, cree una materia antes de crear un plan de materia.');    
             }
 
-            return view('administracion.crearplan', compact('materias', 'profesores'));
+            $currentYear = date('Y'); 
+            $inicialYear = 1990;
+            $years = range($inicialYear, $currentYear);
+            return view('administracion.crearplan', compact('materias', 'years'));
         }
         catch(Exception $e){
             dd($e);
@@ -73,17 +75,28 @@ class PlanController extends Controller
         try{
             $request->validate([                
                 'materia_id'=> 'required|numeric|exists:materias,id',
-                'anio' => 'required|numeric',
-                'horas_totales' => 'required|numeric',
-                'horas_teoricas' => 'required|numeric',
-                'horas_practicas' => 'required|numeric',
-                'DTE' => 'required|numeric',
-                'RTF' => 'required|numeric',
-                'creditos_academicos' => 'required|numeric',
             ]);
 
-            $planes = new Plan();
-            $planes->estado = 'Completo por administración.';
+            $planes = new Plan();            
+            $planes->materia_id = $request->input('materia_id');
+           /**$planes->area_tematica = null;
+            $planes->fundamentacion = '';
+            $planes->obj_conceptuales = '';
+            $planes->obj_procedimentales = '';
+            $planes->obj_actitudinales = '';
+            $planes->obj_especificos = '';
+            $planes->cont_minimos = '';
+            $planes->programa_analitico = '';
+            $planes->act_practicas = '';
+            $planes->modalidad = '';
+            $planes->bibliografia = '';            
+*/
+           
+            if ($request->input('action') == 'guardar_borrador') {
+                $planes->estado = 'Incompleto por administración.';
+            } else if ($request->input('action') == 'guardar') {
+                $planes->estado = 'Completo por administración.';
+            }
             $planes->fill($request->only([
                 'materia_id',
                 'anio',
@@ -94,20 +107,15 @@ class PlanController extends Controller
                 'RTF',
                 'creditos_academicos'
             ]));
-            $planes->area_tematica = null;
-            $planes->fundamentacion = '';
-            $planes->obj_conceptuales = '';
-            $planes->obj_procedimentales = '';
-            $planes->obj_actitudinales = '';
-            $planes->obj_especificos = '';
-            $planes->cont_minimos = '';
-            $planes->programa_analitico = '';
-            $planes->act_practicas = '';
-            $planes->modalidad = '';
-            $planes->bibliografia = '';
 
             $planes->save();
-            return redirect('/administracion')->with('estado', 'Nuevo plan creado exitosamente.');
+            
+            if ($request->input('action') == 'guardar_borrador') {
+                return redirect('/administracion')->with('estado', 'Nuevo plan guardado como borrador.');
+            } else if ($request->input('action') == 'guardar') {
+                return redirect('/administracion')->with('estado', 'Nuevo plan guardado exitosamente.');
+            }
+
         }
         catch(\Exception $e){
             dd($e);
