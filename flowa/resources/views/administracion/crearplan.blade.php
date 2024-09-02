@@ -17,7 +17,7 @@
                 <h2 class="card-title mx-auto">Crear nuevo plan de materia</h2>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Materia</span></label>
-                    <select name="materia_id" id="materia_id" class="input input-bordered w-full" required>
+                    <select name="materia_id" id="materia_id" class="input input-bordered w-full" tabindex="1" required>
                         <option value="">Seleccione una materia</option>
                         @foreach($materias as $materia)
                             <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">{{ $materia->nombre_materia }}</option>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Año</span></label>
-                    <select name="anio" id="anio" class="input input-bordered w-full" required>
+                    <select name="anio" id="anio" class="input input-bordered w-full" tabindex="2" required>
                         <option value="">Seleccione el año</option>
                         @foreach($years as $year)
                             <option value="{{ $year }}">{{ $year }}</option>
@@ -40,38 +40,39 @@
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas totales</span> </label>
                     <input id="horas_totales" name="horas_totales" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales.">
+                        tabindex="3" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales.">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas teóricas</span> </label>
                     <input id="horas_teoricas" name="horas_teoricas" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas.">
+                        tabindex="4" required value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas.">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas prácticas</span> </label>
                     <input id="horas_practicas" name="horas_practicas" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas">
+                        tabindex="5" required value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">DTE</span> </label>
                     <input id="DTE" name="DTE" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('DTE') }}" placeholder="Ingrese el DTE">
+                        tabindex="6" required value="{{ old('DTE') }}" placeholder="Ingrese el DTE">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">RTF</span> </label>
                     <input id="RTF" name="RTF" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('RTF') }}" placeholder="Ingrese el RTF">
+                        tabindex="7" required value="{{ old('RTF') }}" placeholder="Ingrese el RTF">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Créditos académicos</span> </label>
                     <input id="creditos_academicos" name="creditos_academicos" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos">
+                        tabindex="8" required value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos">
                 </div>
-                <div class="grid grid-cols-2 gap-4 content-center mt-10">
-                    <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
+                <div class="flex flex-col items-center mt-4 space-y-2">
+                <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/3 text-black" tabindex="9" onclick="removeRequiredAttributes()">Guardar borrador</button>
+                <button type="submit" name="action" value="guardar" class="btn btn-success w-1/3 text-black" tabindex="10">Guardar</button>
+                    <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="11" onclick="window.location.href='/administracion'">Cancelar</button>
                     <!--<button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
-                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning" tabindex="8" onclick="removeRequiredAttributes()">Guardar borrador</button>
-                    <button type="submit" name="action" value="guardar" class="btn btn-success" tabindex="8">Guardar</button>
+
                 </div>
             </div>
             <script>
