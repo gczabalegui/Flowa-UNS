@@ -14,29 +14,48 @@ class CarreraSeeder extends Seeder
     {
         $data = [
             [
-                'codigo_carrera' => 101,
-                'nombre_carrera' => 'Ingeniería en Sistemas',
-                'plan_version' => 2021,
+                'codigo_carrera' => 1,
+                'nombre_carrera' => 'INGENIERIA AGRONOMICA',
+                'plan_version' => 1998,
                 'duracion' => 5, // Duración en años
-                'cant_materias' => 40,
+                'cant_materias' => 43,
                 'departamento_id' => 1, // Asegúrate de que este ID exista en la tabla departamentos
             ],
             [
-                'codigo_carrera' => 102,
-                'nombre_carrera' => 'Ingeniería Industrial',
-                'plan_version' => 2021,
-                'duracion' => 5, // Duración en años
-                'cant_materias' => 38,
-                'departamento_id' => 2, // Asegúrate de que este ID exista en la tabla departamentos
-            ],
-            [
-                'codigo_carrera' => 103,
-                'nombre_carrera' => 'Ingeniería Civil',
-                'plan_version' => 2021,
-                'duracion' => 5, // Duración en años
-                'cant_materias' => 42,
+                'codigo_carrera' => 2,
+                'nombre_carrera' => 'TECNICATURA SUPERIOR AGRARIA EN SUELOS Y AGUAS',
+                'plan_version' => 2005,
+                'duracion' => 3, // Duración en años
+                'cant_materias' => 17,
                 'departamento_id' => 1, // Asegúrate de que este ID exista en la tabla departamentos
             ],
+            [
+                'codigo_carrera' => 3,
+                'nombre_carrera' => 'TECNICATURA UNIVERSITARIA APICOLA',
+                'plan_version' => 2008,
+                'duracion' => 3, // Duración en años
+                'cant_materias' => 16,
+                'departamento_id' => 1, // Asegúrate de que este ID exista en la tabla departamentos
+            ],
+            [
+                'codigo_carrera' => 4,
+                'nombre_carrera' => 'TECNICATURA UNIVERSITARIA EN MANEJO Y COMERCIALIZACION DE GRANOS',
+                'plan_version' => 2001,
+                'duracion' => 3, // Duración en años
+                'cant_materias' => 20,
+                'departamento_id' => 1, // Asegúrate de que este ID exista en la tabla departamentos
+            ],
+            [
+                'codigo_carrera' => 5,
+                'nombre_carrera' => 'TECNICATURA UNIVERSITARIA EN PARQUES Y JARDINES',
+                'plan_version' => 2018,
+                'duracion' => 3, // Duración en años
+                'cant_materias' => 26,
+                'departamento_id' => 1, // Asegúrate de que este ID exista en la tabla departamentos
+            ],
+        
+
+
             // Añade más carreras aquí
         ];
 

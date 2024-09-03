@@ -44,10 +44,14 @@
                         tabindex="2" required value="{{ old('email') }}" placeholder="Ingrese el email">
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Carrera</span></label>
-                    <input id="carrera_responsable" name="carrera_responsable" type="text" class="input input-bordered w-full"
-                        tabindex="1" required value="{{ old('carrera_responsable') }}" placeholder="Ingrese el nombre de la carrera de la cual es responsable">
-                </div>
+        <label class="label"><span class="label-text">Carrera</span></label>
+        <select id="carrera_responsable" name="carrera_responsable" class="input input-bordered w-full" tabindex="1" required>
+            <option value="" disabled selected>Seleccione una carrera</option>
+            @foreach($carreras as $carrera)
+                <option value="{{ $carrera->id }}">{{ $carrera->nombre_carrera }}</option>
+            @endforeach
+        </select>
+    </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
                     <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>

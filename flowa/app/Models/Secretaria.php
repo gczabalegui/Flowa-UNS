@@ -11,13 +11,11 @@ class Secretaria extends Model
     protected $table = 'secretarias'; 
     
     protected $fillable = [
-        'DNI',
-        'apellido',
-        'departamento_id',
-        'email',
-        'legajo',
-        'nombre', 
-        'nombre_secretaria',
+       'nombre_secretaria',
+        'apellido_secretaria',
+        'DNI_secretaria',
+        'legajo_secretaria',
+        'email_secretaria',
     ];
     public function departamento()
     {
