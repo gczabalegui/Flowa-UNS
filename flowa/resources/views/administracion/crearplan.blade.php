@@ -39,33 +39,33 @@
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas totales</span> </label>
-                    <input id="horas_totales" name="horas_totales" type="number" class="input input-bordered w-full"
-                        tabindex="3" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales.">
+                    <input id="horas_totales" name="horas_totales" type="number" class="input input-bordered w-full no-spinners"
+                        tabindex="3" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas teóricas</span> </label>
-                    <input id="horas_teoricas" name="horas_teoricas" type="number" class="input input-bordered w-full"
-                        tabindex="4" required value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas.">
+                    <input id="horas_teoricas" name="horas_teoricas" type="number" class="input input-bordered w-full no-spinners"
+                        tabindex="4" required value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas prácticas</span> </label>
-                    <input id="horas_practicas" name="horas_practicas" type="number" class="input input-bordered w-full"
-                        tabindex="5" required value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas">
+                    <input id="horas_practicas" name="horas_practicas" type="number" class="input input-bordered w-full no-spinners"
+                        tabindex="5" required value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">DTE</span> </label>
-                    <input id="DTE" name="DTE" type="number" class="input input-bordered w-full"
-                        tabindex="6" required value="{{ old('DTE') }}" placeholder="Ingrese el DTE">
+                    <input id="DTE" name="DTE" type="number" class="input input-bordered w-full no-spinners"
+                        tabindex="6" required value="{{ old('DTE') }}" placeholder="Ingrese el DTE" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">RTF</span> </label>
-                    <input id="RTF" name="RTF" type="number" class="input input-bordered w-full"
-                        tabindex="7" required value="{{ old('RTF') }}" placeholder="Ingrese el RTF">
+                    <input id="RTF" name="RTF" type="number" class="input input-bordered w-full no-spinners"
+                        tabindex="7" required value="{{ old('RTF') }}" placeholder="Ingrese el RTF" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Créditos académicos</span> </label>
-                    <input id="creditos_academicos" name="creditos_academicos" type="number" class="input input-bordered w-full"
-                        tabindex="8" required value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos">
+                    <input id="creditos_academicos" name="creditos_academicos" type="number" class="input input-bordered w-full no-spinners"
+                        tabindex="8" required value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="flex flex-col items-center mt-4 space-y-2">
                 <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/3 text-black" tabindex="9" onclick="removeRequiredAttributes()">Guardar borrador</button>
@@ -94,5 +94,18 @@
             </script>
         </form>        
     </div>
+    <style>
+        /* Ocultar flechas en Chrome, Safari, Edge, Opera */
+        .no-spinners::-webkit-outer-spin-button,
+        .no-spinners::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* Ocultar flechas en Firefox */
+        .no-spinners[type=number] {
+            -moz-appearance: textfield;
+        }
+    </style>
 </body>
 </html>
