@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            $table->string('nombre_administrativo');
+            $table->string('nombre_administrativo')->default('admin');
             $table->string('nombre');
             $table->string('apellido');
             $table->unsignedInteger('DNI')->unique();

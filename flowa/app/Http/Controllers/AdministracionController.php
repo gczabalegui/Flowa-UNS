@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Administracion;
 
 class AdministracionController extends Controller
 {
@@ -30,7 +31,7 @@ class AdministracionController extends Controller
     {
         try{
             $request->validate([               
-                'nombre_administrativo' => 'required|max:255|string',
+                'nombre' => 'required|max:255|string',
                 'apellido' => 'required|max:255|string',
                 'DNI' => 'required|numeric',
                 'legajo' => 'required|numeric',
@@ -38,7 +39,7 @@ class AdministracionController extends Controller
             ]);
 
             $administraciones = new Administracion();
-            $administraciones->nombre_administrativo = $request->get('nombre_administrativo');
+            $administraciones->nombre = $request->get('nombre');
             $administraciones->apellido = $request->get('apellido');
             $administraciones->DNI = $request->get('DNI');
             $administraciones->legajo = $request->get('legajo');
@@ -48,7 +49,7 @@ class AdministracionController extends Controller
             return redirect('/administracion')->with('estado', 'Nuevo usuario Administrativo creado exitosamente.'); 
         }
         catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
         }     
         
     
