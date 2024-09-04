@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedInteger('DNI')->unique();
             $table->unsignedInteger('legajo')->unique();
             $table->string('email')->unique();
+            $table->string('contraseña');
 
             $table->unsignedBigInteger('departamento_id')->nullable();
             $table->foreign('departamento_id')->references('id')->on('departamentos')->onDelete('cascade');

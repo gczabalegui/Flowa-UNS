@@ -22,6 +22,7 @@ class AdministracionSeeder extends Seeder
                 'DNI' => '42000000',
                 'email' => 'guadus.c@gmail.com',
                 'departamento_id' => '1',
+                'contraseña' => '12345'
 
             ]
         ];
