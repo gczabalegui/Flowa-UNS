@@ -17,11 +17,6 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-
-        'comision' => [
-            'driver' => 'session',
-            'provider' => 'users',
-        ],
         
     ],
 

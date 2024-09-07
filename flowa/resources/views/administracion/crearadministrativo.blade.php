@@ -43,6 +43,16 @@
                     <input id="email" name="email" type="text" class="input input-bordered w-full"
                         tabindex="2" required value="{{ old('email') }}" placeholder="Ingrese el email">
                 </div>
+                <div class="my-3">
+                    <label class="label"><span class="label-text">Contraseña</span> </label>
+                    <input id="contraseña" name="contraseña" type="password" class="input input-bordered w-full"
+                        tabindex="3" required placeholder="Ingrese la contraseña">
+                </div>
+                <div class="my-3">
+                    <label class="label"><span class="label-text">Confirmar Contraseña</span> </label>
+                    <input id="contraseña_confirmation" name="contraseña_confirmation" type="password" class="input input-bordered w-full"
+                        tabindex="4" required placeholder="Confirme la contraseña">
+                </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
                     <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
                     <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>

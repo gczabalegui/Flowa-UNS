@@ -1,32 +1,35 @@
 <?php
 
+namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
-class UsersTableSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     public function run(): void
     {
         $data = [
+            
             [
-                'name' => 'Admin User',
                 'email' => 'admin@example.com',
+                'legajo' => null,
                 'password' => Hash::make('password'),
                 'role' => 'admin',
             ],
 
             [
-                'name' => 'Admin User',
+
                 'email' => 'admin@gmail.com',
+                'legajo' => null,
                 'password' => Hash::make('12345'),
                 'role' => 'admin',
             ],
+            
 
             // Agregar el resto de los usuarios
 
             [
-                'name' => 'Comision Academica',
                 'legajo' => 'CA123',
                 'email' => 'comision@example.com',
                 'password' => Hash::make('password'),
@@ -34,7 +37,6 @@ class UsersTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Secretaria Academica',
                 'legajo' => 'SA123',
                 'email' => 'secretaria@example.com',
                 'password' => Hash::make('password'),
@@ -42,7 +44,6 @@ class UsersTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Profesor',
                 'legajo' => 'P123',
                 'email' => 'profesor@example.com',
                 'password' => Hash::make('password'),
@@ -50,7 +51,6 @@ class UsersTableSeeder extends Seeder
             ],
 
             [
-                'name' => 'Administracion',
                 'legajo' => 'A123',
                 'email' => 'administracion@example.com',
                 'password' => Hash::make('password'),
@@ -58,8 +58,6 @@ class UsersTableSeeder extends Seeder
             ],
         ];
 
-        foreach ($data as $user) {
-            User::create($user);
-        }
+        DB::table('users')->insert($data);
     }
 }

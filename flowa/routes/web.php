@@ -44,32 +44,17 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth:comision'])->group(function () {
-    Route::get('/comision/dashboard', function () {
-        // Solo accesible para usuarios autenticados con el guardia 'comision'
-        return view('comision.dashboard');
-    });
-});
-
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 require __DIR__.'/auth.php';
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //CREAR EL PDF
 //Route::post('/administracion/crearplan', [PDFController::class, 'crearPlan'])->name('crearplan');
 
 Route::get('/crearplan', [PDFController::class, 'create'])->name('crearplan');
 Route::post('/crearplan', [PDFController::class, 'generatePDF'])->name('generarPDF');
-
 
 /*--------PRUEBA------------*/
 Route::post('/comision/generar-pdf', [PDFController::class, 'generatePDF2']);
@@ -87,14 +72,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-require __DIR__.'/auth.php';
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::get('/administracion', [AdministracionController::class, 'dashboard']);
 Route::get('/comision', [ComisionController::class, 'dashboard']);
 Route::get('/profesor', [ProfesorController::class, 'dashboard']);
@@ -319,19 +296,6 @@ Route::get('/comision/traerinfoplan/{id}', function($id) {
 /*--------------------------------------------------------------------------------------------------------------------------------------*/
 
 //INICIO DE SESION
-
-
-// Ruta para la Comisión Académica
-Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-        ->middleware('guest:comision')
-        ->name('login');
-
-    Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-        ->middleware('guest:comision');
-
-    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
-        ->middleware('auth:comision')
-        ->name('logout');
 
 // Ruta para el Profesor
 //Route::get('/profesor', [LoginController::class, 'showLoginForm'])->middleware('guest:profesor')->name('profesor.login');
