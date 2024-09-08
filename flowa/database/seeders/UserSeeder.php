@@ -56,6 +56,8 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('password'),
                 'role' => 'administracion',
             ],
+
+            
         ];
 
         DB::table('users')->insert($data);

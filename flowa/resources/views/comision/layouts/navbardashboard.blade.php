@@ -10,8 +10,11 @@
     </div>
 
     <div class="navbar-end">
-        <a href="/" class="text-black mr-4">Cerrar sesión</a>
-    </div>
+    <form action="{{ route('cerrar-sesion') }}" method="POST" style="display: inline;">
+        @csrf
+        <button type="submit" class="text-black mr-4 bg-transparent border-none cursor-pointer">Cerrar sesión</button>
+    </form>
+</div>
 </div>
 
 </div>

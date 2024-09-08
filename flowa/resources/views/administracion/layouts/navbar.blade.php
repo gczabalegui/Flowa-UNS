@@ -34,7 +34,11 @@
     </div>
 
     <div class="navbar-end">
-        <a href="/" class="text-black mr-4">Cerrar sesión</a>
+        <a href="{{ route('cerrar-sesion') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-black mr-4">Cerrar sesión</a>
+
+        <form id="logout-form" action="{{ route('cerrar-sesion') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
 
 </div>

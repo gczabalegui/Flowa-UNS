@@ -61,11 +61,4 @@ class AdministracionController extends Controller
             return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
         }
     }
-    /*
-    public function crearPlan()
-    {
-        // Lógica para la página de crear plan
-        return view('administracion.crearplan');
-    }
-    */
 }
