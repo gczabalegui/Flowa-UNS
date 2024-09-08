@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -6,6 +7,7 @@ use App\Models\Plan;
 use App\Models\Materia;
 use App\Models\Profesor;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class PlanController extends Controller
 {
@@ -20,50 +22,61 @@ class PlanController extends Controller
 
     public function indexProfesor()
     {
-        $planes = Plan::with(['materia.profesor']) 
-                        ->where('estado', 'Completo por administración.') 
-                        ->orWhere('estado', 'Rechazado por secretaría académica.')
-                        ->get();
+        // Obtener el usuario autenticado
+        $user = Auth::user();
+
+       // Obtener el profesor asociado al usuario mediante el legajo
+       $profesor = Profesor::where('legajo_profesor', $user->legajo)->first(); 
+
+       // Obtener los planes asociados al profesor
+       $planes = Plan::with(['materia.profesor'])
+       ->whereHas('materia', function ($query) use ($profesor) {
+           $query->where('profesor_id', $profesor->id);
+       })
+       ->where(function ($query) {
+           $query->where('estado', 'Completo por administración.')
+                 ->orWhere('estado', 'Rechazado por secretaría académica.');
+       })
+       ->get();
+
         return view('profesor.verplanes', compact('planes'));
     }
-    
+
     public function indexSecretaria()
     {
-        $planes = Plan::with(['materia.profesor']) 
-                        ->where('estado', 'Completo por profesor.') 
-                        ->get();
+        $planes = Plan::with(['materia.profesor'])
+            ->where('estado', 'Completo por profesor.')
+            ->get();
         return view('secretaria.verplanes', compact('planes'));
     }
 
     public function indexComision()
     {
-        $planes = Plan::with(['materia.profesor']) 
-                        ->where('estado', 'Aprobado por secretaría académica.') 
-                        ->get();
+        $planes = Plan::with(['materia.profesor'])
+            ->where('estado', 'Aprobado por secretaría académica.')
+            ->get();
         return view('comision.verplanes', compact('planes'));
     }
     /**
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
-        try{
+    {
+        try {
             $materias = Materia::with('profesor')->orderBy("nombre_materia")->get();
-    
-            if($materias->isEmpty()){
-                return redirect('/administracion')->with('warning','No hay materias creadas. Por favor, cree una materia antes de crear un plan de materia.');    
+
+            if ($materias->isEmpty()) {
+                return redirect('/administracion')->with('warning', 'No hay materias creadas. Por favor, cree una materia antes de crear un plan de materia.');
             }
 
-            $currentYear = date('Y'); 
+            $currentYear = date('Y');
             $inicialYear = 1990;
             $years = range($inicialYear, $currentYear);
             return view('administracion.crearplan', compact('materias', 'years'));
-        }
-        catch(Exception $e){
+        } catch (Exception $e) {
             dd($e);
             return redirect()->back()->with('error', $e->getMessage());
         }
-
     }
 
     /**
@@ -72,14 +85,14 @@ class PlanController extends Controller
     //crear una funcion store que lo haga para un store de borrador, sin el required
     public function storeByAdmin(Request $request)
     {
-        try{
-            $request->validate([                
-                'materia_id'=> 'required|numeric|exists:materias,id',
+        try {
+            $request->validate([
+                'materia_id' => 'required|numeric|exists:materias,id',
             ]);
 
-            $planes = new Plan();            
+            $planes = new Plan();
             $planes->materia_id = $request->input('materia_id');
-           /**$planes->area_tematica = null;
+            /**$planes->area_tematica = null;
             $planes->fundamentacion = '';
             $planes->obj_conceptuales = '';
             $planes->obj_procedimentales = '';
@@ -90,8 +103,8 @@ class PlanController extends Controller
             $planes->act_practicas = '';
             $planes->modalidad = '';
             $planes->bibliografia = '';            
-*/
-           
+             */
+
             if ($request->input('action') == 'guardar_borrador') {
                 $planes->estado = 'Incompleto por administración.';
             } else if ($request->input('action') == 'guardar') {
@@ -109,15 +122,13 @@ class PlanController extends Controller
             ]));
 
             $planes->save();
-            
+
             if ($request->input('action') == 'guardar_borrador') {
                 return redirect('/administracion')->with('estado', 'Nuevo plan guardado como borrador.');
             } else if ($request->input('action') == 'guardar') {
                 return redirect('/administracion')->with('estado', 'Nuevo plan guardado exitosamente.');
             }
-
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             dd($e);
             return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
         }
@@ -128,7 +139,7 @@ class PlanController extends Controller
         try {
             // Buscar el plan por su ID
             $plan = Plan::find($id);
-            
+
             // Validar los datos del request
             $validatedData = $request->validate([
                 'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
@@ -149,7 +160,7 @@ class PlanController extends Controller
                     if ($numeroPalabras > $limitePalabras) {
                         $fail("La fundamentación no puede tener más de $limitePalabras palabras.");
                     }
-                }], 
+                }],
                 'obj_conceptuales' => 'required|string',
                 'obj_procedimentales' => 'required|string',
                 'obj_actitudinales' => 'required|string',
@@ -161,11 +172,11 @@ class PlanController extends Controller
                 'bibliografia' => 'required|string',
 
             ]);
-                
+
             // Actualizar los campos del plan con los nuevos datos
             $plan->fill($validatedData);
             $plan->estado = 'Completo por profesor.';
-          
+
             $plan->save();
 
             return redirect('/profesor')->with('estado', 'El plan ha sido actualizado exitosamente.');
@@ -178,14 +189,12 @@ class PlanController extends Controller
     public function bringPlanForm($id, $mode)
     {
         $plan = Plan::findOrFail($id);
-        if($mode === 'completar'){
+        if ($mode === 'completar') {
             return view('profesor.completarinfoplan', compact('plan'));
-        }    
-        elseif($mode === 'modificar'){
+        } elseif ($mode === 'modificar') {
             return view('profesor.modificarinfoplan', compact('plan'));
-        }
-        else {
-            abort(404); 
+        } else {
+            abort(404);
         }
     }
 
@@ -194,32 +203,27 @@ class PlanController extends Controller
         $plan = Plan::findOrFail($id);
         if ($role === 'secretaria') {
             return view('secretaria.traerinfoplan', compact('plan'));
-        } 
-        elseif ($role === 'administracion') {
+        } elseif ($role === 'administracion') {
             return view('administracion.traerinfoplan', compact('plan'));
-        } 
-        elseif ($role === 'comision') {
+        } elseif ($role === 'comision') {
             return view('comision.traerinfoplan', compact('plan'));
-        } 
-        else {
-            abort(404); 
+        } else {
+            abort(404);
         }
-    }    
-    
+    }
+
     public function aprobarPlan($id)
     {
-        try{    
+        try {
             $plan = Plan::find($id);
-            if($plan){
+            if ($plan) {
                 $plan->estado = 'Aprobado por secretaría académica.';
                 $plan->save();
                 return redirect('/secretaria')->with('estado', 'Plan aprobado.');
-            }
-            else{
+            } else {
                 return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
-            } 
-        }
-        catch(Exception $e){
+            }
+        } catch (Exception $e) {
             dd($e);
             return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
         }
@@ -227,18 +231,16 @@ class PlanController extends Controller
 
     public function rechazarPlan($id)
     {
-        try{    
+        try {
             $plan = Plan::find($id);
-            if($plan){
+            if ($plan) {
                 $plan->estado = 'Rechazado por secretaría académica.';
                 $plan->save();
                 return redirect('/secretaria')->with('estado', 'Plan rechazado.');
-            }
-            else{
+            } else {
                 return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
-            } 
-        }
-        catch(Exception $e){
+            }
+        } catch (Exception $e) {
             dd($e);
             return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
         }
@@ -260,7 +262,7 @@ class PlanController extends Controller
             $plan = Plan::find($id);
             $plan->fill($request->all());
             $plan->update();
-        
+
             return redirect('/profesor')->with('success', 'Información del plan actualizada correctamente.');
         } catch (\Exception $e) {
             dd($e);

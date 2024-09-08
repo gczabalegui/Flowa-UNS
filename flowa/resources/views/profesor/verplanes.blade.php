@@ -9,7 +9,7 @@
     <title>Ver planes pendientes de revisión</title>
 </head>
 <body>
-@include('administracion.layouts.navbar')
+@include('profesor.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
         <form action="/profesor/verplanes" method="GET">
             @csrf
