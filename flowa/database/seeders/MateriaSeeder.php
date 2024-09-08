@@ -69,7 +69,7 @@ class MateriaSeeder extends Seeder
                 'codigo_materia' => '729',
                 'horas_semanales' => '4',
                 'horas_totales' => '64',
-               'profesor_id' => '1',
+               'profesor_id' => '2',
                 'carrera_id' => '2',
                // 'administracion_id' => '',
             ],

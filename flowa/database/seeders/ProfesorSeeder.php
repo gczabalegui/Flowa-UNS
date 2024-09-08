@@ -6,6 +6,7 @@ use App\Models\Carrera;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class ProfesorSeeder extends Seeder
 {
@@ -22,6 +23,7 @@ class ProfesorSeeder extends Seeder
                 'email_profesor' => 'daniel.pelaez@uns.edu.ar',
                 'legajo_profesor' => '9',
                 'carrera_id' => 1,
+                'contraseña_profesor' => Hash::make('12345'),
              ],
              [
                 'nombre_profesor' => 'Maria',
@@ -30,6 +32,7 @@ class ProfesorSeeder extends Seeder
                 'email_profesor' => 'maria.garcia@uns.edu.ar',
                 'legajo_profesor' => '5160',
                 'carrera_id' => 1,
+                'contraseña_profesor' => Hash::make('12345'),
              ],
              [
                 'nombre_profesor' => 'Juan',
@@ -38,6 +41,7 @@ class ProfesorSeeder extends Seeder
                 'email_profesor' => 'juan.perez@uns.edu.ar',
                 'legajo_profesor' => '5161',
                 'carrera_id' => 1,
+                'contraseña_profesor' => Hash::make('12345'),
              ],
         ];
 

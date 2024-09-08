@@ -31,13 +31,13 @@ class AuthController extends Controller
             // Redirigir al usuario según su rol
             switch ($role) {
                 case 'secretaria':
-                    return redirect('/dashboard/secretaria');
+                    return redirect('/secretaria');
                 case 'comision':
-                    return redirect('/dashboard/comision');
+                    return redirect('/comision');
                 case 'administracion':
-                    return redirect('/dashboard/administracion');
+                    return redirect('/administracion');
                 case 'profesor':
-                    return redirect('/dashboard/profesor');
+                    return redirect('/profesor');
                 default:
                     // Redirigir a una página predeterminada o mostrar un mensaje de error
                     return redirect('/')->withErrors([

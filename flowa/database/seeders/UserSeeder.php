@@ -57,6 +57,28 @@ class UserSeeder extends Seeder
                 'role' => 'administracion',
             ],
 
+            [
+                'legajo' => '9',
+                'email' => 'daniel.pelaez@uns.edu.ar',
+                'password' => Hash::make('12345'),
+                'role' => 'profesor',
+            ],
+
+            [
+                'legajo' => '5160',
+                'email' => 'maria.garcia@uns.edu.ar',
+                'password' => Hash::make('12345'),
+                'role' => 'profesor',
+            ],
+
+            [
+                'legajo' => '5161',
+                'email' => 'juan.perez@uns.edu.ar',
+                'password' => Hash::make('12345'),
+                'role' => 'profesor',
+            ],
+
+
             
         ];
 

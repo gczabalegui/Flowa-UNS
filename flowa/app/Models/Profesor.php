@@ -17,6 +17,7 @@ class Profesor extends Model
         'email_profesor',
         'legajo_profesor',
         'carrera_id',
+        'contraseña_profesor',
     ];
 
     

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->unsignedInteger('DNI_profesor')->unique();
             $table->string('email_profesor')->unique();            
             $table->unsignedInteger('legajo_profesor')->unique();
+            $table->string('contraseña_profesor');
 
             $table->unsignedBigInteger('carrera_id')->nullable(); //TODO
             $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');

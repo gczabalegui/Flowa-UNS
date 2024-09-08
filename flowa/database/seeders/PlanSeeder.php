@@ -102,6 +102,52 @@ class PlanSeeder extends Seeder
             'modalidad' => 'Mixta',
             'bibliografia' => 'Bibliografía renovada para el curso 2023.',
         ]);
+
+        Plan::create([
+            'materia_id' => 5, // Asegúrate de tener una materia con este ID o ajusta según tu base de datos
+            'anio' => 2024,
+            'horas_totales' => 120,
+            'horas_teoricas' => 80,
+            'horas_practicas' => 40,
+            'DTE' => 11,
+            'RTF' => 12,
+            'creditos_academicos' => 10,
+            'estado' => 'Completo por administración.',
+            'area_tematica' => Plan::AREA_TEMATICA[1], // 'Formación aplicada'
+            'fundamentacion' => 'Esta es la fundamentación creada por el profesor.',
+            'obj_conceptuales' => 'Conceptuales - Profesor',
+            'obj_procedimentales' => 'Procedimentales - Profesor',
+            'obj_actitudinales' => 'Actitudinales - Profesor',
+            'obj_especificos' => 'Objetivos específicos - Profesor',
+            'cont_minimos' => 'Contenidos mínimos establecidos por el profesor.',
+            'programa_analitico' => 'Programa analítico completo - Profesor',
+            'act_practicas' => 'Actividades prácticas creadas por el profesor.',
+            'modalidad' => 'Virtual',
+            'bibliografia' => 'Bibliografía recomendada por el profesor.',
+        ]);
+
+        Plan::create([
+            'materia_id' => 6, // Asegúrate de tener una materia con este ID o ajusta según tu base de datos
+            'anio' => 2024,
+            'horas_totales' => 120,
+            'horas_teoricas' => 80,
+            'horas_practicas' => 40,
+            'DTE' => 11,
+            'RTF' => 12,
+            'creditos_academicos' => 10,
+            'estado' => 'Completo por administración.',
+            'area_tematica' => Plan::AREA_TEMATICA[1], // 'Formación aplicada'
+            'fundamentacion' => 'Esta es la fundamentación creada por el profesor.',
+            'obj_conceptuales' => 'Conceptuales - Profesor',
+            'obj_procedimentales' => 'Procedimentales - Profesor',
+            'obj_actitudinales' => 'Actitudinales - Profesor',
+            'obj_especificos' => 'Objetivos específicos - Profesor',
+            'cont_minimos' => 'Contenidos mínimos establecidos por el profesor.',
+            'programa_analitico' => 'Programa analítico completo - Profesor',
+            'act_practicas' => 'Actividades prácticas creadas por el profesor.',
+            'modalidad' => 'Virtual',
+            'bibliografia' => 'Bibliografía recomendada por el profesor.',
+        ]);
         
         
     }
