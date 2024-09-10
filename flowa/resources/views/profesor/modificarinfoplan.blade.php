@@ -17,7 +17,7 @@
                 <input type="hidden" name="mode" value="modificar">
                 <div class="mx-5 my-5">
                     <h2 class="card-title mx-auto">Modificar la información del plan</h2>
-                   <!-- <div class="my-3">
+                   <div class="my-3">
                         <label class="label"><span class="label-text">Materia</span></label>
                         <textarea class="textarea textarea-bordered w-full">{{ $plan->materia->nombre_materia }}</p>
                     </div>
@@ -53,7 +53,6 @@
                         <label class="label"><span class="label-text">Créditos Académicos</span></label>
                         <textarea class="textarea textarea-bordered w-full">{{ $plan->creditos_academicos }}</p>
                     </div>
-                    -->
                     <div class="my-3">
                         <label class="label"><span class="label-text">Área Temática</span></label>
                         <textarea class="textarea textarea-bordered w-full" name="area_tematica" required>{{ $plan->area_tematica }}</textarea>
