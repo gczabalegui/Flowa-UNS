@@ -17,6 +17,42 @@
             <div class="mx-5 my-5">
                 <h2 class="card-title mx-auto">Completar la información del plan</h2>
                 <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Materia</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->materia->nombre_materia }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Profesor</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Año</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->anio }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Horas Totales</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->horas_totales }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Horas Teóricas</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->horas_teoricas }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Horas Prácticas</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->horas_practicas }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">DTE</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->dte }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">RTF</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->rtf }}" readonly>
+                </div>
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Créditos Académicos</span></label>
+                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->creditos_academicos }}" readonly>
+                </div>
+                <div class="my-3">
                     <label class="label"><span class="label-text">Area temática</span> </label>
                     <select id="area_tematica" name="area_tematica" class="select select-bordered w-full" tabindex="2" required>
                         @foreach(\App\Models\Plan::AREA_TEMATICA as $area)
@@ -36,18 +72,18 @@
                     <label class="label"><span class="label-text">Objetivos generales</span> </label>
     
                     <div class="my-3">
-                        <label class="label"><span class="label-text">Objetivos conceptuales</span></label>
+                        <label class="label sub-label"><span class="label-text">Objetivos conceptuales</span></label>
                         <textarea id="obj_conceptuales" name="obj_conceptuales" class="textarea textarea-bordered w-full" 
                         style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos conceptuales">{{ old('obj_conceptuales') }}</textarea>
                     </div>                    
                     <div class="my-3">
-                        <label class="label"><span class="label-text">Objetivos procedimentales</span></label>
+                        <label class="label sub-label"><span class="label-text">Objetivos procedimentales</span></label>
                         <textarea id="obj_procedimentales" name="obj_procedimentales" class="textarea textarea-bordered w-full" 
                             style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos procedimentales">{{ old('obj_procedimentales') }}</textarea>
                     </div>
 
                     <div class="my-3">
-                        <label class="label"><span class="label-text">Objetivos actitudinales</span></label>
+                        <label class="label sub-label"><span class="label-text">Objetivos actitudinales</span></label>
                         <textarea id="obj_actitudinales" name="obj_actitudinales" class="textarea textarea-bordered w-full" 
                             style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos actitudinales">{{ old('obj_actitudinales') }}</textarea>
                     </div>
@@ -84,10 +120,12 @@
                     <textarea id="bibliografia" name="bibliografia" class="textarea textarea-bordered w-full" 
                         style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese la bibliografía">{{ old('bibliografia') }}</textarea>
                 </div>
-                <div class="grid grid-cols-2 gap-4 content-center mt-10">
-                    <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
+                <div class="flex flex-col items-center mt-4 space-y-2">                                     
+                    <button type="submit"  class="btn btn-warning w-1/3 text-black" tabindex="8">Rechazar plan</button>
+                    <button type="submit"  class="btn btn-success w-1/3 text-black" tabindex="8">Completar información del plan</button>   
+                    <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="11" onclick="window.location.href='/profesor'">Cancelar</button>
                     <!-- <button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
-                    <button type="submit" class="btn btn-success" tabindex="8">Completar información del plan</button>
+                  
                 </div>
             </div>
             <script>
@@ -102,5 +140,21 @@
             </script>
         </form>        
     </div>
+    <style>
+
+        
+
+        /* Estilo para campos readonly */
+        .readonly-field {
+            background-color: #f5f5f5; /* Color de fondo gris claro */
+            color: #6c757d; /* Color de texto gris */
+            border-color: #ced4da; /* Color del borde gris */
+        }
+        /* Estilo para etiquetas deshabilitadas */
+        .disabled-label .label-text {
+            color: #6c757d; /* Color de texto gris */
+            font-weight: bold; /* Texto en negrita */
+        }
+    </style>
 </body>
 </html>

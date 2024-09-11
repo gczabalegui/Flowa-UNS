@@ -21,6 +21,7 @@
                             <th class="px-4 py-2">Profesor</th>
                             <th class="px-4 py-2">Año del plan</th>
                             <th class="px-4 py-2">Estado del plan</th>
+                            <th class="px-4 py-2">Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,8 +32,14 @@
                             <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                             <td class="border px-4 py-2 text-center">
+                            <div class="flex flex-col space-y-2">
                                 <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
-                               <!-- <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a> -->
+                                    @if($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría.') 
+                                        <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-warning">Editar</a>
+                                    @else
+                                        <button class="btn btn-warning" disabled>Editar</button>
+                                    @endif
+                                </div>    
                             </td>
                         </tr>
                         @endforeach
