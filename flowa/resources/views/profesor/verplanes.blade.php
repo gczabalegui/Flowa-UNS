@@ -20,7 +20,8 @@
                             <th class="px-4 py-2">Nombre de la materia</th>
                             <th class="px-4 py-2">Profesor</th>
                             <th class="px-4 py-2">Año del plan</th>
-                            <th class="px-4 py-2">Estado del plan</th>
+                            <th class="px-4 py-2">Estado del plan</th>                            
+                            <th class="px-4 py-2">Operaciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -31,11 +32,14 @@
                             <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                             <td class="border px-4 py-2 text-center">
-                                @if($plan->estado == 'Completo por administración.')
-                                <a href="{{ route('completarinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Completar información del plan</a>
-                                @elseif($plan->estado == 'Rechazado por secretaría académica.')
-                                <a href="{{ route('modificarinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Revisar información del plan</a>
-                                @endif
+                                <div class="flex flex-col space-y-2">
+                                    <a href="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
+                                    @if($plan->estado === 'Completo por administración.' || $plan->estado === 'Rechazado para profesor por secretaría.') 
+                                        <a href="{{ route('completarinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary">Completar información del plan</a>
+                                    @else
+                                        <button class="btn btn-warning" disabled>Editar</button>
+                                    @endif
+                                </div>    
                             </td>
                         </tr>
                         @endforeach

@@ -55,7 +55,7 @@
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Área Temática</span></label>
-                        <textarea class="textarea textarea-bordered w-full" name="area_tematica" required>{{ $plan->area_tematica }}</textarea>
+                        <textarea class="textarea textarea-bordered w-full" name="area_tematica" tabindex="1" required>{{ $plan->area_tematica }}</textarea>
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Fundamentación</span></label>
@@ -71,57 +71,58 @@
                         <div class="my-3">
                             <label class="label"><span class="label-text">Objetivos conceptuales</span></label>
                             <textarea id="obj_conceptuales" name="obj_conceptuales" class="textarea textarea-bordered w-full" 
-                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos conceptuales">{{ $plan->obj_conceptuales }}</textarea>
+                            style="height: 150px; resize: none;" tabindex="3" required placeholder="Ingrese los objetivos conceptuales">{{ $plan->obj_conceptuales }}</textarea>
                         </div>                    
                         <div class="my-3">
                             <label class="label"><span class="label-text">Objetivos procedimentales</span></label>
                             <textarea id="obj_procedimentales" name="obj_procedimentales" class="textarea textarea-bordered w-full" 
-                                style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos procedimentales">{{ $plan->obj_procedimentales }}</textarea>
+                                style="height: 150px; resize: none;" tabindex="4" required placeholder="Ingrese los objetivos procedimentales">{{ $plan->obj_procedimentales }}</textarea>
                         </div>
 
                         <div class="my-3">
                             <label class="label"><span class="label-text">Objetivos actitudinales</span></label>
                             <textarea id="obj_actitudinales" name="obj_actitudinales" class="textarea textarea-bordered w-full" 
-                                style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos actitudinales">{{ $plan->obj_actitudinales }}</textarea>
+                                style="height: 150px; resize: none;" tabindex="5" required placeholder="Ingrese los objetivos actitudinales">{{ $plan->obj_actitudinales }}</textarea>
                         </div>
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Objetivos específicos</span> </label>
                         <textarea id="obj_especificos" name="obj_especificos" class="textarea textarea-bordered w-full" 
-                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los objetivos específicos">{{ $plan->obj_especificos }}</textarea>
+                            style="height: 150px; resize: none;" tabindex="6" required placeholder="Ingrese los objetivos específicos">{{ $plan->obj_especificos }}</textarea>
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Contenidos mínimos</span></label>
                         <p class="help-text" style="text-align: justify;">&#x2754; Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la Resolución 1537/21, Anexo I para asegurar la inclusión de aquellos allí definidos y aquellos que se agreguen al Plan de Estudio en función de los alcances del título. 
                         <br><b>Aclaración.</b> Los descriptores de conocimiento correspondientes a la Formación Profesional incluyen enunciados multidimensionales y transversales. Los mismos requieren la articulación de conocimientos y de prácticas y fundamentan el ejercicio profesional. No involucran una referencia directa a una disciplina o asignatura del plan de estudios.</br></p>
                         <textarea id="cont_minimos" name="cont_minimos" class="textarea textarea-bordered w-full" 
-                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
+                            style="height: 150px; resize: none;" tabindex="7" required placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Programa analítico</span></label>
                         <textarea id="programa_analitico" name="programa_analitico" class="textarea textarea-bordered w-full" 
-                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese el programa analítico">{{ $plan->programa_analitico }}</textarea>
+                            style="height: 150px; resize: none;" tabindex="8" required placeholder="Ingrese el programa analítico">{{ $plan->programa_analitico }}</textarea>
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Actividades prácticas</span></label>
                         <textarea id="act_practicas" name="act_practicas" class="textarea textarea-bordered w-full" 
-                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese las actividades prácticas">{{ $plan->act_practicas }}</textarea>
+                            style="height: 150px; resize: none;" tabindex="9" required placeholder="Ingrese las actividades prácticas">{{ $plan->act_practicas }}</textarea>
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Modalidad</span></label>
                         <textarea id="modalidad" name="modalidad" class="textarea textarea-bordered w-full" 
-                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese la modalidad">{{ $plan->modalidad }}</textarea>
+                            style="height: 150px; resize: none;" tabindex="10" required placeholder="Ingrese la modalidad">{{ $plan->modalidad }}</textarea>
                     </div>
                     <div class="my-3">
                         <label class="label"><span class="label-text">Bibliografía</span></label>
                         <textarea id="bibliografia" name="bibliografia" class="textarea textarea-bordered w-full" 
-                            style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese la bibliografía">{{ $plan->bibliografia }}</textarea>
+                            style="height: 150px; resize: none;" tabindex="12" required placeholder="Ingrese la bibliografía">{{ $plan->bibliografia }}</textarea>
                     </div>
                 </div>  
-                <div class="flex justify-center space-x-4 mt-6">
-                    <a href="/profesor" class="btn btn-secondary " tabindex="7">Cancelar</a>
+                <div class="flex justify-center space-x-4 mt-6">                    
+                    <button type="submit" name="action" value="rechazar" class="btn btn-warning w-1/3 text-black" tabindex="13" onclick="window.location.href='/profesor'">Rechazar plan</button>
+                    <button type="submit" name="action" value="guardar" class="btn btn-success w-1/3 text-black" tabindex="14" onclick="window.location.href='/profesor'">Guardar plan</button>
+                    <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="15" onclick="window.location.href='/profesor'">Cancelar</button>
                     <!-- <button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
-                    <button type="submit" class="btn btn-success" tabindex="8">Modificar información del plan</button>
                 </div>     
             </div>
         </form>              

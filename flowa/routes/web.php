@@ -172,6 +172,14 @@ Route::get('/profesor/modificarinfoplan/{id}', function($id) {
 // MODIFICAR INFORMACIÓN DEL PLAN
 Route::put('/profesor/modificarinfoplan/{id}', [PlanController::class, 'storeByProfesor'])->name('storemodificarinfoplan');
 
+// PEDIR FORMULARIO DEL PLAN
+Route::get('/profesor/traerinfoplan/{id}', function($id) {
+    return app(PlanController::class)->bringInfoPlan($id, 'profesor');
+})->name('profesor.traerinfoplan');
+
+//RECHAZAR PLAN PARA ADMINISTRACIÓN 
+Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('rechazarplan');
+
 // COMISION
 
 // VER PLANES APROBADOS POR SECRETARIA ACADEMICA

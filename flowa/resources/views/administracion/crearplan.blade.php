@@ -120,11 +120,10 @@
                     <input type="text" id="bibliografia" name="bibliografia" class="input input-bordered w-full readonly-field" readonly>
                 </div>
                 <div class="flex flex-col items-center mt-4 space-y-2">
-                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/3 text-black" tabindex="9">Guardar borrador</button>
+                    <button type="submit" name="action" value="borrador" class="btn btn-warning w-1/3 text-black" tabindex="9">Guardar borrador</button>
                     <button type="submit" name="action" value="guardar" class="btn btn-success w-1/3 text-black" tabindex="10">Guardar</button>
                     <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="11" onclick="window.location.href='/administracion'">Cancelar</button>
                         <!--<button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
-
                 </div>
             </div>
             <script>
@@ -136,15 +135,17 @@
 
                 document.getElementById('crearPlanForm').addEventListener('submit', function(event) {
                     console.log('Form submit event triggered'); // Verificar que el evento submit se disparara
-                    
+                    console.log('Event', event.submitter.value);
                     const materiaId = document.getElementById('materia_id').value;
                     if (!materiaId) {
                         event.preventDefault(); // Prevenir el envío del formulario
                         alert('Debe seleccionar una materia antes de guardar el plan.'); // Mostrar mensaje de error
                         return;
                     }
-
-                    if (event.submitter.name === 'action' && event.submitter.value === 'guardar') {
+                    if(event.submitter.name === 'action' && event.submitter.value === 'borrador') {
+                        console.log('Guardar borrador action detected'); // Verificar que la acción guardar_borrador se detecta
+                    }
+                    else if (event.submitter.name === 'action' && event.submitter.value === 'guardar') {
                         console.log('Guardar action detected'); // Verificar que la acción guardar se detecta
                         const fields = document.querySelectorAll('input, textarea, select');
                         let allFieldsValid = true;
@@ -164,10 +165,6 @@
                             event.preventDefault(); // Prevenir el envío del formulario si hay campos requeridos vacíos
                             console.log('Form has invalid fields'); // Verificar que hay campos inválidos
                         }                    
-                    }
-                    
-                    else if(event.submitter.name === 'action' && event.submitter.value === 'guardar_borrador') {
-                        console.log('Guardar borrador action detected'); // Verificar que la acción guardar_borrador se detecta
                     }
                 });
             </script>

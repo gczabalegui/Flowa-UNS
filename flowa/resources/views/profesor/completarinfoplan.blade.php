@@ -121,11 +121,11 @@
                         style="height: 150px; resize: none;" tabindex="2" required placeholder="Ingrese la bibliografía">{{ old('bibliografia') }}</textarea>
                 </div>
                 <div class="flex flex-col items-center mt-4 space-y-2">                                     
-                    <button type="submit"  class="btn btn-warning w-1/3 text-black" tabindex="8">Rechazar plan</button>
-                    <button type="submit"  class="btn btn-success w-1/3 text-black" tabindex="8">Completar información del plan</button>   
+                    <button type="submit" name="action" value="rechazar" class="btn btn-warning w-1/3 text-black" tabindex="13" onclick="window.location.href='/profesor'">Rechazar plan</button>
+                    <button type="submit" name="action" value="guardar" class="btn btn-success w-1/3 text-black" tabindex="14" onclick="window.location.href='/profesor'">Guardar plan</button>
                     <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="11" onclick="window.location.href='/profesor'">Cancelar</button>
                     <!-- <button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
-                  
+
                 </div>
             </div>
             <script>

@@ -43,7 +43,7 @@ class PlanSeeder extends Seeder
             'DTE' => 18,
             'RTF' => 22,
             'creditos_academicos' => 8,
-            'estado' => 'Completo por administración.',
+            'estado' => 'Completo por profesor.',
             'area_tematica' => Plan::AREA_TEMATICA[1], // 'Formación aplicada'
             'fundamentacion' => 'Esta es la fundamentación creada por el profesor.',
             'obj_conceptuales' => 'Conceptuales - Profesor',
@@ -66,7 +66,7 @@ class PlanSeeder extends Seeder
             'DTE' => 13,
             'RTF' => 14,
             'creditos_academicos' => 12,
-            'estado' => 'Completo por administración.',
+            'estado' => 'Completo por profesor.',
             'area_tematica' => Plan::AREA_TEMATICA[2], // 'Investigación aplicada'
             'fundamentacion' => 'Esta es la fundamentación alternativa creada por otro profesor.',
             'obj_conceptuales' => 'Conceptuales - Otro Profesor',

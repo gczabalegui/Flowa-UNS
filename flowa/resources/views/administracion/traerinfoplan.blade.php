@@ -100,12 +100,15 @@
                         <label class="label" style="font-weight: bold;"><span class="label-text">Bibliografía</span></label>
                         <p class="text-lg">{{ $plan->bibliografia }}</p>
                     </div>
-                </div>    
-            </div>
-        </form> 
-        <div class="flex justify-center mt-6">
-            <a href="/administracion" class="btn btn-warning w-1/6" tabindex="10">Regresar</a>
-        </div>                  
+                </div>   
+                <div class="flex flex-col items-center mt-4 space-y-2">
+                    @if ($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría.') 
+                        <a href="/editar-plan" class="btn btn-warning w-1/3 text-black" tabindex="11">Editar</a>
+                    @endif
+                    <a href="/administracion" class="btn btn-secondary w-1/3 text-black" tabindex="10">Cancelar</a>
+                </div> 
+            </div>  
+        </form>                 
     </div>
 </body>
 </html>

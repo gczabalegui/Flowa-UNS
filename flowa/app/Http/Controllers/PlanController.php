@@ -8,6 +8,7 @@ use App\Models\Materia;
 use App\Models\Profesor;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class PlanController extends Controller
 {
@@ -153,49 +154,68 @@ class PlanController extends Controller
             // Buscar el plan por su ID
             $plan = Plan::find($id);
 
-            // Validar los datos del request
-            $validatedData = $request->validate([
-                'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
-                'fundamentacion' => ['required', 'string', function ($attribute, $value, $fail) {
+            if($request->input('action') == 'rechazar') {
+                $plan->estado = 'Rechazado para administración por profesor.';
+                $validatedData = $request->validate([
+                    'area_tematica' => 'nullable|in:Formación básica,Formación académica,Formación profesional',
+                    'fundamentacion' =>  ['nullable', 'string', [$this, 'validateFundamentacion']],
+                    'obj_conceptuales' => 'nullable|string',
+                    'obj_procedimentales' => 'nullable|string',
+                    'obj_actitudinales' => 'nullable|string',
+                    'obj_especificos' => 'nullable|string',
+                    'cont_minimos' => 'nullable|string',
+                    'programa_analitico' => 'nullable|string',
+                    'act_practicas' => 'nullable|string',
+                    'modalidad' => 'nullable|string|max:100',
+                    'bibliografia' => 'nullable|string',
+                ]);
+            } 
+            else if($request->input('action') == 'guardar') {
 
-                    if (!is_string($value)) {
-                        $fail('La fundamentación debe ser un texto.');
-                        return;
-                    }
+                $plan->estado = 'Completo por profesor.';
+                $validatedData = $request->validate([
+                    'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
+                    'fundamentacion' =>  ['required', 'string', [$this, 'validateFundamentacion']],
+                    'obj_conceptuales' => 'required|string',
+                    'obj_procedimentales' => 'required|string',
+                    'obj_actitudinales' => 'required|string',
+                    'obj_especificos' => 'required|string',
+                    'cont_minimos' => 'required|string',
+                    'programa_analitico' => 'required|string',
+                    'act_practicas' => 'required|string',
+                    'modalidad' => 'required|string|max:100',
+                    'bibliografia' => 'required|string',
+                ]);
 
-                    // Contar las palabras en la fundamentación
-                    $numeroPalabras = str_word_count($value);
-
-                    // Establecer el límite de palabras (200)
-                    $limitePalabras = 200;
-
-                    // Validar el límite de palabras
-                    if ($numeroPalabras > $limitePalabras) {
-                        $fail("La fundamentación no puede tener más de $limitePalabras palabras.");
-                    }
-                }],
-                'obj_conceptuales' => 'required|string',
-                'obj_procedimentales' => 'required|string',
-                'obj_actitudinales' => 'required|string',
-                'obj_especificos' => 'required|string',
-                'cont_minimos' => 'required|string',
-                'programa_analitico' => 'required|string',
-                'act_practicas' => 'required|string',
-                'modalidad' => 'required|string|max:100',
-                'bibliografia' => 'required|string',
-
-            ]);
-
-            // Actualizar los campos del plan con los nuevos datos
+                // Actualizar los campos del plan con los nuevos datos
+                
+            }
             $plan->fill($validatedData);
-            $plan->estado = 'Completo por profesor.';
-
             $plan->save();
 
             return redirect('/profesor')->with('estado', 'El plan ha sido actualizado exitosamente.');
         } catch (\Exception $e) {
             dd($e);
             return redirect('/profesor')->with('warning', 'No se ha podido actualizar el plan.');
+        }
+    }
+    
+    private function validateFundamentacion($attribute, $value, $fail)
+    {
+        if (!is_string($value)) {
+            $fail('La fundamentación debe ser un texto.');
+            return;
+        }
+
+        // Contar las palabras en la fundamentación
+        $numeroPalabras = str_word_count($value);
+
+        // Establecer el límite de palabras (200)
+        $limitePalabras = 200;
+
+        // Validar el límite de palabras
+        if ($numeroPalabras > $limitePalabras) {
+            $fail("La fundamentación no puede tener más de $limitePalabras palabras.");
         }
     }
 
@@ -218,6 +238,8 @@ class PlanController extends Controller
             return view('secretaria.traerinfoplan', compact('plan'));
         } elseif ($role === 'administracion') {
             return view('administracion.traerinfoplan', compact('plan'));
+        } elseif ($role === 'profesor') {
+            return view('profesor.traerinfoplan', compact('plan'));
         } elseif ($role === 'comision') {
             return view('comision.traerinfoplan', compact('plan'));
         } else {
@@ -242,20 +264,33 @@ class PlanController extends Controller
         }
     }
 
-    public function rechazarPlan($id)
+    public function rechazarPlan(Request $request, $id)
     {
         try {
             $plan = Plan::find($id);
             if ($plan) {
-                $plan->estado = 'Rechazado por secretaría académica.';
-                $plan->save();
-                return redirect('/secretaria')->with('estado', 'Plan rechazado.');
-            } else {
-                return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
+                $role = $request->input('role');
+                $type = $request->input('type');
+
+                if ($role == 'secretaria') {
+                    if ($type == 'administracion') {
+                        $plan->estado = 'Rechazado para administración por secretaría académica.';
+                        $plan->save();
+                        return redirect('/secretaria')->with('success', 'Nuevo estado de plan procesado.');
+                    } elseif ($type == 'profesor') {
+                        $plan->estado = 'Rechazado para profesor por secretaría académica.';
+                        return redirect('/secretaria')->with('success', 'Nuevo estado de plan procesado.');
+                        $plan->save();
+                    }
+                } elseif ($role == 'profesor' && $type == 'administracion') {
+                    $plan->estado = 'Rechazado para administración por profesor.';
+                    $plan->save();
+                    return redirect('/profesor')->with('success', 'Nuevo estado de plan procesado.');
+                } 
             }
         } catch (Exception $e) {
             dd($e);
-            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
+            return redirect('/')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
         }
     }
 

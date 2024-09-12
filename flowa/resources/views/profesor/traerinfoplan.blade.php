@@ -11,7 +11,7 @@
 <body>
     @include('secretaria.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
-        <form action="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" method="GET">
+        <form action="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" method="GET">
             @csrf
                 <input type="hidden" name="role" value="secretaria">
                 <div class="mx-5 my-5">
@@ -104,21 +104,15 @@
             </div>
         </form> 
         <div class="flex justify-center space-x-4 mt-6">
-            <form action="{{ route('aprobarplan', ['id' => $plan->id]) }}" method="POST">
-                @csrf
-                <button type="submit" class="btn btn-success" tabindex="8">Aprobar plan</button>
-            </form>
             <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
                 @csrf
-                <input type="hidden" name="role" value="secretario">
+                <input type="hidden" name="role" value="profesor">
                 <input type="hidden" name="type" value="administracion">
-                <button type="submit" class="btn btn-warning" tabindex="9">Rechazar para administración</button>
+                <button type="submit" class="btn btn-warning" tabindex="8">Rechazar plan</button>
             </form>
             <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
                 @csrf
-                <input type="hidden" name="role" value="secretario">
-                <input type="hidden" name="type" value="profesor">
-                <button type="submit" class="btn btn-warning" tabindex="10">Rechazar para profesor</button>
+                <button type="submit" class="btn btn-success" tabindex="9">Completar plan</button>
             </form>
         </div>
         <div class="flex justify-center mt-6">
