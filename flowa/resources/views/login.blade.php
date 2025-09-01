@@ -8,50 +8,47 @@
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Iniciar Sesión - Flowa</title>
+    <title>Login - Flowa UNS</title>
 </head>
 
-<body>
-    <div class="hero bg-white-200 h-screen flex items-center justify-center">
-        <div class="hero-content flex-col lg:flex-row">
-            <div class="card w-full max-w-sm bg-base-100 shadow-lg p-6">
-                <h2 class="text-3xl font-bold mb-4 text-center">Iniciar Sesión</h2>
-                
-                @if(session('error'))
-                    <div class="alert alert-error mb-4">
-                        <div>
-                            <span>{{ session('error') }}</span>
-                        </div>
-                    </div>
-                @endif
+<body class="bg-gray-100">
+    <div class="hero h-screen flex items-center justify-center">
+        <div class="hero-content flex-col w-full max-w-md bg-white p-8 rounded-xl shadow-lg text-center">
+            <h1 class="text-4xl font-bold text-blue-900 mb-4">Iniciar Sesión</h1>
+            <p class="text-gray-700 mb-6">Ingrese sus credenciales para acceder al sistema</p>
 
-                @if(session('success'))
-                    <div class="alert alert-success mb-4">
-                        <div>
-                            <span>{{ session('success') }}</span>
-                        </div>
-                    </div>
-                @endif
+            @if ($errors->any())
+                <div class="mb-4 p-2 bg-red-100 text-red-700 rounded">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
+            @endif
 
-                <form method="POST" action="{{ url('iniciar-sesion') }}">
-                    @csrf
-                    <div class="form-control mb-4">
-                        <label for="email" class="label">
-                            <span class="label-text">Correo electrónico:</span>
-                        </label>
-                        <input type="email" id="email" name="email" class="input input-bordered" required>
-                    </div>
-                    
-                    <div class="form-control mb-4">
-                        <label for="password" class="label">
-                            <span class="label-text">Contraseña:</span>
-                        </label>
-                        <input type="password" id="password" name="password" class="input input-bordered" required>
-                    </div>
+            <form action="{{ url('iniciar-sesion') }}" method="POST" class="flex flex-col gap-4">
+                @csrf
 
-                    <button type="submit" class="btn btn-primary w-full">Iniciar Sesión</button>
-                </form>
-            </div>
+                <input type="email" name="email" placeholder="Correo electrónico" required
+                    class="input input-bordered w-full">
+
+                <input type="password" name="password" placeholder="Contraseña" required
+                    class="input input-bordered w-full">
+
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" name="remember" class="checkbox">
+                    <span class="text-gray-700">Mantener sesión iniciada</span>
+                </label>
+
+                <button type="submit" class="btn btn-primary w-full mt-2">Iniciar Sesión</button>
+            </form>
+
+            <p class="mt-4 text-gray-600">
+                ¿Olvidó su contraseña? <a href="{{ route('password.request') }}" class="text-blue-700 underline">Recuperarla</a>
+            </p>
+
+            <p class="mt-2 text-gray-500 text-sm">
+                Volver a <a href="{{ route('login') }}" class="text-blue-700 underline">Bienvenida</a>
+            </p>
         </div>
     </div>
 </body>

@@ -1,48 +1,56 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
+<!DOCTYPE html>
+<html data-theme="autumn">
 
-<!--   <form method="POST" action="{{ route('login') }}">
-        @csrf
--->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
-        </div>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Login - Flowa UNS</title>
+</head>
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
+<body class="bg-gray-100">
+    <div class="hero h-screen flex items-center justify-center">
+        <div class="hero-content flex-col w-full max-w-md bg-white p-8 rounded-xl shadow-lg text-center">
+            <h1 class="text-4xl font-bold text-blue-900 mb-4">Iniciar Sesión</h1>
+            <p class="text-gray-700 mb-6">Ingrese sus credenciales para acceder al sistema</p>
 
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
+            @if ($errors->any())
+                <div class="mb-4 p-2 bg-red-100 text-red-700 rounded">
+                    @foreach ($errors->all() as $error)
+                        <div>{{ $error }}</div>
+                    @endforeach
+                </div>
             @endif
 
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
+            <form action="{{ url('iniciar-sesion') }}" method="POST" class="flex flex-col gap-4">
+                @csrf
+
+                <input type="email" name="email" placeholder="Correo electrónico" required
+                    class="input input-bordered w-full">
+
+                <input type="password" name="password" placeholder="Contraseña" required
+                    class="input input-bordered w-full">
+
+                <label class="flex items-center gap-2">
+                    <input type="checkbox" name="remember" class="checkbox">
+                    <span class="text-gray-700">Mantener sesión iniciada</span>
+                </label>
+
+                <button type="submit" class="btn btn-primary w-full mt-2">Iniciar Sesión</button>
+            </form>
+
+            <p class="mt-4 text-gray-600">
+                ¿Olvidó su contraseña? <a href="{{ route('password.request') }}" class="text-blue-700 underline">Recuperarla</a>
+            </p>
+
+            <p class="mt-2 text-gray-500 text-sm">
+                Volver a <a href="{{ route('login') }}" class="text-blue-700 underline">Bienvenida</a>
+            </p>
         </div>
-    </form>
-</x-guest-layout>
+    </div>
+</body>
+
+</html>
