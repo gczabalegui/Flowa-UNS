@@ -20,10 +20,10 @@
                     Bienvenido al sistema para la gestión de planes de materias.<br>
                     ¿Qué rol tiene dentro de la universidad?
                 </p>
-                <a href="/iniciar-sesion" class="mx-2 btn btn-primary">Comisión Académica</a>
-                <a href="/iniciar-sesion" class="mx-2 btn btn-primary">Profesor</a>
-                <a href="/iniciar-sesion" class="mx-2 btn btn-primary">Administración</a>
-                <a href="/iniciar-sesion" class="mx-2 btn btn-primary">Secretaría Académica</a>
+                <a href="/comision" class="mx-2 btn btn-primary">Comisión Académica</a>
+                <a href="/profesor" class="mx-2 btn btn-primary">Profesor</a>
+                <a href="/administracion" class="mx-2 btn btn-primary">Administración</a>
+                <a href="/secretaria" class="mx-2 btn btn-primary">Secretaría Académica</a>
             </div>
         </div>
     </div>

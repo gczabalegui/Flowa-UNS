@@ -11,6 +11,14 @@ use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+
+    public function dashboard(){
+        // Lógica para la página principal del profesor
+        return view('welcome');
+
+        Log::info("Se ha accedido a la página principal de administración");
+    }
+
     /**
      * Display the user's profile form.
      */

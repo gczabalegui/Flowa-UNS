@@ -32,6 +32,8 @@ class AuthController extends Controller
                     return redirect('/administracion');
                 case 'secretaria':
                     return redirect('/secretaria');
+                case 'admin':
+                    return redirect('/welcome');
                 default:
                     Auth::logout();
                     return redirect()->route('login')->withErrors('Usuario sin rol válido.');

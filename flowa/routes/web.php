@@ -43,6 +43,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('filemanager', [FileManagerController::class, 'index']);
 });
 
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/welcome', [ProfileController::class, 'dashboard'])->name('welcome');
+});
+
 // ------------------------------
 // ADMINISTRACION
 // ------------------------------
@@ -145,7 +149,10 @@ Route::middleware(['auth', 'role:comision'])->group(function () {
     Route::get('/comision/pdfprueba', function() {
         return view('pdf_form');
     });
+
+    Route::get('/comision/verplanes', [PlanController::class, 'indexComision'])->name('comision.verplanes');
 });
+
 
 // ------------------------------
 // Auth predeterminado de Laravel
