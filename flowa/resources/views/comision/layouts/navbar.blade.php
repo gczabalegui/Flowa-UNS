@@ -10,7 +10,7 @@
                         </svg>
                     </a>
                     <ul class="p-2 bg-base-100 z-50">
-                        <li><a href="/comision/verplan">Ver planes de materias</a></li>
+                        <li><a href="/comision/verplanes">Ver planes de materias</a></li>
                     </ul>
                 </li>
             </ul>
@@ -22,7 +22,12 @@
     </div>
 
     <div class="navbar-end">
-        <a href="/logout" class="text-black mr-4">Cerrar sesión</a>
+        <a href="{{ route('cerrar-sesion') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-black mr-4">Cerrar sesión</a>
+
+        <form id="logout-form" action="{{ route('cerrar-sesion') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
+</div>
 
 </div>

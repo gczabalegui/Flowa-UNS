@@ -15,24 +15,24 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
 
-            //ENCABEZADO
+            $table->string('estado')->nullable();;
             $table->unsignedBigInteger('materia_id');
             $table->foreign('materia_id')->references('id')->on('materias')->onDelete('cascade');
             //Con la materia, podríamos conseguir el código de materia y el departamento al que pertenece (datos que van en el plan)
 
             //RECUADRO
-            $table->unsignedInteger('anio'); 
+            $table->unsignedInteger('anio')->nullable();; 
             //Con la materia, podríamos conseguir quien es el profesor (dato que va en el plan)
             //Carga horaria:
-            $table->unsignedInteger('horas_totales');
-            $table->unsignedInteger('horas_teoricas');
-            $table->unsignedInteger('horas_practicas');
+            $table->unsignedInteger('horas_totales')->nullable();;
+            $table->unsignedInteger('horas_teoricas')->nullable();;
+            $table->unsignedInteger('horas_practicas')->nullable();;
 
-            $table->unsignedInteger('DTE');
-            $table->unsignedInteger('RTF');
-            $table->unsignedInteger('creditos_academicos');
+            $table->unsignedInteger('DTE')->nullable();;
+            $table->unsignedInteger('RTF')->nullable();;
+            $table->unsignedInteger('creditos_academicos')->nullable();;
 
-            $table->enum('area_tematica', ['form_basica', 'form_aplicada', 'form_profesional']);
+            $table->enum('area_tematica', ['Formación básica', 'Formación aplicada', 'Formación profesional'])->nullable();
 
             /*
             Aprobadas y desaprobadas creo que sería un combo box y cuando trae la materia, también trae el código. 
@@ -45,25 +45,25 @@ return new class extends Migration
             habría que poder escribir la formación de grado, cargo y dedicación de cada uno de los docentes del cuerpo. 
             */
 
-            $table->text('fundamentacion'); 
+            $table->text('fundamentacion')->nullable();; 
             
             //Objetivos: 
                 //Generales
-                $table->text('obj_conceptuales'); 
-                $table->text('obj_procedimeentales'); 
-                $table->text('obj_actitudinales'); 
-            $table->text('obj_especificos'); 
+                $table->text('obj_conceptuales')->nullable();; 
+                $table->text('obj_procedimentales')->nullable();; 
+                $table->text('obj_actitudinales')->nullable();; 
+            $table->text('obj_especificos')->nullable();; 
 
             //Contenidos
-            $table->text('cont_minimos'); 
-            $table->text('programa_analitico'); 
-            $table->text('act_practicas'); 
+            $table->text('cont_minimos')->nullable();; 
+            $table->text('programa_analitico')->nullable();; 
+            $table->text('act_practicas')->nullable();; 
 
             //Modalidad de enseñanza - aprendizaje
-            $table->text('modalidad'); 
+            $table->text('modalidad')->nullable();; 
 
             //Bibliografia
-            $table->text('bibliografia'); 
+            $table->text('bibliografia')->nullable();; 
 
         });
     }

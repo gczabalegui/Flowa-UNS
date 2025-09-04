@@ -20,6 +20,8 @@
                         <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
                         <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
                         <li><a href="/administracion/cargarplan">Cargar plan de materia - versión anterior</a></li>
+                        <li><a href="/administracion/creardepartamento">Crear departamento</a></li>
+                        <li><a href="/administracion/verplanes">Ver planes existentes</a></li>
 
                     </ul>
                 </li>
@@ -32,7 +34,11 @@
     </div>
 
     <div class="navbar-end">
-        <a href="/logout" class="text-black mr-4">Cerrar sesión</a>
+        <a href="{{ route('cerrar-sesion') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="text-black mr-4">Cerrar sesión</a>
+
+        <form id="logout-form" action="{{ route('cerrar-sesion') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
     </div>
 
 </div>

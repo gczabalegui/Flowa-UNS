@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('carrera_responsable');
 
-            $table->unsignedBigInteger('carrera_id')->unique();
+            $table->unsignedBigInteger('carrera_id')->unique()->default(1);
             $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
         });
     }

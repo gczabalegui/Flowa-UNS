@@ -16,11 +16,14 @@ return new class extends Migration
             $table->timestamps();
 
             $table->string('nombre_profesor');
-            $table->string('nombre');
-            $table->string('apellido');     
-            $table->unsignedInteger('DNI')->unique();
-            $table->unsignedInteger('legajo')->unique();
-            $table->string('email')->unique();
+            $table->string('apellido_profesor');     
+            $table->unsignedInteger('DNI_profesor')->unique();
+            $table->string('email_profesor')->unique();            
+            $table->unsignedInteger('legajo_profesor')->unique();
+            $table->string('contraseña_profesor');
+
+            $table->unsignedBigInteger('carrera_id')->nullable(); //TODO
+            $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
 
         });
     }

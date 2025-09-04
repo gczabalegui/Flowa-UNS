@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Materia;
+use App\Models\Profesor;
+use App\Models\CarreraMateria;
+use App\Models\Carrera; // Add this line
+use Exception;
 
 class MateriaController extends Controller
 {
@@ -18,8 +23,22 @@ class MateriaController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('administracion.crearmateria');
+    {   
+        try {
+            $profesores = Profesor::orderBy("apellido_profesor")->get();
+            $carreras = Carrera::orderBy("nombre_carrera")->get();
+    
+            if ($profesores->isEmpty()) {
+                return redirect('/administracion')->with('warning', 'No hay profesores. Por favor, cree un profesor antes de crear una materia.');
+            }
+            if ($carreras->isEmpty()) {
+                return redirect('/administracion')->with('warning', 'No hay carreras. Por favor, cree una carrera antes de crear una materia.');
+            }
+    
+            return view('administracion.crearmateria', compact('profesores', 'carreras'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -27,22 +46,27 @@ class MateriaController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
+
             $request->validate([
                 'nombre_materia' => 'required|max:255|string',
-                'codigo' => 'required|numeric',
+                'codigo_materia' => 'required|numeric|unique:materias,codigo',
+                'horas_semanales' => 'required|numeric|digits_between:1,2',
+                'horas_totales' => 'required|numeric|digits_between:1,2',
+                'profesor_id' => 'required|numeric|exists:profesors,id',
+                'carreras' => 'required|array',
+                'carreras.*' => 'exists:carreras,id',
             ]);
+    
+            $materia = Materia::create($request->only(['nombre_materia', 'codigo', 'profesor_id', 'horas_semanales', 'horas_totales']));
+    
+            $materia->carrera()->attach($request->carreras);
 
-            $materias = new Materia();
-            $materias->nombre_materia = $request->get('nombre_materia');
-            $materias->codigo = $request->get('codigo');
+            return redirect('/administracion')->with('estado', 'Nueva materia creada exitosamente.');
+        } catch (\Exception $e) {
 
-            $materias->save();
-            return redirect('/administracion')->with('estado', 'Nueva materia creada exitosamente.'); 
+            return redirect('/administracion')->with('warning', 'No se ha podido crear la materia. Error: ' . $e->getMessage());
         }
-        catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
-        }     
     }
 
     /**

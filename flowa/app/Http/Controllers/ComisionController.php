@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Comision;
+use App\Models\Carrera;
+use Illuminate\Support\Facades\Auth;
 
 class ComisionController extends Controller
 {
@@ -22,7 +25,8 @@ class ComisionController extends Controller
      */
     public function createByAdmin()
     {
-        return view('administracion.crearcomision');
+        $carreras = Carrera::all();
+        return view('administracion.crearcomision', compact('carreras'));
     }
     /**
      * Show the form for creating a new resource.
@@ -31,7 +35,8 @@ class ComisionController extends Controller
      */
     public function createBySec()
     {
-        return view('secretaria.crearcomision');
+        $carreras = Carrera::all();
+        return view('administracion.crearcomision', compact('carreras'));
     }
     /**
      * Store a newly created resource in storage.
@@ -57,10 +62,10 @@ class ComisionController extends Controller
             $comisiones->carrera_responsable = $request->get('carrera_responsable');
 
             $comisiones->save();
-            return redirect('/')->with('estado', 'Nuevo usuario de la Comisión Curricular creado exitosamente.'); 
+            return redirect('/administracion')->with('estado', 'Nuevo usuario de la Comisión Curricular creado exitosamente.'); 
         }
         catch(\Exception $e){
-            return redirect('/')->with('warning', 'No se ha podido crear el nuevo usuario.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
         }      
     }
     /*
@@ -69,4 +74,23 @@ class ComisionController extends Controller
         return view('comision.verplan');
     }
     */
+
+    public function showLoginForm()
+    {
+        return view('comision.login');
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (Auth::attempt($credentials)) {
+            // Authentication passed...
+            return redirect()->intended('/comision/dashboard');
+        }
+
+        return back()->withErrors([
+            'email' => 'Las credenciales no coinciden con nuestros registros.',
+        ]);
+    }
 }

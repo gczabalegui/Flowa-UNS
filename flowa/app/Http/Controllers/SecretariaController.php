@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Secretaria;
 
 class SecretariaController extends Controller
 {
@@ -37,28 +38,26 @@ class SecretariaController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
             $request->validate([
                 'nombre_secretaria' => 'required|max:255|string',
-                'apellido' => 'required|max:255|string',
-                'DNI' => 'required|numeric',
-                'legajo' => 'required|numeric',
-                'email' => 'required|max:255|string',
+                'apellido_secretaria' => 'required|max:255|string',
+                'DNI_secretaria' => 'required|digits_between:1,8|numeric|unique:secretarias,DNI_secretaria',
+                'legajo_secretaria' => 'required|digits_between:1,5|numeric|unique:secretarias,legajo_secretaria',
+                'email_secretaria' => 'required|max:255|string|email|unique:secretarias,email_secretaria',
             ]);
 
-            $secretarias = new Secretaria();
-            $secretarias->nombre_secretaria = $request->get('nombre_secretaria');
-            $secretarias->apellido = $request->get('apellido');
-            $secretarias->DNI = $request->get('DNI');
-            $secretarias->legajo = $request->get('legajo');
-            $secretarias->email = $request->get('email');
+            Secretaria::create([
+                'nombre_secretaria' => $request->nombre_secretaria,
+                'apellido_secretaria' => $request->apellido_secretaria,
+                'DNI_secretaria' => $request->DNI_secretaria,
+                'legajo_secretaria' => $request->legajo_secretaria,
+                'email_secretaria' => $request->email_secretaria,
+                'departamento_id' => '1',
+            ]);
 
-
-            $secretarias->save();
-            return redirect('/secretaria')->with('estado', 'Nuevo usuario de Secretaría Académica creado exitosamente.'); 
-        }
-        catch(\Exception $e){
-            return redirect('/secretaria')->with('warning', 'No se ha podido crear el nuevo usuario.');
-        }     
+            return redirect('/administracion')->with('estado', 'Nuevo usuario de Secretaría Académica creado exitosamente.');
+        } catch (\Exception $e) {
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());        }
     }
 }

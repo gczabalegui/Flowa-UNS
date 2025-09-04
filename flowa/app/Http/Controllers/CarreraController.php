@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Carrera;
+use App\Models\Departamento;
+use Exception;
 
 class CarreraController extends Controller
 {
@@ -19,7 +22,17 @@ class CarreraController extends Controller
      */
     public function create()
     {
-        return view('administracion.crearcarrera');
+        try {
+            $departamentos = Departamento::all();
+    
+            if ($departamentos->isEmpty()) {
+                return redirect('/administracion')->with('warning', 'No hay departamentos. Por favor, cree un departamento antes de crear una carrera.');
+            }
+    
+            return view('administracion.crearcarrera', compact('departamentos'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
     }
 
     /**
@@ -34,21 +47,15 @@ class CarreraController extends Controller
                 'plan_version' => 'required|numeric',
                 'duracion' => 'required|max:255|string',
                 'cant_materias' => 'required|numeric',
-
+                'departamento_id' => 'required|numeric',
             ]);
 
-            $carreras = new Carrera();
-            $carreras->codigo_carrera = $request->get('codigo_carrera');
-            $carreras->nombre_carrera = $request->get('nombre_carrera');
-            $carreras->plan_version = $request->get('plan_version');
-            $carreras->duracion = $request->get('duracion');
-            $carreras->cant_materias = $request->get('cant_materias');
-
-            $carreras->save();
+            Carrera::create($request->all());
+ 
             return redirect('/administracion')->with('estado', 'Nueva carrera creada exitosamente.');
         }
         catch(\Exception $e){
-            return redirect('/administracion')->with('warning', 'No se ha podido crear la carrera.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear la carrera. Error: ' . $e->getMessage());
         }
     }
 

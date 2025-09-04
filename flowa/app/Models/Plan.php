@@ -8,8 +8,30 @@ use Illuminate\Database\Eloquent\Model;
 class Plan extends Model
 {
     use HasFactory;
+    const AREA_TEMATICA = ['Formación básica', 'Formación aplicada', 'Formación profesional'];
+    protected $fillable = [                
+        'materia_id',
+        'anio',
+        'horas_totales',
+        'horas_teoricas',
+        'horas_practicas',
+        'DTE',
+        'RTF',
+        'creditos_academicos',
+        'area_tematica',
+        'fundamentacion',
+        'obj_conceptuales',
+        'obj_procedimentales',
+        'obj_actitudinales',
+        'obj_especificos',
+        'cont_minimos',
+        'programa_analitico',
+        'act_practicas',
+        'modalidad',
+        'bibliografia'
+    ];
     public function materia()
     {
-        return $this->belongsTo(Materia::class);
+        return $this->belongsTo(Materia::class, 'materia_id');
     }
 }
