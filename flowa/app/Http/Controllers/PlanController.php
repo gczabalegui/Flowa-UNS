@@ -8,7 +8,8 @@ use App\Models\Materia;
 use App\Models\Profesor;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
+use PhpOffice\PhpWord\TemplateProcessor;
 
 class PlanController extends Controller
 {
@@ -331,4 +332,60 @@ class PlanController extends Controller
     {
         //
     }
+
+
+
+    ////////////////////////PRUEBAS//////////////////////////
+    public function exportarPDF($id)
+{
+    $plan = Plan::findOrFail($id);
+    $materia = $plan->materia;
+
+    $pdf = Pdf::loadView('pdf.plan', compact('plan', 'materia'));
+    return $pdf->download('plan_'.$materia->nombre_materia.'.pdf');
+}
+
+public function previewPDF(Request $request)
+{
+    // tomamos los datos del form sin guardar
+    $data = $request->all();
+
+    // armamos un "Plan" en memoria (no se guarda en DB)
+    $plan = new Plan($data);
+
+    // obtenemos la materia y su profesor
+    $materia = Materia::with('profesor')->findOrFail($data['materia_id']);
+
+    // renderizamos la misma plantilla del PDF
+    $pdf = Pdf::loadView('pdf.plan', compact('plan', 'materia'));
+
+    // lo mostramos en el navegador
+    return $pdf->stream('plan_preview.pdf');
+}
+
+public function exportarDocx($id)
+{
+    $plan = Plan::with('materia.profesor')->findOrFail($id);
+
+    // Cargamos la plantilla
+    $template = new TemplateProcessor(storage_path('app/plantillas/plan.docx'));
+
+    // Reemplazamos variables
+    $template->setValue('nombre_materia', $plan->materia->nombre_materia);
+    $template->setValue('codigo', $plan->codigo);
+    $template->setValue('anio_cursado', $plan->anio);
+    $template->setValue('profesor', $plan->materia->profesor->apellido_profesor . ', ' . $plan->materia->profesor->nombre_profesor);
+    $template->setValue('horas_totales', $plan->horas_totales);
+    $template->setValue('fundamentacion', $plan->fundamentacion);
+    // … y así con todos los campos que necesites
+
+    // Guardamos un nuevo archivo
+    $fileName = 'plan_'.$plan->materia->nombre_materia.'.docx';
+    $path = storage_path("app/public/$fileName");
+
+    $template->saveAs($path);
+
+    return response()->download($path)->deleteFileAfterSend(true);
+}
+
 }

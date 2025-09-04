@@ -123,7 +123,7 @@
                     <button type="submit" name="action" value="borrador" class="btn btn-warning w-1/3 text-black" tabindex="9">Guardar borrador</button>
                     <button type="submit" name="action" value="guardar" class="btn btn-success w-1/3 text-black" tabindex="10">Guardar</button>
                     <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="11" onclick="window.location.href='/administracion'">Cancelar</button>
-                        <!--<button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
+                    <button type="submit" formaction="{{ route('plan.preview.pdf') }}" formtarget="_blank" name="preview" value="1" class="btn btn-outline">Vista Previa</button>
                 </div>
             </div>
             <script>

@@ -155,6 +155,16 @@ Route::middleware(['auth', 'role:comision'])->group(function () {
 
 
 // ------------------------------
+// PLAN DE MATERIA
+// ------------------------------
+Route::get('/administracion/plan/{id}/pdf', [PlanController::class, 'exportarPDF']);
+
+// routes/web.php
+Route::post('/administracion/plan/preview-pdf', [PlanController::class, 'previewPDF'])
+     ->name('plan.preview.pdf');
+
+
+// ------------------------------
 // Auth predeterminado de Laravel
 // ------------------------------
 require __DIR__.'/auth.php';
