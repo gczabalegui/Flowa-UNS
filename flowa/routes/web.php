@@ -164,6 +164,10 @@ Route::post('/administracion/plan/preview-pdf', [PlanController::class, 'preview
      ->name('plan.preview.pdf');
 
 
+     // routes/web.php
+Route::post('/administracion/plan', [PlanController::class, 'store'])
+->name('plan.store');
+
 // ------------------------------
 // Auth predeterminado de Laravel
 // ------------------------------

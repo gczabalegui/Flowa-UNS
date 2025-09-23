@@ -39,12 +39,12 @@
                         tabindex="2" required value="{{ old('legajo') }}" placeholder="Ingrese el legajo">
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Cantidad de materias</span> </label>
+                    <label class="label"><span class="label-text">Email</span> </label>
                     <input id="email" name="email" type="text" class="input input-bordered w-full"
                         tabindex="2" required value="{{ old('email') }}" placeholder="Ingrese el email">
                 </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
-                    <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
+                    <a href="/secretaria" class="btn btn-secondary " tabindex="7">Cancelar</a>
                     <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>
                 </div>
             </div>

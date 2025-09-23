@@ -363,6 +363,7 @@ public function previewPDF(Request $request)
     return $pdf->stream('plan_preview.pdf');
 }
 
+/* 
 public function exportarDocx($id)
 {
     $plan = Plan::with('materia.profesor')->findOrFail($id);
@@ -386,6 +387,7 @@ public function exportarDocx($id)
     $template->saveAs($path);
 
     return response()->download($path)->deleteFileAfterSend(true);
-}
+}*/
+
 
 }
