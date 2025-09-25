@@ -9,7 +9,8 @@ use App\Models\Profesor;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade\Pdf;
-use PhpOffice\PhpWord\TemplateProcessor;
+use Illuminate\Validation\Rule;
+
 
 class PlanController extends Controller
 {
@@ -27,19 +28,19 @@ class PlanController extends Controller
         // Obtener el usuario autenticado
         $user = Auth::user();
 
-       // Obtener el profesor asociado al usuario mediante el legajo
-       $profesor = Profesor::where('legajo_profesor', $user->legajo)->first(); 
+        // Obtener el profesor asociado al usuario mediante el legajo
+        $profesor = Profesor::where('legajo_profesor', $user->legajo)->first();
 
-       // Obtener los planes asociados al profesor
-       $planes = Plan::with(['materia.profesor'])
-       ->whereHas('materia', function ($query) use ($profesor) {
-           $query->where('profesor_id', $profesor->id);
-       })
-       ->where(function ($query) {
-           $query->where('estado', 'Completo por administración.')
-                 ->orWhere('estado', 'Rechazado por secretaría académica.');
-       })
-       ->get();
+        // Obtener los planes asociados al profesor
+        $planes = Plan::with(['materia.profesor'])
+            ->whereHas('materia', function ($query) use ($profesor) {
+                $query->where('profesor_id', $profesor->id);
+            })
+            ->where(function ($query) {
+                $query->where('estado', 'Completo por administración.')
+                    ->orWhere('estado', 'Rechazado por secretaría académica.');
+            })
+            ->get();
 
         return view('profesor.verplanes', compact('planes'));
     }
@@ -94,15 +95,14 @@ class PlanController extends Controller
 
             $planes = new Plan();
             $planes->materia_id = $request->input('materia_id');
-            
+
             if ($request->input('action') == 'guardar_borrador') {
 
                 $planes->estado = 'Incompleto por administración.';
-
             } else if ($request->input('action') == 'guardar') {
                 $planes->estado = 'Completo por administración.';
-                
-                $request->validate([                
+
+                $request->validate([
                     'anio' => 'required|numeric',
                     'horas_totales' => 'required|numeric',
                     'horas_teoricas' => 'required|numeric',
@@ -155,11 +155,17 @@ class PlanController extends Controller
             // Buscar el plan por su ID
             $plan = Plan::find($id);
 
-            if($request->input('action') == 'rechazar') {
+            if ($request->input('action') == 'rechazar') {
                 $plan->estado = 'Rechazado para administración por profesor.';
                 $validatedData = $request->validate([
                     'area_tematica' => 'nullable|in:Formación básica,Formación académica,Formación profesional',
-                    'fundamentacion' =>  ['nullable', 'string', [$this, 'validateFundamentacion']],
+                    'fundamentacion' => [
+                        'required',
+                        'string',
+                        function ($attribute, $value, $fail) {
+                            $this->validateFundamentacion($attribute, $value, $fail);
+                        },
+                    ],
                     'obj_conceptuales' => 'nullable|string',
                     'obj_procedimentales' => 'nullable|string',
                     'obj_actitudinales' => 'nullable|string',
@@ -170,13 +176,18 @@ class PlanController extends Controller
                     'modalidad' => 'nullable|string|max:100',
                     'bibliografia' => 'nullable|string',
                 ]);
-            } 
-            else if($request->input('action') == 'guardar') {
+            } else if ($request->input('action') == 'guardar') {
 
                 $plan->estado = 'Completo por profesor.';
                 $validatedData = $request->validate([
                     'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
-                    'fundamentacion' =>  ['required', 'string', [$this, 'validateFundamentacion']],
+                    'fundamentacion' => [
+                        'required',
+                        'string',
+                        function ($attribute, $value, $fail) {
+                            $this->validateFundamentacion($attribute, $value, $fail);
+                        },
+                    ],
                     'obj_conceptuales' => 'required|string',
                     'obj_procedimentales' => 'required|string',
                     'obj_actitudinales' => 'required|string',
@@ -189,7 +200,7 @@ class PlanController extends Controller
                 ]);
 
                 // Actualizar los campos del plan con los nuevos datos
-                
+
             }
             $plan->fill($validatedData);
             $plan->save();
@@ -200,7 +211,7 @@ class PlanController extends Controller
             return redirect('/profesor')->with('warning', 'No se ha podido actualizar el plan.');
         }
     }
-    
+
     private function validateFundamentacion($attribute, $value, $fail)
     {
         if (!is_string($value)) {
@@ -287,7 +298,7 @@ class PlanController extends Controller
                     $plan->estado = 'Rechazado para administración por profesor.';
                     $plan->save();
                     return redirect('/profesor')->with('success', 'Nuevo estado de plan procesado.');
-                } 
+                }
             }
         } catch (Exception $e) {
             dd($e);
@@ -337,33 +348,33 @@ class PlanController extends Controller
 
     ////////////////////////PRUEBAS//////////////////////////
     public function exportarPDF($id)
-{
-    $plan = Plan::findOrFail($id);
-    $materia = $plan->materia;
+    {
+        $plan = Plan::findOrFail($id);
+        $materia = $plan->materia;
 
-    $pdf = Pdf::loadView('pdf.plan', compact('plan', 'materia'));
-    return $pdf->download('plan_'.$materia->nombre_materia.'.pdf');
-}
+        $pdf = Pdf::loadView('pdf.plan', compact('plan', 'materia'));
+        return $pdf->download('plan_' . $materia->nombre_materia . '.pdf');
+    }
 
-public function previewPDF(Request $request)
-{
-    // tomamos los datos del form sin guardar
-    $data = $request->all();
+    public function previewPDF(Request $request)
+    {
+        // tomamos los datos del form sin guardar
+        $data = $request->all();
 
-    // armamos un "Plan" en memoria (no se guarda en DB)
-    $plan = new Plan($data);
+        // armamos un "Plan" en memoria (no se guarda en DB)
+        $plan = new Plan($data);
 
-    // obtenemos la materia y su profesor
-    $materia = Materia::with('profesor')->findOrFail($data['materia_id']);
+        // obtenemos la materia y su profesor
+        $materia = Materia::with('profesor')->findOrFail($data['materia_id']);
 
-    // renderizamos la misma plantilla del PDF
-    $pdf = Pdf::loadView('pdf.plan', compact('plan', 'materia'));
+        // renderizamos la misma plantilla del PDF
+        $pdf = Pdf::loadView('pdf.plan', compact('plan', 'materia'));
 
-    // lo mostramos en el navegador
-    return $pdf->stream('plan_preview.pdf');
-}
+        // lo mostramos en el navegador
+        return $pdf->stream('plan_preview.pdf');
+    }
 
-/* 
+    /* 
 public function exportarDocx($id)
 {
     $plan = Plan::with('materia.profesor')->findOrFail($id);
@@ -388,6 +399,4 @@ public function exportarDocx($id)
 
     return response()->download($path)->deleteFileAfterSend(true);
 }*/
-
-
 }

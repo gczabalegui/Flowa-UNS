@@ -133,6 +133,8 @@ Route::middleware(['auth', 'role:profesor'])->group(function () {
     })->name('profesor.traerinfoplan');
 
     Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('rechazarplan');
+
+    Route::get('/profesor/verplanes', [PlanController::class, 'indexProfesor'])->name('profesor.verplanes');
 });
 
 // ------------------------------
