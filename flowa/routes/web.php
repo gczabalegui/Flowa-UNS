@@ -106,8 +106,10 @@ Route::middleware(['auth', 'role:secretaria'])->group(function () {
         return app(PlanController::class)->bringInfoPlan($id, 'secretaria');
     })->name('secretaria.traerinfoplan');
 
-    Route::post('/secretaria/aprobarplan/{id}', [PlanController::class, 'aprobarPlan'])->name('aprobarplan');
-    Route::post('/secretaria/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('rechazarplan');
+    Route::post('/secretaria/aprobarplan/{id}', [PlanController::class, 'aprobarPlan'])->name('secretaria.aprobarplan')->middleware('role:secretaria');
+    Route::post('/secretaria/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('secretaria.rechazarplan')->middleware('role:secretaria');
+
+    Route::get('/secretaria/verplanes', [PlanController::class, 'indexSecretaria'])->name('secretaria.verplanes');
 });
 
 // ------------------------------
@@ -132,7 +134,7 @@ Route::middleware(['auth', 'role:profesor'])->group(function () {
         return app(PlanController::class)->bringInfoPlan($id, 'profesor');
     })->name('profesor.traerinfoplan');
 
-    Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('rechazarplan');
+    Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('profesor.rechazarplan')->middleware('role:profesor');;
 
     Route::get('/profesor/verplanes', [PlanController::class, 'indexProfesor'])->name('profesor.verplanes');
 });

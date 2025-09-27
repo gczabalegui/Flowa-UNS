@@ -275,7 +275,7 @@ class PlanController extends Controller
             return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
         }
     }
-
+    
     public function rechazarPlan(Request $request, $id)
     {
         try {
@@ -283,29 +283,26 @@ class PlanController extends Controller
             if ($plan) {
                 $role = $request->input('role');
                 $type = $request->input('type');
-
+    
                 if ($role == 'secretaria') {
                     if ($type == 'administracion') {
                         $plan->estado = 'Rechazado para administración por secretaría académica.';
                         $plan->save();
-                        return redirect('/secretaria')->with('success', 'Nuevo estado de plan procesado.');
+                        return redirect('/secretaria')->with('estado', 'Plan rechazado para administración.');
                     } elseif ($type == 'profesor') {
                         $plan->estado = 'Rechazado para profesor por secretaría académica.';
-                        return redirect('/secretaria')->with('success', 'Nuevo estado de plan procesado.');
                         $plan->save();
+                        return redirect('/secretaria')->with('estado', 'Plan rechazado para profesor.');
                     }
-                } elseif ($role == 'profesor' && $type == 'administracion') {
-                    $plan->estado = 'Rechazado para administración por profesor.';
-                    $plan->save();
-                    return redirect('/profesor')->with('success', 'Nuevo estado de plan procesado.');
                 }
+                // Puedes agregar aquí otros roles si lo necesitas
             }
+            return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
         } catch (Exception $e) {
             dd($e);
-            return redirect('/')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
+            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
         }
     }
-
     /**
      * Display the specified resource.
      */
