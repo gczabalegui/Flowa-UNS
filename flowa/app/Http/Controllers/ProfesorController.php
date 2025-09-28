@@ -81,11 +81,19 @@ class ProfesorController extends Controller
             $user->role = 'profesor';
             $user->save();
     
-            return redirect('/administracion')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
+            if (auth()->user()->role === 'secretaria') {
+                return redirect('/secretaria')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
+            } else {
+                return redirect('/administracion')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
+            }
         }
         catch(\Exception $e) {
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
-        }    
+            if (auth()->user()->role === 'secretaria') {
+                return redirect('/secretaria')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
+            } else {
+                return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
+            }
+        }      
     }
 }
 
