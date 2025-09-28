@@ -336,12 +336,20 @@ class PlanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        try {
+            $plan = Plan::find($id);
+            if ($plan) {
+                $plan->delete();
+                return redirect()->route('administracion.verplanes')->with('estado', 'Plan eliminado correctamente.');
+            } else {
+                return redirect()->route('administracion.verplanes')->with('warning', 'No se encontró el plan a eliminar.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->route('administracion.verplanes')->with('warning', 'No se pudo eliminar el plan.');
+        }
     }
-
-
 
     ////////////////////////PRUEBAS//////////////////////////
     public function exportarPDF($id)

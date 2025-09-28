@@ -80,7 +80,9 @@ Route::middleware(['auth', 'role:administracion'])->group(function () {
     Route::get('/administracion/crearcomision', [ComisionController::class, 'createByAdmin'])->name('crearcomision');
     Route::post('/administracion/crearcomision', [ComisionController::class, 'store'])->name('storecomision');
 
-    Route::get('/administracion/verplanes', [PlanController::class, 'indexAdmin'])->name('verplanes');
+    Route::get('/administracion/verplanes', [PlanController::class, 'indexAdmin'])->name('administracion.verplanes');
+
+    Route::delete('/administracion/eliminarplan/{id}', [PlanController::class, 'destroy'])->name('administracion.eliminarplan');
 
     Route::get('/administracion/traerinfoplan/{id}', function($id) {
         return app(PlanController::class)->bringInfoPlan($id, 'administracion');
