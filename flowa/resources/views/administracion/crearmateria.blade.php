@@ -20,39 +20,35 @@
                 <h2 class="card-title mx-auto">Crear nueva materia</h2>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Nombre</span></label>
-                    <input id="nombre_materia" name="nombre_materia" type="text" class="input input-bordered w-full"
-                        tabindex="1" required value="{{ old('nombre_materia') }}" placeholder="Ingrese el nombre de la materia" required>
+                    <input id="nombre_materia" name="nombre_materia" type="text" class="input input-bordered w-full" tabindex="1" required value="{{ old('nombre_materia') }}" placeholder="Ingrese el nombre de la materia" required>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Código</span> </label>
-                    <input id="codigo" name="codigo" type="number" class="input input-bordered w-full"
-                        tabindex="2" required value="{{ old('codigo') }}" placeholder="Ingrese el código de la materia" required>
+                    <input id="codigo_materia" name="codigo_materia" type="number" class="input input-bordered w-full" tabindex="2" required value="{{ old('codigo_materia') }}" placeholder="Ingrese el código de la materia" required>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Seleccione el profesor de la materia</span> </label>
                     <select id="profesor_id" name="profesor_id" class="input input-bordered w-full" required>
                         @foreach($profesores as $profesor)
-                            <option value="{{ $profesor->id }}">{{ $profesor->nombre_profesor }} {{ $profesor->apellido }}</option>
+                        <option value="{{ $profesor->id }}">{{ $profesor->apellido_profesor }}, {{ $profesor->nombre_profesor }} ({{ $profesor->legajo_profesor}})</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas Semanales</span></label>
-                    <input id="horas_semanales" name="horas_semanales" type="number" class="input input-bordered w-full"
-                        tabindex="3" required value="{{ old('horas_semanales') }}" placeholder="Ingrese las horas semanales" required>
+                    <input id="horas_semanales" name="horas_semanales" type="number" class="input input-bordered w-full" tabindex="3" required value="{{ old('horas_semanales') }}" placeholder="Ingrese las horas semanales" required>
                 </div>
                 <div class="my-3">
                     <label class="label"><span class="label-text">Horas Totales</span></label>
-                    <input id="horas_totales" name="horas_totales" type="number" class="input input-bordered w-full"
-                        tabindex="4" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales" required>
+                    <input id="horas_totales" name="horas_totales" type="number" class="input input-bordered w-full" tabindex="4" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales" required>
                 </div>
                 <div class="my-3">
-                    <label class="label"><span class="label-text">Seleccione las carreras</span></label>
+                    <label class="label"><span class="label-text">Seleccione las carreras asociadas</span></label>
                     @foreach($carreras as $carrera)
-                        <div>
-                            <input type="checkbox" id="carrera_{{ $carrera->id }}" name="carreras[]" value="{{ $carrera->id }}">
-                            <label for="carrera_{{ $carrera->id }}">{{ $carrera->nombre_carrera }}</label>
-                        </div>
+                    <div>
+                        <input type="checkbox" id="carrera_{{ $carrera->id }}" name="carreras[]" value="{{ $carrera->id }}">
+                        <label for="carrera_{{ $carrera->id }}">{{ $carrera->nombre_carrera }}</label>
+                    </div>
                     @endforeach
                 </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">

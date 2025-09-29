@@ -23,18 +23,18 @@ class MateriaController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {   
+    {
         try {
             $profesores = Profesor::orderBy("apellido_profesor")->get();
             $carreras = Carrera::orderBy("nombre_carrera")->get();
-    
+
             if ($profesores->isEmpty()) {
                 return redirect('/administracion')->with('warning', 'No hay profesores. Por favor, cree un profesor antes de crear una materia.');
             }
             if ($carreras->isEmpty()) {
                 return redirect('/administracion')->with('warning', 'No hay carreras. Por favor, cree una carrera antes de crear una materia.');
             }
-    
+
             return view('administracion.crearmateria', compact('profesores', 'carreras'));
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -50,16 +50,21 @@ class MateriaController extends Controller
 
             $request->validate([
                 'nombre_materia' => 'required|max:255|string',
-                'codigo_materia' => 'required|numeric|unique:materias,codigo',
+                'codigo_materia' => 'required|numeric|unique:materias,codigo_materia',
                 'horas_semanales' => 'required|numeric|digits_between:1,2',
                 'horas_totales' => 'required|numeric|digits_between:1,2',
                 'profesor_id' => 'required|numeric|exists:profesors,id',
                 'carreras' => 'required|array',
                 'carreras.*' => 'exists:carreras,id',
             ]);
-    
-            $materia = Materia::create($request->only(['nombre_materia', 'codigo', 'profesor_id', 'horas_semanales', 'horas_totales']));
-    
+
+            $materia = Materia::create($request->only([
+                'nombre_materia',
+                'codigo_materia',
+                'profesor_id',
+                'horas_semanales',
+                'horas_totales']));
+
             $materia->carrera()->attach($request->carreras);
 
             return redirect('/administracion')->with('estado', 'Nueva materia creada exitosamente.');

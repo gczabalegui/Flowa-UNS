@@ -63,6 +63,7 @@ Route::middleware(['auth', 'role:administracion'])->group(function () {
     Route::post('/administracion/crearsecretaria', [SecretariaController::class, 'store'])->name('storesecretaria');
 
     Route::get('/administracion/crearplan', [PlanController::class, 'create'])->name('crearplan');
+
     Route::post('/administracion/crearplan', [PlanController::class, 'storeByAdmin'])->name('storeplan');
 
     Route::get('/administracion/crearmateria', [MateriaController::class, 'create'])->name('crearmateria');

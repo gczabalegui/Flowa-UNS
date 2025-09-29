@@ -15,7 +15,7 @@ class Carrera extends Model
         'plan_version',
         'duracion',
         'cant_materias',
-        'departamento_codigo'];
+        'departamento_id'];
         
    public function materia()
     {
