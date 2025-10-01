@@ -103,7 +103,7 @@
                 </div>   
                 <div class="flex flex-col items-center mt-4 space-y-2">
                     @if ($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría.') 
-                        <a href="/editar-plan" class="btn btn-warning w-1/3 text-black" tabindex="11">Editar</a>
+                        <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="btn btn-warning w-1/3 text-black" tabindex="11">Editar</a>
                     @endif
                     <a href="/administracion/verplanes" class="btn btn-secondary w-1/3 text-black" tabindex="10">Cancelar</a>
                 </div> 

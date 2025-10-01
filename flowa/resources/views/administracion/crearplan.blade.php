@@ -119,7 +119,7 @@
                     <input type="text" id="bibliografia" name="bibliografia" class="input input-bordered w-full readonly-field" readonly>
                 </div>
                 <div class="flex flex-col items-center mt-4 space-y-2">
-                    <button type="submit" name="action" value="borrador" class="btn btn-warning w-1/3 text-black" tabindex="9">Guardar borrador</button>
+                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/3 text-black" tabindex="9">Guardar borrador</button>
                     <button type="submit" name="action" value="guardar" class="btn btn-success w-1/3 text-black" tabindex="10">Guardar</button>
                     <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="11" onclick="window.location.href='/administracion'">Cancelar</button>
                     <!--<button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->

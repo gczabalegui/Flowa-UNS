@@ -43,9 +43,10 @@
                         <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                         <td class="border px-4 py-2 text-center">
                         <td class="flex flex-col space-y-2">
-                            <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
-                                @if($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría.') 
-                                    <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-warning">Editar</a>
+                            <div class="flex flex-col space-y-2">
+                                <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
+                                @if($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría académica.') 
+                                    <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="btn btn-warning">Editar</a>
                                 @else
                                     <button class="btn btn-warning" disabled>Editar</button>
                                 @endif                               
@@ -54,6 +55,7 @@
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-error">Eliminar</button>
                                 </form>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

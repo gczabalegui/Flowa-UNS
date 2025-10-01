@@ -83,6 +83,76 @@ class PlanController extends Controller
     }
 
     /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
+    {
+        try {
+            $plan = Plan::with('materia.profesor')->findOrFail($id);
+            $materias = Materia::with('profesor')->orderBy("nombre_materia")->get();
+            
+            $currentYear = date('Y');
+            $inicialYear = 1990;
+            $years = range($inicialYear, $currentYear);
+            
+            return view('administracion.editarplan', compact('plan', 'materias', 'years'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'No se pudo cargar el plan para editar.');
+        }
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function updateByAdmin(Request $request, string $id)
+    {
+        try {
+            $plan = Plan::findOrFail($id);
+            
+            $request->validate([
+                'materia_id' => 'required|numeric|exists:materias,id',
+            ]);
+
+            if ($request->input('action') == 'guardar_borrador') {
+                $plan->estado = 'Incompleto por administración.';
+            } else if ($request->input('action') == 'guardar') {
+                $plan->estado = 'Completo por administración.';
+
+                $request->validate([
+                    'anio' => 'required|numeric',
+                    'horas_totales' => 'required|numeric',
+                    'horas_teoricas' => 'required|numeric',
+                    'horas_practicas' => 'required|numeric',
+                    'DTE' => 'required|numeric',
+                    'RTF' => 'required|numeric',
+                    'creditos_academicos' => 'required|numeric'
+                ]);
+            }
+            
+            $plan->fill($request->only([
+                'materia_id',
+                'anio',
+                'horas_totales',
+                'horas_teoricas',
+                'horas_practicas',
+                'DTE',
+                'RTF',
+                'creditos_academicos'
+            ]));
+
+            $plan->save();
+
+            if ($request->input('action') == 'guardar_borrador') {
+                return redirect('/administracion/verplanes')->with('estado', 'Plan actualizado como borrador.');
+            } else if ($request->input('action') == 'guardar') {
+                return redirect('/administracion/verplanes')->with('estado', 'Plan actualizado exitosamente.');
+            }
+        } catch (\Exception $e) {
+            return redirect('/administracion/verplanes')->with('warning', 'No se ha podido actualizar el plan.');
+        }
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     //crear una funcion store que lo haga para un store de borrador, sin el required

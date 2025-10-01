@@ -83,6 +83,9 @@ Route::middleware(['auth', 'role:administracion'])->group(function () {
 
     Route::get('/administracion/verplanes', [PlanController::class, 'indexAdmin'])->name('administracion.verplanes');
 
+    Route::get('/administracion/editarplan/{id}', [PlanController::class, 'edit'])->name('administracion.editarplan');
+    Route::put('/administracion/editarplan/{id}', [PlanController::class, 'updateByAdmin'])->name('administracion.updateplan');
+
     Route::delete('/administracion/eliminarplan/{id}', [PlanController::class, 'destroy'])->name('administracion.eliminarplan');
 
     Route::get('/administracion/traerinfoplan/{id}', function($id) {
