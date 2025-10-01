@@ -36,7 +36,7 @@ class ComisionController extends Controller
     public function createBySec()
     {
         $carreras = Carrera::all();
-        return view('administracion.crearcomision', compact('carreras'));
+        return view('secretaria.crearcomision', compact('carreras'));
     }
     /**
      * Store a newly created resource in storage.

@@ -28,10 +28,20 @@
                 </div>
 
                 <div class="my-3">
-                    <label class="label" style="font-weight: bold;"><span class="label-text">Profesor</span></label>
-                    <input id="profesor" type="text" class="input input-bordered w-full" readonly>
+                    <label class="label" style="font-weight: bold;">
+                        <span class="label-text">Profesor</span>
+                    </label>
+                    <select id="profesor" name="profesor_id" class="input input-bordered w-full">
+                        <option value="">Seleccione un profesor</option>
+                        @foreach($profesores as $profesor)
+                        <option value="{{ $profesor->id }}">
+                            {{ $profesor->apellido_profesor }}, {{ $profesor->nombre_profesor }}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
-                
+
+
                 <div class="my-3">
                     <label class="label" style="font-weight: bold;"><span class="label-text">Año</span></label>
                     <select name="anio" id="anio" class="input input-bordered w-full" tabindex="2">
@@ -128,10 +138,19 @@
             <script>
                 document.getElementById('materia_id').addEventListener('change', function() {
                     var selectedOption = this.options[this.selectedIndex];
-                    var profesor = selectedOption.getAttribute('data-profesor');
-                    document.getElementById('profesor').value = profesor;
+                    var profesorNombre = selectedOption.getAttribute('data-profesor');
+
+                    // buscar el option del select profesor que coincide con el nombre
+                    var profesorSelect = document.getElementById('profesor');
+                    for (let i = 0; i < profesorSelect.options.length; i++) {
+                        if (profesorSelect.options[i].text === profesorNombre) {
+                            profesorSelect.selectedIndex = i;
+                            break;
+                        }
+                    }
                 });
             </script>
+
         </form>
     </div>
     <style>
