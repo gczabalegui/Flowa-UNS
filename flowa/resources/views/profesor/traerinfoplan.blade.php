@@ -114,9 +114,9 @@
             <button type="submit" class="btn btn-warning" tabindex="8">Rechazar plan</button>
         </form>
 
-        {{-- Botón para completar plan: ahora es un enlace que lleva a completarinfoplan --}}
-        <a href="{{ route('completarinfoplan', ['id' => $plan->id]) }}" class="btn btn-success" tabindex="9">
-            Completar plan
+        {{-- Botón para editar plan: ahora es un enlace que lleva a editarplan --}}
+        <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="btn btn-success" tabindex="9">
+            Editar plan
         </a>
     </div>
 

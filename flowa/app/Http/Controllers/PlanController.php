@@ -38,7 +38,9 @@ class PlanController extends Controller
             })
             ->where(function ($query) {
                 $query->where('estado', 'Completo por administración.')
-                    ->orWhere('estado', 'Rechazado por secretaría académica.');
+                    ->orWhere('estado', 'Rechazado por secretaría académica.')
+                    ->orWhere('estado', 'Incompleto por profesor.')
+                    ->orWhere('estado', 'Rechazado para profesor por secretaría.');
             })
             ->get();
 
@@ -86,7 +88,7 @@ class PlanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function editByAdmin(string $id)
     {
         try {
             $plan = Plan::with('materia.profesor')->findOrFail($id);
@@ -150,6 +152,20 @@ class PlanController extends Controller
             }
         } catch (\Exception $e) {
             return redirect('/administracion/verplanes')->with('warning', 'No se ha podido actualizar el plan.');
+        }
+    }
+
+    /**
+     * Show the form for editing the specified resource by professor.
+     */
+    public function editByProfesor(string $id)
+    {
+        try {
+            $plan = Plan::with('materia.profesor')->findOrFail($id);
+            
+            return view('profesor.editarplan', compact('plan'));
+        } catch (Exception $e) {
+            return redirect()->back()->with('error', 'No se pudo cargar el plan para editar.');
         }
     }
 
@@ -220,69 +236,6 @@ class PlanController extends Controller
         }
     }
 
-    public function storeByProfesor(Request $request, string $id)
-    {
-        try {
-            // Buscar el plan por su ID
-            $plan = Plan::find($id);
-
-            if ($request->input('action') == 'rechazar') {
-                $plan->estado = 'Rechazado para administración por profesor.';
-                $validatedData = $request->validate([
-                    'area_tematica' => 'nullable|in:Formación básica,Formación académica,Formación profesional',
-                    'fundamentacion' => [
-                        'required',
-                        'string',
-                        function ($attribute, $value, $fail) {
-                            $this->validateFundamentacion($attribute, $value, $fail);
-                        },
-                    ],
-                    'obj_conceptuales' => 'nullable|string',
-                    'obj_procedimentales' => 'nullable|string',
-                    'obj_actitudinales' => 'nullable|string',
-                    'obj_especificos' => 'nullable|string',
-                    'cont_minimos' => 'nullable|string',
-                    'programa_analitico' => 'nullable|string',
-                    'act_practicas' => 'nullable|string',
-                    'modalidad' => 'nullable|string|max:100',
-                    'bibliografia' => 'nullable|string',
-                ]);
-            } else if ($request->input('action') == 'guardar') {
-
-                $plan->estado = 'Completo por profesor.';
-                $validatedData = $request->validate([
-                    'area_tematica' => 'required|in:Formación básica,Formación académica,Formación profesional',
-                    'fundamentacion' => [
-                        'required',
-                        'string',
-                        function ($attribute, $value, $fail) {
-                            $this->validateFundamentacion($attribute, $value, $fail);
-                        },
-                    ],
-                    'obj_conceptuales' => 'required|string',
-                    'obj_procedimentales' => 'required|string',
-                    'obj_actitudinales' => 'required|string',
-                    'obj_especificos' => 'required|string',
-                    'cont_minimos' => 'required|string',
-                    'programa_analitico' => 'required|string',
-                    'act_practicas' => 'required|string',
-                    'modalidad' => 'required|string|max:100',
-                    'bibliografia' => 'required|string',
-                ]);
-
-                // Actualizar los campos del plan con los nuevos datos
-
-            }
-            $plan->fill($validatedData);
-            $plan->save();
-
-            return redirect('/profesor')->with('estado', 'El plan ha sido actualizado exitosamente.');
-        } catch (\Exception $e) {
-            dd($e);
-            return redirect('/profesor')->with('warning', 'No se ha podido actualizar el plan.');
-        }
-    }
-
     private function validateFundamentacion($attribute, $value, $fail)
     {
         if (!is_string($value)) {
@@ -299,18 +252,6 @@ class PlanController extends Controller
         // Validar el límite de palabras
         if ($numeroPalabras > $limitePalabras) {
             $fail("La fundamentación no puede tener más de $limitePalabras palabras.");
-        }
-    }
-
-    public function bringPlanForm($id, $mode)
-    {
-        $plan = Plan::findOrFail($id);
-        if ($mode === 'completar') {
-            return view('profesor.completarinfoplan', compact('plan'));
-        } elseif ($mode === 'modificar') {
-            return view('profesor.modificarinfoplan', compact('plan'));
-        } else {
-            abort(404);
         }
     }
 
@@ -382,19 +323,89 @@ class PlanController extends Controller
         //
     }
     /**
-     * Show the form for editing the specified resource.
+     * Update the specified resource in storage by professor.
      */
     public function updateByProfesor(Request $request, $id)
     {
         try {
-            $plan = Plan::find($id);
-            $plan->fill($request->all());
-            $plan->update();
+            $plan = Plan::findOrFail($id);
+            
+            // Manejar diferentes acciones
+            if ($request->input('action') == 'rechazar') {
+                $plan->estado = 'Rechazado para administración por profesor.';
+                $validatedData = $request->validate([
+                    'area_tematica' => 'nullable|in:Formación básica,Formación aplicada,Formación profesional',
+                    'fundamentacion' => [
+                        'required',
+                        'string',
+                        function ($attribute, $value, $fail) {
+                            $this->validateFundamentacion($attribute, $value, $fail);
+                        },
+                    ],
+                    'obj_conceptuales' => 'nullable|string',
+                    'obj_procedimentales' => 'nullable|string',
+                    'obj_actitudinales' => 'nullable|string',
+                    'obj_especificos' => 'nullable|string',
+                    'cont_minimos' => 'nullable|string',
+                    'programa_analitico' => 'nullable|string',
+                    'act_practicas' => 'nullable|string',
+                    'modalidad' => 'nullable|string|max:100',
+                    'bibliografia' => 'nullable|string',
+                ]);
+            } else if ($request->input('action') == 'guardar_borrador') {
+                $plan->estado = 'Incompleto por profesor.';
+                // Para borrador, no validamos campos requeridos
+                $validatedData = $request->only([
+                    'area_tematica',
+                    'fundamentacion',
+                    'obj_conceptuales',
+                    'obj_procedimentales',
+                    'obj_actitudinales',
+                    'obj_especificos',
+                    'cont_minimos',
+                    'programa_analitico',
+                    'act_practicas',
+                    'modalidad',
+                    'bibliografia'
+                ]);
+            } else if ($request->input('action') == 'guardar') {
+                $plan->estado = 'Completo por profesor.';
+                
+                $validatedData = $request->validate([
+                    'area_tematica' => 'required|in:Formación básica,Formación aplicada,Formación profesional',
+                    'fundamentacion' => [
+                        'required',
+                        'string',
+                        function ($attribute, $value, $fail) {
+                            $this->validateFundamentacion($attribute, $value, $fail);
+                        },
+                    ],
+                    'obj_conceptuales' => 'required|string',
+                    'obj_procedimentales' => 'required|string',
+                    'obj_actitudinales' => 'required|string',
+                    'obj_especificos' => 'required|string',
+                    'cont_minimos' => 'required|string',
+                    'programa_analitico' => 'required|string',
+                    'act_practicas' => 'required|string',
+                    'modalidad' => 'required|string|max:100',
+                    'bibliografia' => 'required|string',
+                ]);
+            }
+            
+            $plan->fill($validatedData);
+            $plan->save();
 
-            return redirect('/profesor')->with('success', 'Información del plan actualizada correctamente.');
+            // Redireccionar según la acción
+            if ($request->input('action') == 'guardar_borrador') {
+                return redirect('/profesor')->with('estado', 'Plan actualizado como borrador.');
+            } else if ($request->input('action') == 'guardar') {
+                return redirect('/profesor')->with('estado', 'Plan actualizado exitosamente.');
+            } else if ($request->input('action') == 'rechazar') {
+                return redirect('/profesor')->with('estado', 'Plan rechazado exitosamente.');
+            }
+            
         } catch (\Exception $e) {
-            dd($e);
-            return redirect('/profesor')->with('error', 'Ocurrió un error al actualizar la información del plan.');
+            return redirect('/profesor')->with('warning', 'No se ha podido actualizar el plan.');
         }
     }
     /**
