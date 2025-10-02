@@ -306,6 +306,12 @@ class PlanController extends Controller
                         $plan->save();
                         return redirect('/secretaria')->with('estado', 'Plan rechazado para profesor.');
                     }
+                } elseif ($role == 'profesor') {
+                    if ($type == 'administracion') {
+                        $plan->estado = 'Rechazado para administración por profesor.';
+                        $plan->save();
+                        return redirect('/profesor')->with('estado', 'Plan rechazado para administración.');
+                    }
                 }
                 // Puedes agregar aquí otros roles si lo necesitas
             }
@@ -335,13 +341,7 @@ class PlanController extends Controller
                 $plan->estado = 'Rechazado para administración por profesor.';
                 $validatedData = $request->validate([
                     'area_tematica' => 'nullable|in:Formación básica,Formación aplicada,Formación profesional',
-                    'fundamentacion' => [
-                        'required',
-                        'string',
-                        function ($attribute, $value, $fail) {
-                            $this->validateFundamentacion($attribute, $value, $fail);
-                        },
-                    ],
+                    'fundamentacion' => 'nullable|string',
                     'obj_conceptuales' => 'nullable|string',
                     'obj_procedimentales' => 'nullable|string',
                     'obj_actitudinales' => 'nullable|string',

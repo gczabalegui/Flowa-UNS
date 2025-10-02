@@ -163,13 +163,16 @@
 
                 <!-- Botones -->
                 <div class="flex justify-center space-x-4 mt-6">
-                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/3 text-black" tabindex="12">
+                    <button type="submit" name="action" value="rechazar" class="btn btn-error w-1/4 text-white" tabindex="12">
+                        Rechazar plan
+                    </button>
+                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/4 text-black" tabindex="13">
                         Guardar borrador
                     </button>
-                    <button type="submit" name="action" value="guardar" id="guardarBtn" class="btn btn-success w-1/3 text-black" tabindex="13" disabled>
+                    <button type="submit" name="action" value="guardar" id="guardarBtn" class="btn btn-success w-1/4 text-black" tabindex="14" disabled>
                         Guardar plan
                     </button>
-                    <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="14" onclick="window.location.href='/profesor'">
+                    <button type="button" class="btn btn-secondary w-1/4 text-black" tabindex="15" onclick="window.location.href='/profesor'">
                         Cancelar
                     </button>
                 </div>
@@ -302,6 +305,19 @@
                         alert('Por favor complete todos los campos requeridos antes de guardar el plan.');
                         return false;
                     }
+                } else if (submitButton && submitButton.value === 'rechazar') {
+                    // Para rechazar, confirmar acción
+                    if (!confirm('¿Está seguro que desea rechazar este plan? Esta acción lo devolverá a administración.')) {
+                        e.preventDefault();
+                        return false;
+                    }
+                    // Remover validación required para rechazar
+                    requiredFields.forEach(fieldName => {
+                        const field = document.getElementById(fieldName);
+                        if (field) {
+                            field.removeAttribute('required');
+                        }
+                    });
                 } else {
                     // Si es "Guardar borrador", remover validación required
                     requiredFields.forEach(fieldName => {

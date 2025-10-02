@@ -11,13 +11,10 @@
 </head>
 
 <body>
-    @include('secretaria.layouts.navbar')
+    @include('profesor.layouts.navbar')
     <div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
-        <form action="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" method="GET">
-            @csrf
-            <input type="hidden" name="role" value="secretaria">
-            <div class="mx-5 my-5">
-                <h2 class="card-title mx-auto">Revisar la información del plan</h2>
+        <div class="mx-5 my-5">
+            <h2 class="card-title mx-auto">Revisar la información del plan</h2>
                 <div class="my-3">
                     <label class="disabled-label"><span class="label-text">Materia</span></label>
                     <p class="text-lg">{{ $plan->materia->nombre_materia }}</p>
@@ -103,27 +100,26 @@
                     <p class="text-lg">{{ $plan->bibliografia }}</p>
                 </div>
             </div>
-    </div>
-    </form>
-    <div class="flex justify-center space-x-4 mt-6">
-        {{-- Botón para rechazar plan: se mantiene igual --}}
-        <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
-            @csrf
-            <input type="hidden" name="role" value="profesor">
-            <input type="hidden" name="type" value="administracion">
-            <button type="submit" class="btn btn-warning" tabindex="8">Rechazar plan</button>
-        </form>
+        </div>
 
-        {{-- Botón para editar plan: ahora es un enlace que lleva a editarplan --}}
-        <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="btn btn-success" tabindex="9">
-            Editar plan
-        </a>
-    </div>
-
-    <div class="flex justify-center mt-6">
-        <a href="/profesor/verplanes" class="btn btn-secondary w-1/6" tabindex="10">Cancelar</a>
-    </div>
-
+        {{-- Botones de acción --}}
+        <div class="flex justify-center space-x-4 mt-6 mb-6">
+            <form action="{{ route('profesor.rechazarplan', ['id' => $plan->id]) }}" method="POST" class="flex-1 max-w-xs">
+                @csrf
+                <input type="hidden" name="role" value="profesor">
+                <input type="hidden" name="type" value="administracion">
+                <button type="submit" class="btn btn-error w-full text-white" tabindex="9" 
+                        onclick="return confirm('¿Está seguro que desea rechazar este plan? Esta acción lo devolverá a administración.')">
+                    Rechazar plan
+                </button>
+            </form>
+            
+            <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="btn btn-warning flex-1 max-w-xs text-center" tabindex="10">
+                Editar plan
+            </a>
+            
+            <a href="/profesor/verplanes" class="btn btn-secondary flex-1 max-w-xs text-center" tabindex="11">Cancelar</a>
+        </div>
     </div>
     <style>
         /* Ocultar flechas en Chrome, Safari, Edge, Opera */

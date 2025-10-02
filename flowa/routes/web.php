@@ -128,7 +128,7 @@ Route::middleware(['auth', 'role:profesor'])->group(function () {
         return app(PlanController::class)->bringInfoPlan($id, 'profesor');
     })->name('profesor.traerinfoplan');
 
-    Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('profesor.rechazarplan')->middleware('role:profesor');;
+    Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('profesor.rechazarplan')->middleware('role:profesor');
 
     Route::get('/profesor/editarplan/{id}', [PlanController::class, 'editByProfesor'])->name('profesor.editarplan');
     Route::put('/profesor/editarplan/{id}', [PlanController::class, 'updateByProfesor'])->name('profesor.editarplan.update');
