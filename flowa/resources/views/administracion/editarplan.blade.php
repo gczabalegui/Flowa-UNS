@@ -147,10 +147,30 @@
                 </div>
                 @endif
 
-                <div class="flex justify-center space-x-4 mt-6">
-                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/4 text-black" tabindex="9">Guardar borrador</button>
-                    <button type="submit" name="action" value="guardar" class="btn btn-success w-1/4 text-white" tabindex="10">Guardar</button>
-                    <a href="/administracion/verplanes" class="btn btn-secondary w-1/4 text-black" tabindex="11">Cancelar</a>
+                @php
+                    $estadosRechazados = [
+                        'Rechazado para administración por secretaría académica.',
+                        'Rechazado para profesor por secretaría académica.',
+                        'Rechazado para administración por profesor.'
+                    ];
+                    $esPlanRechazado = in_array($plan->estado, $estadosRechazados);
+                @endphp
+
+                <div class="flex justify-center space-x-4 mt-6 mb-6">
+                    @if($esPlanRechazado)
+                        <div class="tooltip tooltip-top" data-tip="No se puede guardar como borrador. Debe rectificar y enviar.">
+                            <button type="button" class="btn btn-warning w-auto text-black opacity-50 cursor-not-allowed" disabled tabindex="9">
+                                Guardar borrador
+                            </button>
+                        </div>
+                    @else
+                        <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-auto text-black" tabindex="9">Guardar borrador</button>
+                    @endif
+                    
+                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
+                        <button type="submit" name="action" value="guardar" class="btn btn-success w-auto text-white" tabindex="10" id="guardarBtn">Guardar</button>
+                    </div>
+                    <a href="/administracion/verplanes" class="btn btn-secondary w-auto text-black" tabindex="11">Cancelar</a>
                 </div>
             </div>
         </form>
@@ -188,16 +208,19 @@
                 });
                 
                 const guardarBtn = document.querySelector('button[value="guardar"]');
+                const guardarTooltip = document.getElementById('guardarTooltip');
                 
-                if (guardarBtn) {
+                if (guardarBtn && guardarTooltip) {
                     guardarBtn.disabled = !allFieldsValid;
                     
                     if (allFieldsValid) {
                         guardarBtn.classList.remove('btn-disabled');
                         guardarBtn.classList.add('btn-success');
+                        guardarTooltip.classList.remove('tooltip');
                     } else {
                         guardarBtn.classList.add('btn-disabled');
                         guardarBtn.classList.remove('btn-success');
+                        guardarTooltip.classList.add('tooltip', 'tooltip-top');
                     }
                 }
             }

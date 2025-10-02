@@ -161,18 +161,39 @@
                         placeholder="Ingrese la bibliografía">{{ $plan->bibliografia }}</textarea>
                 </div>
 
+                @php
+                    $estadosRechazados = [
+                        'Rechazado para administración por secretaría académica.',
+                        'Rechazado para profesor por secretaría académica.',
+                        'Rechazado para administración por profesor.'
+                    ];
+                    $esPlanRechazado = in_array($plan->estado, $estadosRechazados);
+                @endphp
+
                 <!-- Botones -->
-                <div class="flex justify-center space-x-4 mt-6">
-                    <button type="submit" name="action" value="rechazar" class="btn btn-error w-1/4 text-white" tabindex="12">
+                <div class="flex justify-center space-x-4 mt-6 mb-6">
+                    <button type="submit" name="action" value="rechazar" class="btn btn-error w-auto text-white" tabindex="12">
                         Rechazar plan
                     </button>
-                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/4 text-black" tabindex="13">
-                        Guardar borrador
-                    </button>
-                    <button type="submit" name="action" value="guardar" id="guardarBtn" class="btn btn-success w-1/4 text-black" tabindex="14" disabled>
-                        Guardar plan
-                    </button>
-                    <button type="button" class="btn btn-secondary w-1/4 text-black" tabindex="15" onclick="window.location.href='/profesor'">
+                    
+                    @if($esPlanRechazado)
+                        <div class="tooltip tooltip-top" data-tip="No se puede guardar como borrador. Debe rectificar y enviar.">
+                            <button type="button" class="btn btn-warning w-auto text-black opacity-50 cursor-not-allowed" disabled tabindex="13">
+                                Guardar borrador
+                            </button>
+                        </div>
+                    @else
+                        <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-auto text-black" tabindex="13">
+                            Guardar borrador
+                        </button>
+                    @endif
+                    
+                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
+                        <button type="submit" name="action" value="guardar" id="guardarBtn" class="btn btn-success w-auto text-black" tabindex="14" disabled>
+                            Guardar plan
+                        </button>
+                    </div>
+                    <button type="button" class="btn btn-secondary w-auto text-black" tabindex="15" onclick="window.location.href='/profesor'">
                         Cancelar
                     </button>
                 </div>
@@ -248,6 +269,7 @@
             ];
             
             const guardarBtn = document.getElementById('guardarBtn');
+            const guardarTooltip = document.getElementById('guardarTooltip');
             const form = document.querySelector('form');
             
             function validateForm() {
@@ -264,10 +286,16 @@
                     guardarBtn.disabled = false;
                     guardarBtn.classList.remove('btn-disabled');
                     guardarBtn.classList.add('btn-success');
+                    if (guardarTooltip) {
+                        guardarTooltip.classList.remove('tooltip');
+                    }
                 } else {
                     guardarBtn.disabled = true;
                     guardarBtn.classList.add('btn-disabled');
                     guardarBtn.classList.remove('btn-success');
+                    if (guardarTooltip) {
+                        guardarTooltip.classList.add('tooltip', 'tooltip-top');
+                    }
                 }
             }
             

@@ -34,7 +34,8 @@ class PlanController extends Controller
                 $query->where('estado', 'Completo por administración.')
                     ->orWhere('estado', 'Rechazado por secretaría académica.')
                     ->orWhere('estado', 'Incompleto por profesor.')
-                    ->orWhere('estado', 'Rechazado para profesor por secretaría académica.');
+                    ->orWhere('estado', 'Rechazado para profesor por secretaría académica.')
+                    ->orWhere('estado', 'Rectificado por administración para profesor.');
             });
 
         // Si NO es admin, filtramos por el profesor asociado
@@ -55,7 +56,11 @@ class PlanController extends Controller
     public function indexSecretaria()
     {
         $planes = Plan::with(['materia.profesor'])
-            ->where('estado', 'Completo por profesor.')
+            ->where(function($query) {
+                $query->where('estado', 'Completo por profesor.')
+                      ->orWhere('estado', 'Rectificado por profesor para secretaría académica.')
+                      ->orWhere('estado', 'Rectificado por administración para secretaría académica.');
+            })
             ->get();
         return view('secretaria.verplanes', compact('planes'));
     }
@@ -121,10 +126,27 @@ class PlanController extends Controller
                 'materia_id' => 'required|numeric|exists:materias,id',
             ]);
 
+            $estadosRechazados = [
+                'Rechazado para administración por secretaría académica.',
+                'Rechazado para profesor por secretaría académica.',
+                'Rechazado para administración por profesor.'
+            ];
+
             if ($request->input('action') == 'guardar_borrador') {
+                // No permitir guardar como borrador si está en estado de rechazo
+                if (in_array($plan->estado, $estadosRechazados)) {
+                    return redirect()->back()->with('warning', 'No se puede guardar como borrador. El plan debe ser rectificado y enviado.');
+                }
                 $plan->estado = 'Incompleto por administración.';
             } else if ($request->input('action') == 'guardar') {
-                $plan->estado = 'Completo por administración.';
+                // Determinar el nuevo estado según el estado actual
+                if ($plan->estado == 'Rechazado para administración por secretaría académica.') {
+                    $plan->estado = 'Rectificado por administración para secretaría académica.';
+                } else if ($plan->estado == 'Rechazado para administración por profesor.') {
+                    $plan->estado = 'Rectificado por administración para profesor.';
+                } else {
+                    $plan->estado = 'Completo por administración.';
+                }
 
                 $request->validate([
                     'anio' => 'required|numeric',
@@ -341,6 +363,12 @@ class PlanController extends Controller
         try {
             $plan = Plan::findOrFail($id);
             
+            $estadosRechazados = [
+                'Rechazado para administración por secretaría académica.',
+                'Rechazado para profesor por secretaría académica.',
+                'Rechazado para administración por profesor.'
+            ];
+            
             // Manejar diferentes acciones
             if ($request->input('action') == 'rechazar') {
                 $plan->estado = 'Rechazado para administración por profesor.';
@@ -358,6 +386,10 @@ class PlanController extends Controller
                     'bibliografia' => 'nullable|string',
                 ]);
             } else if ($request->input('action') == 'guardar_borrador') {
+                // No permitir guardar como borrador si está en estado de rechazo
+                if (in_array($plan->estado, $estadosRechazados)) {
+                    return redirect()->back()->with('warning', 'No se puede guardar como borrador. El plan debe ser rectificado y enviado.');
+                }
                 $plan->estado = 'Incompleto por profesor.';
                 // Para borrador, no validamos campos requeridos
                 $validatedData = $request->only([
@@ -374,7 +406,14 @@ class PlanController extends Controller
                     'bibliografia'
                 ]);
             } else if ($request->input('action') == 'guardar') {
-                $plan->estado = 'Completo por profesor.';
+                // Determinar el nuevo estado según el estado actual
+                if ($plan->estado == 'Rechazado para profesor por secretaría académica.') {
+                    $plan->estado = 'Rectificado por profesor para secretaría académica.';
+                } else if ($plan->estado == 'Rechazado para administración por profesor.') {
+                    $plan->estado = 'Rectificado por profesor para administración.';
+                } else {
+                    $plan->estado = 'Completo por profesor.';
+                }
                 
                 $validatedData = $request->validate([
                     'area_tematica' => 'required|in:Formación básica,Formación aplicada,Formación profesional',

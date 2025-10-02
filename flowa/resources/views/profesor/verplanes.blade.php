@@ -34,7 +34,12 @@
                             <td class="border px-4 py-2 text-center">
                                 <div class="flex flex-col space-y-2">
                                     <a href="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
-                                    @if($plan->estado === 'Completo por administración.' || $plan->estado === 'Rechazado para profesor por secretaría académica.' || $plan->estado === 'Incompleto por profesor.')
+                                    @if(in_array($plan->estado, [
+                                        'Completo por administración.',
+                                        'Rechazado para profesor por secretaría académica.',
+                                        'Incompleto por profesor.',
+                                        'Rectificado por administración para profesor.'
+                                    ]))
                                         <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="btn btn-warning">Editar</a>
                                     @else
                                         <button class="btn btn-warning" disabled>Editar</button>
