@@ -128,14 +128,70 @@
                     <label class="label disabled-label"><span class="label-text">Bibliografía</span></label>
                     <input type="text" id="bibliografia" name="bibliografia" class="input input-bordered w-full readonly-field" readonly>
                 </div>
-                <div class="flex flex-col items-center mt-4 space-y-2">
-                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-1/3 text-black" tabindex="9">Guardar borrador</button>
-                    <button type="submit" name="action" value="guardar" class="btn btn-success w-1/3 text-black" tabindex="10">Guardar</button>
-                    <button type="button" class="btn btn-secondary w-1/3 text-black" tabindex="11" onclick="window.location.href='/administracion'">Cancelar</button>
+                <div class="flex justify-center space-x-4 mt-6 mb-6">
+                    <button type="submit" name="action" value="guardar_borrador" class="btn btn-warning w-auto text-black" tabindex="9">Guardar borrador</button>
+                    
+                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
+                        <button type="submit" name="action" value="guardar" class="btn btn-success w-auto text-white" tabindex="10" id="guardarBtn" disabled>Guardar</button>
+                    </div>
+                    
+                    <button type="button" class="btn btn-secondary w-auto text-black" tabindex="11" onclick="window.location.href='/administracion'">Cancelar</button>
                     <!--<button type="submit" name="preview" value="1" class="btn btn-outline">Vista Previa</button>-->
                 </div>
             </div>
             <script>
+                // Campos requeridos para el botón "Guardar"
+                const requiredFields = ['materia_id', 'anio', 'horas_totales', 'horas_teoricas', 'horas_practicas', 'DTE', 'RTF', 'creditos_academicos'];
+                
+                // Referencias a elementos
+                const guardarBtn = document.getElementById('guardarBtn');
+                const guardarTooltip = document.getElementById('guardarTooltip');
+                
+                // Función para validar el formulario
+                function validateForm() {
+                    let allValid = true;
+                    
+                    requiredFields.forEach(fieldName => {
+                        const field = document.getElementById(fieldName);
+                        if (field && field.value.trim() === '') {
+                            allValid = false;
+                        }
+                    });
+                    
+                    if (allValid) {
+                        guardarBtn.disabled = false;
+                        guardarBtn.classList.remove('btn-disabled');
+                        guardarBtn.classList.add('btn-success');
+                        guardarBtn.classList.remove('text-black');
+                        guardarBtn.classList.add('text-white');
+                        if (guardarTooltip) {
+                            guardarTooltip.classList.remove('tooltip');
+                        }
+                    } else {
+                        guardarBtn.disabled = true;
+                        guardarBtn.classList.add('btn-disabled');
+                        guardarBtn.classList.remove('btn-success');
+                        guardarBtn.classList.add('text-black');
+                        guardarBtn.classList.remove('text-white');
+                        if (guardarTooltip) {
+                            guardarTooltip.classList.add('tooltip', 'tooltip-top');
+                        }
+                    }
+                }
+                
+                // Validar al cargar la página
+                validateForm();
+                
+                // Agregar listeners a todos los campos requeridos
+                requiredFields.forEach(fieldName => {
+                    const field = document.getElementById(fieldName);
+                    if (field) {
+                        field.addEventListener('input', validateForm);
+                        field.addEventListener('change', validateForm);
+                    }
+                });
+
+                // Mantener funcionalidad existente
                 document.getElementById('materia_id').addEventListener('change', function() {
                     var selectedOption = this.options[this.selectedIndex];
                     var profesorNombre = selectedOption.getAttribute('data-profesor');
