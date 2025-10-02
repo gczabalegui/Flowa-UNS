@@ -28,21 +28,26 @@ class PlanController extends Controller
         // Obtener el usuario autenticado
         $user = Auth::user();
 
-        // Obtener el profesor asociado al usuario mediante el legajo
-        $profesor = Profesor::where('legajo_profesor', $user->legajo)->first();
-
-        // Obtener los planes asociados al profesor
-        $planes = Plan::with(['materia.profesor'])
-            ->whereHas('materia', function ($query) use ($profesor) {
-                $query->where('profesor_id', $profesor->id);
-            })
+        // Base de la consulta
+        $planesQuery = Plan::with(['materia.profesor'])
             ->where(function ($query) {
                 $query->where('estado', 'Completo por administración.')
                     ->orWhere('estado', 'Rechazado por secretaría académica.')
                     ->orWhere('estado', 'Incompleto por profesor.')
-                    ->orWhere('estado', 'Rechazado para profesor por secretaría.');
-            })
-            ->get();
+                    ->orWhere('estado', 'Rechazado para profesor por secretaría académica.');
+            });
+
+        // Si NO es admin, filtramos por el profesor asociado
+        if ($user->role == 'profesor') {
+            $profesor = Profesor::where('legajo_profesor', $user->legajo)->first();
+
+            $planesQuery->whereHas('materia', function ($query) use ($profesor) {
+                $query->where('profesor_id', $profesor->id);
+            });
+        }
+
+        // Ejecutar consulta
+        $planes = $planesQuery->get();
 
         return view('profesor.verplanes', compact('planes'));
     }

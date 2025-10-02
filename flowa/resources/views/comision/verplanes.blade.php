@@ -31,7 +31,7 @@
                             <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                             <td class="border px-4 py-2 text-center">
-                             <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
+                             <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Ver</a>
                             </td>
                         </tr>
                         @endforeach
