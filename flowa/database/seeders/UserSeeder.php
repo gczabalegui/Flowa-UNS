@@ -35,6 +35,16 @@ class UserSeeder extends Seeder
                 'updated_at' => $now,
             ],
 
+            [
+                'email' => 'flowauns25@gmail.com',
+                'legajo' => null,
+                'password' => Hash::make('12345'),
+                'role' => 'admin',
+                'remember_token' => null,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+
             // Otros admins de prueba
             [
                 'email' => 'admin@example.com',
