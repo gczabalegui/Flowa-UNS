@@ -49,7 +49,7 @@
                         tabindex="1" required value="{{ old('carrera_responsable') }}" placeholder="Ingrese el nombre de la carrera de la cual es responsable">
                 </div>
                 <div class="grid grid-cols-2 gap-4 content-center mt-10">
-                    <a href="/administracion" class="btn btn-secondary " tabindex="7">Cancelar</a>
+                    <a href="/secretaria" class="btn btn-secondary " tabindex="7">Cancelar</a>
                     <button type="submit" class="btn btn-success" tabindex="8">Guardar</button>
                 </div>
             </div>

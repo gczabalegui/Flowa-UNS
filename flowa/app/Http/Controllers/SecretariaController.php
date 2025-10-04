@@ -56,8 +56,18 @@ class SecretariaController extends Controller
                 'departamento_id' => '1',
             ]);
 
-            return redirect('/administracion')->with('estado', 'Nuevo usuario de Secretaría Académica creado exitosamente.');
-        } catch (\Exception $e) {
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());        }
-    }
+            if (auth()->user()->role === 'secretaria') {
+                return redirect('/secretaria')->with('estado', 'Nuevo usuario de Secretaría Académica creado exitosamente.');
+            } else {
+                return redirect('/administracion')->with('estado', 'Nuevo usuario de Secretaría Académica creado exitosamente.');
+            }
+        } 
+        catch (\Exception $e) {
+            if (auth()->user()->role === 'secretaria') {
+                return redirect('/secretaria')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
+            } else {
+                return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
+            }
+        }
+    }    
 }

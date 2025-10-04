@@ -104,19 +104,19 @@
             </div>
         </form> 
         <div class="flex justify-center space-x-4 mt-6">
-            <form action="{{ route('aprobarplan', ['id' => $plan->id]) }}" method="POST">
+            <form action="{{ route('secretaria.aprobarplan', ['id' => $plan->id]) }}" method="POST">
                 @csrf
                 <button type="submit" class="btn btn-success" tabindex="8">Aprobar plan</button>
             </form>
-            <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
+            <form action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
                 @csrf
-                <input type="hidden" name="role" value="secretario">
+                <input type="hidden" name="role" value="secretaria">
                 <input type="hidden" name="type" value="administracion">
                 <button type="submit" class="btn btn-warning" tabindex="9">Rechazar para administración</button>
             </form>
-            <form action="{{ route('rechazarplan', ['id' => $plan->id]) }}" method="POST">
+            <form action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
                 @csrf
-                <input type="hidden" name="role" value="secretario">
+                <input type="hidden" name="role" value="secretaria">
                 <input type="hidden" name="type" value="profesor">
                 <button type="submit" class="btn btn-warning" tabindex="10">Rechazar para profesor</button>
             </form>

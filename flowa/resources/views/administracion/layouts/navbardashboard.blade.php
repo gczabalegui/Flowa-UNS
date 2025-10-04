@@ -6,7 +6,7 @@
     </div>
 
     <div class="navbar-center flex items-center justify-center">
-        <a href="/administracion" class="btn btn-primary normal-case text-2xl">Flowa - UNS</a>
+        <a href="/welcome" class="btn btn-primary normal-case text-2xl">Flowa - UNS</a>
     </div>
 
     <div class="navbar-end">

@@ -24,11 +24,11 @@ class CarreraController extends Controller
     {
         try {
             $departamentos = Departamento::all();
-    
+
             if ($departamentos->isEmpty()) {
                 return redirect('/administracion')->with('warning', 'No hay departamentos. Por favor, cree un departamento antes de crear una carrera.');
             }
-    
+
             return view('administracion.crearcarrera', compact('departamentos'));
         } catch (Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
@@ -40,21 +40,23 @@ class CarreraController extends Controller
      */
     public function store(Request $request)
     {
-        try{
+        try {
             $request->validate([
-                'codigo_carrera' => 'required|numeric', 
-                'nombre_carrera' => 'required|max:255|string',
-                'plan_version' => 'required|numeric',
-                'duracion' => 'required|max:255|string',
-                'cant_materias' => 'required|numeric',
-                'departamento_id' => 'required|numeric',
+                'codigo_carrera' => 'required|numeric',
+                'nombre_carrera' => 'required|string|max:255',
+                'plan_version'   => 'required|string|max:255',
+                'duracion'       => 'required|string|max:255',
+                'cant_materias'  => 'required|numeric',
+                'departamento_id' => 'nullable|numeric',
             ]);
 
+            // Asignar por defecto departamento 1 (Agronomía)
+            $validated['departamento_id'] = 1;
+
             Carrera::create($request->all());
- 
+
             return redirect('/administracion')->with('estado', 'Nueva carrera creada exitosamente.');
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return redirect('/administracion')->with('warning', 'No se ha podido crear la carrera. Error: ' . $e->getMessage());
         }
     }

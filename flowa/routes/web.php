@@ -63,6 +63,7 @@ Route::middleware(['auth', 'role:administracion'])->group(function () {
     Route::post('/administracion/crearsecretaria', [SecretariaController::class, 'store'])->name('storesecretaria');
 
     Route::get('/administracion/crearplan', [PlanController::class, 'create'])->name('crearplan');
+
     Route::post('/administracion/crearplan', [PlanController::class, 'storeByAdmin'])->name('storeplan');
 
     Route::get('/administracion/crearmateria', [MateriaController::class, 'create'])->name('crearmateria');
@@ -80,7 +81,12 @@ Route::middleware(['auth', 'role:administracion'])->group(function () {
     Route::get('/administracion/crearcomision', [ComisionController::class, 'createByAdmin'])->name('crearcomision');
     Route::post('/administracion/crearcomision', [ComisionController::class, 'store'])->name('storecomision');
 
-    Route::get('/administracion/verplanes', [PlanController::class, 'indexAdmin'])->name('verplanes');
+    Route::get('/administracion/verplanes', [PlanController::class, 'indexAdmin'])->name('administracion.verplanes');
+
+    Route::get('/administracion/editarplan/{id}', [PlanController::class, 'editByAdmin'])->name('administracion.editarplan');
+    Route::put('/administracion/editarplan/{id}', [PlanController::class, 'updateByAdmin'])->name('administracion.updateplan');
+
+    Route::delete('/administracion/eliminarplan/{id}', [PlanController::class, 'destroy'])->name('administracion.eliminarplan');
 
     Route::get('/administracion/traerinfoplan/{id}', function($id) {
         return app(PlanController::class)->bringInfoPlan($id, 'administracion');
@@ -106,8 +112,10 @@ Route::middleware(['auth', 'role:secretaria'])->group(function () {
         return app(PlanController::class)->bringInfoPlan($id, 'secretaria');
     })->name('secretaria.traerinfoplan');
 
-    Route::post('/secretaria/aprobarplan/{id}', [PlanController::class, 'aprobarPlan'])->name('aprobarplan');
-    Route::post('/secretaria/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('rechazarplan');
+    Route::post('/secretaria/aprobarplan/{id}', [PlanController::class, 'aprobarPlan'])->name('secretaria.aprobarplan')->middleware('role:secretaria');
+    Route::post('/secretaria/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('secretaria.rechazarplan')->middleware('role:secretaria');
+
+    Route::get('/secretaria/verplanes', [PlanController::class, 'indexSecretaria'])->name('secretaria.verplanes');
 });
 
 // ------------------------------
@@ -116,23 +124,16 @@ Route::middleware(['auth', 'role:secretaria'])->group(function () {
 Route::middleware(['auth', 'role:profesor'])->group(function () {
     Route::get('/profesor', [ProfesorController::class, 'dashboard'])->name('profesor.dashboard');
 
-    Route::get('/profesor/completarinfoplan/{id}', function($id) {
-        return app(PlanController::class)->bringPlanForm($id, 'completar');
-    })->name('completarinfoplan');
-
-    Route::post('/profesor/completarinfoplan/{id}', [PlanController::class, 'storeByProfesor'])->name('storecompletarinfoplan');
-
-    Route::get('/profesor/modificarinfoplan/{id}', function($id) {
-        return app(PlanController::class)->bringPlanForm($id, 'modificar');
-    })->name('modificarinfoplan');
-
-    Route::put('/profesor/modificarinfoplan/{id}', [PlanController::class, 'storeByProfesor'])->name('storemodificarinfoplan');
-
     Route::get('/profesor/traerinfoplan/{id}', function($id) {
         return app(PlanController::class)->bringInfoPlan($id, 'profesor');
     })->name('profesor.traerinfoplan');
 
-    Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('rechazarplan');
+    Route::post('/profesor/rechazarplan/{id}', [PlanController::class, 'rechazarPlan'])->name('profesor.rechazarplan')->middleware('role:profesor');
+
+    Route::get('/profesor/editarplan/{id}', [PlanController::class, 'editByProfesor'])->name('profesor.editarplan');
+    Route::put('/profesor/editarplan/{id}', [PlanController::class, 'updateByProfesor'])->name('profesor.editarplan.update');
+
+    Route::get('/profesor/verplanes', [PlanController::class, 'indexProfesor'])->name('profesor.verplanes');
 });
 
 // ------------------------------
@@ -153,6 +154,20 @@ Route::middleware(['auth', 'role:comision'])->group(function () {
     Route::get('/comision/verplanes', [PlanController::class, 'indexComision'])->name('comision.verplanes');
 });
 
+
+// ------------------------------
+// PLAN DE MATERIA
+// ------------------------------
+Route::get('/administracion/plan/{id}/pdf', [PlanController::class, 'exportarPDF']);
+
+// routes/web.php
+Route::post('/administracion/plan/preview-pdf', [PlanController::class, 'previewPDF'])
+     ->name('plan.preview.pdf');
+
+
+     // routes/web.php
+Route::post('/administracion/plan', [PlanController::class, 'store'])
+->name('plan.store');
 
 // ------------------------------
 // Auth predeterminado de Laravel
