@@ -146,10 +146,7 @@ Route::middleware(['auth', 'role:comision'])->group(function () {
         return app(PlanController::class)->bringInfoPlan($id, 'comision');
     })->name('comision.traerinfoplan');
 
-    Route::post('/comision/generar-pdf', [PDFController::class, 'generatePDF2']);
-    Route::get('/comision/pdfprueba', function() {
-        return view('pdf_form');
-    });
+    Route::get('/comision/pdfprueba', [ComisionController::class, 'pdfPrueba'])->name('comision.pdfprueba');
 
     Route::get('/comision/verplanes', [PlanController::class, 'indexComision'])->name('comision.verplanes');
 });
