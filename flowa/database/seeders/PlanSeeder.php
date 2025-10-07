@@ -21,16 +21,38 @@ class PlanSeeder extends Seeder
             'creditos_academicos' => 10,
             'estado' => 'Aprobado por secretaría académica.',
             'area_tematica' => Plan::AREA_TEMATICA[1], // 'Formación aplicada'
-            'fundamentacion' => 'Esta es la fundamentación creada por el profesor.',
-            'obj_conceptuales' => 'Conceptuales - Profesor',
+            'fundamentacion' => 'La asignatura aborda los principios básicos de la genética, con aplicaciones en mejoramiento vegetal y animal.',
+            'obj_conceptuales' => 'Comprender los fundamentos de la herencia y la variabilidad genética.',
             'obj_procedimentales' => 'Procedimentales - Profesor',
             'obj_actitudinales' => 'Actitudinales - Profesor',
             'obj_especificos' => 'Objetivos específicos - Profesor',
             'cont_minimos' => 'Contenidos mínimos establecidos por el profesor.',
-            'programa_analitico' => 'Programa analítico completo - Profesor',
-            'act_practicas' => 'Actividades prácticas creadas por el profesor.',
+            'programa_analitico' => 'UNIDAD 1: El material hereditario y los cromosomas.  
+Material hereditario, DNA, organización cromosómica, ciclo celular, mitosis y meiosis.  
+UNIDAD 2: Transmisión de los caracteres hereditarios.  
+Análisis mendeliano, teoría cromosómica, ligamiento, genoma extranuclear, reproducción vegetal.  
+UNIDAD 3: Variación del material génico.  
+Mutación, variaciones estructurales y numéricas, euploidía, aneuploidía.  
+UNIDAD 4: Los genes en las poblaciones.  
+Equilibrio Hardy-Weinberg, deriva génica, selección, genética cuantitativa.  
+UNIDAD 5: Mejoramiento vegetal.  
+Recursos genéticos, selección, heterosis, programas de mejora.  
+UNIDAD 6: Mejoramiento animal.  
+Selección, QTL, cruzamientos, valor reproductivo.  
+UNIDAD 7: Principios de biotecnología.  
+Ingeniería genética, marcadores moleculares, organismos transgénicos, edición génica (CRISPR-Cas9).',
+            'act_practicas' => '
+1. Observación de mitosis y meiosis.  
+2. Cruzamientos con Drosophila melanogaster.  
+3. Análisis de herencia cuantitativa con maíz o trigo.  
+4. Actividad de bioinformática aplicada.  
+Actividad extra: visita guiada al Laboratorio de Biotecnología del CERZOS-CONICET.',
             'modalidad' => 'Virtual',
-            'bibliografia' => 'Bibliografía recomendada por el profesor.',
+            'bibliografia' => 'CARDELINO R. y ROVIRA J. (1990). Mejoramiento genético animal.  
+CUBERO, J.I. (2013). Introducción a la mejora genética vegetal.  
+GRIFFITHS AJ et al. (2020). Genética. Introducción al Análisis Genético. McGraw-Hill.  
+LEVITUS, G. et al. (2010). Biotecnología y mejoramiento vegetal II. INTA.  
+STRICKBERGER M. (1993). Genética. Omega.'
         ]);
 
         // Plan creado por Profesor
@@ -148,8 +170,8 @@ class PlanSeeder extends Seeder
             'modalidad' => 'Virtual',
             'bibliografia' => 'Bibliografía recomendada por el profesor.',
         ]);
-        
-                Plan::create([
+
+        Plan::create([
             'materia_id' => 7, // Asegúrate de tener una materia con este ID o ajusta según tu base de datos
             'anio' => 2021,
             'horas_totales' => 120,
@@ -194,6 +216,5 @@ class PlanSeeder extends Seeder
             'modalidad' => 'Virtual',
             'bibliografia' => 'Bibliografía recomendada por el profesor.',
         ]);
-        
     }
 }

@@ -159,19 +159,53 @@ class ComisionController extends Controller
     public function pdfPrueba()
     {
         // Generar el DOCX
-        $plan = Plan::with('materia')->findOrFail(1);
+        $plan = Plan::with('materia.profesor')->findOrFail(1);
         $templatePath = storage_path('app/plantillas/programa.docx');
         $tpl = new TemplateProcessor($templatePath);
 
-        /*
+        $horasTeoricasSemana = $plan->horas_teoricas ? round($plan->horas_teoricas / 16, 1) : 0;
+        $horasPracticasSemana = $plan->horas_practicas ? round($plan->horas_practicas / 16, 1) : 0;
+
+        // Mapear valores (ajustá los nombres si tu modelo Materia tiene otros atributos)
         $tpl->setValue('anio', $plan->anio ?? '');
-        $tpl->setValue('horas_totales', $plan->horas_totales ?? '');
-        // ... todos los demás campos
-        */
+        //   $tpl->setValue('horas_totales', $plan->horas_totales ?? '');
+        $tpl->setValue('horas_teoricas', $plan->horas_teoricas ?? '');
+        $tpl->setValue('horas_practicas', $plan->horas_practicas ?? '');
+        $tpl->setValue('DTE', $plan->DTE ?? '');
+        $tpl->setValue('RTF', $plan->RTF ?? '');
+        $tpl->setValue('creditos_academicos', $plan->creditos_academicos ?? '');
+        $tpl->setValue('area_tematica', $plan->area_tematica ?? '');
+
+        $tpl->setValue('horas_teoricas_semana', $horasTeoricasSemana);
+        $tpl->setValue('horas_practicas_semana', $horasPracticasSemana);
+
+        // textos largos
+        $tpl->setValue('fundamentacion', $plan->fundamentacion ?? '');
+        $tpl->setValue('obj_conceptuales', $plan->obj_conceptuales ?? '');
+        $tpl->setValue('obj_procedimentales', $plan->obj_procedimentales ?? '');
+        $tpl->setValue('obj_actitudinales', $plan->obj_actitudinales ?? '');
+        $tpl->setValue('obj_especificos', $plan->obj_especificos ?? '');
+        $tpl->setValue('cont_minimos', $plan->cont_minimos ?? '');
+        $tpl->setValue('programa_analitico', $plan->programa_analitico ?? '');
+        $tpl->setValue('act_practicas', $plan->act_practicas ?? '');
+        $tpl->setValue('modalidad', $plan->modalidad ?? '');
+        $tpl->setValue('bibliografia', $plan->bibliografia ?? '');
+
+        // Datos relacionados con la materia
+        $tpl->setValue('materia_nombre', $plan->materia->nombre_materia ?? '');
+        $tpl->setValue('materia_codigo', $plan->materia->codigo_materia ?? '');
+
+        $profesor = $plan->materia->profesor
+            ? $plan->materia->profesor->apellido_profesor . ', ' . $plan->materia->profesor->nombre_profesor
+            : '';
+
+        $tpl->setValue('profesor', $profesor);
+
 
         $tempDocx = storage_path('app/temp/programa_plan_.docx');
         $tpl->saveAs($tempDocx);
 
+        /*
         // Crear el job de CloudConvert
         $job = (new Job())
             ->addTask(new Task('import/upload', 'upload-docx'))
@@ -204,5 +238,8 @@ class ComisionController extends Controller
         return response()->streamDownload(function () use ($pdfUrl) {
             echo file_get_contents($pdfUrl);
         }, 'programa_plan.pdf');
+        */
+
+        return response()->download($tempDocx, 'programa_plan.docx')->deleteFileAfterSend(true);
     }
 }
