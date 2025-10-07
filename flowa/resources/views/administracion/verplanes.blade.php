@@ -42,18 +42,17 @@
                         <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
                         <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                         <td class="border px-4 py-2 text-center">
-                        <td class="flex flex-col space-y-2">
                             <div class="flex flex-col space-y-2">
-                                <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Vista previa</a>
+                                <a href="{{ route('administracion.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info w-full">Vista previa</a>
                                 @if($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría académica.') 
-                                    <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="btn btn-warning">Editar</a>
+                                    <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="btn btn-warning w-full">Editar</a>
                                 @else
-                                    <button class="btn btn-warning" disabled>Editar</button>
+                                    <button class="btn btn-warning w-full" disabled>Editar</button>
                                 @endif                               
                                 <form action="{{ route('administracion.eliminarplan', ['id' => $plan->id]) }}" method="POST" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este plan de la materia?');">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-error">Eliminar</button>
+                                    <button type="submit" class="btn btn-error w-full">Eliminar</button>
                                 </form>
                             </div>
                         </td>
