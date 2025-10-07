@@ -22,7 +22,7 @@
                     <select name="materia_id" id="materia_id" class="input input-bordered w-full" tabindex="1">
                         <option value="">Seleccione una materia</option>
                         @foreach($materias as $materia)
-                        <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">{{ $materia->nombre_materia }}</option>
+                        <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</option>
                         @endforeach
                     </select>
                 </div>

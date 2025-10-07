@@ -18,7 +18,7 @@
                     <h2 class="card-title mx-auto">Revisar la información del plan</h2>
                     <div class="my-3">
                         <label class="disabled-label"><span class="label-text">Materia</span></label>
-                        <p class="text-lg">{{ $plan->materia->nombre_materia }}</p>
+                        <p class="text-lg">{{ $plan->materia->nombre_materia }} ({{ $plan->materia->codigo_materia }})</p>
                     </div>
                     <div class="my-3">
                         <label class="disabled-label"><span class="label-text">Profesor</span></label>
