@@ -22,7 +22,7 @@
                     <select name="materia_id" id="materia_id" class="input input-bordered w-full" tabindex="1">
                         <option value="">Seleccione una materia</option>
                         @foreach($materias as $materia)
-                        <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">{{ $materia->nombre_materia }}</option>
+                        <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</option>
                         @endforeach
                     </select>
                 </div>
@@ -52,16 +52,16 @@
                     </select>
                 </div>
                 <div class="my-3">
-                    <label class="label" style="font-weight: bold;"><span class="label-text">Horas totales</span> </label>
-                    <input id="horas_totales" name="horas_totales" type="number" class="input input-bordered w-full no-spinners" tabindex="3" value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                </div>
-                <div class="my-3">
                     <label class="label" style="font-weight: bold;"><span class="label-text">Horas teóricas</span> </label>
-                    <input id="horas_teoricas" name="horas_teoricas" type="number" class="input input-bordered w-full no-spinners" tabindex="4" value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    <input id="horas_teoricas" name="horas_teoricas" type="number" class="input input-bordered w-full no-spinners" tabindex="3" value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
                 <div class="my-3">
                     <label class="label" style="font-weight: bold;"><span class="label-text">Horas prácticas</span> </label>
-                    <input id="horas_practicas" name="horas_practicas" type="number" class="input input-bordered w-full no-spinners" tabindex="5" value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                    <input id="horas_practicas" name="horas_practicas" type="number" class="input input-bordered w-full no-spinners" tabindex="4" value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                </div>
+                <div class="my-3">
+                    <label class="label" style="font-weight: bold;"><span class="label-text">Horas totales</span> </label>
+                    <input id="horas_totales" name="horas_totales" type="number" class="input input-bordered w-full no-spinners readonly-field" tabindex="5" value="{{ old('horas_totales') }}" readonly>
                 </div>
                 <div class="my-3">
                     <label class="label" style="font-weight: bold;"><span class="label-text">DTE</span> </label>
@@ -140,8 +140,8 @@
                 </div>
             </div>
             <script>
-                // Campos requeridos para el botón "Guardar"
-                const requiredFields = ['materia_id', 'anio', 'horas_totales', 'horas_teoricas', 'horas_practicas', 'DTE', 'RTF', 'creditos_academicos'];
+                // Campos requeridos para el botón "Guardar" (horas_totales se calcula automáticamente)
+                const requiredFields = ['materia_id', 'anio', 'horas_teoricas', 'horas_practicas', 'DTE', 'RTF', 'creditos_academicos'];
                 
                 // Referencias a elementos
                 const guardarBtn = document.getElementById('guardarBtn');
@@ -180,7 +180,26 @@
                 }
                 
                 // Validar al cargar la página
+                calculateTotalHours(); // Calcular horas totales al cargar
                 validateForm();
+                
+                // Función para calcular horas totales automáticamente
+                function calculateTotalHours() {
+                    const horasTeoricas = parseInt(document.getElementById('horas_teoricas').value) || 0;
+                    const horasPracticas = parseInt(document.getElementById('horas_practicas').value) || 0;
+                    const horasTotales = horasTeoricas + horasPracticas;
+                    
+                    document.getElementById('horas_totales').value = horasTotales > 0 ? horasTotales : '';
+                    
+                    // Validar formulario después de calcular
+                    validateForm();
+                }
+                
+                // Agregar listeners para calcular horas totales
+                document.getElementById('horas_teoricas').addEventListener('input', calculateTotalHours);
+                document.getElementById('horas_practicas').addEventListener('input', calculateTotalHours);
+                document.getElementById('horas_teoricas').addEventListener('change', calculateTotalHours);
+                document.getElementById('horas_practicas').addEventListener('change', calculateTotalHours);
                 
                 // Agregar listeners a todos los campos requeridos
                 requiredFields.forEach(fieldName => {

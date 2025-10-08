@@ -16,7 +16,7 @@ class Materia extends Model
         'horas_semanales',
         'horas_totales',
         'profesor_id',
-        'carrrera_id',
+        'carrera_id',
         /*'administracion_id',*/
     ];
     
