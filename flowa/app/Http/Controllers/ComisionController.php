@@ -13,6 +13,13 @@ use CloudConvert\Models\Job;
 use CloudConvert\Models\Task;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Http;
+use Swagger\Client\Api\ConvertDocumentApi;
+use Swagger\Client\Configuration;
+use GuzzleHttp\Client as GuzzleClient;
+use Aspose\Words\WordsApi;
+use Aspose\Words\Model\Requests\ConvertDocumentRequest;
+use ConvertApi\ConvertApi;
+use Illuminate\Support\Str;
 
 
 class ComisionController extends Controller
@@ -240,6 +247,69 @@ class ComisionController extends Controller
         }, 'programa_plan.pdf');
         */
 
-        return response()->download($tempDocx, 'programa_plan.docx')->deleteFileAfterSend(true);
+        // return response()->download($tempDocx, 'programa_plan.docx')->deleteFileAfterSend(true);
+
+
+        /*
+        // 2️⃣ Convertir DOCX → PDF con Cloudmersive
+        try {
+            $config = Configuration::getDefaultConfiguration()
+                ->setApiKey('Apikey', env('CLOUDMERSIVE_API_KEY'));
+
+            $apiInstance = new ConvertDocumentApi(new GuzzleClient(), $config);
+            $inputFile = new \SplFileObject($tempDocx);
+
+            // Realiza la conversión
+            $result = $apiInstance->convertDocumentDocxToPdf($inputFile);
+
+            // Guardar el PDF temporalmente
+            $pdfPath = storage_path('app/temp/programa_plan_.pdf');
+            file_put_contents($pdfPath, $result);
+
+            // 3️⃣ Devolver el PDF al navegador
+            return response()->download($pdfPath, 'programa_plan.pdf')->deleteFileAfterSend(true);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Error al convertir el documento: ' . $e->getMessage()
+            ], 500);
+        }
+        */
+
+        try {
+            // 1. Inicializar la API
+            $secret = env('CONVERTAPI_SECRET');
+            if (!$secret) {
+                throw new \Exception('CONVERTAPI_SECRET no está configurada.');
+            }
+            ConvertApi::setApiCredentials($secret);
+
+            // 🔹 Armar el nombre de salida según la materia
+            $materiaNombre = Str::slug($plan->materia->nombre_materia ?? 'programa', '_');
+            $materiaCodigo = $plan->materia->codigo_materia ?? 'sin_codigo';
+            $anio = now()->year;
+
+            $outputFileName = "{$materiaNombre}-{$materiaCodigo}-({$anio}).pdf";
+            $pdfPath = storage_path('app/temp/' . $outputFileName);
+
+            // 2. Realizar la conversión en una sola llamada
+            // fromFile() hace la carga, conversión y descarga del resultado automáticamente
+            $result = ConvertApi::convert(
+                'pdf', // Formato de destino
+                ['File' => $tempDocx], // Archivo de origen
+                'docx' // Formato de origen
+            );
+
+            // 3. Guardar el archivo PDF
+            // La conversión devuelve una colección de objetos File. Tomamos el primero.
+            $result->getFile()->save($pdfPath);
+
+            // 4. Devolver el PDF
+            // 🗑️ Limpia el DOCX temporal
+            unlink($tempDocx);
+
+            return response()->download($pdfPath, $outputFileName)->deleteFileAfterSend(true);
+        } catch (\Throwable $e) {
+            return response()->json(['error' => 'Error al convertir con ConvertAPI: ' . $e->getMessage()], 500);
+        }
     }
 }
