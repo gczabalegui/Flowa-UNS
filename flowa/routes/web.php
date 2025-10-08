@@ -149,6 +149,9 @@ Route::middleware(['auth', 'role:comision'])->group(function () {
     Route::get('/comision/pdfprueba', [ComisionController::class, 'pdfPrueba'])->name('comision.pdfprueba');
 
     Route::get('/comision/verplanes', [PlanController::class, 'indexComision'])->name('comision.verplanes');
+
+    Route::get('/comision/generarpdf/{id}', [ComisionController::class, 'pdfPrueba'])
+    ->name('comision.generarPdf');
 });
 
 

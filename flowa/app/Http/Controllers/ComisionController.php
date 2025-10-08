@@ -163,10 +163,10 @@ class ComisionController extends Controller
     }
         */
 
-    public function pdfPrueba()
+    public function pdfPrueba($id)
     {
         // Generar el DOCX
-        $plan = Plan::with('materia.profesor')->findOrFail(1);
+        $plan = Plan::with('materia.profesor')->findOrFail($id);
         $templatePath = storage_path('app/plantillas/programa.docx');
         $tpl = new TemplateProcessor($templatePath);
 
@@ -277,7 +277,7 @@ class ComisionController extends Controller
 
         try {
             // 1. Inicializar la API
-            $secret = env('CONVERTAPI_SECRET');
+            $secret = 't3wp2UziEojYMwdPhqcrXQ15AfGkwObk'; // env('CONVERTAPI_SECRET');
             if (!$secret) {
                 throw new \Exception('CONVERTAPI_SECRET no está configurada.');
             }
@@ -307,7 +307,11 @@ class ComisionController extends Controller
             // 🗑️ Limpia el DOCX temporal
             unlink($tempDocx);
 
-            return response()->download($pdfPath, $outputFileName)->deleteFileAfterSend(true);
+            // 📄 Abrir PDF en el navegador
+            return response()->file($pdfPath, [
+                'Content-Type' => 'application/pdf',
+                'Content-Disposition' => "inline; filename=\"{$outputFileName}\""
+            ]);
         } catch (\Throwable $e) {
             return response()->json(['error' => 'Error al convertir con ConvertAPI: ' . $e->getMessage()], 500);
         }
