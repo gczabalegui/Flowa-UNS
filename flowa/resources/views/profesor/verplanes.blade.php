@@ -38,7 +38,8 @@
                                         'Completo por administración.',
                                         'Rechazado para profesor por secretaría académica.',
                                         'Incompleto por profesor.',
-                                        'Rectificado por administración para profesor.'
+                                        'Rectificado por administración para profesor.',
+                                        'Aprobado por secretaría académica.'
                                     ]))
                                         <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="btn btn-warning">Editar</a>
                                     @else

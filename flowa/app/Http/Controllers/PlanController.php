@@ -35,7 +35,8 @@ class PlanController extends Controller
                     ->orWhere('estado', 'Rechazado por secretaría académica.')
                     ->orWhere('estado', 'Incompleto por profesor.')
                     ->orWhere('estado', 'Rechazado para profesor por secretaría académica.')
-                    ->orWhere('estado', 'Rectificado por administración para profesor.');
+                    ->orWhere('estado', 'Rectificado por administración para profesor.')
+                    ->orWhere('estado', 'Aprobado por secretaría académica.');
             });
 
         // Si NO es admin, filtramos por el profesor asociado
