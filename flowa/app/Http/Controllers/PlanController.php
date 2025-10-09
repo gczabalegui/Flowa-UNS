@@ -56,12 +56,20 @@ class PlanController extends Controller
     public function indexSecretaria()
     {
         $planes = Plan::with(['materia.profesor'])
-            ->where(function($query) {
+            ->where(function ($query) {
                 $query->where('estado', 'Completo por profesor.')
-                      ->orWhere('estado', 'Rectificado por profesor para secretaría académica.')
-                      ->orWhere('estado', 'Rectificado por administración para secretaría académica.');
+                    ->orWhere('estado', 'Rectificado por profesor para secretaría académica.')
+                    ->orWhere('estado', 'Rectificado por administración para secretaría académica.')
+                    ->orWhere('estado', 'Aprobado por secretaría académica.');
             })
+            ->orderByRaw("FIELD(estado, 
+            'Completo por profesor.',
+            'Rectificado por profesor para secretaría académica.',
+            'Rectificado por administración para secretaría académica.',
+            'Aprobado por secretaría académica.'
+        )")
             ->get();
+
         return view('secretaria.verplanes', compact('planes'));
     }
 
@@ -103,11 +111,11 @@ class PlanController extends Controller
         try {
             $plan = Plan::with('materia.profesor')->findOrFail($id);
             $materias = Materia::with('profesor')->orderBy("nombre_materia")->get();
-            
+
             $currentYear = date('Y');
             $inicialYear = 1990;
             $years = range($inicialYear, $currentYear);
-            
+
             return view('administracion.editarplan', compact('plan', 'materias', 'years'));
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'No se pudo cargar el plan para editar.');
@@ -121,7 +129,7 @@ class PlanController extends Controller
     {
         try {
             $plan = Plan::findOrFail($id);
-            
+
             $request->validate([
                 'materia_id' => 'required|numeric|exists:materias,id',
             ]);
@@ -158,7 +166,7 @@ class PlanController extends Controller
                     'creditos_academicos' => 'required|numeric'
                 ]);
             }
-            
+
             $plan->fill($request->only([
                 'materia_id',
                 'anio',
@@ -189,7 +197,7 @@ class PlanController extends Controller
     {
         try {
             $plan = Plan::with('materia.profesor')->findOrFail($id);
-            
+
             return view('profesor.editarplan', compact('plan'));
         } catch (Exception $e) {
             return redirect()->back()->with('error', 'No se pudo cargar el plan para editar.');
@@ -314,7 +322,7 @@ class PlanController extends Controller
             return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
         }
     }
-    
+
     public function rechazarPlan(Request $request, $id)
     {
         try {
@@ -322,7 +330,7 @@ class PlanController extends Controller
             if ($plan) {
                 $role = $request->input('role');
                 $type = $request->input('type');
-    
+
                 if ($role == 'secretaria') {
                     if ($type == 'administracion') {
                         $plan->estado = 'Rechazado para administración por secretaría académica.';
@@ -362,13 +370,13 @@ class PlanController extends Controller
     {
         try {
             $plan = Plan::findOrFail($id);
-            
+
             $estadosRechazados = [
                 'Rechazado para administración por secretaría académica.',
                 'Rechazado para profesor por secretaría académica.',
                 'Rechazado para administración por profesor.'
             ];
-            
+
             // Manejar diferentes acciones
             if ($request->input('action') == 'rechazar') {
                 $plan->estado = 'Rechazado para administración por profesor.';
@@ -414,7 +422,7 @@ class PlanController extends Controller
                 } else {
                     $plan->estado = 'Completo por profesor.';
                 }
-                
+
                 $validatedData = $request->validate([
                     'area_tematica' => 'required|in:Formación básica,Formación aplicada,Formación profesional',
                     'fundamentacion' => [
@@ -435,7 +443,7 @@ class PlanController extends Controller
                     'bibliografia' => 'required|string',
                 ]);
             }
-            
+
             $plan->fill($validatedData);
             $plan->save();
 
@@ -447,7 +455,6 @@ class PlanController extends Controller
             } else if ($request->input('action') == 'rechazar') {
                 return redirect('/profesor')->with('estado', 'Plan rechazado exitosamente.');
             }
-            
         } catch (\Exception $e) {
             return redirect('/profesor')->with('warning', 'No se ha podido actualizar el plan.');
         }

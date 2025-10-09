@@ -36,6 +36,16 @@ class UserSeeder extends Seeder
             ],
 
             [
+                'email' => 'guadalupe-c@hotmail.com',
+                'legajo' => null,
+                'password' => Hash::make('guadalu'),
+                'role' => 'admin',
+                'remember_token' => null,
+                'created_at' => $now,
+                'updated_at' => $now,
+            ],
+
+            [
                 'email' => 'flowauns25@gmail.com',
                 'legajo' => null,
                 'password' => Hash::make('12345'),
