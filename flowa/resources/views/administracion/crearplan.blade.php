@@ -75,6 +75,52 @@
                     <label class="label" style="font-weight: bold;"><span class="label-text">Créditos académicos</span> </label>
                     <input id="creditos_academicos" name="creditos_academicos" type="number" class="input input-bordered w-full no-spinners" tabindex="8" value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
+                <div class="my-5 border border-gray-300 rounded-lg p-4">
+                    <h3 class="text-lg font-bold mb-4">Materias Correlativas</h3>
+                    <div class="my-3">
+                        <label class="label" style="font-weight: bold;">
+                            <span class="label-text">Correlativas Fuertes</span>
+                        </label>
+                        <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas fuertes (obligatorias) para esta materia:</p>
+                        <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
+                            @foreach($materias as $materia)
+                                <div class="form-control">
+                                    <label class="cursor-pointer label justify-start">
+                                        <input type="checkbox" 
+                                               name="correlativas_fuertes[]" 
+                                               value="{{ $materia->id }}" 
+                                               class="checkbox checkbox-sm mr-2 correlativa-checkbox" 
+                                               data-materia-id="{{ $materia->id }}"
+                                               {{ in_array($materia->id, old('correlativas_fuertes', [])) ? 'checked' : '' }}>
+                                        <span class="label-text text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <label class="label" style="font-weight: bold;">
+                            <span class="label-text">Correlativas Débiles</span>
+                        </label>
+                        <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas débiles (recomendadas) para esta materia:</p>
+                        <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
+                            @foreach($materias as $materia)
+                                <div class="form-control">
+                                    <label class="cursor-pointer label justify-start">
+                                        <input type="checkbox" 
+                                               name="correlativas_debiles[]" 
+                                               value="{{ $materia->id }}" 
+                                               class="checkbox checkbox-sm mr-2 correlativa-checkbox" 
+                                               data-materia-id="{{ $materia->id }}"
+                                               {{ in_array($materia->id, old('correlativas_debiles', [])) ? 'checked' : '' }}>
+                                        <span class="label-text text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
                 <div class="my-3">
                     <label class="label disabled-label"><span class="label-text">Área Temática</span></label>
                     <input type="text" class="input input-bordered w-full readonly-field" name="area_tematica" style="resize: none;" readonly>
@@ -214,6 +260,7 @@
                 document.getElementById('materia_id').addEventListener('change', function() {
                     var selectedOption = this.options[this.selectedIndex];
                     var profesorNombre = selectedOption.getAttribute('data-profesor');
+                    var selectedMateriaId = this.value;
 
                     // buscar el option del select profesor que coincide con el nombre
                     var profesorSelect = document.getElementById('profesor');
@@ -223,7 +270,67 @@
                             break;
                         }
                     }
+
+                    // Manejar correlativas: deshabilitar/habilitar checkboxes según la materia seleccionada
+                    updateCorrelativasAvailability(selectedMateriaId);
                 });
+
+                // Función para manejar la disponibilidad de correlativas
+                function updateCorrelativasAvailability(selectedMateriaId) {
+                    const correlativaCheckboxes = document.querySelectorAll('.correlativa-checkbox');
+                    
+                    correlativaCheckboxes.forEach(checkbox => {
+                        const materiaId = checkbox.getAttribute('data-materia-id');
+                        const label = checkbox.closest('label');
+                        
+                        if (materiaId === selectedMateriaId) {
+                            // Deshabilitar la materia seleccionada para evitar autocorrelación
+                            checkbox.disabled = true;
+                            checkbox.checked = false;
+                            label.classList.add('opacity-50');
+                            label.style.cursor = 'not-allowed';
+                        } else {
+                            // Habilitar otras materias
+                            checkbox.disabled = false;
+                            label.classList.remove('opacity-50');
+                            label.style.cursor = 'pointer';
+                        }
+                    });
+                }
+
+                // Función para prevenir selección duplicada entre correlativas fuertes y débiles
+                function handleCorrelativaSelection(changedCheckbox) {
+                    if (!changedCheckbox.checked) return;
+                    
+                    const materiaId = changedCheckbox.getAttribute('data-materia-id');
+                    const isStrong = changedCheckbox.name === 'correlativas_fuertes[]';
+                    const otherType = isStrong ? 'correlativas_debiles[]' : 'correlativas_fuertes[]';
+                    
+                    // Buscar y desmarcar la correlativa del otro tipo
+                    const otherCheckbox = document.querySelector(`input[name="${otherType}"][data-materia-id="${materiaId}"]`);
+                    if (otherCheckbox && otherCheckbox.checked) {
+                        otherCheckbox.checked = false;
+                    }
+                }
+
+                // Agregar listeners a los checkboxes de correlativas
+                document.querySelectorAll('input[name="correlativas_fuertes[]"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        handleCorrelativaSelection(this);
+                    });
+                });
+
+                document.querySelectorAll('input[name="correlativas_debiles[]"]').forEach(checkbox => {
+                    checkbox.addEventListener('change', function() {
+                        handleCorrelativaSelection(this);
+                    });
+                });
+
+                // Ejecutar la función al cargar la página si ya hay una materia seleccionada
+                const materiaSelect = document.getElementById('materia_id');
+                if (materiaSelect.value) {
+                    updateCorrelativasAvailability(materiaSelect.value);
+                }
             </script>
 
         </form>

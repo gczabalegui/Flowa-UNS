@@ -66,6 +66,36 @@
                     <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->creditos_academicos }}" readonly>
                 </div>
 
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Correlativas Fuertes</span></label>
+                    @if($plan->materia->correlativasFuertes->count() > 0)
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded">
+                            @foreach($plan->materia->correlativasFuertes as $correlativa)
+                                <p class="text-sm text-gray-700 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded">
+                            <p class="text-sm text-gray-500">No posee correlativas fuertes.</p>
+                        </div>
+                    @endif
+                </div>
+
+                <div class="my-3">
+                    <label class="label disabled-label"><span class="label-text">Correlativas Débiles</span></label>
+                    @if($plan->materia->correlativasDebiles->count() > 0)
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded">
+                            @foreach($plan->materia->correlativasDebiles as $correlativa)
+                                <p class="text-sm text-gray-700 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                            @endforeach
+                        </div>
+                    @else
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded">
+                            <p class="text-sm text-gray-500">No posee correlativas débiles.</p>
+                        </div>
+                    @endif
+                </div>
+
                 <!-- Campos editables (profesor) -->
                 <div class="my-3">
                     <label class="label"><span class="label-text">Área Temática</span></label>

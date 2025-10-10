@@ -110,7 +110,7 @@ class PlanController extends Controller
     public function editByAdmin(string $id)
     {
         try {
-            $plan = Plan::with('materia.profesor')->findOrFail($id);
+            $plan = Plan::with(['materia.profesor', 'materia.correlativasFuertes', 'materia.correlativasDebiles'])->findOrFail($id);
             $materias = Materia::with('profesor')->orderBy("nombre_materia")->get();
 
             $currentYear = date('Y');
@@ -142,7 +142,7 @@ class PlanController extends Controller
             ];
 
             if ($request->input('action') == 'guardar_borrador') {
-                // No permitir guardar como borrador si está en estado de rechazo
+                // No permitir guardar como borrador si fue rechazado, tiene que enviar rectificado
                 if (in_array($plan->estado, $estadosRechazados)) {
                     return redirect()->back()->with('warning', 'No se puede guardar como borrador. El plan debe ser rectificado y enviado.');
                 }
@@ -181,6 +181,38 @@ class PlanController extends Controller
 
             $plan->save();
 
+            //Correlativas
+            $materia = $plan->materia;
+            
+            $materia->correlativasFuertes()->detach();
+            $materia->correlativasDebiles()->detach();
+            
+            //Correlativas fuertes
+            if ($request->has('correlativas_fuertes')) {
+                foreach ($request->correlativas_fuertes as $correlativaId) {
+                    if ($correlativaId != $materia->id) {
+                        $materia->correlativasFuertes()->attach($correlativaId, [
+                            'tipo_correlativa' => 'fuerte',
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ]);
+                    }
+                }
+            }
+            
+            //Correlativas débiles
+            if ($request->has('correlativas_debiles')) {
+                foreach ($request->correlativas_debiles as $correlativaId) {
+                    if ($correlativaId != $materia->id) {
+                        $materia->correlativasDebiles()->attach($correlativaId, [
+                            'tipo_correlativa' => 'debil',
+                            'created_at' => now(),
+                            'updated_at' => now()
+                        ]);
+                    }
+                }
+            }
+
             if ($request->input('action') == 'guardar_borrador') {
                 return redirect('/administracion/verplanes')->with('estado', 'Plan actualizado como borrador.');
             } else if ($request->input('action') == 'guardar') {
@@ -197,7 +229,7 @@ class PlanController extends Controller
     public function editByProfesor(string $id)
     {
         try {
-            $plan = Plan::with('materia.profesor')->findOrFail($id);
+            $plan = Plan::with(['materia.profesor', 'materia.correlativasFuertes', 'materia.correlativasDebiles'])->findOrFail($id);
 
             return view('profesor.editarplan', compact('plan'));
         } catch (Exception $e) {
@@ -208,12 +240,15 @@ class PlanController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    //crear una funcion store que lo haga para un store de borrador, sin el required
     public function storeByAdmin(Request $request)
     {
         try {
             $request->validate([
                 'materia_id' => 'required|numeric|exists:materias,id',
+                'correlativas_fuertes' => 'nullable|array',
+                'correlativas_fuertes.*' => 'exists:materias,id',
+                'correlativas_debiles' => 'nullable|array',
+                'correlativas_debiles.*' => 'exists:materias,id',
             ]);
 
             $planes = new Plan();
@@ -247,6 +282,29 @@ class PlanController extends Controller
             ]));
 
             $planes->save();
+
+            // Correlativas
+            $materia = Materia::find($planes->materia_id);
+
+            $materia->correlativasFuertes()->detach();
+            $materia->correlativasDebiles()->detach();
+             //Fuertes
+            if ($request->has('correlativas_fuertes') && !empty($request->correlativas_fuertes)) {
+                foreach ($request->correlativas_fuertes as $correlativaId) {
+                    if ($correlativaId != $materia->id) {
+                        $materia->correlativasFuertes()->attach($correlativaId, ['tipo_correlativa' => 'fuerte']);
+                    }
+                }
+            }
+            //Debiles
+            if ($request->has('correlativas_debiles') && !empty($request->correlativas_debiles)) {
+                foreach ($request->correlativas_debiles as $correlativaId) {
+                    if ($correlativaId != $materia->id) {
+                        $materia->correlativasDebiles()->attach($correlativaId, ['tipo_correlativa' => 'debil']);
+                    }
+                }
+            }
+
             /*
             $planes->area_tematica = null;
             $planes->fundamentacion = '';
@@ -293,7 +351,7 @@ class PlanController extends Controller
 
     public function bringInfoPlan($id, $role)
     {
-        $plan = Plan::findOrFail($id);
+        $plan = Plan::with(['materia.correlativasFuertes', 'materia.correlativasDebiles'])->findOrFail($id);
         if ($role === 'secretaria') {
             return view('secretaria.traerinfoplan', compact('plan'));
         } elseif ($role === 'administracion') {
@@ -349,7 +407,6 @@ class PlanController extends Controller
                         return redirect('/profesor')->with('estado', 'Plan rechazado para administración.');
                     }
                 }
-                // Puedes agregar aquí otros roles si lo necesitas
             }
             return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
         } catch (Exception $e) {

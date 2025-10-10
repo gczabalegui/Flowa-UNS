@@ -78,6 +78,52 @@
                     <input id="creditos_academicos" name="creditos_academicos" type="number" min="0" class="input input-bordered w-full"
                         tabindex="8" value="{{ old('creditos_academicos', $plan->creditos_academicos) }}" placeholder="Ingrese los créditos académicos">
                 </div>
+                
+                <div class="my-5 border border-gray-300 rounded-lg p-4">
+                    <h3 class="text-lg font-bold mb-4">Materias Correlativas</h3>
+                    <div class="my-3">
+                        <label class="label" style="font-weight: bold;">
+                            <span class="label-text">Correlativas Fuertes</span>
+                        </label>
+                        <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas fuertes (obligatorias) para esta materia:</p>
+                        <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
+                            @foreach($materias as $materia)
+                                <div class="form-control">
+                                    <label class="cursor-pointer label justify-start">
+                                        <input type="checkbox" 
+                                               name="correlativas_fuertes[]" 
+                                               value="{{ $materia->id }}" 
+                                               class="checkbox checkbox-sm mr-2 correlativa-checkbox" 
+                                               data-materia-id="{{ $materia->id }}"
+                                               {{ in_array($materia->id, old('correlativas_fuertes', $plan->materia->correlativasFuertes->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                        <span class="label-text text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                    <div class="my-3">
+                        <label class="label" style="font-weight: bold;">
+                            <span class="label-text">Correlativas Débiles</span>
+                        </label>
+                        <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas débiles (recomendadas) para esta materia:</p>
+                        <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
+                            @foreach($materias as $materia)
+                                <div class="form-control">
+                                    <label class="cursor-pointer label justify-start">
+                                        <input type="checkbox" 
+                                               name="correlativas_debiles[]" 
+                                               value="{{ $materia->id }}" 
+                                               class="checkbox checkbox-sm mr-2 correlativa-checkbox" 
+                                               data-materia-id="{{ $materia->id }}"
+                                               {{ in_array($materia->id, old('correlativas_debiles', $plan->materia->correlativasDebiles->pluck('id')->toArray())) ? 'checked' : '' }}>
+                                        <span class="label-text text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</span>
+                                    </label>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
 
                 @if($plan->area_tematica)
                 <div class="my-3">
@@ -242,6 +288,49 @@
                 input.addEventListener('input', validateForm);
                 input.addEventListener('change', validateForm);
             });
+
+            // Función para manejar la disponibilidad de correlativas
+            function updateCorrelativasAvailability() {
+                const materiaId = '{{ $plan->materia_id }}';
+                const checkboxes = document.querySelectorAll('.correlativa-checkbox');
+                
+                checkboxes.forEach(checkbox => {
+                    if (checkbox.dataset.materiaId === materiaId) {
+                        checkbox.disabled = true;
+                        checkbox.checked = false;
+                        checkbox.closest('label').style.opacity = '0.5';
+                        checkbox.closest('label').style.pointerEvents = 'none';
+                    }
+                });
+            }
+
+            // Función para prevenir selección duplicada entre correlativas fuertes y débiles
+            function handleCorrelativaSelection(changedCheckbox) {
+                const materiaId = changedCheckbox.dataset.materiaId;
+                const isStrong = changedCheckbox.name === 'correlativas_fuertes[]';
+                const otherName = isStrong ? 'correlativas_debiles[]' : 'correlativas_fuertes[]';
+                const otherCheckbox = document.querySelector(`input[name="${otherName}"][data-materia-id="${materiaId}"]`);
+                
+                if (changedCheckbox.checked && otherCheckbox) {
+                    otherCheckbox.checked = false;
+                }
+            }
+
+            // Agregar listeners a los checkboxes de correlativas
+            document.querySelectorAll('input[name="correlativas_fuertes[]"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    handleCorrelativaSelection(this);
+                });
+            });
+
+            document.querySelectorAll('input[name="correlativas_debiles[]"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    handleCorrelativaSelection(this);
+                });
+            });
+
+            // Deshabilitar auto-correlativas al cargar la página
+            updateCorrelativasAvailability();
         });
     </script>
 

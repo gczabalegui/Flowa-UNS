@@ -53,6 +53,26 @@
                         <p class="text-lg">{{ $plan->creditos_academicos }}</p>
                     </div>
                     <div class="my-3">
+                        <label class="label" style="font-weight: bold;"><span class="label-text">Correlativas Fuertes</span></label>
+                        @if($plan->materia->correlativasFuertes->count() > 0)
+                            @foreach($plan->materia->correlativasFuertes as $correlativa)
+                                <p class="text-lg">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                            @endforeach
+                        @else
+                            <p class="text-lg text-gray-500">No posee correlativas fuertes.</p>
+                        @endif
+                    </div>
+                    <div class="my-3">
+                        <label class="label" style="font-weight: bold;"><span class="label-text">Correlativas Débiles</span></label>
+                        @if($plan->materia->correlativasDebiles->count() > 0)
+                            @foreach($plan->materia->correlativasDebiles as $correlativa)
+                                <p class="text-lg">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                            @endforeach
+                        @else
+                            <p class="text-lg text-gray-500">No posee correlativas débiles.</p>
+                        @endif
+                    </div>
+                    <div class="my-3">
                         <label class="label"style="font-weight: bold;" ><span class="label-text">Área Temática</span></label>
                         <p class="text-lg">{{ ucfirst(str_replace('_', ' ', $plan->area_tematica)) }}</p>
                     </div>
