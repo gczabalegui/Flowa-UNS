@@ -166,16 +166,23 @@ class ComisionController extends Controller
     public function pdfPrueba($id)
     {
         // Generar el DOCX
-        $plan = Plan::with('materia.profesor')->findOrFail($id);
+        $plan = Plan::with('materia.profesor', 'materia.correlativasFuertes', 'materia.correlativasDebiles')->findOrFail($id);
         $templatePath = storage_path('app/plantillas/programa.docx');
         $tpl = new TemplateProcessor($templatePath);
 
         $horasTeoricasSemana = $plan->horas_teoricas ? round($plan->horas_teoricas / 16, 1) : 0;
         $horasPracticasSemana = $plan->horas_practicas ? round($plan->horas_practicas / 16, 1) : 0;
 
-        // Mapear valores (ajustá los nombres si tu modelo Materia tiene otros atributos)
+        // --- Definición de Tags de Reemplazo ---
+        // Salto de línea simple (dentro de un párrafo, útil para listas cortas)
+        $BR = '</w:t><w:br/><w:t>';
+        // Salto de Párrafo (más robusto para textos largos como fundamentación)
+        $PARAGRAPH_BREAK = '</w:t></w:r></w:p><w:p><w:r><w:t>';
+        // Salto de Página (nuevo)
+        $PAGE_BREAK = '</w:t></w:r></w:p><w:r><w:br w:type="page" /></w:r><w:p><w:r><w:t>';
+
+        // Campos simples (no requieren reemplazo)
         $tpl->setValue('anio', $plan->anio ?? '');
-        //   $tpl->setValue('horas_totales', $plan->horas_totales ?? '');
         $tpl->setValue('horas_teoricas', $plan->horas_teoricas ?? '');
         $tpl->setValue('horas_practicas', $plan->horas_practicas ?? '');
         $tpl->setValue('DTE', $plan->DTE ?? '');
@@ -186,19 +193,42 @@ class ComisionController extends Controller
         $tpl->setValue('horas_teoricas_semana', $horasTeoricasSemana);
         $tpl->setValue('horas_practicas_semana', $horasPracticasSemana);
 
-        // textos largos
-        $tpl->setValue('fundamentacion', $plan->fundamentacion ?? '');
-        $tpl->setValue('obj_conceptuales', $plan->obj_conceptuales ?? '');
-        $tpl->setValue('obj_procedimentales', $plan->obj_procedimentales ?? '');
-        $tpl->setValue('obj_actitudinales', $plan->obj_actitudinales ?? '');
-        $tpl->setValue('obj_especificos', $plan->obj_especificos ?? '');
-        $tpl->setValue('cont_minimos', $plan->cont_minimos ?? '');
-        $tpl->setValue('programa_analitico', $plan->programa_analitico ?? '');
-        $tpl->setValue('act_practicas', $plan->act_practicas ?? '');
-        $tpl->setValue('modalidad', $plan->modalidad ?? '');
-        $tpl->setValue('bibliografia', $plan->bibliografia ?? '');
+        // --- Lógica de Correlativas (Generación y Reemplazo) ---
+        $correlativasFuertes = $plan->materia->correlativasFuertes
+            ->map(fn ($m) => "{$m->nombre_materia} ({$m->codigo_materia})")
+            ->implode("\n");
 
-        // Datos relacionados con la materia
+        $correlativasDebiles = $plan->materia->correlativasDebiles
+            ->map(fn ($m) => "{$m->nombre_materia} ({$m->codigo_materia})")
+            ->implode("\n");
+
+        // Reemplazo en correlativas (Se usa BR)
+        $tpl->setValue('correlativas_fuertes', str_replace("\n", $BR, $correlativasFuertes));
+        $tpl->setValue('correlativas_debiles', str_replace("\n", $BR, $correlativasDebiles));
+
+        // --- Textos Largos (USANDO PARAGRAPH_BREAK PARA MAYOR SEGURIDAD) ---
+        // Usa el salto de párrafo para estos campos, ya que pueden tener varios párrafos y es más seguro.
+        $tpl->setValue('fundamentacion', str_replace("\n", $PARAGRAPH_BREAK, $plan->fundamentacion ?? ''));
+        $tpl->setValue('obj_conceptuales', str_replace("\n", $PARAGRAPH_BREAK, $plan->obj_conceptuales ?? ''));
+        $tpl->setValue('obj_procedimentales', str_replace("\n", $PARAGRAPH_BREAK, $plan->obj_procedimentales ?? ''));
+        $tpl->setValue('obj_actitudinales', str_replace("\n", $PARAGRAPH_BREAK, $plan->obj_actitudinales ?? ''));
+        $tpl->setValue('obj_especificos', str_replace("\n", $PARAGRAPH_BREAK, $plan->obj_especificos ?? ''));
+        $tpl->setValue('cont_minimos', str_replace("\n", $PARAGRAPH_BREAK, $plan->cont_minimos ?? ''));
+        $tpl->setValue('programa_analitico', str_replace("\n", $PARAGRAPH_BREAK, $plan->programa_analitico ?? ''));
+        $tpl->setValue('act_practicas', str_replace("\n", $PARAGRAPH_BREAK, $plan->act_practicas ?? ''));
+        $tpl->setValue('modalidad', str_replace("\n", $PARAGRAPH_BREAK, $plan->modalidad ?? ''));
+
+        // Bibliografía (Usando salto de párrafo)
+        $tpl->setValue('bibliografia', str_replace("\n", $PARAGRAPH_BREAK, $plan->bibliografia ?? ''));
+
+        // --- Salto de Página (NUEVO) ---
+        // Añade un salto de página después de la bibliografía.
+        // **Necesitas tener un placeholder en tu plantilla llamado ${salto_pagina}**
+        // Si no tienes un placeholder específico, debes agregarlo al final del campo bibliografia.
+        // Lo más fácil es crear un nuevo placeholder en la plantilla, por ejemplo, ${salto_pagina_final}
+        $tpl->setValue('salto_pagina', $PAGE_BREAK); // Asumiendo que existe ${salto_pagina}
+
+        // Datos relacionados con la materia (campos simples)
         $tpl->setValue('materia_nombre', $plan->materia->nombre_materia ?? '');
         $tpl->setValue('materia_codigo', $plan->materia->codigo_materia ?? '');
 
@@ -208,10 +238,12 @@ class ComisionController extends Controller
 
         $tpl->setValue('profesor', $profesor);
 
-
         $tempDocx = storage_path('app/temp/programa_plan_.docx');
         $tpl->saveAs($tempDocx);
 
+        // ⚠️ ¡IMPORTANTE! Vuelve a activar la conversión a PDF si quieres que funcione
+        // Si necesitas seguir depurando el DOCX, deja el return de abajo descomentado y comenta la lógica de ConvertAPI.
+        return response()->download($tempDocx, 'documento_para_inspeccion.docx')->deleteFileAfterSend(false);
         /*
         // Crear el job de CloudConvert
         $job = (new Job())
@@ -275,6 +307,7 @@ class ComisionController extends Controller
         }
         */
 
+        /*
         try {
             // 1. Inicializar la API
             $secret = 't3wp2UziEojYMwdPhqcrXQ15AfGkwObk'; // env('CONVERTAPI_SECRET');
@@ -315,5 +348,6 @@ class ComisionController extends Controller
         } catch (\Throwable $e) {
             return response()->json(['error' => 'Error al convertir con ConvertAPI: ' . $e->getMessage()], 500);
         }
+        */
     }
 }
