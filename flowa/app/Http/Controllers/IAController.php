@@ -16,18 +16,16 @@ class IAController extends Controller
             return response()->json(['error' => 'Texto vacío.'], 400);
         }
 
-        // 1. Lee la clave API del archivo .env
         $geminiApiKey = env('GEMINI_API_KEY'); 
         
         if (empty($geminiApiKey)) {
-             return response()->json(['error' => 'La clave API de Gemini no está configurada.'], 500);
+            return response()->json(['error' => 'La clave API de Gemini no está configurada.'], 500);
         }
         
-        // 2. URL de la API de Gemini (modelo flash optimizado)
         $url_ia = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={$geminiApiKey}";
 
-        // 3. Prompt optimizado
-        $prompt = "Convierte **toda** la siguiente lista de referencias bibliográficas al formato **APA 7ma edición** (en español), asegurándote de que estén ordenadas **alfabéticamente** por el apellido del primer autor. Devuelve **SOLO** la lista corregida, sin ningún texto adicional, explicaciones, encabezados, introducciones o comentarios antes o después de la lista.\n\nLista de Bibliografía a Corregir:\n{$texto}";
+        // Prompt optimizado para salida segura para Word
+        $prompt = "Convierte toda la siguiente lista de referencias bibliográficas al formato APA 7ma edición (en español), asegurándote de que estén ordenadas alfabéticamente por el apellido del primer autor. **Devuelve SOLO texto plano**, sin HTML, sin caracteres especiales invisibles, sin negritas, cursivas, ni saltos de línea raros. Usa únicamente saltos de línea normales '\\n' entre cada referencia. No agregues encabezados, explicaciones ni comentarios antes o después de la lista.\n\nLista de Bibliografía a Corregir:\n{$texto}";
 
         try {
             $response = Http::timeout(60)
@@ -41,7 +39,6 @@ class IAController extends Controller
                     ]
                 ]);
 
-            // Manejo de errores de conexión/API
             if (!$response->successful()) {
                 Log::error('Error de API de Gemini: ' . $response->body());
                 return response()->json([
@@ -52,13 +49,13 @@ class IAController extends Controller
             }
 
             $data = $response->json();
-            
-            // Extracción segura del texto generado
             $text = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
 
             if ($text) {
-                // Limpieza del texto y eliminación de caracteres no deseados
-                $textLimpio = trim($text); 
+                // Limpieza mínima extra para Word
+                $textLimpio = trim($text);
+                $textLimpio = str_replace(["\r\n", "\r"], "\n", $textLimpio); // normaliza saltos de línea
+                $textLimpio = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', '', $textLimpio); // control chars
                 return response()->json(['sugerencia' => $textLimpio]);
             } else {
                 Log::warning('Respuesta de IA incompleta/vacía: ' . json_encode($data));

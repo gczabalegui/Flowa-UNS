@@ -366,7 +366,7 @@
                 } else if (submitButton && submitButton.value === 'rechazar') {
                     // Para rechazar, confirmar acción
                     e.preventDefault();
-                    
+
                     if (typeof showConfirmModal === 'function') {
                         showConfirmModal(
                             'Rechazar Plan',
@@ -464,16 +464,30 @@
             btn.innerHTML = originalText;
         });
 
-        // Lógica para aceptar la sugerencia
+        // Lógica para aceptar la sugerencia (frontend)
         document.getElementById('aceptarIA').addEventListener('click', () => {
-            const sugerencia = document.getElementById('iaTexto').textContent;
-            const bibliografiaField = document.getElementById('bibliografia');
+            let sugerencia = document.getElementById('iaTexto').textContent || '';
 
+            // 1. Quitar etiquetas HTML (por si la IA devolvió HTML)
+            sugerencia = sugerencia.replace(/<\/?[^>]+(>|$)/g, '');
+
+            // 2. Eliminar caracteres de control no deseados (excepto tab y newline)
+            sugerencia = sugerencia.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/g, '');
+
+            // 3. Normalizar saltos de línea (CRLF -> LF) y colapsar 3+ saltos a 2
+            sugerencia = sugerencia.replace(/\r\n?/g, '\n').replace(/\n{3,}/g, '\n\n');
+
+            // 4. Trim final
+            sugerencia = sugerencia.trim();
+
+            const bibliografiaField = document.getElementById('bibliografia');
             bibliografiaField.value = sugerencia;
             document.getElementById('iaSugerencia').classList.add('hidden');
 
-            // Opcional: dispara el evento 'input' para recalcular la validación del formulario
-            const event = new Event('input');
+            // Disparar evento input para revalidar el form
+            const event = new Event('input', {
+                bubbles: true
+            });
             bibliografiaField.dispatchEvent(event);
         });
 
