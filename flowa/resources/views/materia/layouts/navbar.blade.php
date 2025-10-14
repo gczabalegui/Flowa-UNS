@@ -23,3 +23,7 @@
     <div class="navbar-end">
 
 </div>
+</div>
+
+@include('components.notification-popup')
+@include('components.confirm-modal')

@@ -45,12 +45,6 @@
             </div>
             <div class="panel-body">
 
-                @if (Session::get('message'))
-                <div class="alert alert-success alert-block">
-                    <strong>{{Session::get('message')}}</strong>
-                </div>
-                @endif
-
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>Ups!</strong> Hubo un problema al subir el archivo.

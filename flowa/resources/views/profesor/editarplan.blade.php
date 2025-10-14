@@ -365,17 +365,38 @@
                     }
                 } else if (submitButton && submitButton.value === 'rechazar') {
                     // Para rechazar, confirmar acción
-                    if (!confirm('¿Está seguro que desea rechazar este plan? Esta acción lo devolverá a administración.')) {
-                        e.preventDefault();
-                        return false;
-                    }
-                    // Remover validación required para rechazar
-                    requiredFields.forEach(fieldName => {
-                        const field = document.getElementById(fieldName);
-                        if (field) {
-                            field.removeAttribute('required');
+                    e.preventDefault();
+                    
+                    if (typeof showConfirmModal === 'function') {
+                        showConfirmModal(
+                            'Rechazar Plan',
+                            '¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.',
+                            function() {
+                                // Remover validación required para rechazar
+                                requiredFields.forEach(fieldName => {
+                                    const field = document.getElementById(fieldName);
+                                    if (field) {
+                                        field.removeAttribute('required');
+                                    }
+                                });
+                                // Enviar formulario
+                                e.target.submit();
+                            }
+                        );
+                    } else {
+                        if (confirm('¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.')) {
+                            // Remover validación required para rechazar
+                            requiredFields.forEach(fieldName => {
+                                const field = document.getElementById(fieldName);
+                                if (field) {
+                                    field.removeAttribute('required');
+                                }
+                            });
+                            // Continuar con el envío
+                            return true;
                         }
-                    });
+                    }
+                    return false;
                 } else {
                     // Si es "Guardar borrador", remover validación required
                     requiredFields.forEach(fieldName => {

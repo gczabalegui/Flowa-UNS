@@ -214,9 +214,9 @@ class PlanController extends Controller
             }
 
             if ($request->input('action') == 'guardar_borrador') {
-                return redirect('/administracion/verplanes')->with('estado', 'Plan actualizado como borrador.');
+                return redirect('/administracion/verplanes')->with('estado', 'El plan de materia ha sido actualizado y guardado como borrador.');
             } else if ($request->input('action') == 'guardar') {
-                return redirect('/administracion/verplanes')->with('estado', 'Plan actualizado exitosamente.');
+                return redirect('/administracion/verplanes')->with('estado', 'El plan de materia ha sido actualizado y enviado para revisión exitosamente.');
             }
         } catch (\Exception $e) {
             return redirect('/administracion/verplanes')->with('warning', 'No se ha podido actualizar el plan.');
@@ -320,9 +320,9 @@ class PlanController extends Controller
             $planes->save();
     */
             if ($request->input('action') == 'guardar_borrador') {
-                return redirect('/administracion')->with('estado', 'Nuevo plan guardado como borrador.');
+                return redirect('/administracion')->with('estado', 'El nuevo plan de materia ha sido guardado como borrador exitosamente.');
             } else if ($request->input('action') == 'guardar') {
-                return redirect('/administracion')->with('estado', 'Nuevo plan guardado exitosamente.');
+                return redirect('/administracion')->with('estado', 'El nuevo plan de materia ha sido guardado y enviado para revisión exitosamente.');
             }
         } catch (\Exception $e) {
             dd($e);

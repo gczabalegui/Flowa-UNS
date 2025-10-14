@@ -17,4 +17,7 @@
 </div>
 </div>
 
+@include('components.notification-popup')
+@include('components.confirm-modal')
+
 </div>
