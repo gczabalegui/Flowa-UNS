@@ -169,6 +169,16 @@ Route::post('/administracion/plan/preview-pdf', [PlanController::class, 'preview
 Route::post('/administracion/plan', [PlanController::class, 'store'])
 ->name('plan.store');
 
+
+
+// ------------------------------
+// RUTAS PARA IAs
+// ------------------------------
+Route::post('/profesor/sugerencia-ia', [App\Http\Controllers\IAController::class, 'sugerirBibliografia'])
+     ->name('profesor.sugerenciaIA');
+
+
+
 // ------------------------------
 // Auth predeterminado de Laravel
 // ------------------------------

@@ -34,7 +34,7 @@
                             <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
                             <td class="border px-4 py-2 text-center space-x-2">
                                 <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-info">Ver</a>
-                                <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" class="btn btn-success">Generar PDF</a>
+                                <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank" class="btn btn-success">Generar PDF</a>
                             </td>
 
 
