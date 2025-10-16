@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,7 +34,7 @@
 
                 <div class="my-3">
                     <label class="label disabled-label"><span class="label-text">Año</span></label>
-                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->anio }}" readonly>
+                    <input type="text" name="anio" class="input input-bordered w-full readonly-field" value="{{ $plan->anio }}" readonly>
                 </div>
 
                 <div class="my-3">
@@ -43,12 +44,12 @@
 
                 <div class="my-3">
                     <label class="label disabled-label"><span class="label-text">Horas Teóricas</span></label>
-                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->horas_teoricas }}" readonly>
+                    <input type="text" name="horas_teoricas" class="input input-bordered w-full readonly-field" value="{{ $plan->horas_teoricas }}" readonly>
                 </div>
 
                 <div class="my-3">
                     <label class="label disabled-label"><span class="label-text">Horas Prácticas</span></label>
-                    <input type="text" class="input input-bordered w-full readonly-field" value="{{ $plan->horas_practicas }}" readonly>
+                    <input type="text" name="horas_practicas" class="input input-bordered w-full readonly-field" value="{{ $plan->horas_practicas }}" readonly>
                 </div>
 
                 <div class="my-3">
@@ -97,17 +98,45 @@
                 </div>
 
                 <!-- Campos editables (profesor) -->
+                <!-- Área Temática + sugerencia IA -->
                 <div class="my-3">
                     <label class="label"><span class="label-text">Área Temática</span></label>
-                    <select id="area_tematica" name="area_tematica" class="select select-bordered w-full" tabindex="1">
-                        <option value="">Seleccione un área temática</option>
-                        @foreach(\App\Models\Plan::AREA_TEMATICA as $area)
-                        <option value="{{ $area }}" {{ $plan->area_tematica == $area ? 'selected' : '' }}>
-                            {{ ucfirst(str_replace('_', ' ', $area)) }}
-                        </option>
-                        @endforeach
-                    </select>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <select id="area_tematica" name="area_tematica" class="select select-bordered flex-grow" tabindex="1">
+                            <option value="">Seleccione un área temática</option>
+                            @foreach(\App\Models\Plan::AREA_TEMATICA as $area)
+                            <option value="{{ $area }}" {{ $plan->area_tematica == $area ? 'selected' : '' }}>
+                                {{ ucfirst(str_replace('_', ' ', $area)) }}
+                            </option>
+                            @endforeach
+                        </select>
+
+                        <button type="button" id="btnSugerirArea" class="btn btn-outline btn-primary whitespace-nowrap flex-shrink-0">
+                            💡 Sugerir con IA
+                        </button>
+                    </div>
+
+
                 </div>
+
+                <!-- Resultado de la sugerencia -->
+                <div id="sugerenciaAreaContainer" class="hidden mt-3">
+                    <div id="sugerenciaCard" class="card border border-primary bg-base-100 shadow-md">
+                        <div class="card-body">
+                            <h6 class="card-title mb-2 flex items-start justify-between gap-2">
+                                <span class="flex-grow min-w-0">
+                                    <span class="text-sm text-gray-700 block">Sugerencia de la IA:</span>
+                                    <span id="sugerenciaArea" class="font-bold text-lg block break-words"></span>
+                                </span>
+                                <button type="button" id="btnUsarSugerencia" class="btn btn-sm btn-primary hidden flex-shrink-0">
+                                    Usar sugerencia
+                                </button>
+                            </h6>
+                            <p id="razonamientoArea" class="text-sm text-gray-600"></p>
+                        </div>
+                    </div>
+                </div>
+
 
                 <div class="my-3">
                     <label class="label"><span class="label-text">Fundamentación</span></label>
@@ -496,6 +525,222 @@
             document.getElementById('iaSugerencia').classList.add('hidden');
         });
     </script>
+
+    <script>
+        document.getElementById('btnSugerirArea').addEventListener('click', async function() {
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="loading loading-spinner loading-sm"></span> Analizando...';
+
+            // Campos usados por la IA (mantener la recopilación de datos)
+            const campos = {
+                fundamentacion: document.querySelector('[name="fundamentacion"]')?.value || '',
+                obj_conceptuales: document.querySelector('[name="obj_conceptuales"]')?.value || '',
+                obj_procedimentales: document.querySelector('[name="obj_procedimentales"]')?.value || '',
+                obj_actitudinales: document.querySelector('[name="obj_actitudinales"]')?.value || '',
+                cont_minimos: document.querySelector('[name="cont_minimos"]')?.value || '',
+                act_practicas: document.querySelector('[name="act_practicas"]')?.value || '',
+                programa_analitico: document.querySelector('[name="programa_analitico"]')?.value || '',
+                horas_teoricas: document.querySelector('[name="horas_teoricas"]')?.value || '',
+                horas_practicas: document.querySelector('[name="horas_practicas"]')?.value || '',
+                anio: document.querySelector('[name="anio"]')?.value || ''
+            };
+
+            // Validación mínima antes de pedir la IA (mantener)
+            const minCampos = ['fundamentacion', 'obj_conceptuales', 'obj_procedimentales', 'obj_actitudinales', 'cont_minimos'];
+            const vacios = minCampos.filter(c => campos[c].trim() === '').length;
+            if (vacios > 0) {
+                alert('Por favor, completá al menos la fundamentación, objetivos y contenidos mínimos antes de pedir la sugerencia.');
+                btn.disabled = false;
+                btn.innerHTML = '💡 Sugerir con IA';
+                return;
+            }
+
+            // Mapeo flexible sugerencias → valores válidos (mantener)
+            const AREA_TEMATICA_MAP = {
+                'formacion basica': 'Formación básica',
+                'formación basica': 'Formación básica',
+                'formacion básica': 'Formación básica',
+                'básica': 'Formación básica',
+                'basica': 'Formación básica',
+                'fundamental': 'Formación básica',
+
+                'formacion aplicada': 'Formación aplicada',
+                'formación aplicada': 'Formación aplicada',
+                'aplicada': 'Formación aplicada',
+                'cientifica aplicada': 'Formación aplicada',
+                'tecnica': 'Formación aplicada',
+
+                'formacion profesional': 'Formación profesional',
+                'formación profesional': 'Formación profesional',
+                'profesional': 'Formación profesional',
+                'profesionalizante': 'Formación profesional',
+                'orientada a la profesion': 'Formación profesional'
+            };
+
+            // Normaliza texto: quita acentos, símbolos y pasa a minúsculas (mantener)
+            function normalizarTexto(texto) {
+                return texto
+                    .normalize('NFD')
+                    .replace(/[\u0300-\u036f]/g, '')
+                    .replace(/[^a-z\s]/g, '')
+                    .toLowerCase()
+                    .trim();
+            }
+
+            try {
+                const response = await fetch('/ia/sugerir-area', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                    },
+                    body: JSON.stringify(campos)
+                });
+
+                const text = await response.text();
+
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    console.error('Respuesta no válida de IA:', text);
+                    alert('Error: no se recibió un formato válido de IA.');
+                    return;
+                }
+
+                const container = document.getElementById('sugerenciaAreaContainer');
+                const areaSpan = document.getElementById('sugerenciaArea');
+                const razonamiento = document.getElementById('razonamientoArea');
+                const card = document.getElementById('sugerenciaCard');
+                const btnUsar = document.getElementById('btnUsarSugerencia');
+                const selectArea = document.getElementById('area_tematica');
+
+                // Ocultar el botón Usar Sugerencia por defecto
+                btnUsar.classList.add('hidden');
+                container.classList.remove('hidden'); // Mostrar el contenedor
+
+                if (response.ok && data.area) {
+                    // --- MODIFICACIÓN CLAVE AQUÍ ---
+                    let sugerenciaIA = data.area.trim();
+                    // Normaliza la sugerencia para verificar si ya contiene "formación" o "formacion"
+                    const sugerenciaNormalizada = normalizarTexto(sugerenciaIA);
+
+                    // Quitar cualquier "Formación" o similar al inicio para evitar duplicados
+                    sugerenciaIA = sugerenciaIA.replace(/^(Formación|Formacion|formación|formacion)\s*/i, '').trim();
+
+                    // Capitaliza la primera letra de lo restante (ej: "básica" -> "Básica")
+                    if (sugerenciaIA.length > 0) {
+                        sugerenciaIA = sugerenciaIA.charAt(0).toUpperCase() + sugerenciaIA.slice(1);
+                    }
+
+                    // Anteponer "Formación" (correctamente escrita) si hay algo más que no sea solo "Formación"
+                    // O si la sugerencia es una de las palabras clave del mapeo (basica, aplicada, profesional)
+                    const valorOficial = AREA_TEMATICA_MAP[sugerenciaNormalizada];
+
+                    let areaFinalParaMostrar = '';
+                    if (sugerenciaIA.length > 0 && sugerenciaIA !== 'Formación') {
+                        areaFinalParaMostrar = 'Formación ' + sugerenciaIA;
+                    } else if (valorOficial) {
+                        areaFinalParaMostrar = valorOficial; // Usa el valor oficial si se mapea
+                    } else {
+                        areaFinalParaMostrar = data.area; // Usa la sugerencia cruda si no se pudo formatear bien
+                    }
+
+                    areaSpan.textContent = areaFinalParaMostrar;
+                    // ---------------------------------
+
+                    razonamiento.textContent = data.razonamiento || '';
+
+                    // Colores según área sugerida (mantener)
+                    card.classList.remove(
+                        'border-primary', 'border-success', 'border-warning',
+                        'border-blue-500', 'border-green-500', 'border-yellow-500',
+                        'bg-base-100', 'bg-blue-50', 'bg-green-50', 'bg-yellow-50'
+                    );
+
+                    let colorClass = 'border-primary';
+                    let bgClass = 'bg-base-100'; // Default
+                    if (areaFinalParaMostrar.toLowerCase().includes('básica')) {
+                        colorClass = 'border-blue-500';
+                        bgClass = 'bg-blue-50';
+                    } else if (areaFinalParaMostrar.toLowerCase().includes('profesional')) {
+                        colorClass = 'border-green-500';
+                        bgClass = 'bg-green-50';
+                    } else if (areaFinalParaMostrar.toLowerCase().includes('aplicada')) {
+                        colorClass = 'border-yellow-500';
+                        bgClass = 'bg-yellow-50';
+                    }
+                    card.classList.add(colorClass, bgClass);
+
+                    // Mostrar botón "Usar sugerencia" si se pudo mapear a un valor oficial
+                    if (valorOficial) {
+                        btnUsar.classList.remove('hidden');
+                        btnUsar.onclick = () => {
+                            // El proceso de uso se mantiene igual, usando el mapeo
+                            const option = Array.from(selectArea.options).find(
+                                o => o.textContent.trim().toLowerCase() === valorOficial.toLowerCase()
+                            );
+
+                            if (option) {
+                                selectArea.value = option.value;
+                                selectArea.dispatchEvent(new Event('input', {
+                                    bubbles: true
+                                }));
+                                selectArea.dispatchEvent(new Event('change', {
+                                    bubbles: true
+                                }));
+                                btnUsar.classList.add('hidden');
+                                selectArea.focus();
+                                areaSpan.innerHTML = `✔️ Se seleccionó: <b>${valorOficial}</b>`;
+                            } else {
+                                alert(`⚠️ No se encontró la opción "${valorOficial}" en el select.`);
+                            }
+                        };
+                    } else {
+                        // Si no hay mapeo oficial, solo se muestra la sugerencia sin el botón "Usar"
+                        razonamiento.textContent = (data.razonamiento || '') + ' (No se pudo mapear a una opción oficial. Seleccione manualmente.)';
+                        card.classList.remove('border-primary'); // Asegurar que no quede el default si no hay mapeo
+                        card.classList.add('border-warning', 'bg-yellow-50'); // Usar un color de advertencia
+                    }
+
+
+                } else {
+                    // Si la respuesta no es OK o no tiene `data.area`
+                    areaSpan.textContent = 'No hay sugerencia disponible.';
+                    razonamiento.textContent = data.error || 'No se pudo obtener la sugerencia de IA o la respuesta fue inválida.';
+                    card.classList.remove(
+                        'border-primary', 'border-success', 'border-warning',
+                        'border-blue-500', 'border-green-500', 'border-yellow-500',
+                        'bg-base-100', 'bg-blue-50', 'bg-green-50', 'bg-yellow-50'
+                    );
+                    card.classList.add('border-primary', 'bg-base-100'); // Volver al estilo por defecto
+                }
+            } catch (error) {
+                console.error('Error de fetch:', error);
+                alert('Ocurrió un error al conectar con la IA.');
+                // En caso de error de conexión, se muestra un mensaje sin "Formación"
+                document.getElementById('sugerenciaAreaContainer').classList.remove('hidden');
+                document.getElementById('sugerenciaArea').textContent = 'Error de conexión con la IA.';
+                document.getElementById('razonamientoArea').textContent = 'Revise la consola para más detalles.';
+                document.getElementById('btnUsarSugerencia').classList.add('hidden');
+                document.getElementById('sugerenciaCard').classList.remove('border-primary', 'border-success', 'border-warning');
+                document.getElementById('sugerenciaCard').classList.add('border-error');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '💡 Sugerir con IA';
+            }
+        });
+
+        // Se mantiene la función de normalización (estaba fuera, mejor dejarla dentro del listener o global si se usa en más sitios)
+        // Para simplificar, la dejaré como estaba originalmente si no la usas en otro sitio fuera del listener.
+        // Si la función `normalizarTexto` se usa en `btnUsarSugerencia.onclick` dentro del `if (response.ok && data.area)`, 
+        // debe estar disponible. La puse en el código original, pero es mejor declararla como en el código del usuario (fuera del listener)
+        // o dentro, como en el ejemplo anterior. Para que funcione como en tu script original, *debe estar disponible* al hacer clic en `btnUsarSugerencia`.
+        // La dejé dentro del listener para que el bloque de código sea autocontenido.
+    </script>
+
+
 
 </body>
 

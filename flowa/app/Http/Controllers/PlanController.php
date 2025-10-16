@@ -183,10 +183,10 @@ class PlanController extends Controller
 
             //Correlativas
             $materia = $plan->materia;
-            
+
             $materia->correlativasFuertes()->detach();
             $materia->correlativasDebiles()->detach();
-            
+
             //Correlativas fuertes
             if ($request->has('correlativas_fuertes')) {
                 foreach ($request->correlativas_fuertes as $correlativaId) {
@@ -199,7 +199,7 @@ class PlanController extends Controller
                     }
                 }
             }
-            
+
             //Correlativas débiles
             if ($request->has('correlativas_debiles')) {
                 foreach ($request->correlativas_debiles as $correlativaId) {
@@ -288,7 +288,7 @@ class PlanController extends Controller
 
             $materia->correlativasFuertes()->detach();
             $materia->correlativasDebiles()->detach();
-             //Fuertes
+            //Fuertes
             if ($request->has('correlativas_fuertes') && !empty($request->correlativas_fuertes)) {
                 foreach ($request->correlativas_fuertes as $correlativaId) {
                     if ($correlativaId != $materia->id) {
