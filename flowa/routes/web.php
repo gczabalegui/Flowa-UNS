@@ -14,7 +14,8 @@ use App\Http\Controllers\{
     CarreraController,
     DepartamentoController,
     PDFController,
-    AuthController
+    AuthController,
+    IAController
 };
 
 // ------------------------------
@@ -176,6 +177,9 @@ Route::post('/administracion/plan', [PlanController::class, 'store'])
 // ------------------------------
 Route::post('/profesor/sugerencia-ia', [App\Http\Controllers\IAController::class, 'sugerirBibliografia'])
      ->name('profesor.sugerenciaIA');
+
+Route::post('/ia/sugerir-area', [IAController::class, 'sugerirArea']);
+
 
 
 

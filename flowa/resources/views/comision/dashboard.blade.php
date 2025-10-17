@@ -18,7 +18,6 @@
     <div class="flex flex-col items-center justify-center min-h-screen">
         <h2 class="text-2xl font-bold mb-4">¿Qué desea hacer?</h2>
     <a href="/comision/verplanes" class="btn btn-primary m-2 w-full max-w-xs text-center">Ver planes de materias</a>
-    <a href="/comision/pdfprueba" class="btn btn-primary m-2 w-full max-w-xs text-center">Crear PDF prueba</a>
     </div>
 
 
