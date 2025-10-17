@@ -182,12 +182,14 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200" tabindex="9">
-                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
-                        </svg>
-                        Guardar borrador
-                    </button>
+                    <div class="tooltip tooltip-top" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
+                        <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="9" id="borradorBtn" disabled>
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3 3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                            </svg>
+                            Guardar borrador
+                        </button>
+                    </div>
                     
                     <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
                         <button type="submit" name="action" value="guardar" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="10" id="guardarBtn" disabled>
@@ -251,8 +253,10 @@
     // Referencias a elementos
     const guardarBtn = document.getElementById('guardarBtn');
     const guardarTooltip = document.getElementById('guardarTooltip');
+    const borradorBtn = document.getElementById('borradorBtn');
+    const borradorTooltip = document.getElementById('borradorTooltip');
     
-    // Función para validar el formulario
+    // Función para validar el formulario completo
     function validateForm() {
         let allValid = true;
         
@@ -270,9 +274,23 @@
         }
     }
     
+    // Función para validar borrador (solo requiere materia)
+    function validateBorrador() {
+        const materiaField = document.getElementById('materia_id');
+        
+        if (materiaField && materiaField.value.trim() !== '') {
+            borradorBtn.disabled = false;
+            borradorTooltip.setAttribute('data-tip', 'Guardar como borrador');
+        } else {
+            borradorBtn.disabled = true;
+            borradorTooltip.setAttribute('data-tip', 'Debe seleccionar una materia para guardar como borrador');
+        }
+    }
+    
     // Validar al cargar la página
     calculateTotalHours(); // Calcular horas totales al cargar
     validateForm();
+    validateBorrador(); // Validar botón de borrador al cargar
     
     // Función para calcular horas totales automáticamente
     function calculateTotalHours() {
@@ -284,6 +302,7 @@
         
         // Validar formulario después de calcular
         validateForm();
+        validateBorrador(); // También validar borrador
     }
     
     // Agregar listeners para calcular horas totales
@@ -300,6 +319,10 @@
             field.addEventListener('change', validateForm);
         }
     });
+    
+    // Agregar listener específico para validar borrador cuando cambia la materia
+    document.getElementById('materia_id').addEventListener('change', validateBorrador);
+    document.getElementById('materia_id').addEventListener('input', validateBorrador);
 
     // Mantener funcionalidad existente
     document.getElementById('materia_id').addEventListener('change', function() {
