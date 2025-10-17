@@ -481,11 +481,9 @@
                     // Muestra un mensaje de error detallado
                     const errorMessage = data.error || 'No se pudo generar la sugerencia (error desconocido).';
                     alert('Error de IA: ' + errorMessage);
-                    console.error('Error de API:', data);
                 }
             } catch (error) {
                 alert('Error al conectarse con el servicio de IA. Verifique su clave API y la configuración.');
-                console.error('Error de red/fetch:', error);
             }
 
             // Restaura el botón
@@ -604,7 +602,6 @@
                 try {
                     data = JSON.parse(text);
                 } catch (e) {
-                    console.error('Respuesta no válida de IA:', text);
                     alert('Error: no se recibió un formato válido de IA.');
                     return;
                 }
@@ -717,7 +714,6 @@
                     card.classList.add('border-primary', 'bg-base-100'); // Volver al estilo por defecto
                 }
             } catch (error) {
-                console.error('Error de fetch:', error);
                 alert('Ocurrió un error al conectar con la IA.');
                 // En caso de error de conexión, se muestra un mensaje sin "Formación"
                 document.getElementById('sugerenciaAreaContainer').classList.remove('hidden');

@@ -34,35 +34,27 @@ let confirmCallback = null;
 let isModalInitialized = false;
 
 function showConfirmModal(title, message, callback) {
-    console.log('showConfirmModal called:', title, message);
-    
     const modal = document.getElementById('confirm-modal');
     const titleElement = document.getElementById('confirm-title');
     const messageElement = document.getElementById('confirm-message');
     
     if (!modal || !titleElement || !messageElement) {
-        console.error('Modal elements not found');
-        // Fallback al confirm nativo
+        
         if (confirm(message)) {
             if (callback) callback();
         }
         return;
     }
     
-    // Asegurar que el modal esté completamente oculto primero
     modal.style.display = 'none';
     modal.classList.add('hidden');
     
-    // Luego configurar y mostrar
     titleElement.textContent = title;
     messageElement.textContent = message;
     confirmCallback = callback;
     
-    // Mostrar el modal
     modal.style.display = 'flex';
     modal.classList.remove('hidden');
-    
-    console.log('Modal shown successfully');
 }
 
 function hideConfirmModal() {
@@ -72,10 +64,8 @@ function hideConfirmModal() {
         modal.classList.add('hidden');
     }
     confirmCallback = null;
-    console.log('Modal hidden');
 }
 
-// Forzar que el modal esté oculto al cargar
 document.addEventListener('DOMContentLoaded', function() {
     if (isModalInitialized) return;
     isModalInitialized = true;
@@ -84,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const cancelBtn = document.getElementById('confirm-cancel');
     const acceptBtn = document.getElementById('confirm-accept');
 
-    // Forzar ocultación completa
     if (modal) {
         modal.style.display = 'none';
         modal.classList.add('hidden');
@@ -94,7 +83,6 @@ document.addEventListener('DOMContentLoaded', function() {
         cancelBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Cancel clicked');
             hideConfirmModal();
         });
     }
@@ -103,7 +91,6 @@ document.addEventListener('DOMContentLoaded', function() {
         acceptBtn.addEventListener('click', function(e) {
             e.preventDefault();
             e.stopPropagation();
-            console.log('Accept clicked');
             if (confirmCallback && typeof confirmCallback === 'function') {
                 confirmCallback();
             }
@@ -111,7 +98,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Cerrar modal al hacer click fuera
     if (modal) {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -119,11 +105,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
-    
-    console.log('Confirm modal initialized and hidden');
 });
 
-// También forzar ocultación inmediatamente
 (function() {
     const modal = document.getElementById('confirm-modal');
     if (modal) {

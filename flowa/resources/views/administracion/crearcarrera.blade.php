@@ -85,6 +85,19 @@
 </div>
 
 <style>
+    /* Ocultar flechas en Chrome, Safari, Edge, Opera */
+    .no-spinners::-webkit-outer-spin-button,
+    .no-spinners::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Ocultar flechas en Firefox */
+    .no-spinners {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
 /* Personalizar flecha de dropdown para que aparezca más hacia adentro */
 select {
     -webkit-appearance: none;

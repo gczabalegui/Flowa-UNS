@@ -101,19 +101,14 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing delete buttons');
             
-            // Agregar event listeners a todos los botones de eliminar
-            var deleteButtons = document.querySelectorAll('.delete-plan-btn');
-            console.log('Found delete buttons:', deleteButtons.length);
-            
+            var deleteButtons = document.querySelectorAll('.delete-plan-btn');         
             deleteButtons.forEach(function(button) {
                 button.addEventListener('click', function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     
                     var planId = this.getAttribute('data-plan-id');
-                    console.log('Delete button clicked for plan:', planId);
                     
                     confirmDeletePlan(planId);
                 });
@@ -121,12 +116,8 @@
         });
 
         function confirmDeletePlan(planId) {
-            console.log('confirmDeletePlan called with planId:', planId);
             
-            // Verificar que la función showConfirmModal existe
             if (typeof showConfirmModal !== 'function') {
-                console.error('showConfirmModal function not found');
-                // Fallback al confirm nativo
                 if (confirm('¿Estás seguro de que deseas eliminar el plan de esta materia?')) {
                     var form = document.getElementById('delete-form-' + planId);
                     if (form) {
@@ -140,22 +131,17 @@
                 'Eliminar plan',
                 '¿Estás seguro de que deseas eliminar el plan de esta materia? Esta acción no se puede deshacer.',
                 function() {
-                    console.log('User confirmed deletion, submitting form');
                     var form = document.getElementById('delete-form-' + planId);
                     if (form) {
                         form.submit();
-                    } else {
-                        console.error('Form not found:', 'delete-form-' + planId);
-                    }
+                    } 
                 }
             );
         }
 
-        // Prevenir que el modal se abra automáticamente
         window.addEventListener('load', function() {
             var modal = document.getElementById('confirm-modal');
             if (modal && !modal.classList.contains('hidden')) {
-                console.log('Modal was visible on page load, hiding it');
                 modal.classList.add('hidden');
             }
         });

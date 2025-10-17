@@ -272,7 +272,7 @@
                     </div>
 
                     <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
-                        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="19" id="guardarBtn" disabled>
+                        <button type="submit" name="action" value="guardar" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="19" id="guardarBtn">
                             <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                             </svg>
@@ -326,15 +326,32 @@
         function validateForm() {
             let allFieldsValid = true;
             
-            requiredFields.forEach(fieldName => {
+            // En modo edición, solo validamos que los campos numéricos no sean negativos
+            const numericFields = ['horas_totales', 'horas_teoricas', 'horas_practicas', 'DTE', 'RTF', 'creditos_academicos'];
+            
+            numericFields.forEach(fieldName => {
                 const field = document.getElementById(fieldName);
-                if (field && field.value.trim() === '') {
-                    allFieldsValid = false;
+                if (field) {
+                    const value = parseFloat(field.value);
+                    if (isNaN(value) || value < 0) {
+                        allFieldsValid = false;
+                    }
                 }
             });
             
+            // El año debe estar seleccionado
+            const anioField = document.getElementById('anio');
+            if (anioField && anioField.value === '') {
+                allFieldsValid = false;
+            }
+            
             if (guardarBtn && guardarTooltip) {
                 guardarBtn.disabled = !allFieldsValid;
+                if (!allFieldsValid) {
+                    guardarTooltip.setAttribute('data-tip', 'Verifique que todos los campos numéricos tengan valores válidos');
+                } else {
+                    guardarTooltip.setAttribute('data-tip', 'Guardar plan');
+                }
             }
         }
 
@@ -390,6 +407,9 @@
 
         // Deshabilitar auto-correlativas al cargar la página
         updateCorrelativasAvailability();
+        
+        // Ejecutar validación adicional después de que la página cargue completamente
+        setTimeout(validateForm, 100);
     });
 </script>
 @endsection
