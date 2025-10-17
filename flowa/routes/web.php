@@ -14,7 +14,8 @@ use App\Http\Controllers\{
     CarreraController,
     DepartamentoController,
     PDFController,
-    AuthController
+    AuthController,
+    IAController
 };
 
 // ------------------------------
@@ -168,6 +169,19 @@ Route::post('/administracion/plan/preview-pdf', [PlanController::class, 'preview
      // routes/web.php
 Route::post('/administracion/plan', [PlanController::class, 'store'])
 ->name('plan.store');
+
+
+
+// ------------------------------
+// RUTAS PARA IAs
+// ------------------------------
+Route::post('/profesor/sugerencia-ia', [App\Http\Controllers\IAController::class, 'sugerirBibliografia'])
+     ->name('profesor.sugerenciaIA');
+
+Route::post('/ia/sugerir-area', [IAController::class, 'sugerirArea']);
+
+
+
 
 // ------------------------------
 // Auth predeterminado de Laravel

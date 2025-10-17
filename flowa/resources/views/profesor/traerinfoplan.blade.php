@@ -52,6 +52,26 @@
                     <p class="text-lg">{{ $plan->creditos_academicos }}</p>
                 </div>
                 <div class="my-3">
+                    <label class="disabled-label"><span class="label-text">Correlativas Fuertes</span></label>
+                    @if($plan->materia->correlativasFuertes->count() > 0)
+                        @foreach($plan->materia->correlativasFuertes as $correlativa)
+                            <p class="text-lg">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                        @endforeach
+                    @else
+                        <p class="text-lg text-gray-500">No posee correlativas fuertes.</p>
+                    @endif
+                </div>                
+                <div class="my-3">
+                    <label class="disabled-label"><span class="label-text">Correlativas Débiles</span></label>
+                    @if($plan->materia->correlativasDebiles->count() > 0)
+                        @foreach($plan->materia->correlativasDebiles as $correlativa)
+                            <p class="text-lg">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                        @endforeach
+                    @else
+                        <p class="text-lg text-gray-500">No posee correlativas débiles.</p>
+                    @endif
+                </div>                
+                <div class="my-3">
                     <label class="disabled-label"><span class="label-text">Área Temática</span></label>
                     <p class="text-lg">{{ ucfirst(str_replace('_', ' ', $plan->area_tematica)) }}</p>
                 </div>
@@ -104,12 +124,12 @@
 
         {{-- Botones de acción --}}
         <div class="flex justify-center space-x-4 mt-6 mb-6">
-            <form action="{{ route('profesor.rechazarplan', ['id' => $plan->id]) }}" method="POST" class="flex-1 max-w-xs">
+            <form id="reject-plan-form" action="{{ route('profesor.rechazarplan', ['id' => $plan->id]) }}" method="POST" class="flex-1 max-w-xs">
                 @csrf
                 <input type="hidden" name="role" value="profesor">
                 <input type="hidden" name="type" value="administracion">
-                <button type="submit" class="btn btn-error w-full text-white" tabindex="9" 
-                        onclick="return confirm('¿Está seguro que desea rechazar este plan? Esta acción lo devolverá a administración.')">
+                <button type="button" class="btn btn-error w-full text-white reject-btn" tabindex="9" 
+                        data-form="reject-plan-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.">
                     Rechazar plan
                 </button>
             </form>
@@ -153,6 +173,35 @@
             /* Texto no en negrita */
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar botones de rechazar
+            const rejectButtons = document.querySelectorAll('.reject-btn');
+            
+            rejectButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const formId = this.getAttribute('data-form');
+                    const message = this.getAttribute('data-message');
+                    
+                    if (typeof showConfirmModal === 'function') {
+                        showConfirmModal(
+                            'Rechazar Plan',
+                            message,
+                            function() {
+                                document.getElementById(formId).submit();
+                            }
+                        );
+                    } else {
+                        if (confirm(message)) {
+                            document.getElementById(formId).submit();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>

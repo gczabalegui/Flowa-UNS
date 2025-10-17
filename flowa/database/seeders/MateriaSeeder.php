@@ -78,6 +78,16 @@ class MateriaSeeder extends Seeder
                 'carreras' => [2],
             ],
             [
+                'nombre_materia' => 'QUÍMICA BIOLÓGICA GENERAL',
+                'codigo_materia' => 1400,
+                'horas_semanales' => 4,
+                'horas_totales' => 144,
+                'profesor_id' => 2,
+                'carreras' => [2],
+            ],
+
+
+            [
                 'nombre_materia' => 'GENETICA BASICA Y APLICADA',
                 'codigo_materia' => 578,
                 'horas_semanales' => 4,
@@ -244,7 +254,7 @@ class MateriaSeeder extends Seeder
                 'horas_totales' => 64,
                 'profesor_id' => 2,
                 'carreras' => [2],
-            ],
+            ]
         ];
 
         foreach ($materias as $data) {

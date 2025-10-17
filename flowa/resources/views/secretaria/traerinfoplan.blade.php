@@ -55,6 +55,26 @@
                     <p class="text-lg">{{ $plan->creditos_academicos }}</p>
                 </div>
                 <div class="my-3">
+                    <label class="disabled-label"><span class="label-text">Correlativas Fuertes</span></label>
+                    @if($plan->materia->correlativasFuertes->count() > 0)
+                        @foreach($plan->materia->correlativasFuertes as $correlativa)
+                            <p class="text-lg">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                        @endforeach
+                    @else
+                        <p class="text-lg text-gray-500">No posee correlativas fuertes.</p>
+                    @endif
+                </div>                
+                <div class="my-3">
+                    <label class="disabled-label"><span class="label-text">Correlativas Débiles</span></label>
+                    @if($plan->materia->correlativasDebiles->count() > 0)
+                        @foreach($plan->materia->correlativasDebiles as $correlativa)
+                            <p class="text-lg">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                        @endforeach
+                    @else
+                        <p class="text-lg text-gray-500">No posee correlativas débiles.</p>
+                    @endif
+                </div>                
+                <div class="my-3">
                     <label class="disabled-label"><span class="label-text">Área Temática</span></label>
                     <p class="text-lg">{{ ucfirst(str_replace('_', ' ', $plan->area_tematica)) }}</p>
                 </div>
@@ -115,9 +135,9 @@
             </button>
         </div>
         @else
-        <form action="{{ route('secretaria.aprobarplan', ['id' => $plan->id]) }}" method="POST">
+        <form id="approve-form" action="{{ route('secretaria.aprobarplan', ['id' => $plan->id]) }}" method="POST">
             @csrf
-            <button type="submit" class="btn btn-success" tabindex="8">Aprobar plan</button>
+            <button type="button" class="btn btn-success approve-btn" data-form="approve-form" data-message="¿Está seguro que desea aprobar este plan?" tabindex="8">Aprobar plan</button>
         </form>
         @endif
 
@@ -129,20 +149,20 @@
             </button>
         </div>
         @else
-        <form action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
+        <form id="reject-admin-form" action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="role" value="secretaria">
             <input type="hidden" name="type" value="administracion">
-            <button type="submit" class="btn btn-warning" tabindex="9">Rechazar para administración</button>
+            <button type="button" class="btn btn-warning reject-btn" data-form="reject-admin-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración." tabindex="9">Rechazar para administración</button>
         </form>
         @endif
 
         {{-- Rechazar para profesor --}}
-        <form action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
+        <form id="reject-profesor-form" action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
             @csrf
             <input type="hidden" name="role" value="secretaria">
             <input type="hidden" name="type" value="profesor">
-            <button type="submit" class="btn btn-warning" tabindex="10">Rechazar para profesor</button>
+            <button type="button" class="btn btn-warning reject-btn" data-form="reject-profesor-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá al profesor." tabindex="10">Rechazar para profesor</button>
         </form>
     </div>
     <div class="flex justify-center mt-6">
@@ -181,6 +201,58 @@
             /* Texto no en negrita */
         }
     </style>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Manejar botones de rechazar
+            const rejectButtons = document.querySelectorAll('.reject-btn');
+            const approveButtons = document.querySelectorAll('.approve-btn');
+            
+            rejectButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const formId = this.getAttribute('data-form');
+                    const message = this.getAttribute('data-message');
+                    
+                    if (typeof showConfirmModal === 'function') {
+                        showConfirmModal(
+                            'Rechazar Plan',
+                            message,
+                            function() {
+                                document.getElementById(formId).submit();
+                            }
+                        );
+                    } else {
+                        if (confirm(message)) {
+                            document.getElementById(formId).submit();
+                        }
+                    }
+                });
+            });
+
+            approveButtons.forEach(function(button) {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const formId = this.getAttribute('data-form');
+                    const message = this.getAttribute('data-message');
+                    
+                    if (typeof showConfirmModal === 'function') {
+                        showConfirmModal(
+                            'Aprobar Plan',
+                            message,
+                            function() {
+                                document.getElementById(formId).submit();
+                            }
+                        );
+                    } else {
+                        if (confirm(message)) {
+                            document.getElementById(formId).submit();
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 
 </html>
