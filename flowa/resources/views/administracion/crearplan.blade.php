@@ -13,8 +13,9 @@
         <div class="bg-white rounded-lg shadow border border-gray-200">
             <form id="crearPlanForm" action="{{ route('storeplan') }}" method="POST" class="p-6">
                 @csrf
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="md:col-span-2">
+                <div class="space-y-6">
+                    <!-- Materia (full width) -->
+                    <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Materia</label>
                         <select name="materia_id" id="materia_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1">
                             <option value="">Seleccione una materia</option>
@@ -24,59 +25,68 @@
                         </select>
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Profesor</label>
-                        <select id="profesor" name="profesor_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                            <option value="">Seleccione un profesor</option>
-                            @foreach($profesores as $profesor)
-                            <option value="{{ $profesor->id }}">
-                                {{ $profesor->apellido_profesor }}, {{ $profesor->nombre_profesor }}
-                            </option>
-                            @endforeach
-                        </select>
+                    <!-- Profesor y Año en la misma fila -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Profesor</label>
+                            <select id="profesor" name="profesor_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">Seleccione un profesor</option>
+                                @foreach($profesores as $profesor)
+                                <option value="{{ $profesor->id }}">
+                                    {{ $profesor->apellido_profesor }}, {{ $profesor->nombre_profesor }}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Año</label>
+                            <select name="anio" id="anio" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2">
+                                <option value="">Seleccione el año</option>
+                                @foreach($years as $year)
+                                <option value="{{ $year }}">{{ $year }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Todas las horas juntas en otra fila -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Horas teóricas</label>
+                            <input id="horas_teoricas" name="horas_teoricas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="3" value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Horas prácticas</label>
+                            <input id="horas_practicas" name="horas_practicas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="4" value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Horas totales</label>
+                            <input id="horas_totales" name="horas_totales" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600 no-spinners" tabindex="5" value="{{ old('horas_totales') }}" readonly>
+                        </div>
+                    </div>
+
+                    <!-- DTE, RTF y Créditos académicos juntos -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">DTE</label>
+                            <input id="DTE" name="DTE" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="6" value="{{ old('DTE') }}" placeholder="Ingrese el DTE" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">RTF</label>
+                            <input id="RTF" name="RTF" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="7" value="{{ old('RTF') }}" placeholder="Ingrese el RTF" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
+                            <input id="creditos_academicos" name="creditos_academicos" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="8" value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                        </div>
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Año</label>
-                        <select name="anio" id="anio" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2">
-                            <option value="">Seleccione el año</option>
-                            @foreach($years as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Horas teóricas</label>
-                        <input id="horas_teoricas" name="horas_teoricas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="3" value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Horas prácticas</label>
-                        <input id="horas_practicas" name="horas_practicas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="4" value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Horas totales</label>
-                        <input id="horas_totales" name="horas_totales" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600 no-spinners" tabindex="5" value="{{ old('horas_totales') }}" readonly>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">DTE</label>
-                        <input id="DTE" name="DTE" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="6" value="{{ old('DTE') }}" placeholder="Ingrese el DTE" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">RTF</label>
-                        <input id="RTF" name="RTF" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="7" value="{{ old('RTF') }}" placeholder="Ingrese el RTF" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
-                        <input id="creditos_academicos" name="creditos_academicos" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="8" value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
-                    </div>
-
-                    <div class="md:col-span-2">
                         <div class="border border-gray-300 rounded-lg p-4">
                             <h3 class="text-lg font-bold mb-4 text-gray-900">Materias Correlativas</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
