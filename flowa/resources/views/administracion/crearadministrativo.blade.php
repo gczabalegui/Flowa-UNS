@@ -33,7 +33,7 @@
 
                     <div>
                         <label for="DNI" class="block text-sm font-medium text-gray-700 mb-2">DNI</label>
-                        <input id="DNI" name="DNI" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('DNI') }}" placeholder="Ingrese el DNI">
+                        <input id="DNI" name="DNI" type="number" min="0" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('DNI') }}" placeholder="Ingrese el DNI" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('DNI')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -41,7 +41,7 @@
 
                     <div>
                         <label for="legajo" class="block text-sm font-medium text-gray-700 mb-2">Legajo</label>
-                        <input id="legajo" name="legajo" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('legajo') }}" placeholder="Ingrese el legajo">
+                        <input id="legajo" name="legajo" type="number" min="0" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('legajo') }}" placeholder="Ingrese el legajo" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('legajo')
                             <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -95,6 +95,19 @@
 </div>
 
 <style>
+    /* Ocultar flechas en Chrome, Safari, Edge, Opera */
+    .no-spinners::-webkit-outer-spin-button,
+    .no-spinners::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Ocultar flechas en Firefox */
+    .no-spinners {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
 /* Personalizar flecha de dropdown para que aparezca más hacia adentro */
 select {
     -webkit-appearance: none;

@@ -26,12 +26,12 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">DNI</label>
-                        <input id="DNI_secretaria" name="DNI_secretaria" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('DNI_secretaria') }}" placeholder="Ingrese el DNI">
+                        <input id="DNI_secretaria" name="DNI_secretaria" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="3" required value="{{ old('DNI_secretaria') }}" placeholder="Ingrese el DNI" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Legajo</label>
-                        <input id="legajo_secretaria" name="legajo_secretaria" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('legajo_secretaria') }}" placeholder="Ingrese el legajo">
+                        <input id="legajo_secretaria" name="legajo_secretaria" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="4" required value="{{ old('legajo_secretaria') }}" placeholder="Ingrese el legajo" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                     </div>
 
                     <div class="md:col-span-2">
@@ -63,6 +63,19 @@
 </div>
 
 <style>
+    /* Ocultar flechas en Chrome, Safari, Edge, Opera */
+    .no-spinners::-webkit-outer-spin-button,
+    .no-spinners::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Ocultar flechas en Firefox */
+    .no-spinners {
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
 /* Personalizar flecha de dropdown para que aparezca más hacia adentro */
 select {
     -webkit-appearance: none;

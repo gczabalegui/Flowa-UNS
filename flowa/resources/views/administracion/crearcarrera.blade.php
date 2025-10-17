@@ -33,30 +33,30 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Código</label>
-                        <input id="codigo_carrera" name="codigo_carrera" type="number" min="1"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                            tabindex="3" required value="{{ old('codigo_carrera') }}" placeholder="Código">
+                        <input id="codigo_carrera" name="codigo_carrera" type="number" min="1" step="1" inputmode="numeric" 
+                            class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            tabindex="3" required value="{{ old('codigo_carrera') }}" placeholder="Código" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">N° versión del plan</label>
-                        <input id="plan_version" name="plan_version" type="number" min="1"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                            tabindex="4" required value="{{ old('plan_version') }}" placeholder="Versión">
+                        <input id="plan_version" name="plan_version" type="number" min="1" step="1" inputmode="numeric" 
+                            class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            tabindex="4" required value="{{ old('plan_version') }}" placeholder="Versión" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Duración (cuatrimestres)</label>
-                        <input id="duracion" name="duracion" type="number" min="1"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                            tabindex="5" required value="{{ old('duracion') }}" placeholder="Duración">
+                        <input id="duracion" name="duracion" type="number" min="1" step="1" inputmode="numeric" 
+                            class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            tabindex="5" required value="{{ old('duracion') }}" placeholder="Duración" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Cantidad materias</label>
-                        <input id="cant_materias" name="cant_materias" type="number" min="1"
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                            tabindex="6" required value="{{ old('cant_materias') }}" placeholder="Cantidad">
+                        <input id="cant_materias" name="cant_materias" type="number" min="1" step="1" inputmode="numeric" 
+                            class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            tabindex="6" required value="{{ old('cant_materias') }}" placeholder="Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                     </div>
                 </div>
 

@@ -21,7 +21,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Código</label>
-                        <input id="codigo_materia" name="codigo_materia" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2" required value="{{ old('codigo_materia') }}" placeholder="Ingrese el código de la materia">
+                        <input id="codigo_materia" name="codigo_materia" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2" required value="{{ old('codigo_materia') }}" placeholder="Ingrese el código de la materia">
                     </div>
 
                     <div class="md:col-span-2">
@@ -36,12 +36,12 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Horas semanales</label>
-                        <input id="horas_semanales" name="horas_semanales" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('horas_semanales') }}" placeholder="Ingrese las horas semanales">
+                        <input id="horas_semanales" name="horas_semanales" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('horas_semanales') }}" placeholder="Ingrese las horas semanales">
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Horas totales</label>
-                        <input id="horas_totales" name="horas_totales" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales">
+                        <input id="horas_totales" name="horas_totales" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales">
                     </div>
 
                     <div class="md:col-span-2">
