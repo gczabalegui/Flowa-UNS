@@ -20,7 +20,6 @@
                         <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
                         <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
                         <li><a href="/administracion/creardepartamento">Crear departamento</a></li>
-                        <li><a href="/administracion/cargarplan">Cargar plan de materia - versión anterior</a></li>
                         <li><a href="/administracion/verplanes">Ver planes existentes</a></li>
 
                     </ul>

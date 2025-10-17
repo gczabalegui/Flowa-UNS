@@ -82,7 +82,6 @@
                             <div class="collapse-content">
                                 <div class="space-y-3 pt-2">
                                     <a href="/administracion/verplanes" class="btn btn-outline btn-sm w-full">Ver planes existentes</a>
-                                    <a href="/administracion/cargarplan" class="btn btn-outline btn-sm w-full">Cargar plan de materia - versión anterior</a>
                                 </div>
                             </div>
                         </div>
