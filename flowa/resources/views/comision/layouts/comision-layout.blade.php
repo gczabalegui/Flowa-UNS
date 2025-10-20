@@ -122,8 +122,7 @@
 
             <!-- Contenido principal -->
             <div :class="sidebarOpen ? 'ml-64' : 'ml-0 md:ml-20'" class="flex-1 overflow-auto transition-all duration-500 ease-in-out pt-16">
-                <main class="p-6">
-                    @yield('content')
+                <main class="py-6 flex justify-center w-full"> @yield('content')
                 </main>
             </div>
         </div>
