@@ -19,26 +19,23 @@
                     <!-- Sección: Información básica (solo lectura para profesor) -->
                     <div class="border-b border-gray-200 pb-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Información básica</h3>
-                        
+
                         <!-- Materia -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-600 mb-2">Materia</label>
-                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                   value="{{ $plan->materia->nombre_materia }}" readonly>
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->materia->nombre_materia }}" readonly>
                         </div>
 
                         <!-- Profesor y Año -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Profesor</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}" readonly>
                             </div>
-                            
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Año</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->anio }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->anio }}" readonly>
                             </div>
                         </div>
 
@@ -46,20 +43,17 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Horas totales</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->horas_totales }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->horas_totales }}" readonly>
                             </div>
-                            
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Horas teóricas</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->horas_teoricas }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->horas_teoricas }}" readonly>
                             </div>
-                            
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Horas prácticas</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->horas_practicas }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->horas_practicas }}" readonly>
                             </div>
                         </div>
 
@@ -67,20 +61,17 @@
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">DTE</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->DTE }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->DTE }}" readonly>
                             </div>
-                            
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">RTF</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->RTF }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->RTF }}" readonly>
                             </div>
-                            
+
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Créditos académicos</label>
-                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                       value="{{ $plan->creditos_academicos }}" readonly>
+                                <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->creditos_academicos }}" readonly>
                             </div>
                         </div>
 
@@ -89,30 +80,30 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Correlativas fuertes</label>
                                 @if($plan->materia->correlativasFuertes->count() > 0)
-                                    <div class="p-3 bg-gray-50 border border-gray-200 rounded-md max-h-32 overflow-y-auto">
-                                        @foreach($plan->materia->correlativasFuertes as $correlativa)
-                                            <p class="text-sm text-gray-700 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
-                                        @endforeach
-                                    </div>
+                                <div class="p-3 bg-gray-50 border border-gray-200 rounded-md max-h-32 overflow-y-auto">
+                                    @foreach($plan->materia->correlativasFuertes as $correlativa)
+                                    <p class="text-sm text-gray-700 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                                    @endforeach
+                                </div>
                                 @else
-                                    <div class="p-3 bg-gray-50 border border-gray-200 rounded-md">
-                                        <p class="text-sm text-gray-500">No posee correlativas fuertes.</p>
-                                    </div>
+                                <div class="p-3 bg-gray-50 border border-gray-200 rounded-md">
+                                    <p class="text-sm text-gray-500">No posee correlativas fuertes.</p>
+                                </div>
                                 @endif
                             </div>
 
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 mb-2">Correlativas débiles</label>
                                 @if($plan->materia->correlativasDebiles->count() > 0)
-                                    <div class="p-3 bg-gray-50 border border-gray-200 rounded-md max-h-32 overflow-y-auto">
-                                        @foreach($plan->materia->correlativasDebiles as $correlativa)
-                                            <p class="text-sm text-gray-700 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
-                                        @endforeach
-                                    </div>
+                                <div class="p-3 bg-gray-50 border border-gray-200 rounded-md max-h-32 overflow-y-auto">
+                                    @foreach($plan->materia->correlativasDebiles as $correlativa)
+                                    <p class="text-sm text-gray-700 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                                    @endforeach
+                                </div>
                                 @else
-                                    <div class="p-3 bg-gray-50 border border-gray-200 rounded-md">
-                                        <p class="text-sm text-gray-500">No posee correlativas débiles.</p>
-                                    </div>
+                                <div class="p-3 bg-gray-50 border border-gray-200 rounded-md">
+                                    <p class="text-sm text-gray-500">No posee correlativas débiles.</p>
+                                </div>
                                 @endif
                             </div>
                         </div>
@@ -122,7 +113,7 @@
                     <!-- Sección: Campos editables por el profesor -->
                     <div class="border-b border-gray-200 pb-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Contenido académico</h3>
-                        
+
                         <!-- Área Temática + sugerencia IA -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Área Temática</label>
@@ -130,9 +121,9 @@
                                 <select id="area_tematica" name="area_tematica" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1">
                                     <option value="">Seleccione un área temática</option>
                                     @foreach(\App\Models\Plan::AREA_TEMATICA as $area)
-                                        <option value="{{ $area }}" {{ $plan->area_tematica == $area ? 'selected' : '' }}>
-                                            {{ ucfirst(str_replace('_', ' ', $area)) }}
-                                        </option>
+                                    <option value="{{ $area }}" {{ $plan->area_tematica == $area ? 'selected' : '' }}>
+                                        {{ ucfirst(str_replace('_', ' ', $area)) }}
+                                    </option>
                                     @endforeach
                                 </select>
 
@@ -165,31 +156,27 @@
                                 ❓ Redacte un párrafo de <strong>hasta 200 palabras</strong> teniendo como guía la siguiente pregunta:
                                 <em>¿por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em>
                             </p>
-                            <textarea id="fundamentacion" name="fundamentacion" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      style="height: 200px; resize: vertical;" tabindex="2" oninput="limitarPalabras(this)" placeholder="Ingrese una fundamentación">{{ $plan->fundamentacion }}</textarea>
+                            <textarea id="fundamentacion" name="fundamentacion" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 200px; resize: vertical;" tabindex="2" oninput="limitarPalabras(this)" placeholder="Ingrese una fundamentación">{{ $plan->fundamentacion }}</textarea>
                         </div>
 
                         <!-- Objetivos generales -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-3">Objetivos generales</label>
-                            
+
                             <div class="space-y-4 ml-4">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos conceptuales</label>
-                                    <textarea id="obj_conceptuales" name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                              style="height: 120px; resize: vertical;" tabindex="3" placeholder="Ingrese los objetivos conceptuales">{{ $plan->obj_conceptuales }}</textarea>
+                                    <textarea id="obj_conceptuales" name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="3" placeholder="Ingrese los objetivos conceptuales">{{ $plan->obj_conceptuales }}</textarea>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos procedimentales</label>
-                                    <textarea id="obj_procedimentales" name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                              style="height: 120px; resize: vertical;" tabindex="4" placeholder="Ingrese los objetivos procedimentales">{{ $plan->obj_procedimentales }}</textarea>
+                                    <textarea id="obj_procedimentales" name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="4" placeholder="Ingrese los objetivos procedimentales">{{ $plan->obj_procedimentales }}</textarea>
                                 </div>
 
                                 <div>
                                     <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos actitudinales</label>
-                                    <textarea id="obj_actitudinales" name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                              style="height: 120px; resize: vertical;" tabindex="5" placeholder="Ingrese los objetivos actitudinales">{{ $plan->obj_actitudinales }}</textarea>
+                                    <textarea id="obj_actitudinales" name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="5" placeholder="Ingrese los objetivos actitudinales">{{ $plan->obj_actitudinales }}</textarea>
                                 </div>
                             </div>
                         </div>
@@ -197,8 +184,7 @@
                         <!-- Objetivos específicos -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos específicos</label>
-                            <textarea id="obj_especificos" name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      style="height: 120px; resize: vertical;" tabindex="6" placeholder="Ingrese los objetivos específicos">{{ $plan->obj_especificos }}</textarea>
+                            <textarea id="obj_especificos" name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="6" placeholder="Ingrese los objetivos específicos">{{ $plan->obj_especificos }}</textarea>
                         </div>
 
                         <!-- Contenidos mínimos -->
@@ -208,46 +194,40 @@
                                 ❓ Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la Resolución 1537/21, Anexo I para asegurar la inclusión de aquellos allí definidos y aquellos que se agreguen al Plan de Estudio en función de los alcances del título.
                                 <br><strong>Aclaración.</strong> Los descriptores de conocimiento correspondientes a la Formación Profesional incluyen enunciados multidimensionales y transversales. Los mismos requieren la articulación de conocimientos y de prácticas y fundamentan el ejercicio profesional. No involucran una referencia directa a una disciplina o asignatura del plan de estudios.
                             </p>
-                            <textarea id="cont_minimos" name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      style="height: 120px; resize: vertical;" tabindex="7" placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
+                            <textarea id="cont_minimos" name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="7" placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
                         </div>
 
                         <!-- Programa analítico -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Programa analítico</label>
-                            <textarea id="programa_analitico" name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      style="height: 120px; resize: vertical;" tabindex="8" placeholder="Ingrese el programa analítico">{{ $plan->programa_analitico }}</textarea>
+                            <textarea id="programa_analitico" name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="8" placeholder="Ingrese el programa analítico">{{ $plan->programa_analitico }}</textarea>
                         </div>
 
                         <!-- Actividades prácticas -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Actividades prácticas</label>
-                            <textarea id="act_practicas" name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      style="height: 120px; resize: vertical;" tabindex="9" placeholder="Ingrese las actividades prácticas">{{ $plan->act_practicas }}</textarea>
+                            <textarea id="act_practicas" name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="9" placeholder="Ingrese las actividades prácticas">{{ $plan->act_practicas }}</textarea>
                         </div>
 
                         <!-- Modalidad -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Modalidad</label>
-                            <textarea id="modalidad" name="modalidad" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      style="height: 120px; resize: vertical;" tabindex="10" placeholder="Ingrese la modalidad">{{ $plan->modalidad }}</textarea>
+                            <textarea id="modalidad" name="modalidad" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="10" placeholder="Ingrese la modalidad">{{ $plan->modalidad }}</textarea>
                         </div>
 
                         <!-- Bibliografía -->
                         <div class="mb-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center justify-between">
                                 <span>Bibliografía</span>
-                                <button type="button" id="btnSugerirIA" class="inline-flex items-center px-3 py-1.5 border border-blue-600 text-sm font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" title="Sugerir formato APA con IA">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2">
-                                        <path d="M12 9a3.75 3.75 0 1 0 0 7.5A3.75 3.75 0 0 0 12 9Z" />
-                                        <path fill-rule="evenodd" d="M9.344 3.071a49.52 49.52 0 0 1 5.312 0c.967.052 1.83.585 2.332 1.39l.821 1.317c.24.384.44.821.572 1.324.084.314.072.643-.036.927-.197.518-.335 1.012-.428 1.488a9.92 9.92 0 0 0 .45 2.75 7.152 7.152 0 0 1 2.372 4.777c.307.426.495.92.564 1.445.028.205.04.413.04.622A6.75 6.75 0 0 1 18 20.25H6A6.75 6.75 0 0 1 1.75 16.5c0-.209.012-.417.04-.622.069-.526.257-1.019.564-1.445A7.152 7.152 0 0 1 4.5 9.75a9.92 9.92 0 0 0 .45-2.75c-.093-.476-.231-.97-.428-1.488-.108-.284-.12-.613-.036-.927.132-.503.332-.94.572-1.324l.822-1.317c.502-.805 1.364-1.338 2.332-1.39ZM6.75 18a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12 10.5a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.75 7.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clip-rule="evenodd" />
-                                    </svg>
-                                    <span>Sugerir con IA</span>
+                                <button type="button" id="btnSugerirIA" class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+               hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" title="Formatear bibliografía en estilo APA con IA">
+                                    📚
+                                    <span class="ml-2">Formatear con IA</span>
                                 </button>
                             </label>
 
-                            <textarea id="bibliografia" name="bibliografia" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      style="height: 120px; resize: vertical;" tabindex="11" placeholder="Ingrese la bibliografía">{{ $plan->bibliografia }}</textarea>
+
+                            <textarea id="bibliografia" name="bibliografia" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="11" placeholder="Ingrese la bibliografía">{{ $plan->bibliografia }}</textarea>
 
                             <div id="iaSugerencia" class="hidden bg-blue-50 border border-blue-200 p-4 rounded-lg mt-3">
                                 <p class="text-sm font-semibold mb-2">💡 Sugerencia de IA:</p>
@@ -262,41 +242,51 @@
 
                     @php
                     $estadosRechazados = [
-                        'Rechazado para administración por secretaría académica.',
-                        'Rechazado para profesor por secretaría académica.',
-                        'Rechazado para administración por profesor.'
+                    'Rechazado para administración por secretaría académica.',
+                    'Rechazado para profesor por secretaría académica.',
+                    'Rechazado para administración por profesor.'
                     ];
                     $esPlanRechazado = in_array($plan->estado, $estadosRechazados);
                     @endphp
 
                     <!-- Botones -->
                     <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 pt-6">
-                        <button type="submit" name="action" value="rechazar" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200" tabindex="12">
-                            Rechazar plan
+
+                        <!-- Rechazar plan -->
+                        <button type="submit" name="action" value="rechazar" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+               hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="12">
+                            RECHAZAR PLAN
                         </button>
 
+                        <!-- Guardar borrador -->
                         @if($esPlanRechazado)
-                            <div class="tooltip tooltip-top" data-tip="No se puede guardar como borrador. Debe rectificar y enviar.">
-                                <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-50" disabled tabindex="13">
-                                    Guardar borrador
-                                </button>
-                            </div>
-                        @else
-                            <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-yellow-600 text-sm font-medium rounded-md text-yellow-700 bg-white hover:bg-yellow-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200" tabindex="13">
-                                Guardar borrador
+                        <div class="tooltip tooltip-top" data-tip="No se puede guardar como borrador. Debe rectificar y enviar.">
+                            <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70" disabled tabindex="13">
+                                GUARDAR BORRADOR
                             </button>
+                        </div>
+                        @else
+                        <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                   hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="13">
+                            GUARDAR BORRADOR
+                        </button>
                         @endif
 
+                        <!-- Guardar plan (resaltado con texto verde y fondo blanco) -->
                         <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
-                            <button type="submit" name="action" value="guardar" id="guardarBtn" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="14" disabled>
-                                Guardar plan
+                            <button type="submit" name="action" value="guardar" id="guardarBtn" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
+                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="14" disabled>
+                                GUARDAR PLAN
                             </button>
                         </div>
 
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200" tabindex="15" onclick="window.location.href='/profesor'">
-                            Cancelar
+                        <!-- Cancelar -->
+                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+               hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="15" onclick="window.location.href='/profesor'">
+                            CANCELAR
                         </button>
                     </div>
+
                 </div>
             </form>
         </div>
@@ -525,156 +515,170 @@
     document.getElementById('descartarIA').addEventListener('click', () => {
         document.getElementById('iaSugerencia').classList.add('hidden');
     });
-</script>    <script>
-        document.getElementById('btnSugerirArea').addEventListener('click', async function() {
+</script>
+<script>
     document.getElementById('btnSugerirArea').addEventListener('click', async function() {
-        const btn = this;
-        btn.disabled = true;
-        btn.innerHTML = '<span class="inline-block w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mr-2"></span> Analizando...';
+        document.getElementById('btnSugerirArea').addEventListener('click', async function() {
+            const btn = this;
+            btn.disabled = true;
+            btn.innerHTML = '<span class="inline-block w-4 h-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin mr-2"></span> Analizando...';
 
-        const campos = {
-            fundamentacion: document.querySelector('[name="fundamentacion"]')?.value || '',
-            obj_conceptuales: document.querySelector('[name="obj_conceptuales"]')?.value || '',
-            obj_procedimentales: document.querySelector('[name="obj_procedimentales"]')?.value || '',
-            obj_actitudinales: document.querySelector('[name="obj_actitudinales"]')?.value || '',
-            cont_minimos: document.querySelector('[name="cont_minimos"]')?.value || '',
-            act_practicas: document.querySelector('[name="act_practicas"]')?.value || '',
-            programa_analitico: document.querySelector('[name="programa_analitico"]')?.value || ''
-        };
+            const campos = {
+                fundamentacion: document.querySelector('[name="fundamentacion"]')?.value || '',
+                obj_conceptuales: document.querySelector('[name="obj_conceptuales"]')?.value || '',
+                obj_procedimentales: document.querySelector('[name="obj_procedimentales"]')?.value || '',
+                obj_actitudinales: document.querySelector('[name="obj_actitudinales"]')?.value || '',
+                cont_minimos: document.querySelector('[name="cont_minimos"]')?.value || '',
+                act_practicas: document.querySelector('[name="act_practicas"]')?.value || '',
+                programa_analitico: document.querySelector('[name="programa_analitico"]')?.value || ''
+            };
 
-        const minCampos = ['fundamentacion', 'obj_conceptuales', 'obj_procedimentales', 'obj_actitudinales', 'cont_minimos'];
-        const vacios = minCampos.filter(c => campos[c].trim() === '').length;
-        if (vacios > 0) {
-            alert('Por favor, complete al menos la fundamentación, objetivos y contenidos mínimos antes de pedir la sugerencia.');
-            btn.disabled = false;
-            btn.innerHTML = '💡 Sugerir con IA';
-            return;
-        }
-
-        const AREA_TEMATICA_MAP = {
-            'formacion basica': 'Formación básica', 'formación basica': 'Formación básica', 'formacion básica': 'Formación básica',
-            'básica': 'Formación básica', 'basica': 'Formación básica', 'fundamental': 'Formación básica',
-            'formacion aplicada': 'Formación aplicada', 'formación aplicada': 'Formación aplicada',
-            'aplicada': 'Formación aplicada', 'cientifica aplicada': 'Formación aplicada', 'tecnica': 'Formación aplicada',
-            'formacion profesional': 'Formación profesional', 'formación profesional': 'Formación profesional',
-            'profesional': 'Formación profesional', 'profesionalizante': 'Formación profesional',
-            'orientada a la profesion': 'Formación profesional'
-        };
-
-        function normalizarTexto(texto) {
-            return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z\s]/g, '').toLowerCase().trim();
-        }
-
-        try {
-            const response = await fetch('/ia/sugerir-area', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '{{ csrf_token() }}'
-                },
-                body: JSON.stringify(campos)
-            });
-
-            const text = await response.text();
-            let data;
-            try {
-                data = JSON.parse(text);
-            } catch (e) {
-                alert('Error: no se recibió un formato válido de IA.');
+            const minCampos = ['fundamentacion', 'obj_conceptuales', 'obj_procedimentales', 'obj_actitudinales', 'cont_minimos'];
+            const vacios = minCampos.filter(c => campos[c].trim() === '').length;
+            if (vacios > 0) {
+                alert('Por favor, complete al menos la fundamentación, objetivos y contenidos mínimos antes de solicitar la sugerencia.');
                 btn.disabled = false;
                 btn.innerHTML = '💡 Sugerir con IA';
                 return;
             }
 
-            const container = document.getElementById('sugerenciaAreaContainer');
-            const areaSpan = document.getElementById('sugerenciaArea');
-            const razonamiento = document.getElementById('razonamientoArea');
-            const card = document.getElementById('sugerenciaCard');
-            const btnUsar = document.getElementById('btnUsarSugerencia');
-            const selectArea = document.getElementById('area_tematica');
+            const AREA_TEMATICA_MAP = {
+                'formacion basica': 'Formación básica',
+                'formación basica': 'Formación básica',
+                'formacion básica': 'Formación básica',
+                'básica': 'Formación básica',
+                'basica': 'Formación básica',
+                'fundamental': 'Formación básica',
+                'formacion aplicada': 'Formación aplicada',
+                'formación aplicada': 'Formación aplicada',
+                'aplicada': 'Formación aplicada',
+                'cientifica aplicada': 'Formación aplicada',
+                'tecnica': 'Formación aplicada',
+                'formacion profesional': 'Formación profesional',
+                'formación profesional': 'Formación profesional',
+                'profesional': 'Formación profesional',
+                'profesionalizante': 'Formación profesional',
+                'orientada a la profesion': 'Formación profesional'
+            };
 
-            btnUsar.classList.add('hidden');
-            container.classList.remove('hidden');
-
-            if (response.ok && data.area) {
-                let sugerenciaIA = data.area.trim();
-                const sugerenciaNormalizada = normalizarTexto(sugerenciaIA);
-                sugerenciaIA = sugerenciaIA.replace(/^(Formación|Formacion|formación|formacion)\s*/i, '').trim();
-
-                if (sugerenciaIA.length > 0) {
-                    sugerenciaIA = sugerenciaIA.charAt(0).toUpperCase() + sugerenciaIA.slice(1);
-                }
-
-                const valorOficial = AREA_TEMATICA_MAP[sugerenciaNormalizada];
-                let areaFinalParaMostrar = '';
-                if (sugerenciaIA.length > 0 && sugerenciaIA !== 'Formación') {
-                    areaFinalParaMostrar = 'Formación ' + sugerenciaIA;
-                } else if (valorOficial) {
-                    areaFinalParaMostrar = valorOficial;
-                } else {
-                    areaFinalParaMostrar = data.area;
-                }
-
-                areaSpan.textContent = areaFinalParaMostrar;
-                razonamiento.textContent = data.razonamiento || '';
-
-                card.classList.remove('border-blue-200', 'border-green-200', 'border-yellow-200', 'bg-blue-50', 'bg-green-50', 'bg-yellow-50');
-                let colorClass = 'border-blue-200';
-                let bgClass = 'bg-blue-50';
-                if (areaFinalParaMostrar.toLowerCase().includes('básica')) {
-                    colorClass = 'border-blue-200';
-                    bgClass = 'bg-blue-50';
-                } else if (areaFinalParaMostrar.toLowerCase().includes('profesional')) {
-                    colorClass = 'border-green-200';
-                    bgClass = 'bg-green-50';
-                } else if (areaFinalParaMostrar.toLowerCase().includes('aplicada')) {
-                    colorClass = 'border-yellow-200';
-                    bgClass = 'bg-yellow-50';
-                }
-                card.classList.add(colorClass, bgClass);
-
-                if (valorOficial) {
-                    btnUsar.classList.remove('hidden');
-                    btnUsar.onclick = () => {
-                        const option = Array.from(selectArea.options).find(
-                            o => o.textContent.trim().toLowerCase() === valorOficial.toLowerCase()
-                        );
-
-                        if (option) {
-                            selectArea.value = option.value;
-                            selectArea.dispatchEvent(new Event('input', { bubbles: true }));
-                            selectArea.dispatchEvent(new Event('change', { bubbles: true }));
-                            btnUsar.classList.add('hidden');
-                            selectArea.focus();
-                            areaSpan.innerHTML = `✔️ Se seleccionó: <b>${valorOficial}</b>`;
-                        } else {
-                            alert(`⚠️ No se encontró la opción "${valorOficial}" en el select.`);
-                        }
-                    };
-                } else {
-                    razonamiento.textContent = (data.razonamiento || '') + ' (No se pudo mapear a una opción oficial. Seleccione manualmente.)';
-                    card.classList.remove('border-blue-200', 'border-green-200');
-                    card.classList.add('border-yellow-200', 'bg-yellow-50');
-                }
-            } else {
-                areaSpan.textContent = 'No hay sugerencia disponible.';
-                razonamiento.textContent = data.error || 'No se pudo obtener la sugerencia de IA o la respuesta fue inválida.';
-                card.classList.remove('border-blue-200', 'border-green-200', 'border-yellow-200', 'bg-blue-50', 'bg-green-50', 'bg-yellow-50');
-                card.classList.add('border-blue-200', 'bg-blue-50');
+            function normalizarTexto(texto) {
+                return texto.normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z\s]/g, '').toLowerCase().trim();
             }
-        } catch (error) {
-            alert('Ocurrió un error al conectar con la IA.');
-            document.getElementById('sugerenciaAreaContainer').classList.remove('hidden');
-            document.getElementById('sugerenciaArea').textContent = 'Error de conexión con la IA.';
-            document.getElementById('razonamientoArea').textContent = 'Revise la consola para más detalles.';
-            document.getElementById('btnUsarSugerencia').classList.add('hidden');
-            document.getElementById('sugerenciaCard').classList.remove('border-blue-200');
-            document.getElementById('sugerenciaCard').classList.add('border-red-200', 'bg-red-50');
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = '💡 Sugerir con IA';
-        }
-    });
+
+            try {
+                const response = await fetch('/ia/sugerir-area', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.content || '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify(campos)
+                });
+
+                const text = await response.text();
+                let data;
+                try {
+                    data = JSON.parse(text);
+                } catch (e) {
+                    alert('Error: no se recibió un formato válido de IA.');
+                    btn.disabled = false;
+                    btn.innerHTML = '💡 Sugerir con IA';
+                    return;
+                }
+
+                const container = document.getElementById('sugerenciaAreaContainer');
+                const areaSpan = document.getElementById('sugerenciaArea');
+                const razonamiento = document.getElementById('razonamientoArea');
+                const card = document.getElementById('sugerenciaCard');
+                const btnUsar = document.getElementById('btnUsarSugerencia');
+                const selectArea = document.getElementById('area_tematica');
+
+                btnUsar.classList.add('hidden');
+                container.classList.remove('hidden');
+
+                if (response.ok && data.area) {
+                    let sugerenciaIA = data.area.trim();
+                    const sugerenciaNormalizada = normalizarTexto(sugerenciaIA);
+                    sugerenciaIA = sugerenciaIA.replace(/^(Formación|Formacion|formación|formacion)\s*/i, '').trim();
+
+                    if (sugerenciaIA.length > 0) {
+                        sugerenciaIA = sugerenciaIA.charAt(0).toUpperCase() + sugerenciaIA.slice(1);
+                    }
+
+                    const valorOficial = AREA_TEMATICA_MAP[sugerenciaNormalizada];
+                    let areaFinalParaMostrar = '';
+                    if (sugerenciaIA.length > 0 && sugerenciaIA !== 'Formación') {
+                        areaFinalParaMostrar = 'Formación ' + sugerenciaIA;
+                    } else if (valorOficial) {
+                        areaFinalParaMostrar = valorOficial;
+                    } else {
+                        areaFinalParaMostrar = data.area;
+                    }
+
+                    areaSpan.textContent = areaFinalParaMostrar;
+                    razonamiento.textContent = data.razonamiento || '';
+
+                    card.classList.remove('border-blue-200', 'border-green-200', 'border-yellow-200', 'bg-blue-50', 'bg-green-50', 'bg-yellow-50');
+                    let colorClass = 'border-blue-200';
+                    let bgClass = 'bg-blue-50';
+                    if (areaFinalParaMostrar.toLowerCase().includes('básica')) {
+                        colorClass = 'border-blue-200';
+                        bgClass = 'bg-blue-50';
+                    } else if (areaFinalParaMostrar.toLowerCase().includes('profesional')) {
+                        colorClass = 'border-green-200';
+                        bgClass = 'bg-green-50';
+                    } else if (areaFinalParaMostrar.toLowerCase().includes('aplicada')) {
+                        colorClass = 'border-yellow-200';
+                        bgClass = 'bg-yellow-50';
+                    }
+                    card.classList.add(colorClass, bgClass);
+
+                    if (valorOficial) {
+                        btnUsar.classList.remove('hidden');
+                        btnUsar.onclick = () => {
+                            const option = Array.from(selectArea.options).find(
+                                o => o.textContent.trim().toLowerCase() === valorOficial.toLowerCase()
+                            );
+
+                            if (option) {
+                                selectArea.value = option.value;
+                                selectArea.dispatchEvent(new Event('input', {
+                                    bubbles: true
+                                }));
+                                selectArea.dispatchEvent(new Event('change', {
+                                    bubbles: true
+                                }));
+                                btnUsar.classList.add('hidden');
+                                selectArea.focus();
+                                areaSpan.innerHTML = `✔️ Se seleccionó: <b>${valorOficial}</b>`;
+                            } else {
+                                alert(`⚠️ No se encontró la opción "${valorOficial}" en el select.`);
+                            }
+                        };
+                    } else {
+                        razonamiento.textContent = (data.razonamiento || '') + ' (No se pudo mapear a una opción oficial. Seleccione manualmente.)';
+                        card.classList.remove('border-blue-200', 'border-green-200');
+                        card.classList.add('border-yellow-200', 'bg-yellow-50');
+                    }
+                } else {
+                    areaSpan.textContent = 'No hay sugerencia disponible.';
+                    razonamiento.textContent = data.error || 'No se pudo obtener la sugerencia de IA o la respuesta fue inválida.';
+                    card.classList.remove('border-blue-200', 'border-green-200', 'border-yellow-200', 'bg-blue-50', 'bg-green-50', 'bg-yellow-50');
+                    card.classList.add('border-blue-200', 'bg-blue-50');
+                }
+            } catch (error) {
+                alert('Ocurrió un error al conectar con la IA.');
+                document.getElementById('sugerenciaAreaContainer').classList.remove('hidden');
+                document.getElementById('sugerenciaArea').textContent = 'Error de conexión con la IA.';
+                document.getElementById('razonamientoArea').textContent = 'Revise la consola para más detalles.';
+                document.getElementById('btnUsarSugerencia').classList.add('hidden');
+                document.getElementById('sugerenciaCard').classList.remove('border-blue-200');
+                document.getElementById('sugerenciaCard').classList.add('border-red-200', 'bg-red-50');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '💡 Sugerir con IA';
+            }
+        });
     });
 </script>
 

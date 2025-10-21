@@ -6,7 +6,7 @@
     <div :class="sidebarOpen ? 'w-full' : 'w-full'">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Planes de materias</h1>
-            <p class="text-gray-600 mt-2">Consulta los planes aprobados por Secretaría Académica</p>
+            <p class="text-gray-600 mt-2">Consultá los planes aprobados por secretaría académica.</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -50,13 +50,25 @@
                             </td>
                             <td class="px-6 py-4 text-sm font-medium text-center">
                                 <div class="flex flex-col items-center gap-2 w-full">
-                                    <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded text-white bg-blue-600 hover:bg-blue-700 transition">
+                                    <!-- Botón Ver -->
+                                    <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                         VER
                                     </a>
 
-                                    <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank" class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded text-white bg-green-600 hover:bg-green-700 transition">
-                                        Generar PDF
+                                    <!-- Botón Generar PDF con estilo clean -->
+                                    <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                        GENERAR PDF
                                     </a>
+
+
+                                    <!-- Ejemplo deshabilitado -->
+                                    {{--
+                                    <span class="inline-flex items-center justify-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70">
+                                        GENERAR PDF
+                                    </span> 
+                                    --}}
                                 </div>
                             </td>
                         </tr>
@@ -67,6 +79,4 @@
         </div>
     </div>
 </div>
-
-
 @endsection

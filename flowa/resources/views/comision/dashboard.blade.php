@@ -7,8 +7,8 @@
     <div class="max-w-7xl mx-auto">
         <!-- Encabezado -->
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Dashboard Comisión Curricular 📋</h1>
-            <p class="text-gray-600 mt-2">Bienvenida al panel principal de la comisión curricular</p>
+            <h1 class="text-2xl font-bold text-gray-900">Dashboard comisión académica </h1>
+            <p class="text-gray-600 mt-2">Bienvenido al panel principal de la comisión académica</p>
         </div>
 
         <!-- Tarjetas de acción -->
@@ -23,7 +23,7 @@
                     </div>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Ver planes de materias</h3>
-                <p class="text-sm text-gray-600">Accedé a la lista completa de planes para revisión y seguimiento</p>
+                <p class="text-sm text-gray-600">Accedé a la lista completa de planes para revisión y seguimiento.</p>
             </a>
         </div>
     </div>
