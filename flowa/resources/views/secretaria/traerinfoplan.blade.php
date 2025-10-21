@@ -79,7 +79,7 @@
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->creditos_academicos }}</p>
                             </div>
-                        </div>                            
+                        </div>
                     </div>
 
                     <div>
@@ -90,11 +90,11 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas fuertes</label>
                                     <div class="bg-gray-50 p-3 rounded-md border">
                                         @if($plan->materia->correlativasFuertes->count() > 0)
-                                            @foreach($plan->materia->correlativasFuertes as $correlativa)
-                                                <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
-                                            @endforeach
+                                        @foreach($plan->materia->correlativasFuertes as $correlativa)
+                                        <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                                        @endforeach
                                         @else
-                                            <p class="text-sm text-gray-500">No posee correlativas fuertes.</p>
+                                        <p class="text-sm text-gray-500">No posee correlativas fuertes.</p>
                                         @endif
                                     </div>
                                 </div>
@@ -102,11 +102,11 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas débiles</label>
                                     <div class="bg-gray-50 p-3 rounded-md border">
                                         @if($plan->materia->correlativasDebiles->count() > 0)
-                                            @foreach($plan->materia->correlativasDebiles as $correlativa)
-                                                <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
-                                            @endforeach
+                                        @foreach($plan->materia->correlativasDebiles as $correlativa)
+                                        <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                                        @endforeach
                                         @else
-                                            <p class="text-sm text-gray-500">No posee correlativas débiles.</p>
+                                        <p class="text-sm text-gray-500">No posee correlativas débiles.</p>
                                         @endif
                                     </div>
                                 </div>
@@ -219,51 +219,54 @@
                     @endif
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    {{-- Botón de aprobar plan --}}
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
+
+                    {{-- Botón Aprobar plan (verde) --}}
                     @if($plan->estado === 'Aprobado por secretaría académica.')
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 opacity-50 cursor-not-allowed" disabled title="El plan ya fue aprobado por secretaría académica.">
+                    <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-44 border border-green-600 text-sm font-medium rounded-md text-green-600 bg-white opacity-60 cursor-not-allowed" disabled title="El plan ya fue aprobado por secretaría académica.">
+                        APROBAR PLAN
+                    </button>
+                    @else
+                    <form id="approve-form" action="{{ route('secretaria.aprobarplan', ['id' => $plan->id]) }}" method="POST">
+                        @csrf
+                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-44 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 approve-btn" data-form="approve-form" data-message="¿Está seguro que desea aprobar este plan?">
                             APROBAR PLAN
                         </button>
-                    @else
-                        <form id="approve-form" action="{{ route('secretaria.aprobarplan', ['id' => $plan->id]) }}" method="POST">
-                            @csrf
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 approve-btn" data-form="approve-form" data-message="¿Está seguro que desea aprobar este plan?">
-                                APROBAR PLAN
-                            </button>
-                        </form>
+                    </form>
                     @endif
 
-                    {{-- Botón Rechazar para administración --}}
+                    {{-- Botón Rechazar para administración (gris) --}}
                     @if($plan->estado === 'Aprobado por secretaría académica.')
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 opacity-50 cursor-not-allowed" disabled title="Una vez aprobado, solo puede ser rechazado hacia el profesor asociado.">
+                    <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-70 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70" disabled title="Una vez aprobado, solo puede ser rechazado hacia el profesor asociado.">
+                        RECHAZAR PARA ADMINISTRACIÓN
+                    </button>
+                    @else
+                    <form id="reject-admin-form" action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="role" value="secretaria">
+                        <input type="hidden" name="type" value="administracion">
+                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-70 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200 reject-btn" data-form="reject-admin-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.">
                             RECHAZAR PARA ADMINISTRACIÓN
                         </button>
-                    @else
-                        <form id="reject-admin-form" action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="role" value="secretaria">
-                            <input type="hidden" name="type" value="administracion">
-                            <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 reject-btn" data-form="reject-admin-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.">
-                                RECHAZAR PARA ADMINISTRACIÓN
-                            </button>
-                        </form>
+                    </form>
                     @endif
 
-                    {{-- Rechazar para profesor --}}
+                    {{-- Botón Rechazar para profesor (gris) --}}
                     <form id="reject-profesor-form" action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
                         @csrf
                         <input type="hidden" name="role" value="secretaria">
                         <input type="hidden" name="type" value="profesor">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors duration-200 reject-btn" data-form="reject-profesor-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá al profesor.">
+                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-60 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200 reject-btn" data-form="reject-profesor-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá al profesor.">
                             RECHAZAR PARA PROFESOR
                         </button>
                     </form>
 
-                    <a href="/secretaria" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    {{-- Botón Volver (gris) --}}
+                    <a href="/secretaria" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200">
                         VOLVER
                     </a>
                 </div>
+
             </div>
         </div>
     </div>
@@ -274,13 +277,13 @@
         // Manejar botones de rechazar
         const rejectButtons = document.querySelectorAll('.reject-btn');
         const approveButtons = document.querySelectorAll('.approve-btn');
-        
+
         rejectButtons.forEach(function(button) {
             button.addEventListener('click', function(e) {
                 e.preventDefault();
                 const formId = this.getAttribute('data-form');
                 const message = this.getAttribute('data-message');
-                
+
                 if (typeof showConfirmModal === 'function') {
                     showConfirmModal(
                         'Rechazar Plan',
@@ -302,7 +305,7 @@
                 e.preventDefault();
                 const formId = this.getAttribute('data-form');
                 const message = this.getAttribute('data-message');
-                
+
                 if (typeof showConfirmModal === 'function') {
                     showConfirmModal(
                         'Aprobar Plan',

@@ -6,7 +6,7 @@
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Dashboard Secretaría Académica</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Dashboard secretaría académica</h1>
             <p class="text-gray-600 mt-2">Gestión de usuarios y planes de materia</p>
         </div>
 
@@ -21,8 +21,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Secretaría</h3>
-                <p class="text-sm text-gray-600">Registrar nuevo usuario de Secretaría Académica</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear secretaría</h3>
+                <p class="text-sm text-gray-600">Registrar nuevo usuario de secretaría académica.</p>
             </a>
 
             <!-- Crear Profesor -->
@@ -34,8 +34,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Profesor</h3>
-                <p class="text-sm text-gray-600">Registrar nuevo usuario profesor</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear profesor</h3>
+                <p class="text-sm text-gray-600">Registrar nuevo usuario profesor.</p>
             </a>
 
             <!-- Crear Comisión -->
@@ -47,8 +47,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Comisión</h3>
-                <p class="text-sm text-gray-600">Registrar coordinador de Comisión Curricular</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear comisión</h3>
+                <p class="text-sm text-gray-600">Registrar coordinador de comisión académica.</p>
             </a>
 
             <!-- Ver planes -->

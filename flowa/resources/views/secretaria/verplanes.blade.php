@@ -39,17 +39,24 @@
                                         {{ $plan->estado }}
                                     </span>
                                 </td>
-                                <td class="px-4 py-3">
-                                    @if($plan->estado === 'Aprobado por secretaría académica.')
-                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">
-                                            Ver
+                                <td class="px-6 py-4 text-sm font-medium text-center">
+                                    <div class="flex flex-col items-center gap-2 w-full">
+                                        @if($plan->estado === 'Aprobado por secretaría académica.')
+                                        <!-- Botón Ver -->
+                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                       hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                            VER
                                         </a>
-                                    @else
-                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center px-4 py-2 border border-blue-600 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                                            Revisar
+                                        @else
+                                        <!-- Botón Revisar -->
+                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-blue-600 text-sm font-medium rounded-md text-blue-600 bg-white 
+                       hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                            REVISAR
                                         </a>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </td>
+
                             </tr>
                             @endforeach
                         </tbody>

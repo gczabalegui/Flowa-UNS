@@ -6,7 +6,7 @@
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Dashboard Administración</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Dashboard administración</h1>
             <p class="text-gray-600 mt-2">Gestión de usuarios, materias, carreras y planes de materia</p>
         </div>
 
@@ -22,8 +22,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Materia</h3>
-                <p class="text-sm text-gray-600">Registrar una nueva materia en el sistema</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear materia</h3>
+                <p class="text-sm text-gray-600">Registrar una nueva materia en el sistema.</p>
             </a>
 
             <!-- Crear Carrera -->
@@ -35,8 +35,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Carrera</h3>
-                <p class="text-sm text-gray-600">Registrar una nueva carrera universitaria</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear carrera</h3>
+                <p class="text-sm text-gray-600">Registrar una nueva carrera universitaria.</p>
             </a>
 
             <!-- Crear Plan -->
@@ -48,8 +48,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Plan</h3>
-                <p class="text-sm text-gray-600">Registrar un nuevo plan de materia para una carrera</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear plan</h3>
+                <p class="text-sm text-gray-600">Registrar un nuevo plan de materia para una carrera.</p>
             </a>
 
             <!-- Crear Usuarios (Secretaría) -->
@@ -61,8 +61,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Usuario Secretaría</h3>
-                <p class="text-sm text-gray-600">Registrar nuevo usuario de Secretaría Académica</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear usuario secretaría</h3>
+                <p class="text-sm text-gray-600">Registrar nuevo usuario de secretaría académica.</p>
             </a>
 
             <!-- Ver planes -->
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">Listar planes</h3>
-                <p class="text-sm text-gray-600">Consulta todos los planes de materia existentes</p>
+                <p class="text-sm text-gray-600">Consulta todos los planes de materia existentes.</p>
             </a>
 
         </div>
