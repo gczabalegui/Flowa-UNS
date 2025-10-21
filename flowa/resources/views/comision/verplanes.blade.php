@@ -2,8 +2,8 @@
 @section('title', 'Ver Planes de Materia')
 
 @section('content')
-<div class="flex justify-center w-full p-6"> 
-    <div class="w-full max-w-6xl">
+<div class="flex justify-center w-full p-6">
+    <div class="w-full max-w-6xl ml-24"> {{-- <-- margen izquierdo moderado --}}
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Planes de materias</h1>
             <p class="text-gray-600 mt-2">Consulta los planes aprobados por secretaría académica</p>
@@ -11,24 +11,14 @@
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
             <div class="overflow-x-auto">
-                <table class="w-full border-collapse min-w-[900px]">
+                <table class="w-full border-collapse min-w-[1000px]">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Nombre de la materia
-                            </th>
-                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Profesor
-                            </th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-[80px]">
-                                Año
-                            </th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Estado
-                            </th>
-                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                Operaciones
-                            </th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre de la materia</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profesor</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-[80px]">Año</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
+                            <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Operaciones</th>
                         </tr>
                     </thead>
 
@@ -60,13 +50,11 @@
                             </td>
                             <td class="px-6 py-4 text-sm font-medium text-center">
                                 <div class="flex flex-col items-center gap-2 w-full">
-                                    <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" 
-                                        class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded text-white bg-blue-600 hover:bg-blue-700 transition">
+                                    <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded text-white bg-blue-600 hover:bg-blue-700 transition">
                                         VER
                                     </a>
 
-                                    <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank"
-                                        class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded text-white bg-green-600 hover:bg-green-700 transition">
+                                    <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank" class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded text-white bg-green-600 hover:bg-green-700 transition">
                                         Generar PDF
                                     </a>
                                 </div>
@@ -80,6 +68,5 @@
     </div>
 </div>
 
-<!-- Espacio adicional al final -->
-<div class="h-16"></div>
+
 @endsection

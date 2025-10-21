@@ -1,100 +1,87 @@
-<!DOCTYPE html>
-<html data-theme="autumn">
+@extends('administracion.layouts.admin-layout')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+@section('title', 'Dashboard Administración')
 
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Flowa</title>
-</head>
-
-<body>
-    <!-- Header con logo y botón -->
-    <div class="bg-white border-b border-gray-200">
-        <div class="px-4 sm:px-8 lg:px-12 xl:px-16">
-            <div class="flex items-center justify-between py-4">
-                <div class="flex items-center">
-                    <a href="/administracion">
-                        <img src="{{ asset('logouns.png') }}" alt="Logo" class="h-16 w-16" style="width: 80px; height: 80px;">
-                    </a>
-                </div>
-                
-                <div class="flex items-center">
-                    <a href="/welcome" class="btn btn-primary normal-case text-2xl">Flowa - UNS</a>
-                </div>
-                
-                <div class="flex items-center">
-                    <form action="{{ route('cerrar-sesion') }}" method="POST" style="display: inline;">
-                        @csrf
-                        <button type="submit" class="text-gray-600 hover:text-gray-900 bg-transparent border-none cursor-pointer px-4 py-2 rounded transition">Cerrar sesión</button>
-                    </form>
-                </div>
-            </div>
+@section('content')
+<div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Dashboard Administración</h1>
+            <p class="text-gray-600 mt-2">Gestión de usuarios, materias, carreras y planes de materia</p>
         </div>
-    </div>
 
-    <!-- Contenido principal -->
-    <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div class="max-w-none mx-auto">
-            <div class="mb-6 pt-8">
+        <!-- Tarjetas de acceso rápido -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-            </div>
-
-            <div class="bg-white rounded-lg shadow border border-gray-200 p-6">
-                <div class="max-w-lg w-full mx-auto space-y-4">
-                    <!-- Sección Crear -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg">
-                        <div class="collapse collapse-arrow">
-                            <input type="checkbox" />
-                            <div class="collapse-title text-xl font-medium text-gray-900">
-                                Crear Nuevo
-                            </div>
-                            <div class="collapse-content">
-                                <div class="space-y-3 pt-2">
-                                    <a href="/administracion/crearmateria" class="btn btn-outline btn-sm w-full">Crear materia</a>
-                                    <a href="/administracion/crearcarrera" class="btn btn-outline btn-sm w-full">Crear carrera</a>
-                                    <a href="/administracion/crearplan" class="btn btn-outline btn-sm w-full">Crear plan de materia</a>
-                                    
-                                    <div class="mt-4">
-                                        <h4 class="text-sm font-semibold text-gray-600 mb-3">Usuarios</h4>
-                                        <div class="space-y-2">
-                                            <a href="/administracion/crearsecretaria" class="btn btn-outline btn-sm w-full">Crear usuario Secretaría Académica</a>
-                                            <a href="/administracion/crearadministrativo" class="btn btn-outline btn-sm w-full">Crear usuario Administración</a>
-                                            <a href="/administracion/crearprofesor" class="btn btn-outline btn-sm w-full">Crear usuario Profesor</a>
-                                            <a href="/administracion/crearcomision" class="btn btn-outline btn-sm w-full">Crear usuario Coordinador Comisión Curricular</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Sección Gestionar -->
-                    <div class="bg-gray-50 border border-gray-200 rounded-lg">
-                        <div class="collapse collapse-arrow">
-                            <input type="checkbox" />
-                            <div class="collapse-title text-xl font-medium text-gray-900">
-                                Gestionar Planes
-                            </div>
-                            <div class="collapse-content">
-                                <div class="space-y-3 pt-2">
-                                    <a href="/administracion/verplanes" class="btn btn-outline btn-sm w-full">Ver planes existentes</a>
-                                </div>
-                            </div>
-                        </div>
+            <!-- Crear Materia -->
+            <a href="/administracion/crearmateria" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9M12 4h9M4 12h16"></path>
+                        </svg>
                     </div>
                 </div>
-            </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Materia</h3>
+                <p class="text-sm text-gray-600">Registrar una nueva materia en el sistema</p>
+            </a>
+
+            <!-- Crear Carrera -->
+            <a href="/administracion/crearcarrera" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Carrera</h3>
+                <p class="text-sm text-gray-600">Registrar una nueva carrera universitaria</p>
+            </a>
+
+            <!-- Crear Plan -->
+            <a href="/administracion/crearplan" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m4-4H8"></path>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Plan</h3>
+                <p class="text-sm text-gray-600">Registrar un nuevo plan de materia para una carrera</p>
+            </a>
+
+            <!-- Crear Usuarios (Secretaría) -->
+            <a href="/administracion/crearsecretaria" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear Usuario Secretaría</h3>
+                <p class="text-sm text-gray-600">Registrar nuevo usuario de Secretaría Académica</p>
+            </a>
+
+            <!-- Ver planes -->
+            <a href="/administracion/verplanes" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Listar planes</h3>
+                <p class="text-sm text-gray-600">Consulta todos los planes de materia existentes</p>
+            </a>
+
         </div>
     </div>
+</div>
 
-    @include('components.notification-popup')
-    @include('components.confirm-modal')
-
-
-</body>
-
-</html>
+<!-- Espacio adicional al final de la página -->
+<div class="h-16"></div>
+@endsection
