@@ -13,7 +13,6 @@
         <div class="bg-white rounded-lg shadow border border-gray-200">
             <div class="p-6">
                 <div class="space-y-6">
-                    <!-- Materia (full width) -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Materia</label>
                         <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
@@ -21,7 +20,6 @@
                         </div>
                     </div>
 
-                    <!-- Profesor y Año en la misma fila -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Profesor</label>
@@ -38,7 +36,6 @@
                         </div>
                     </div>
 
-                    <!-- Todas las horas juntas en otra fila -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Horas teóricas</label>
@@ -62,7 +59,6 @@
                         </div>
                     </div>
 
-                    <!-- DTE, RTF y Créditos académicos juntos -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">DTE</label>

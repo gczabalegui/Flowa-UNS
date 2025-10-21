@@ -2,16 +2,16 @@
 @section('title', 'Ver Planes de Materia')
 
 @section('content')
-<div class="flex justify-center w-full p-6">
-    <div class="w-full max-w-6xl ml-24"> {{-- <-- margen izquierdo moderado --}}
+<div class="flex w-full p-6" x-data="{ sidebarOpen: true }">
+    <div :class="sidebarOpen ? 'w-full' : 'w-full'">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Planes de materias</h1>
-            <p class="text-gray-600 mt-2">Consulta los planes aprobados por secretaría académica</p>
+            <p class="text-gray-600 mt-2">Consulta los planes aprobados por Secretaría Académica</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
-            <div class="overflow-x-auto">
-                <table class="w-full border-collapse min-w-[1000px]">
+            <div :class="sidebarOpen ? 'transition-all duration-500' : 'transition-all duration-500'">
+                <table class="w-full border-collapse" x-bind:class="sidebarOpen ? '' : 'w-full'">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre de la materia</th>

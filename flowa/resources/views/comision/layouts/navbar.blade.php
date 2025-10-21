@@ -32,6 +32,5 @@
 
 </div>
 
-{{-- Notificación Popup --}}
 @include('components.notification-popup')
 @include('components.confirm-modal')
