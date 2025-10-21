@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Crear nuevo plan de materia</h1>
-            <p class="text-gray-600 mt-2">Complete el formulario para crear un nuevo plan de materia</p>
+            <p class="text-gray-600 mt-2">Complete el formulario para registrar un nuevo plan de materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -88,10 +88,10 @@
 
                     <div>
                         <div class="border border-gray-300 rounded-lg p-4">
-                            <h3 class="text-lg font-bold mb-4 text-gray-900">Materias Correlativas</h3>
+                            <h3 class="text-lg font-bold mb-4 text-gray-900">Materias correlativas</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas Fuertes</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas fuertes</label>
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas fuertes (obligatorias) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas Débiles</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas débiles</label>
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas débiles (recomendadas) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
@@ -131,7 +131,7 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Área Temática</label>
+                        <label class="block text-sm font-medium text-gray-600 mb-2">Área temática</label>
                         <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" name="area_tematica" readonly>
                     </div>
 
@@ -194,27 +194,18 @@
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
                     <div class="tooltip tooltip-top" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
                         <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="9" id="borradorBtn" disabled>
-                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3 3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
-                            </svg>
-                            Guardar borrador
+                            GUARDAR BORRADOR
                         </button>
                     </div>
                     
-                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
+                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
                         <button type="submit" name="action" value="guardar" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="10" id="guardarBtn" disabled>
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
-                            Guardar
+                            GUARDAR
                         </button>
                     </div>
                     
                     <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="11" onclick="window.location.href='/administracion'">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
-                        Cancelar
+                        CANCELAR
                     </button>
                 </div>
             </form>
