@@ -89,10 +89,10 @@
                     <!-- Materias Correlativas -->
                     <div>
                         <div class="border border-gray-300 rounded-lg p-4">
-                            <h3 class="text-lg font-bold mb-4 text-gray-900">Materias Correlativas</h3>
+                            <h3 class="text-lg font-bold mb-4 text-gray-900">Materias correlativas</h3>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas Fuertes</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas fuertes</label>
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas fuertes (obligatorias) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
@@ -109,7 +109,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas Débiles</label>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas débiles</label>
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas débiles (recomendadas) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
@@ -136,49 +136,49 @@
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos Generales</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos generales</label>
                             <textarea name="obj_generales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="9" placeholder="Ingrese los objetivos generales">{{ old('obj_generales', $plan->obj_generales) }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos Conceptuales</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos conceptuales</label>
                             <textarea name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="10" placeholder="Ingrese los objetivos conceptuales">{{ old('obj_conceptuales', $plan->obj_conceptuales) }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos Procedimentales</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos procedimentales</label>
                             <textarea name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="11" placeholder="Ingrese los objetivos procedimentales">{{ old('obj_procedimentales', $plan->obj_procedimentales) }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos Actitudinales</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos actitudinales</label>
                             <textarea name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="12" placeholder="Ingrese los objetivos actitudinales">{{ old('obj_actitudinales', $plan->obj_actitudinales) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos Específicos</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos específicos</label>
                             <textarea name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="13" placeholder="Ingrese los objetivos específicos">{{ old('obj_especificos', $plan->obj_especificos) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Contenidos Mínimos</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Contenidos mínimos</label>
                             <textarea name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="14" placeholder="Ingrese los contenidos mínimos">{{ old('cont_minimos', $plan->cont_minimos) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Programa Analítico</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Programa analítico</label>
                             <textarea name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="15" placeholder="Ingrese el programa analítico">{{ old('programa_analitico', $plan->programa_analitico) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Actividades Prácticas</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Actividades prácticas</label>
                             <textarea name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
                                       rows="4" tabindex="16" placeholder="Ingrese las actividades prácticas">{{ old('act_practicas', $plan->act_practicas) }}</textarea>
                         </div>
@@ -199,49 +199,49 @@
                     <!-- Campos de solo lectura cuando el plan no es editable -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos Generales</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos generales</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->obj_generales }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos Conceptuales</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos conceptuales</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->obj_conceptuales }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos Procedimentales</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos procedimentales</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->obj_procedimentales }}</textarea>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos Actitudinales</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos actitudinales</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->obj_actitudinales }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos Específicos</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos específicos</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->obj_especificos }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Contenidos Mínimos</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Contenidos mínimos</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->cont_minimos }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Programa Analítico</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Programa analítico</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->programa_analitico }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-600 mb-2">Actividades Prácticas</label>
+                            <label class="block text-sm font-medium text-gray-600 mb-2">Actividades prácticas</label>
                             <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
                                       rows="3" readonly>{{ $plan->act_practicas }}</textarea>
                         </div>
@@ -264,26 +264,17 @@
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
                     <div class="tooltip tooltip-top" data-tip="No se puede guardar como borrador al rectificar un plan. Solo puede guardar el plan." id="borradorTooltip">
                         <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 opacity-50 cursor-not-allowed transition-colors duration-200" tabindex="18" disabled>
-                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
-                            </svg>
-                            Guardar borrador
+                            GUARDAR BORRADOR
                         </button>
                     </div>
 
                     <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
                         <button type="submit" name="action" value="guardar" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="19" id="guardarBtn">
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
                             GUARDAR
                         </button>
                     </div>
                     
                     <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="20" onclick="window.location.href='/administracion'">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
                         CANCELAR
                     </button>
                 </div>

@@ -6,8 +6,8 @@
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo usuario Administrativo</h1>
-            <p class="text-gray-600 mt-2">Completa los datos para registrar un nuevo usuario administrativo</p>
+            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo Administrativo</h1>
+            <p class="text-gray-600 mt-2">Complete el formulario para registrar un nuevo usuario</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -73,19 +73,13 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
+                    <div class="tooltip tooltip-top" data-tip="Todos los campos son requeridos para guardar el usuario." id="guardarTooltip">
                         <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="8" id="guardarBtn" disabled>
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
                             GUARDAR
                         </button>
                     </div>
 
                     <a href="/administracion" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="9">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                        </svg>
                         CANCELAR
                     </a>
                 </div>
@@ -153,10 +147,10 @@ select:focus {
         
         if (allValid) {
             guardarBtn.disabled = false;
-            guardarTooltip.setAttribute('data-tip', 'Listo para guardar');
+            guardarTooltip.setAttribute('data-tip', 'Listo para guardar.');
         } else {
             guardarBtn.disabled = true;
-            guardarTooltip.setAttribute('data-tip', 'Complete todos los campos requeridos');
+            guardarTooltip.setAttribute('data-tip', 'Todos los campos son requeridos para guardar el usuario.');
         }
     }
     

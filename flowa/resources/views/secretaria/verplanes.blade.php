@@ -1,51 +1,72 @@
-<!DOCTYPE html>
-<html data-theme="autumn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Ver planes pendientes de revisión</title>
-</head>
-<body>
-@include('secretaria.layouts.navbar')
+@extends('secretaria.layouts.secretaria-layout')
 
-<div class="card bg-base-100 shadow-xl max-w-6xl mx-auto mt-12">
-    <form action="/secretaria/verplanes" method="GET">
-        @csrf
-        <div class="mx-5 my-5">
-            <table class="table-auto w-full">
-                <thead>
-                    <tr>
-                        <th class="px-4 py-2">Nombre de la materia</th>
-                        <th class="px-4 py-2">Profesor</th>
-                        <th class="px-4 py-2">Año del plan</th>
-                        <th class="px-4 py-2">Estado del plan</th>
-                        <th class="px-4 py-2">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($planes as $plan)
-                    <tr>
-                        <td class="border px-4 py-2 text-center">{{ $plan->materia->nombre_materia }} ({{ $plan->materia->codigo_materia }})</td>
-                        <td class="border px-4 py-2 text-center">{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}</td>
-                        <td class="border px-4 py-2 text-center">{{ $plan->anio }}</td>
-                        <td class="border px-4 py-2 text-center">{{ $plan->estado }}</td>
-                        <td class="border px-4 py-2 text-center">
-                            @if($plan->estado === 'Aprobado por secretaría académica.')
-                                <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-secondary w-24">Ver</a>
-                            @else
-                                <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="btn btn-primary w-24">Revisar</a>
-                            @endif
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>    
-    </form>    
+@section('title', 'Ver planes de materia')
+
+@section('content')
+<div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-gray-900">Planes de materia</h1>
+            <p class="text-gray-600 mt-2">Listado de todos los planes para revisión y consulta</p>
+        </div>
+
+        <div class="bg-white rounded-lg shadow border border-gray-200">
+            <div class="p-6">
+                <div class="overflow-x-auto">
+                    <table class="w-full">
+                        <thead>
+                            <tr class="border-b border-gray-200">
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Nombre de la materia</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Profesor</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Año del plan</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Estado del plan</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            @foreach($planes as $plan)
+                            <tr class="hover:bg-gray-50">
+                                <td class="px-4 py-3 text-sm text-gray-900">{{ $plan->materia->nombre_materia }} ({{ $plan->materia->codigo_materia }})</td>
+                                <td class="px-4 py-3 text-sm text-gray-600">{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}</td>
+                                <td class="px-4 py-3 text-sm text-gray-600">{{ $plan->anio }}</td>
+                                <td class="px-4 py-3 text-sm">
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                        @if($plan->estado == 'Aprobado por secretaría académica.') bg-green-100 text-green-800
+                                        @elseif(str_contains($plan->estado, 'Rechazado')) bg-red-100 text-red-800
+                                        @elseif(str_contains($plan->estado, 'Incompleto')) bg-yellow-100 text-yellow-800
+                                        @else bg-blue-100 text-blue-800
+                                        @endif">
+                                        {{ $plan->estado }}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-sm font-medium text-center">
+                                    <div class="flex flex-col items-center gap-2 w-full">
+                                        @if($plan->estado === 'Aprobado por secretaría académica.')
+                                        <!-- Botón Ver -->
+                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                       hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                            VER
+                                        </a>
+                                        @else
+                                        <!-- Botón Revisar -->
+                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-blue-600 text-sm font-medium rounded-md text-blue-600 bg-white 
+                       hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                            REVISAR
+                                        </a>
+                                        @endif
+                                    </div>
+                                </td>
+
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-</body>
-</html>
+<!-- Espacio adicional al final de la página -->
+<div class="h-16"></div>
+@endsection

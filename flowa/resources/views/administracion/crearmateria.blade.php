@@ -6,7 +6,7 @@
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Crear nueva materia</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Crear nueva Materia</h1>
             <p class="text-gray-600 mt-2">Complete el formulario para registrar una nueva materia</p>
         </div>
 
@@ -17,11 +17,17 @@
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
                         <input id="nombre_materia" name="nombre_materia" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1" required value="{{ old('nombre_materia') }}" placeholder="Ingrese el nombre de la materia">
+                        @error('nombre_materia')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Código</label>
                         <input id="codigo_materia" name="codigo_materia" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2" required value="{{ old('codigo_materia') }}" placeholder="Ingrese el código de la materia">
+                        @error('codigo_materia')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="md:col-span-2">
@@ -32,16 +38,25 @@
                             <option value="{{ $profesor->id }}">{{ $profesor->apellido_profesor }}, {{ $profesor->nombre_profesor }} ({{ $profesor->legajo_profesor}})</option>
                             @endforeach
                         </select>
+                        @error('profesor_id')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Horas semanales</label>
                         <input id="horas_semanales" name="horas_semanales" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('horas_semanales') }}" placeholder="Ingrese las horas semanales">
+                        @error('horas_semanales')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Horas totales</label>
                         <input id="horas_totales" name="horas_totales" type="number" min="1" step="1" inputmode="numeric" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('horas_totales') }}" placeholder="Ingrese las horas totales">
+                        @error('horas_totales')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
 
                     <div class="md:col-span-2">
@@ -54,23 +69,20 @@
                             </div>
                             @endforeach
                         </div>
+                        @error('carreras')
+                            <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="tooltip tooltip-top inline-block" data-tip="Complete todos los campos requeridos y seleccione al menos una carrera" id="guardarTooltip">
+                    <div class="tooltip tooltip-top inline-block" data-tip="Todos los campos son requeridos para guardar la materia." id="guardarTooltip">
                         <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="7" id="guardarBtn" disabled>
-                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                            </svg>
                             GUARDAR
                         </button>
                     </div>
 
                     <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="8" onclick="window.location.href='/administracion'">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                        </svg>
                         CANCELAR
                     </button>
                 </div>
@@ -128,7 +140,7 @@ select:focus {
             guardarTooltip.setAttribute('data-tip', 'Listo para guardar');
         } else {
             guardarBtn.disabled = true;
-            guardarTooltip.setAttribute('data-tip', 'Complete todos los campos requeridos y seleccione al menos una carrera');
+            guardarTooltip.setAttribute('data-tip', 'Todos los campos son requeridos para guardar la materia.');
         }
     }
     
