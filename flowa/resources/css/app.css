@@ -1,3 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* resources/css/app.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* O DaisyUI con capas si lo deseas: */
+/* @import 'daisyui/src/base.css'; */
+/* @import 'daisyui/src/components/index.css'; */
+/* @import 'daisyui/src/utilities/index.css'; */

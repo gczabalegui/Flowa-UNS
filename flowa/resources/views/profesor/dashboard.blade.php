@@ -21,7 +21,7 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Ver planes de materias</h3>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Ver planes de materias</h2>
                 <p class="text-sm text-gray-600">Consulta y administra todos tus planes de materia.</p>
             </a>
         </div>

@@ -21,7 +21,7 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear secretaría</h3>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Crear secretaría</h2>
                 <p class="text-sm text-gray-600">Registrar nuevo usuario de secretaría académica.</p>
             </a>
 
@@ -34,7 +34,7 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear profesor</h3>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Crear profesor</h2>
                 <p class="text-sm text-gray-600">Registrar nuevo usuario profesor.</p>
             </a>
 
@@ -47,7 +47,7 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear comisión</h3>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Crear comisión</h2>
                 <p class="text-sm text-gray-600">Registrar coordinador de comisión académica.</p>
             </a>
 
@@ -60,7 +60,7 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Listar planes</h3>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Listar planes</h2>
                 <p class="text-sm text-gray-600">Consulta todos los planes de materia existentes</p>
             </a>
         </div>
