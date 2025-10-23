@@ -23,7 +23,34 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
-                    <h1 class="ml-4 text-xl font-semibold text-gray-800">Flowa</h1>
+                    @php
+                    // Define la ruta de destino según el tipo de usuario
+                    $tipo = Auth::user()->role ?? null;
+                    switch ($tipo) {
+                    case 'admin':
+                    $ruta = url('/welcome');
+                    break;
+                    case 'comision':
+                    $ruta = url('/comision');
+                    break;
+                    case 'administracion':
+                    $ruta = url('/administracion');
+                    break;
+                    case 'secretaria':
+                    $ruta = url('/secretaria');
+                    break;
+                    case 'profesor':
+                    $ruta = url('/profesor');
+                    break;
+                    default:
+                    $ruta = url('/'); // fallback
+                    break;
+                    }
+                    @endphp
+
+                    <a href="{{ $ruta }}" class="ml-4 text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors">
+                        Flowa
+                    </a>
                 </div>
 
                 <!-- Menú de perfil -->

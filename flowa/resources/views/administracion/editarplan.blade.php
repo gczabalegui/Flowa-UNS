@@ -225,13 +225,14 @@
 
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
                     <div class="tooltip tooltip-top" data-tip="No se puede guardar como borrador al rectificar un plan. Solo puede guardar el plan." id="borradorTooltip">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 opacity-50 cursor-not-allowed transition-colors duration-200" tabindex="18" disabled>
+                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="18" disabled>
                             GUARDAR BORRADOR
                         </button>
                     </div>
 
                     <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
-                        <button type="submit" name="action" value="guardar" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="19" id="guardarBtn">
+                        <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
+                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="19" id="guardarBtn">
                             GUARDAR
                         </button>
                     </div>

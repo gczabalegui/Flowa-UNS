@@ -23,7 +23,34 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
-                    <h1 class="ml-4 text-xl font-semibold text-gray-800">Flowa</h1>
+                    @php
+                    // Define la ruta de destino según el tipo de usuario
+                    $tipo = Auth::user()->role ?? null;
+                    switch ($tipo) {
+                    case 'admin':
+                    $ruta = url('/welcome');
+                    break;
+                    case 'comision':
+                    $ruta = url('/comision');
+                    break;
+                    case 'administracion':
+                    $ruta = url('/administracion');
+                    break;
+                    case 'secretaria':
+                    $ruta = url('/secretaria');
+                    break;
+                    case 'profesor':
+                    $ruta = url('/profesor');
+                    break;
+                    default:
+                    $ruta = url('/'); // fallback
+                    break;
+                    }
+                    @endphp
+
+                    <a href="{{ $ruta }}" class="ml-4 text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors">
+                        Flowa
+                    </a>
                 </div>
 
                 <div class="flex items-center space-x-4">
@@ -111,10 +138,10 @@
                             <span class="text-sm font-semibold text-gray-800">CREAR USUARIO</span>
                         </div>
                         <div class="ml-8 space-y-1 mb-4">
-                            <a href="/administracion/crearsecretaria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Secretaría Académica</a>
+                            <a href="/administracion/crearsecretaria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Secretaría académica</a>
                             <a href="/administracion/crearadministrativo" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Administración</a>
                             <a href="/administracion/crearprofesor" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Profesor</a>
-                            <a href="/administracion/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Coordinador Comisión Curricular</a>
+                            <a href="/administracion/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Coordinador comisión académica</a>
                         </div>
                     </div>
 
