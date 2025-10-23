@@ -17,7 +17,7 @@
                         <thead>
                             <tr class="border-b border-gray-200">
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Nombre de la materia</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Profesor</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Profesor responsable</th>
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Año del programa</th>
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Estado del programa</th>
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Acción</th>

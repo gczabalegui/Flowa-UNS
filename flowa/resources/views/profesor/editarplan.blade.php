@@ -29,7 +29,7 @@
                         <!-- Profesor y Año -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                             <div>
-                                <label class="block text-sm font-medium text-gray-600 mb-2">Profesor</label>
+                                <label class="block text-sm font-medium text-gray-600 mb-2">Profesor resposable</label>
                                 <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}" readonly>
                             </div>
 
