@@ -1,13 +1,13 @@
 @extends('profesor.layouts.profesor-layout')
 
-@section('title', 'Editar plan')
+@section('title', 'Editar programa de materia')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-none mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Editar plan de materia</h1>
-            <p class="text-gray-600 mt-2">Complete y edite los campos del plan de materia</p>
+            <h1 class="text-2xl font-bold text-gray-900">Editar programa de materia</h1>
+            <p class="text-gray-600 mt-2">Complete y edite los campos del programa de la materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -255,7 +255,7 @@
                         <!-- Rechazar plan -->
                         <button type="submit" name="action" value="rechazar" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
                hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="12">
-                            RECHAZAR PLAN
+                            RECHAZAR PROGRAMA
                         </button>
 
                         <!-- Guardar borrador -->
@@ -276,7 +276,7 @@
                         <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
                             <button type="submit" name="action" value="guardar" id="guardarBtn" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
                    hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="14" disabled>
-                                GUARDAR PLAN
+                                GUARDAR PROGRAMA
                             </button>
                         </div>
 
@@ -382,7 +382,7 @@
 
                 if (isEmpty) {
                     e.preventDefault();
-                    alert('Por favor complete todos los campos requeridos antes de guardar el plan.');
+                    alert('Por favor complete todos los campos requeridos antes de guardar el programa.');
                     return false;
                 }
             } else if (submitButton && submitButton.value === 'rechazar') {
@@ -391,8 +391,8 @@
 
                 if (typeof showConfirmModal === 'function') {
                     showConfirmModal(
-                        'Rechazar Plan',
-                        '¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.',
+                        'Rechazar programa de materia',
+                        '¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá a administración.',
                         function() {
                             // Remover validación required para rechazar
                             requiredFields.forEach(fieldName => {
@@ -406,7 +406,7 @@
                         }
                     );
                 } else {
-                    if (confirm('¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.')) {
+                    if (confirm('¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá a administración.')) {
                         // Remover validación required para rechazar
                         requiredFields.forEach(fieldName => {
                             const field = document.getElementById(fieldName);

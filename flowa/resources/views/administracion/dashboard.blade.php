@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Dashboard administración</h1>
-            <p class="text-gray-600 mt-2">Gestión de usuarios, materias, carreras y planes de materia</p>
+            <p class="text-gray-600 mt-2">Gestión de usuarios, materias, carreras y programas de materias</p>
         </div>
 
         <!-- Tarjetas de acceso rápido -->
@@ -49,8 +49,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear plan</h3>
-                <p class="text-sm text-gray-600">Registrar un nuevo plan de materia para una carrera.</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear programa de materia</h3>
+                <p class="text-sm text-gray-600">Registrar un nuevo programa de materia para una carrera.</p>
             </a>
 
             <!-- Crear Usuarios (Secretaría) -->
@@ -75,8 +75,8 @@
                         </svg>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Listar planes</h3>
-                <p class="text-sm text-gray-600">Consulta todos los planes de materia existentes.</p>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Listar programas de materias</h3>
+                <p class="text-sm text-gray-600">Consulta todos los programas de materias existentes.</p>
             </a>
 
         </div>

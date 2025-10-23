@@ -1,13 +1,13 @@
 @extends('profesor.layouts.profesor-layout')
 
-@section('title', 'Ver planes de materia')
+@section('title', 'Ver programa de materia')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Mis planes de materia</h1>
-            <p class="text-gray-600 mt-2">Listado de todos tus planes de materia</p>
+            <h1 class="text-2xl font-bold text-gray-900">Mis programas de materias</h1>
+            <p class="text-gray-600 mt-2">Listado de todos tus programas de materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">

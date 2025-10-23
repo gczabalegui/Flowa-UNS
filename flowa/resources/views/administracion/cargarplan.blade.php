@@ -33,7 +33,7 @@
         }
     </style>
 
-    <title>Cargar plan anterior</title>
+    <title>Cargar programa de materia anterior</title>
 </head>
 
 <body>
@@ -41,7 +41,7 @@
     <div class="container mx-auto">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h2 class="text-2xl font-bold">Cargar plan de materia</h2>
+                <h2 class="text-2xl font-bold">Cargar programa de materia</h2>
             </div>
             <div class="panel-body">
 

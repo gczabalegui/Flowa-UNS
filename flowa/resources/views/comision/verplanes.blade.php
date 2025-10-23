@@ -1,12 +1,12 @@
 @extends('comision.layouts.comision-layout')
-@section('title', 'Ver Planes de Materia')
+@section('title', 'Ver programas de materia')
 
 @section('content')
 <div class="flex w-full p-6" x-data="{ sidebarOpen: true }">
     <div :class="sidebarOpen ? 'w-full' : 'w-full'">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Planes de materias</h1>
-            <p class="text-gray-600 mt-2">Consultá los planes aprobados por secretaría académica.</p>
+            <h1 class="text-2xl font-bold text-gray-900">Programas de materias</h1>
+            <p class="text-gray-600 mt-2">Consultá los programas aprobados por secretaría académica.</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">

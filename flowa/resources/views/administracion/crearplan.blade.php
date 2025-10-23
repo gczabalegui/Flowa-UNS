@@ -1,13 +1,13 @@
 @extends('administracion.layouts.admin-layout')
 
-@section('title', 'Crear nuevo plan de materia')
+@section('title', 'Crear nuevo programa de materia')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo plan de materia</h1>
-            <p class="text-gray-600 mt-2">Complete el formulario para registrar un nuevo plan de materia</p>
+            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo programa de materia</h1>
+            <p class="text-gray-600 mt-2">Complete el formulario para registrar un nuevo programa de materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">

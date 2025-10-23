@@ -1,13 +1,13 @@
 @extends('secretaria.layouts.secretaria-layout')
 
-@section('title', 'Revisar plan')
+@section('title', 'Revisar programa')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-none mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Información del plan</h1>
-            <p class="text-gray-600 mt-2">Revise los detalles completos del plan de materia</p>
+            <h1 class="text-2xl font-bold text-gray-900">Información del programa</h1>
+            <p class="text-gray-600 mt-2">Revise los detalles completos del programa de materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -223,14 +223,14 @@
 
                     {{-- Botón Aprobar plan (verde) --}}
                     @if($plan->estado === 'Aprobado por secretaría académica.')
-                    <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-44 border border-green-600 text-sm font-medium rounded-md text-green-600 bg-white opacity-60 cursor-not-allowed" disabled title="El plan ya fue aprobado por secretaría académica.">
-                        APROBAR PLAN
+                    <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-44 border border-green-600 text-sm font-medium rounded-md text-green-600 bg-white opacity-60 cursor-not-allowed" disabled title="El programa ya fue aprobado por secretaría académica.">
+                        APROBAR PROGRAMA
                     </button>
                     @else
                     <form id="approve-form" action="{{ route('secretaria.aprobarplan', ['id' => $plan->id]) }}" method="POST">
                         @csrf
-                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-44 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 approve-btn" data-form="approve-form" data-message="¿Está seguro que desea aprobar este plan?">
-                            APROBAR PLAN
+                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-44 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 approve-btn" data-form="approve-form" data-message="¿Está seguro que desea aprobar este programa?">
+                            APROBAR PROGRAMA
                         </button>
                     </form>
                     @endif
@@ -245,7 +245,7 @@
                         @csrf
                         <input type="hidden" name="role" value="secretaria">
                         <input type="hidden" name="type" value="administracion">
-                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-70 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200 reject-btn" data-form="reject-admin-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá a administración.">
+                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-70 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200 reject-btn" data-form="reject-admin-form" data-message="¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá a administración.">
                             RECHAZAR PARA ADMINISTRACIÓN
                         </button>
                     </form>
@@ -256,7 +256,7 @@
                         @csrf
                         <input type="hidden" name="role" value="secretaria">
                         <input type="hidden" name="type" value="profesor">
-                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-60 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200 reject-btn" data-form="reject-profesor-form" data-message="¿Está seguro de que desea rechazar este plan? Esta acción lo devolverá al profesor.">
+                        <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-60 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200 reject-btn" data-form="reject-profesor-form" data-message="¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá al profesor.">
                             RECHAZAR PARA PROFESOR
                         </button>
                     </form>
@@ -286,7 +286,7 @@
 
                 if (typeof showConfirmModal === 'function') {
                     showConfirmModal(
-                        'Rechazar Plan',
+                        'Rechazar programa',
                         message,
                         function() {
                             document.getElementById(formId).submit();
@@ -308,7 +308,7 @@
 
                 if (typeof showConfirmModal === 'function') {
                     showConfirmModal(
-                        'Aprobar Plan',
+                        'Aprobar progama',
                         message,
                         function() {
                             document.getElementById(formId).submit();

@@ -1,13 +1,13 @@
 @extends('administracion.layouts.admin-layout')
 
-@section('title', 'Ver Planes de Materia')
+@section('title', 'Ver programas de materia')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-none mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Planes de materias</h1>
-            <p class="text-gray-600 mt-2">Gestiona todos los planes de materias del sistema</p>
+            <h1 class="text-2xl font-bold text-gray-900">Programas de materias</h1>
+            <p class="text-gray-600 mt-2">Gestiona todos los programas de materias del sistema</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -128,7 +128,7 @@
     function confirmDeletePlan(planId) {
 
         if (typeof showConfirmModal !== 'function') {
-            if (confirm('¿Estás seguro de que deseas eliminar el plan de esta materia?')) {
+            if (confirm('¿Estás seguro de que deseas eliminar el programa de esta materia?')) {
                 var form = document.getElementById('delete-form-' + planId);
                 if (form) {
                     form.submit();
@@ -138,8 +138,8 @@
         }
 
         showConfirmModal(
-            'Eliminar plan',
-            '¿Estás seguro de que deseas eliminar el plan de esta materia? Esta acción no se puede deshacer.',
+            'Eliminar programa de materia',
+            '¿Estás seguro de que deseas eliminar el programa de esta materia? Esta acción no se puede deshacer.',
             function() {
                 var form = document.getElementById('delete-form-' + planId);
                 if (form) {

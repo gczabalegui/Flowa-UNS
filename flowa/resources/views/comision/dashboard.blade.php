@@ -22,8 +22,8 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="text-lg font-semibold text-gray-900 mb-2">Ver planes de materias</h2>
-                <p class="text-sm text-gray-600">Accedé a la lista completa de planes para revisión y seguimiento.</p>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Ver programas de materias</h2>
+                <p class="text-sm text-gray-600">Accedé a la lista completa de programas para revisión y seguimiento.</p>
             </a>
         </div>
     </div>

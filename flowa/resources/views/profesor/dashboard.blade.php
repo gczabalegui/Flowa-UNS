@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Dashboard profesor</h1>
-            <p class="text-gray-600 mt-2">Bienvenido al sistema de gestión de planes de materia</p>
+            <p class="text-gray-600 mt-2">Bienvenido al sistema de gestión de programas de materia</p>
         </div>
 
         <!-- Tarjetas de acceso rápido -->
@@ -21,8 +21,8 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="text-lg font-semibold text-gray-900 mb-2">Ver planes de materias</h2>
-                <p class="text-sm text-gray-600">Consulta y administra todos tus planes de materia.</p>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Ver programas de materias</h2>
+                <p class="text-sm text-gray-600">Consulta y administra todos tus programa de materia.</p>
             </a>
         </div>
     </div>

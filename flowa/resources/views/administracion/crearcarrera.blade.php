@@ -48,7 +48,7 @@
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">N° versión del plan</label>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">N° versión del programa</label>
                         <input id="plan_version" name="plan_version" type="number" min="1" step="1" inputmode="numeric" 
                             class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                             tabindex="4" required value="{{ old('plan_version') }}" placeholder="Versión" oninput="this.value = this.value.replace(/[^0-9]/g, '')">

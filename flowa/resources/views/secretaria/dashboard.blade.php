@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Dashboard secretaría académica</h1>
-            <p class="text-gray-600 mt-2">Gestión de usuarios y planes de materia</p>
+            <p class="text-gray-600 mt-2">Gestión de usuarios y programas de materias</p>
         </div>
 
         <!-- Tarjetas de acceso rápido -->
@@ -60,8 +60,8 @@
                         </svg>
                     </div>
                 </div>
-                <h2 class="text-lg font-semibold text-gray-900 mb-2">Listar planes</h2>
-                <p class="text-sm text-gray-600">Consulta todos los planes de materia existentes</p>
+                <h2 class="text-lg font-semibold text-gray-900 mb-2">Listar programas</h2>
+                <p class="text-sm text-gray-600">Consulta todos los programas de materias existentes</p>
             </a>
         </div>
     </div>

@@ -19,17 +19,17 @@
                     
                     // Personalizar título según el mensaje
                     if (str_contains($mensaje, 'guardado')) {
-                        $titulo = '🎉 ¡Plan guardado!';
+                        $titulo = '🎉 ¡Programa guardado!';
                     } elseif (str_contains($mensaje, 'actualizado')) {
-                        $titulo = '🔄 ¡Plan actualizado!';
+                        $titulo = '🔄 ¡Programa actualizado!';
                     } elseif (str_contains($mensaje, 'creado') || str_contains($mensaje, 'Nueva')) {
                         $titulo = '✨ ¡Creado exitosamente!';
                     } elseif (str_contains($mensaje, 'aprobado')) {
-                        $titulo = '✅ ¡Plan aprobado!';
+                        $titulo = '✅ ¡Programa aprobado!';
                     } elseif (str_contains($mensaje, 'rechazado')) {
-                        $titulo = '❌ ¡Plan rechazado!';
+                        $titulo = '❌ ¡Programa rechazado!';
                     } elseif (str_contains($mensaje, 'eliminado')) {
-                        $titulo = '🗑️ ¡Plan eliminado!';
+                        $titulo = '🗑️ ¡Programa eliminado!';
                     }
                 @endphp
                 <strong class="font-bold text-green-800">{{ $titulo }}</strong>

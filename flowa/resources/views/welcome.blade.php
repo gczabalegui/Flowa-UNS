@@ -79,7 +79,7 @@
                         
                         <h1 class="text-3xl font-extrabold text-gray-900 mb-4">Flowa - UNS</h1>
                         <p class="text-lg text-gray-700 mb-6">
-                            Bienvenido al sistema para la gestión de planes de materias.
+                            Bienvenido al sistema para la gestión de programas de materias.
                         </p>
                         <p class="text-md text-gray-600 font-medium">
                             <span class="font-bold text-blue-600">A la izquierda</span>, seleccione el rol con el que desea acceder al sistema.
