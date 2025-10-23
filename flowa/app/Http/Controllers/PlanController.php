@@ -8,9 +8,8 @@ use App\Models\Materia;
 use App\Models\Profesor;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Validation\Rule;
-
 
 class PlanController extends Controller
 {
@@ -595,4 +594,28 @@ public function exportarDocx($id)
 
     return response()->download($path)->deleteFileAfterSend(true);
 }*/
+
+    public function dashboardAdmin()
+    {
+        $totalPlanes = Plan::count();
+        $planesPorEstado = Plan::select('estado', DB::raw('count(*) as total'))
+            ->groupBy('estado')
+            ->pluck('total', 'estado');
+
+        $planesPorAnio = Plan::select('anio', DB::raw('count(*) as total'))
+            ->groupBy('anio')
+            ->orderBy('anio')
+            ->pluck('total', 'anio');
+
+        $totalProfesores = Profesor::count();
+        $totalMaterias = Materia::count();
+
+        return view('administracion.dashboard', compact(
+            'totalPlanes',
+            'planesPorEstado',
+            'planesPorAnio',
+            'totalProfesores',
+            'totalMaterias'
+        ));
+    }
 }
