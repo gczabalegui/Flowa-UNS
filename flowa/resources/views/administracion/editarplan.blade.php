@@ -14,13 +14,12 @@
             <form action="{{ route('administracion.updateplan', ['id' => $plan->id]) }}" method="POST" class="p-6">
                 @csrf
                 @method('PUT')
-                
+
                 <div class="space-y-6">
                     <!-- Materia (full width) -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Materia</label>
-                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                               value="{{ $plan->materia->nombre_materia }}" readonly>
+                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" value="{{ $plan->materia->nombre_materia }}" readonly>
                         <input type="hidden" name="materia_id" value="{{ $plan->materia_id }}">
                     </div>
 
@@ -28,17 +27,16 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-600 mb-2">Profesor responsable</label>
-                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly 
-                                   value="{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}">
+                            <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly value="{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}">
                         </div>
-                        
+
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Año</label>
                             <select name="anio" id="anio" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2" required>
                                 @foreach($years as $year)
-                                    <option value="{{ $year }}" {{ $plan->anio == $year ? 'selected' : '' }}>
-                                        {{ $year }}
-                                    </option>
+                                <option value="{{ $year }}" {{ $plan->anio == $year ? 'selected' : '' }}>
+                                    {{ $year }}
+                                </option>
                                 @endforeach
                             </select>
                         </div>
@@ -48,20 +46,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Horas teóricas</label>
-                            <input id="horas_teoricas" name="horas_teoricas" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                tabindex="4" value="{{ old('horas_teoricas', $plan->horas_teoricas) }}" placeholder="Ingrese las horas teóricas">
+                            <input id="horas_teoricas" name="horas_teoricas" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" value="{{ old('horas_teoricas', $plan->horas_teoricas) }}" placeholder="Ingrese las horas teóricas">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Horas prácticas</label>
-                            <input id="horas_practicas" name="horas_practicas" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                tabindex="5" value="{{ old('horas_practicas', $plan->horas_practicas) }}" placeholder="Ingrese las horas prácticas">
+                            <input id="horas_practicas" name="horas_practicas" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="5" value="{{ old('horas_practicas', $plan->horas_practicas) }}" placeholder="Ingrese las horas prácticas">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Horas totales</label>
-                            <input id="horas_totales" name="horas_totales" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                tabindex="3" value="{{ old('horas_totales', $plan->horas_totales) }}" placeholder="Ingrese las horas totales">
+                            <input id="horas_totales" name="horas_totales" type="number" min="1" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" value="{{ old('horas_totales', $plan->horas_totales) }}" placeholder="Ingrese las horas totales">
                         </div>
                     </div>
 
@@ -69,20 +64,17 @@
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">DTE</label>
-                            <input id="DTE" name="DTE" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                tabindex="6" value="{{ old('DTE', $plan->DTE) }}" placeholder="Ingrese el DTE">
+                            <input id="DTE" name="DTE" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="6" value="{{ old('DTE', $plan->DTE) }}" placeholder="Ingrese el DTE">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">RTF</label>
-                            <input id="RTF" name="RTF" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                tabindex="7" value="{{ old('RTF', $plan->RTF) }}" placeholder="Ingrese el RTF">
+                            <input id="RTF" name="RTF" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="7" value="{{ old('RTF', $plan->RTF) }}" placeholder="Ingrese el RTF">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
-                            <input id="creditos_academicos" name="creditos_academicos" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                tabindex="8" value="{{ old('creditos_academicos', $plan->creditos_academicos) }}" placeholder="Ingrese los créditos académicos">
+                            <input id="creditos_academicos" name="creditos_academicos" type="number" min="0" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="8" value="{{ old('creditos_academicos', $plan->creditos_academicos) }}" placeholder="Ingrese los créditos académicos">
                         </div>
                     </div>
 
@@ -96,15 +88,10 @@
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas fuertes (obligatorias) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
-                                            <div class="flex items-center">
-                                                <input type="checkbox" 
-                                                       name="correlativas_fuertes[]" 
-                                                       value="{{ $materia->id }}" 
-                                                       class="correlativa-checkbox" 
-                                                       data-materia-id="{{ $materia->id }}"
-                                                       @if(in_array($materia->id, $plan->materia->correlativasFuertes->pluck('id')->toArray())) checked @endif>
-                                                <label class="ml-2 text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
-                                            </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" name="correlativas_fuertes[]" value="{{ $materia->id }}" class="correlativa-checkbox" data-materia-id="{{ $materia->id }}" @if(in_array($materia->id, $plan->materia->correlativasFuertes->pluck('id')->toArray())) checked @endif>
+                                            <label class="ml-2 text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -113,15 +100,10 @@
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas débiles (recomendadas) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
-                                            <div class="flex items-center">
-                                                <input type="checkbox" 
-                                                       name="correlativas_debiles[]" 
-                                                       value="{{ $materia->id }}" 
-                                                       class="correlativa-checkbox" 
-                                                       data-materia-id="{{ $materia->id }}"
-                                                       @if(in_array($materia->id, $plan->materia->correlativasDebiles->pluck('id')->toArray())) checked @endif>
-                                                <label class="ml-2 text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
-                                            </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" name="correlativas_debiles[]" value="{{ $materia->id }}" class="correlativa-checkbox" data-materia-id="{{ $materia->id }}" @if(in_array($materia->id, $plan->materia->correlativasDebiles->pluck('id')->toArray())) checked @endif>
+                                            <label class="ml-2 text-sm">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -130,69 +112,59 @@
                     </div>
 
                     <!-- Campos de texto del plan -->
-                    @if($plan->estado === 'Incompleto por administración.' || 
-                        $plan->estado === 'Rechazado para administración por profesor.' || 
-                        $plan->estado === 'Rechazado para administración por secretaría académica.')
-                    
+                    @if($plan->estado === 'Incompleto por administración.' ||
+                    $plan->estado === 'Rechazado para administración por profesor.' ||
+                    $plan->estado === 'Rechazado para administración por secretaría académica.')
+
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos generales</label>
-                            <textarea name="obj_generales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="9" placeholder="Ingrese los objetivos generales">{{ old('obj_generales', $plan->obj_generales) }}</textarea>
+                            <textarea name="obj_generales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="9" placeholder="Ingrese los objetivos generales">{{ old('obj_generales', $plan->obj_generales) }}</textarea>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos conceptuales</label>
-                            <textarea name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="10" placeholder="Ingrese los objetivos conceptuales">{{ old('obj_conceptuales', $plan->obj_conceptuales) }}</textarea>
+                            <textarea name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="10" placeholder="Ingrese los objetivos conceptuales">{{ old('obj_conceptuales', $plan->obj_conceptuales) }}</textarea>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos procedimentales</label>
-                            <textarea name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="11" placeholder="Ingrese los objetivos procedimentales">{{ old('obj_procedimentales', $plan->obj_procedimentales) }}</textarea>
+                            <textarea name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="11" placeholder="Ingrese los objetivos procedimentales">{{ old('obj_procedimentales', $plan->obj_procedimentales) }}</textarea>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos actitudinales</label>
-                            <textarea name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="12" placeholder="Ingrese los objetivos actitudinales">{{ old('obj_actitudinales', $plan->obj_actitudinales) }}</textarea>
+                            <textarea name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="12" placeholder="Ingrese los objetivos actitudinales">{{ old('obj_actitudinales', $plan->obj_actitudinales) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos específicos</label>
-                            <textarea name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="13" placeholder="Ingrese los objetivos específicos">{{ old('obj_especificos', $plan->obj_especificos) }}</textarea>
+                            <textarea name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="13" placeholder="Ingrese los objetivos específicos">{{ old('obj_especificos', $plan->obj_especificos) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Contenidos mínimos</label>
-                            <textarea name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="14" placeholder="Ingrese los contenidos mínimos">{{ old('cont_minimos', $plan->cont_minimos) }}</textarea>
+                            <textarea name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="14" placeholder="Ingrese los contenidos mínimos">{{ old('cont_minimos', $plan->cont_minimos) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Programa analítico</label>
-                            <textarea name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="15" placeholder="Ingrese el programa analítico">{{ old('programa_analitico', $plan->programa_analitico) }}</textarea>
+                            <textarea name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="15" placeholder="Ingrese el programa analítico">{{ old('programa_analitico', $plan->programa_analitico) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Actividades prácticas</label>
-                            <textarea name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="16" placeholder="Ingrese las actividades prácticas">{{ old('act_practicas', $plan->act_practicas) }}</textarea>
+                            <textarea name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="16" placeholder="Ingrese las actividades prácticas">{{ old('act_practicas', $plan->act_practicas) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Modalidad</label>
-                            <textarea name="modalidad" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="17" placeholder="Ingrese la modalidad">{{ old('modalidad', $plan->modalidad) }}</textarea>
+                            <textarea name="modalidad" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="17" placeholder="Ingrese la modalidad">{{ old('modalidad', $plan->modalidad) }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Bibliografía</label>
-                            <textarea name="bibliografia" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-                                      rows="4" tabindex="18" placeholder="Ingrese la bibliografía">{{ old('bibliografia', $plan->bibliografia) }}</textarea>
+                            <textarea name="bibliografia" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" rows="4" tabindex="18" placeholder="Ingrese la bibliografía">{{ old('bibliografia', $plan->bibliografia) }}</textarea>
                         </div>
                     </div>
                     @else
@@ -200,62 +172,52 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos generales</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->obj_generales }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->obj_generales }}</textarea>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos conceptuales</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->obj_conceptuales }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->obj_conceptuales }}</textarea>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos procedimentales</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->obj_procedimentales }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->obj_procedimentales }}</textarea>
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos actitudinales</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->obj_actitudinales }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->obj_actitudinales }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos específicos</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->obj_especificos }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->obj_especificos }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-600 mb-2">Contenidos mínimos</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->cont_minimos }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->cont_minimos }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-600 mb-2">Programa analítico</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->programa_analitico }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->programa_analitico }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-600 mb-2">Actividades prácticas</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->act_practicas }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->act_practicas }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-600 mb-2">Modalidad</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->modalidad }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->modalidad }}</textarea>
                         </div>
 
                         <div class="md:col-span-2">
                             <label class="block text-sm font-medium text-gray-600 mb-2">Bibliografía</label>
-                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" 
-                                      rows="3" readonly>{{ $plan->bibliografia }}</textarea>
+                            <textarea class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" rows="3" readonly>{{ $plan->bibliografia }}</textarea>
                         </div>
                     </div>
                     @endif
@@ -273,7 +235,7 @@
                             GUARDAR
                         </button>
                     </div>
-                    
+
                     <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="20" onclick="window.location.href='/administracion'">
                         CANCELAR
                     </button>
@@ -308,18 +270,18 @@
     document.addEventListener('DOMContentLoaded', function() {
         // Campos requeridos para el botón "Guardar"
         const requiredFields = ['anio', 'horas_totales', 'horas_teoricas', 'horas_practicas', 'DTE', 'RTF', 'creditos_academicos'];
-        
+
         // Referencias a elementos
         const guardarBtn = document.getElementById('guardarBtn');
         const guardarTooltip = document.getElementById('guardarTooltip');
-        
+
         // Función para validar el formulario
         function validateForm() {
             let allFieldsValid = true;
-            
+
             // En modo edición, solo validamos que los campos numéricos no sean negativos
             const numericFields = ['horas_totales', 'horas_teoricas', 'horas_practicas', 'DTE', 'RTF', 'creditos_academicos'];
-            
+
             numericFields.forEach(fieldName => {
                 const field = document.getElementById(fieldName);
                 if (field) {
@@ -329,13 +291,13 @@
                     }
                 }
             });
-            
+
             // El año debe estar seleccionado
             const anioField = document.getElementById('anio');
             if (anioField && anioField.value === '') {
                 allFieldsValid = false;
             }
-            
+
             if (guardarBtn && guardarTooltip) {
                 guardarBtn.disabled = !allFieldsValid;
                 if (!allFieldsValid) {
@@ -350,7 +312,7 @@
         function updateCorrelativasAvailability() {
             const materiaId = '{{ $plan->materia_id }}';
             const checkboxes = document.querySelectorAll('.correlativa-checkbox');
-            
+
             checkboxes.forEach(checkbox => {
                 if (checkbox.dataset.materiaId === materiaId) {
                     checkbox.disabled = true;
@@ -368,7 +330,7 @@
             const isStrong = changedCheckbox.name === 'correlativas_fuertes[]';
             const otherName = isStrong ? 'correlativas_debiles[]' : 'correlativas_fuertes[]';
             const otherCheckbox = document.querySelector(`input[name="${otherName}"][data-materia-id="${materiaId}"]`);
-            
+
             if (changedCheckbox.checked && otherCheckbox) {
                 otherCheckbox.checked = false;
             }
@@ -389,7 +351,7 @@
 
         // Validar formulario al cargar y en cambios
         validateForm();
-        
+
         const formInputs = document.querySelectorAll('input[type="number"], select');
         formInputs.forEach(input => {
             input.addEventListener('input', validateForm);
@@ -398,9 +360,24 @@
 
         // Deshabilitar auto-correlativas al cargar la página
         updateCorrelativasAvailability();
-        
+
         // Ejecutar validación adicional después de que la página cargue completamente
         setTimeout(validateForm, 100);
     });
+
+
+    // Actualizar horas totales automáticamente
+    function updateHorasTotales() {
+        const teoricas = parseFloat(document.getElementById('horas_teoricas').value) || 0;
+        const practicas = parseFloat(document.getElementById('horas_practicas').value) || 0;
+        const totalField = document.getElementById('horas_totales');
+
+        totalField.value = teoricas + practicas;
+        validateForm(); // vuelve a validar el formulario
+    }
+
+    // Listeners para actualizar automáticamente
+    document.getElementById('horas_teoricas').addEventListener('input', updateHorasTotales);
+    document.getElementById('horas_practicas').addEventListener('input', updateHorasTotales);
 </script>
 @endsection
