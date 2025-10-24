@@ -99,7 +99,8 @@
         </div>
 
         <!-- Sidebar -->
-        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
+        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed lg:relative left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
+
             <div class="flex flex-col h-full pt-16">
                 <nav class="flex-1 px-4 py-6 overflow-y-auto">
                     <a href="/administracion" class="flex items-center px-4 py-3 mb-6 text-gray-700 bg-blue-50 rounded-lg hover:bg-blue-100">
@@ -159,7 +160,8 @@
         </div>
 
         <!-- Contenido principal -->
-        <div :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 w-full min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
+        <div :class="sidebarOpen ? 'lg:ml-64' : 'ml-0'" class="flex-1 w-full min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
+
             <main class="p-6">
                 @yield('content')
             </main>
