@@ -1,13 +1,13 @@
 @extends('profesor.layouts.profesor-layout')
 
-@section('title', 'Ver planes de materia')
+@section('title', 'Ver programa de materia')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Mis planes de materia</h1>
-            <p class="text-gray-600 mt-2">Listado de todos tus planes de materia</p>
+            <h1 class="text-2xl font-bold text-gray-900">Mis programas de materias</h1>
+            <p class="text-gray-600 mt-2">Listado de todos tus programas de materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -17,7 +17,7 @@
                         <thead class="bg-gray-50 border-b border-gray-200">
                             <tr>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre de la materia</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profesor</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Profesor responsable</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-[80px]">Año</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Estado</th>
                                 <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Operaciones</th>
@@ -66,8 +66,8 @@
                                         'Rectificado por administración para profesor.',
                                         'Aprobado por secretaría académica.'
                                         ]))
-                                        <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-yellow-600 text-sm font-medium rounded-md text-yellow-600 bg-white 
-                                               hover:bg-yellow-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200">
+                                        <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                                           hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                             EDITAR
                                         </a>
                                         @else

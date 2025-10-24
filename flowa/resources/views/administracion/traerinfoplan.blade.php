@@ -1,13 +1,13 @@
 @extends('administracion.layouts.admin-layout')
 
-@section('title', 'Revisar plan')
+@section('title', 'Revisar programa de materia')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-none mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Información del plan</h1>
-            <p class="text-gray-600 mt-2">Revise los detalles completos del plan de materia</p>
+            <h1 class="text-2xl font-bold text-gray-900">Información del programa</h1>
+            <p class="text-gray-600 mt-2">Revise los detalles completos del programa de la materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -22,7 +22,7 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Profesor</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Profesor resposable</label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}</p>
                             </div>

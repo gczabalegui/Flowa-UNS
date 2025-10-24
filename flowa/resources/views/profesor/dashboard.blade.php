@@ -5,29 +5,71 @@
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
+        <!-- Encabezado -->
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Dashboard profesor</h1>
-            <p class="text-gray-600 mt-2">Bienvenido al sistema de gestión de planes de materia</p>
+            <p class="text-gray-600 mt-2">Resumen de tus programas de materia</p>
         </div>
 
-        <!-- Tarjetas de acceso rápido -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Ver planes -->
-            <a href="/profesor/verplanes" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
+        <!-- Grid con 3 columnas -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Card 1: Datos Numéricos -->
+            <div class="bg-white p-6 rounded-lg shadow border flex flex-col space-y-4">
+                <h3 class="text-lg font-semibold text-gray-800">Datos de gestión</h3>
+                <div class="flex justify-between items-center">
+                    <div>
+                        <p class="text-gray-600">Total de planes asignados</p>
+                        <h2 class="text-3xl font-bold text-blue-600">{{ $totalPlanes }}</h2>
+                    </div>
+                    <div>
+                        <p class="text-gray-600">Planes pendientes de completar</p>
+                        <h2 class="text-3xl font-bold text-red-600">{{ $planesPendientes }}</h2>
                     </div>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Ver planes de materias</h3>
-                <p class="text-sm text-gray-600">Consulta y administra todos tus planes de materia.</p>
-            </a>
+            </div>
+
+            <!-- Card 2: Gráfico de planes por estado -->
+            <div class="bg-white p-6 rounded-lg shadow border flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Planes por estado</h3>
+                <div class="flex-grow" style="max-height: 400px;">
+                    <canvas id="chartEstado"></canvas>
+                </div>
+            </div>
+
+            <!-- Card 3: Últimas modificaciones -->
+            <div class="bg-white p-6 rounded-lg shadow border flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Últimas modificaciones</h3>
+                <ul class="space-y-2 flex-grow overflow-y-auto" style="max-height: 400px;">
+                    @foreach($ultimasModificaciones as $plan)
+                        <li class="flex justify-between border-b py-2 items-start">
+                            <span class="flex-1 mr-2 break-words">{{ $plan->materia->nombre_materia ?? 'Sin materia' }}</span>
+                            <span class="text-gray-500 flex-shrink-0">{{ $plan->updated_at->format('d/m/Y H:i') }}</span>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+
         </div>
     </div>
 </div>
 
-<!-- Espacio adicional al final de la página -->
-<div class="h-16"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const ctxEstado = document.getElementById('chartEstado').getContext('2d');
+    new Chart(ctxEstado, {
+        type: 'doughnut',
+        data: {
+            labels: {!! json_encode($planesPorEstado->keys()) !!},
+            datasets: [{
+                data: {!! json_encode($planesPorEstado->values()) !!},
+                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+</script>
 @endsection

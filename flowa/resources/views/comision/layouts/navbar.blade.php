@@ -10,7 +10,7 @@
                         </svg>
                     </a>
                     <ul class="p-2 bg-base-100 z-50">
-                        <li><a href="/comision/verplanes">Ver planes de materias</a></li>
+                        <li><a href="/comision/verplanes">Ver programas de materias</a></li>
                     </ul>
                 </li>
             </ul>

@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Flowa</title>
-    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta name="description" content="Panel de administración de Flowa para la gestión de usuarios, materias, carreras y programas de materia.">
 </head>
 
 <body class="bg-gray-50">
@@ -16,7 +15,7 @@
         <div class="fixed top-0 left-0 right-0 z-40 bg-white shadow-sm border-b border-gray-200">
             <div class="flex items-center justify-between h-16 px-4">
                 <div class="flex items-center">
-                    <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Toggle Sidebar" title="Mostrar/Ocultar menú lateral">
                         <svg x-show="!sidebarOpen" x-transition.opacity class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -24,13 +23,40 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
-                    <h1 class="ml-4 text-xl font-semibold text-gray-800">Flowa</h1>
+                    @php
+                    // Define la ruta de destino según el tipo de usuario
+                    $tipo = Auth::user()->role ?? null;
+                    switch ($tipo) {
+                    case 'admin':
+                    $ruta = url('/welcome');
+                    break;
+                    case 'comision':
+                    $ruta = url('/comision');
+                    break;
+                    case 'administracion':
+                    $ruta = url('/administracion');
+                    break;
+                    case 'secretaria':
+                    $ruta = url('/secretaria');
+                    break;
+                    case 'profesor':
+                    $ruta = url('/profesor');
+                    break;
+                    default:
+                    $ruta = url('/'); // fallback
+                    break;
+                    }
+                    @endphp
+
+                    <a href="{{ $ruta }}" class="ml-4 text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors">
+                        Flowa
+                    </a>
                 </div>
 
                 <div class="flex items-center space-x-4">
                     <div x-data="{ profileOpen: false }" class="relative">
-                        <button @click="profileOpen = !profileOpen" class="flex items-center p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                        <button @click="profileOpen = !profileOpen" class="flex items-center p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Alternar menú lateral">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center" aria-label="Abrir menú de usuario" title="Abrir menú de usuario">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
@@ -73,7 +99,8 @@
         </div>
 
         <!-- Sidebar -->
-        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
+        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed lg:relative left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
+
             <div class="flex flex-col h-full pt-16">
                 <nav class="flex-1 px-4 py-6 overflow-y-auto">
                     <a href="/administracion" class="flex items-center px-4 py-3 mb-6 text-gray-700 bg-blue-50 rounded-lg hover:bg-blue-100">
@@ -99,7 +126,7 @@
                                 Carrera
                             </a>
                             <a href="/administracion/crearplan" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
-                                Plan de materia
+                                Programa de materia
                             </a>
                         </div>
                     </div>
@@ -112,10 +139,10 @@
                             <span class="text-sm font-semibold text-gray-800">CREAR USUARIO</span>
                         </div>
                         <div class="ml-8 space-y-1 mb-4">
-                            <a href="/administracion/crearsecretaria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Secretaría Académica</a>
+                            <a href="/administracion/crearsecretaria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Secretaría académica</a>
                             <a href="/administracion/crearadministrativo" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Administración</a>
                             <a href="/administracion/crearprofesor" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Profesor</a>
-                            <a href="/administracion/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Coordinador Comisión Curricular</a>
+                            <a href="/administracion/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Coordinador comisión académica</a>
                         </div>
                     </div>
 
@@ -125,7 +152,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
-                            <span class="text-sm font-semibold text-gray-800">LISTAR PLANES</span>
+                            <span class="text-sm font-semibold text-gray-800">LISTAR PROGRAMAS</span>
                         </a>
                     </div>
                 </nav>
@@ -133,7 +160,8 @@
         </div>
 
         <!-- Contenido principal -->
-        <div :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 w-full min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
+        <div :class="sidebarOpen ? 'lg:ml-64' : 'ml-0'" class="flex-1 w-full min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
+
             <main class="p-6">
                 @yield('content')
             </main>

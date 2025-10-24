@@ -22,7 +22,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Plantilla Plan Materia</title>
+        <title>Plantilla programa de materia</title>
         <style>
             body {
                 font-family: 'Calibri', sans-serif;

@@ -1,13 +1,13 @@
 @extends('secretaria.layouts.secretaria-layout')
 
-@section('title', 'Ver planes de materia')
+@section('title', 'Ver programas de materias')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Planes de materia</h1>
-            <p class="text-gray-600 mt-2">Listado de todos los planes para revisión y consulta</p>
+            <h1 class="text-2xl font-bold text-gray-900">Programas de materias</h1>
+            <p class="text-gray-600 mt-2">Listado de todos los programas para revisión y consulta</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -17,9 +17,9 @@
                         <thead>
                             <tr class="border-b border-gray-200">
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Nombre de la materia</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Profesor</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Año del plan</th>
-                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Estado del plan</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Profesor responsable</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Año del programa</th>
+                                <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Estado del programa</th>
                                 <th class="px-4 py-3 text-left text-sm font-semibold text-gray-700">Acción</th>
                             </tr>
                         </thead>
@@ -49,8 +49,8 @@
                                         </a>
                                         @else
                                         <!-- Botón Revisar -->
-                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-blue-600 text-sm font-medium rounded-md text-blue-600 bg-white 
-                       hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                        <a href="{{ route('secretaria.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                       hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                             REVISAR
                                         </a>
                                         @endif

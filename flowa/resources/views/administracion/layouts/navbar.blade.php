@@ -12,15 +12,15 @@
                     <ul class="p-2 bg-base-100 z-50">
                         <li><a href="/administracion/crearmateria">Crear materia</a></li>
                         <li><a href="/administracion/crearcarrera">Crear carrera</a></li>
-                        <li><a href="/administracion/crearplan">Crear plan de materia</a></li>
+                        <li><a href="/administracion/crearplan">Crear programa de materia</a></li>
                         <li><a href="/administracion/crearsecretaria">Crear usuario Secretaría Académica</a></li>
                         <li><a href="/administracion/crearadministrativo">Crear usuario Administración</a></li>
                         <li><a href="/administracion/crearprofesor">Crear usuario Profesor</a></li>
                         <li><a href="/administracion/crearcomision">Crear usuario Coordinador Comisión Curricular</a></li>
-                        <li><a href="/administracion/modificarplan">Modificar plan de materia</a></li>
-                        <li><a href="/administracion/eliminarplan">Eliminar plan de materia</a></li>
+                        <li><a href="/administracion/modificarplan">Modificar programa de materia</a></li>
+                        <li><a href="/administracion/eliminarplan">Eliminar programa de materia</a></li>
                         <li><a href="/administracion/creardepartamento">Crear departamento</a></li>
-                        <li><a href="/administracion/verplanes">Ver planes existentes</a></li>
+                        <li><a href="/administracion/verplanes">Ver programas existentes</a></li>
 
                     </ul>
                 </li>

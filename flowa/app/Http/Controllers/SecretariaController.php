@@ -4,19 +4,33 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Secretaria;
+use App\Models\Plan;
+use Illuminate\Support\Facades\DB;
 
 class SecretariaController extends Controller
 {
     public function index()
     {
-
     }
 
-    public function dashboard(){
-        // Lógica para la página principal de administración
-        return view('secretaria.dashboard');
-    }
+    public function dashboard()
+    {
+        $totalPlanes = Plan::count();
+        $planesPendientes = Plan::where('estado', 'Completo por profesor.')->count();
+        $planesObservados = Plan::where('estado', 'Rectificado por administración para secretaría académica.', 'Rectificado por profesor para secretaría académica.')->count();
 
+        // Conteo por estado para gráfico
+        $planesPorEstado = Plan::select('estado', DB::raw('count(*) as total'))
+            ->groupBy('estado')
+            ->pluck('total', 'estado');
+
+        return view('secretaria.dashboard', compact(
+            'totalPlanes',
+            'planesPendientes',
+            'planesObservados',
+            'planesPorEstado'
+        ));
+    }
     /**
      * Show the form for creating a new resource.
      */
@@ -61,13 +75,12 @@ class SecretariaController extends Controller
             } else {
                 return redirect('/administracion')->with('estado', 'Nuevo usuario de Secretaría Académica creado exitosamente.');
             }
-        } 
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             if (auth()->user()->role === 'secretaria') {
                 return redirect('/secretaria')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
             } else {
                 return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
             }
         }
-    }    
+    }
 }

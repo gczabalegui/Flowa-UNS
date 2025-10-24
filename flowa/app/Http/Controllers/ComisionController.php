@@ -21,8 +21,34 @@ class ComisionController extends Controller
 
     public function dashboard()
     {
-        // Lógica para la página principal de comision
-        return view('comision.dashboard');
+        // Total de planes
+        $totalPlanes = Plan::count();
+
+        // Planes aprobados por secretaría
+        $totalPlanesAprobados = Plan::where('estado', 'Aprobado por secretaría académica.')->count();
+
+        // Planes esperando ser completados por profesor
+        $planesPendientesProfesor = Plan::where('estado', 'Completo por administración.')->count();
+
+        // Top 5 profesores con más planes asociados
+        $topProfesores = Plan::with('materia.profesor')
+            ->get()
+            ->groupBy(function ($plan) {
+                $profesor = $plan->materia->profesor ?? null;
+                return $profesor ? $profesor->nombre_profesor . ' ' . $profesor->apellido_profesor : 'Sin profesor';
+            })
+            ->map(function ($planes) {
+                return count($planes);
+            })
+            ->sortDesc()
+            ->take(5);
+
+        return view('comision.dashboard', compact(
+            'totalPlanes',
+            'totalPlanesAprobados',
+            'planesPendientesProfesor',
+            'topProfesores'
+        ));
     }
     /**
      * Show the form for creating a new resource.

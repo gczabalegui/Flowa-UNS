@@ -1,13 +1,13 @@
 @extends('administracion.layouts.admin-layout')
 
-@section('title', 'Crear nuevo plan de materia')
+@section('title', 'Crear nuevo programa de materia')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo plan de materia</h1>
-            <p class="text-gray-600 mt-2">Complete el formulario para registrar un nuevo plan de materia</p>
+            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo programa de materia</h1>
+            <p class="text-gray-600 mt-2">Complete el formulario para registrar un nuevo programa de materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
@@ -28,7 +28,7 @@
                     <!-- Profesor y Año en la misma fila -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Profesor</label>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Profesor responsable</label>
                             <select id="profesor" name="profesor_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">Seleccione un profesor</option>
                                 @foreach($profesores as $profesor)
@@ -95,16 +95,10 @@
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas fuertes (obligatorias) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
-                                            <div class="flex items-center">
-                                                <input type="checkbox" 
-                                                       name="correlativas_fuertes[]" 
-                                                       value="{{ $materia->id }}" 
-                                                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" 
-                                                       data-materia-id="{{ $materia->id }}"
-                                                       id="fuerte_{{ $materia->id }}"
-                                                       {{ in_array($materia->id, old('correlativas_fuertes', [])) ? 'checked' : '' }}>
-                                                <label for="fuerte_{{ $materia->id }}" class="text-sm text-gray-700 cursor-pointer">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
-                                            </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" name="correlativas_fuertes[]" value="{{ $materia->id }}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" data-materia-id="{{ $materia->id }}" id="fuerte_{{ $materia->id }}" {{ in_array($materia->id, old('correlativas_fuertes', [])) ? 'checked' : '' }}>
+                                            <label for="fuerte_{{ $materia->id }}" class="text-sm text-gray-700 cursor-pointer">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -113,16 +107,10 @@
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas débiles (recomendadas) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
-                                            <div class="flex items-center">
-                                                <input type="checkbox" 
-                                                       name="correlativas_debiles[]" 
-                                                       value="{{ $materia->id }}" 
-                                                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" 
-                                                       data-materia-id="{{ $materia->id }}"
-                                                       id="debil_{{ $materia->id }}"
-                                                       {{ in_array($materia->id, old('correlativas_debiles', [])) ? 'checked' : '' }}>
-                                                <label for="debil_{{ $materia->id }}" class="text-sm text-gray-700 cursor-pointer">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
-                                            </div>
+                                        <div class="flex items-center">
+                                            <input type="checkbox" name="correlativas_debiles[]" value="{{ $materia->id }}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" data-materia-id="{{ $materia->id }}" id="debil_{{ $materia->id }}" {{ in_array($materia->id, old('correlativas_debiles', [])) ? 'checked' : '' }}>
+                                            <label for="debil_{{ $materia->id }}" class="text-sm text-gray-700 cursor-pointer">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
+                                        </div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -193,17 +181,18 @@
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
                     <div class="tooltip tooltip-top" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
-                        <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="9" id="borradorBtn" disabled>
+                        <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="9" id="borradorBtn" disabled>
                             GUARDAR BORRADOR
                         </button>
                     </div>
-                    
+
                     <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
-                        <button type="submit" name="action" value="guardar" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="10" id="guardarBtn" disabled>
+                        <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
+                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="10" id="guardarBtn" disabled>
                             GUARDAR
                         </button>
                     </div>
-                    
+
                     <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="11" onclick="window.location.href='/administracion'">
                         CANCELAR
                     </button>
@@ -250,35 +239,35 @@
 <script>
     // Campos requeridos para el botón "Guardar" (horas_totales se calcula automáticamente)
     const requiredFields = ['materia_id', 'anio', 'horas_teoricas', 'horas_practicas', 'DTE', 'RTF', 'creditos_academicos'];
-    
+
     // Referencias a elementos
     const guardarBtn = document.getElementById('guardarBtn');
     const guardarTooltip = document.getElementById('guardarTooltip');
     const borradorBtn = document.getElementById('borradorBtn');
     const borradorTooltip = document.getElementById('borradorTooltip');
-    
+
     // Función para validar el formulario completo
     function validateForm() {
         let allValid = true;
-        
+
         requiredFields.forEach(fieldName => {
             const field = document.getElementById(fieldName);
             if (field && field.value.trim() === '') {
                 allValid = false;
             }
         });
-        
+
         if (allValid) {
             guardarBtn.disabled = false;
         } else {
             guardarBtn.disabled = true;
         }
     }
-    
+
     // Función para validar borrador (solo requiere materia)
     function validateBorrador() {
         const materiaField = document.getElementById('materia_id');
-        
+
         if (materiaField && materiaField.value.trim() !== '') {
             borradorBtn.disabled = false;
             borradorTooltip.setAttribute('data-tip', 'Guardar como borrador');
@@ -287,31 +276,31 @@
             borradorTooltip.setAttribute('data-tip', 'Debe seleccionar una materia para guardar como borrador');
         }
     }
-    
+
     // Validar al cargar la página
     calculateTotalHours(); // Calcular horas totales al cargar
     validateForm();
     validateBorrador(); // Validar botón de borrador al cargar
-    
+
     // Función para calcular horas totales automáticamente
     function calculateTotalHours() {
         const horasTeoricas = parseInt(document.getElementById('horas_teoricas').value) || 0;
         const horasPracticas = parseInt(document.getElementById('horas_practicas').value) || 0;
         const horasTotales = horasTeoricas + horasPracticas;
-        
+
         document.getElementById('horas_totales').value = horasTotales > 0 ? horasTotales : '';
-        
+
         // Validar formulario después de calcular
         validateForm();
         validateBorrador(); // También validar borrador
     }
-    
+
     // Agregar listeners para calcular horas totales
     document.getElementById('horas_teoricas').addEventListener('input', calculateTotalHours);
     document.getElementById('horas_practicas').addEventListener('input', calculateTotalHours);
     document.getElementById('horas_teoricas').addEventListener('change', calculateTotalHours);
     document.getElementById('horas_practicas').addEventListener('change', calculateTotalHours);
-    
+
     // Agregar listeners a todos los campos requeridos
     requiredFields.forEach(fieldName => {
         const field = document.getElementById(fieldName);
@@ -320,7 +309,7 @@
             field.addEventListener('change', validateForm);
         }
     });
-    
+
     // Agregar listener específico para validar borrador cuando cambia la materia
     document.getElementById('materia_id').addEventListener('change', validateBorrador);
     document.getElementById('materia_id').addEventListener('input', validateBorrador);
@@ -347,11 +336,11 @@
     // Función para manejar la disponibilidad de correlativas
     function updateCorrelativasAvailability(selectedMateriaId) {
         const correlativaCheckboxes = document.querySelectorAll('.correlativa-checkbox');
-        
+
         correlativaCheckboxes.forEach(checkbox => {
             const materiaId = checkbox.getAttribute('data-materia-id');
             const label = checkbox.closest('div');
-            
+
             if (materiaId === selectedMateriaId) {
                 // Deshabilitar la materia seleccionada para evitar autocorrelación
                 checkbox.disabled = true;
@@ -370,11 +359,11 @@
     // Función para prevenir selección duplicada entre correlativas fuertes y débiles
     function handleCorrelativaSelection(changedCheckbox) {
         if (!changedCheckbox.checked) return;
-        
+
         const materiaId = changedCheckbox.getAttribute('data-materia-id');
         const isStrong = changedCheckbox.name === 'correlativas_fuertes[]';
         const otherType = isStrong ? 'correlativas_debiles[]' : 'correlativas_fuertes[]';
-        
+
         // Buscar y desmarcar la correlativa del otro tipo
         const otherCheckbox = document.querySelector(`input[name="${otherType}"][data-materia-id="${materiaId}"]`);
         if (otherCheckbox && otherCheckbox.checked) {

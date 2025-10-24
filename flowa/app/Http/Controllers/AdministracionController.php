@@ -5,17 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Administracion;
 use App\Models\User;
+use App\Models\Plan;
+use App\Models\Profesor;
+use App\Models\Materia;
+use Illuminate\Support\Facades\DB;
 
 class AdministracionController extends Controller
 {
-    public function index()
-    {
-    }
-
     public function dashboard()
     {
-        // Lógica para la página principal de administración
-        return view('administracion.dashboard');
+        $totalPlanes = Plan::count();
+        $planesPorEstado = Plan::select('estado', DB::raw('count(*) as total'))
+            ->groupBy('estado')
+            ->pluck('total', 'estado');
+
+        $planesPorAnio = Plan::select('anio', DB::raw('count(*) as total'))
+            ->groupBy('anio')
+            ->orderBy('anio')
+            ->pluck('total', 'anio');
+
+        $totalProfesores = Profesor::count();
+        $totalMaterias = Materia::count();
+
+        return view('administracion.dashboard', compact(
+            'totalPlanes',
+            'planesPorEstado',
+            'planesPorAnio',
+            'totalProfesores',
+            'totalMaterias'
+        ));
     }
 
     /**

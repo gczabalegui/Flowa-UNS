@@ -7,81 +7,90 @@
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Dashboard administración</h1>
-            <p class="text-gray-600 mt-2">Gestión de usuarios, materias, carreras y planes de materia</p>
+            <p class="text-gray-600 mt-2">Resumen general de planes, profesores y materias</p>
         </div>
 
-        <!-- Tarjetas de acceso rápido -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
 
-            <!-- Crear Materia -->
-            <a href="/administracion/crearmateria" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 20h9M12 4h9M4 12h16"></path>
-                        </svg>
-                    </div>
+            <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow border flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Datos de gestión</h3>
+                
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <h2 class="text-4xl font-bold text-blue-600">{{ $totalPlanes }}</h2>
+                    <p class="text-gray-600 mt-1">Programas de materias totales</p>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear materia</h3>
-                <p class="text-sm text-gray-600">Registrar una nueva materia en el sistema.</p>
-            </a>
-
-            <!-- Crear Carrera -->
-            <a href="/administracion/crearcarrera" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                        </svg>
-                    </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <h2 class="text-4xl font-bold text-green-600">{{ $totalMaterias }}</h2>
+                    <p class="text-gray-600 mt-1">Materias</p>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear carrera</h3>
-                <p class="text-sm text-gray-600">Registrar una nueva carrera universitaria.</p>
-            </a>
-
-            <!-- Crear Plan -->
-            <a href="/administracion/crearplan" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-yellow-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m4-4H8"></path>
-                        </svg>
-                    </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow border">
+                    <h2 class="text-4xl font-bold text-purple-600">{{ $totalProfesores }}</h2>
+                    <p class="text-gray-600 mt-1">Profesores</p>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear plan</h3>
-                <p class="text-sm text-gray-600">Registrar un nuevo plan de materia para una carrera.</p>
-            </a>
+            </div>
 
-            <!-- Crear Usuarios (Secretaría) -->
-            <a href="/administracion/crearsecretaria" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
-                        </svg>
-                    </div>
+            <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow border flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Programas de materias por estado</h3>
+                {{-- Contenedor con altura fija para evitar que el gráfico se estire --}}
+                <div class="flex-grow flex items-center justify-center" style="max-height: 400px;">
+                    <canvas id="chartEstado"></canvas>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Crear usuario secretaría</h3>
-                <p class="text-sm text-gray-600">Registrar nuevo usuario de secretaría académica.</p>
-            </a>
+            </div>
 
-            <!-- Ver planes -->
-            <a href="/administracion/verplanes" class="bg-white rounded-lg shadow border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                        </svg>
-                    </div>
+            <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow border flex flex-col">
+                <h3 class="text-lg font-semibold text-gray-800 mb-4">Programas por año</h3>
+                 {{-- Contenedor con altura fija para evitar que el gráfico se estire --}}
+                <div class="flex-grow" style="max-height: 400px;">
+                    <canvas id="chartAnio"></canvas>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">Listar planes</h3>
-                <p class="text-sm text-gray-600">Consulta todos los planes de materia existentes.</p>
-            </a>
+            </div>
 
+        </div> 
         </div>
-    </div>
 </div>
 
-<!-- Espacio adicional al final de la página -->
-<div class="h-16"></div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Tu código JavaScript ya estaba correcto, se mantiene igual.
+    const ctxEstado = document.getElementById('chartEstado').getContext('2d');
+    new Chart(ctxEstado, {
+        type: 'doughnut',
+        data: {
+            labels: {!! json_encode($planesPorEstado->keys()) !!},
+            datasets: [{
+                data: {!! json_encode($planesPorEstado->values()) !!},
+                backgroundColor: ['#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6'],
+            }]
+        },
+        options: {
+            // Esto ayuda a que el gráfico de dona se vea mejor en contenedores pequeños
+            responsive: true,
+            maintainAspectRatio: false,
+        }
+    });
+
+    const ctxAnio = document.getElementById('chartAnio').getContext('2d');
+    new Chart(ctxAnio, {
+        type: 'bar',
+        data: {
+            labels: {!! json_encode($planesPorAnio->keys()) !!},
+            datasets: [{
+                label: 'Programas',
+                data: {!! json_encode($planesPorAnio->values()) !!},
+                backgroundColor: '#3b82f6',
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
 @endsection

@@ -172,6 +172,7 @@ Route::post('/administracion/plan', [PlanController::class, 'store'])
 
 
 
+
 // ------------------------------
 // RUTAS PARA IAs
 // ------------------------------

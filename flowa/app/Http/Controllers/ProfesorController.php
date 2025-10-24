@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Profesor;
 use Illuminate\Support\Facades\Log;
 use App\Models\User;
+use App\Models\Plan;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class ProfesorController extends Controller
@@ -16,11 +19,60 @@ class ProfesorController extends Controller
         return view('administracion.verprofesores')->with('profesores', $profesores);
     }
 
-    public function dashboard(){
-        // Lógica para la página principal del profesor
-        return view('profesor.dashboard');
+    public function dashboard()
+    {
+        $user = auth()->user();
 
-        Log::info("Se ha accedido a la página principal del profesor");
+        // Si es admin, mostramos todos los planes
+        if ($user->role === 'admin') {
+            $planesQuery = Plan::query();
+        } else {
+            // Si es profesor, solo sus planes
+            $planesQuery = Plan::where('profesor_id', $user->profesor->id);
+        }
+
+        // Datos numéricos
+        $totalPlanes = (clone $planesQuery)->count();
+        $planesPendientes = (clone $planesQuery)
+            ->whereIn('estado', ['Incompleto por profesor.', 'Rectificado por administración para profesor.', 'Completo por administración.'])
+            ->count();
+        $planesAprobados = (clone $planesQuery)
+            ->where('estado', 'Aprobado por secretaría académica.')
+            ->count();
+        $planesRechazados = (clone $planesQuery)
+            ->where('estado', 'Rechazado para profesor por secretaría académica.')
+            ->count();
+
+        // Gráfico por estado
+        $planesPorEstado = (clone $planesQuery)
+            ->select('estado', DB::raw('count(*) as total'))
+            ->whereIn('estado', [
+                'Completo por administración.',
+                'Rechazado para profesor por secretaría académica.',
+                'Incompleto por profesor.',
+                'Rectificado por administración para profesor.',
+                'Aprobado por secretaría académica.'
+            ])
+            ->groupBy('estado')
+            ->pluck('total', 'estado');
+
+        // Últimas modificaciones (5 más recientes)
+        // Últimas modificaciones (5 más recientes)
+        $ultimasModificaciones = (clone $planesQuery)
+            ->with('materia') // Traemos la materia asociada
+            ->orderBy('updated_at', 'desc')
+            ->take(5)
+            ->get(['id', 'materia_id', 'estado', 'updated_at']);
+
+
+        return view('profesor.dashboard', compact(
+            'totalPlanes',
+            'planesPendientes',
+            'planesAprobados',
+            'planesRechazados',
+            'planesPorEstado',
+            'ultimasModificaciones'
+        ));
     }
 
     /*
@@ -28,7 +80,7 @@ class ProfesorController extends Controller
         return view('profesor.modificarplan');
     }
     */
-        /**
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -64,7 +116,7 @@ class ProfesorController extends Controller
                 'legajo_profesor' => 'required|digits_between:1,5|numeric|unique:profesors,legajo_profesor',
                 'contraseña_profesor' => 'required|string|min:8|confirmed',
             ]);
-    
+
             $profesor = new Profesor();
             $profesor->nombre_profesor = $request->get('nombre_profesor');
             $profesor->apellido_profesor = $request->get('apellido_profesor');
@@ -73,27 +125,25 @@ class ProfesorController extends Controller
             $profesor->legajo_profesor = $request->get('legajo_profesor');
             $profesor->contraseña_profesor = bcrypt($request->contraseña_profesor);
             $profesor->save();
-    
+
             $user = new User();
             $user->legajo = $request->get('legajo_profesor');
             $user->email = $request->get('email_profesor');
             $user->password = bcrypt($request->get('contraseña_profesor'));
             $user->role = 'profesor';
             $user->save();
-    
+
             if (auth()->user()->role === 'secretaria') {
                 return redirect('/secretaria')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
             } else {
                 return redirect('/administracion')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
             }
-        }
-        catch(\Exception $e) {
+        } catch (\Exception $e) {
             if (auth()->user()->role === 'secretaria') {
                 return redirect('/secretaria')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
             } else {
                 return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Error: ' . $e->getMessage());
             }
-        }      
+        }
     }
 }
-
