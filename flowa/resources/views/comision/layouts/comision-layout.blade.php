@@ -6,14 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Flowa</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta name="description" content="Panel de comisión curricular de Flowa para la gestión de usuarios, materias, carreras y programas de materia.">
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body class="bg-gray-50">
-    <div x-data="{ sidebarOpen: true }" class="flex h-screen">
+    <div x-data="{ sidebarOpen: true }" x-init="if (window.innerWidth < 1024) sidebarOpen = false" class="flex h-screen">
+
+        <div x-show="sidebarOpen" x-transition.opacity.duration.300ms class="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden" @click="sidebarOpen = false"></div>
+
         <div class="fixed top-0 left-0 right-0 z-40 bg-white shadow-sm border-b border-gray-200">
             <div class="flex items-center justify-between h-16 px-4">
                 <div class="flex items-center">
-                    <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Alternar menú lateral">
+                    <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Toggle Sidebar" title="Mostrar/Ocultar menú lateral">
                         <svg x-show="!sidebarOpen" x-transition.opacity class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
@@ -60,7 +65,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
                             </div>
-                            <span class="ml-2 text-sm font-medium text-gray-700">{{ Auth::user()->name ?? 'Usuario - Comisión curricular' }}</span>
+                            <span class="ml-2 text-sm font-medium text-gray-700">{{ Auth::user()->name ?? 'Usuario - Comisión académica' }}</span>
                             <svg :class="profileOpen ? 'rotate-180' : ''" class="ml-1 w-4 h-4 text-gray-600 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                             </svg>
@@ -97,14 +102,16 @@
             </div>
         </div>
 
-        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
+        <div :class="{ 
+        'translate-x-0': sidebarOpen, 
+        '-translate-x-64': !sidebarOpen  /* desplazamiento más leve que full (-full mueve demasiado) */
+     }" class="fixed left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
             <div class="flex flex-col h-full pt-16">
                 <nav class="flex-1 px-4 py-6 overflow-y-auto">
                     <a href="/comision" class="flex items-center px-4 py-3 mb-6 text-gray-700 bg-blue-50 rounded-lg hover:bg-blue-100">
                         <svg class="w-5 h-5 mr-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v4"></path>
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 1v4"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v4M16 1v4"></path>
                         </svg>
                         <span class="text-sm font-medium">Dashboard</span>
                     </a>
@@ -121,7 +128,11 @@
                 </nav>
             </div>
         </div>
-        <div :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 w-full min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
+
+        <div :class="{ 
+        'lg:ml-64': sidebarOpen, 
+        'lg:ml-16': !sidebarOpen  /* margen reducido cuando se oculta */
+    }" class="flex-1 w-full min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
             <main class="p-6">
                 @yield('content')
             </main>
