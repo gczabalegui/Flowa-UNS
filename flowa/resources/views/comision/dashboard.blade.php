@@ -19,15 +19,15 @@
                 <div class="flex justify-between items-center">
                     <div>
                         <p class="text-gray-600">Total de programas de materias</p>
-                        <h2 class="text-3xl font-bold text-blue-600">{{ $totalPlanes }}</h2>
+                        <h2 class="text-3xl font-bold text-blue-600 text-center">{{ $totalPlanes }}</h2>
                     </div>
                     <div>
                         <p class="text-gray-600">Programas aprobados por secretaría académica</p>
-                        <h2 class="text-3xl font-bold text-green-600">{{ $totalPlanesAprobados }}</h2>
+                        <h2 class="text-3xl font-bold text-green-600 text-center">{{ $totalPlanesAprobados }}</h2>
                     </div>
                     <div>
                         <p class="text-gray-600">Programas esperando a profesor responsable</p>
-                        <h2 class="text-3xl font-bold text-red-600">{{ $planesPendientesProfesor }}</h2>
+                        <h2 class="text-3xl font-bold text-red-600 text-center">{{ $planesPendientesProfesor }}</h2>
                     </div>
                 </div>
             </div>

@@ -94,7 +94,7 @@ class ComisionController extends Controller
             $comisiones->carrera_responsable = $request->get('carrera_responsable');
 
             $comisiones->save();
-            return redirect('/administracion')->with('estado', 'Nuevo usuario de la Comisión Curricular creado exitosamente.');
+            return redirect('/administracion')->with('estado', 'Nuevo usuario de la comisión curricular creado exitosamente.');
         } catch (\Exception $e) {
             return redirect('/administracion')->with('warning', 'No se ha podido crear el nuevo usuario. Detalles: ' . $e->getMessage());
         }

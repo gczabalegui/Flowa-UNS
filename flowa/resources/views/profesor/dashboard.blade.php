@@ -17,7 +17,7 @@
             <!-- Card 1: Datos Numéricos -->
             <div class="bg-white p-6 rounded-lg shadow border flex flex-col space-y-4">
                 <h3 class="text-lg font-semibold text-gray-800">Datos de gestión</h3>
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center text-center">
                     <div>
                         <p class="text-gray-600">Total de planes asignados</p>
                         <h2 class="text-3xl font-bold text-blue-600">{{ $totalPlanes }}</h2>
