@@ -2,16 +2,19 @@
 @section('title', 'Ver programas de materia')
 
 @section('content')
-<div class="flex w-full p-6" x-data="{ sidebarOpen: true }">
+<div class="flex w-full p-6" x-data="{ sidebarOpen: true }" 
+    x-init="if (window.innerWidth < 1024) { sidebarOpen = false }"> 
+    
     <div :class="sidebarOpen ? 'w-full' : 'w-full'">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Programas de materias</h1>
             <p class="text-gray-600 mt-2">Consultá los programas aprobados por secretaría académica.</p>
         </div>
 
-        <div class="bg-white rounded-lg shadow border border-gray-200">
-            <div :class="sidebarOpen ? 'transition-all duration-500' : 'transition-all duration-500'">
-                <table class="w-full border-collapse" x-bind:class="sidebarOpen ? '' : 'w-full'">
+        <div>
+            
+            <div class="hidden lg:block bg-white rounded-lg shadow border border-gray-200">
+                <table class="w-full border-collapse">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
                             <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nombre de la materia</th>
@@ -21,7 +24,6 @@
                             <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Operaciones</th>
                         </tr>
                     </thead>
-
                     <tbody class="divide-y divide-gray-200 bg-white">
                         @foreach($planes as $plan)
                         <tr class="hover:bg-gray-50 transition">
@@ -50,25 +52,12 @@
                             </td>
                             <td class="px-6 py-4 text-sm font-medium text-center">
                                 <div class="flex flex-col items-center gap-2 w-full">
-                                    <!-- Botón Ver -->
-                                    <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
-          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                    <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                         VER
                                     </a>
-
-                                    <!-- Botón Generar PDF con estilo clean -->
-                                    <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
-          hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                    <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                         GENERAR PDF
                                     </a>
-
-
-                                    <!-- Ejemplo deshabilitado -->
-                                    {{--
-                                    <span class="inline-flex items-center justify-center px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70">
-                                        GENERAR PDF
-                                    </span> 
-                                    --}}
                                 </div>
                             </td>
                         </tr>
@@ -76,6 +65,59 @@
                     </tbody>
                 </table>
             </div>
+
+            <div class="lg:hidden space-y-4">
+                @foreach($planes as $plan)
+                <div class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-md transition duration-200 text-center
+                            w-full sm:max-w-md sm:mx-auto"> 
+                    
+                    <div class="flex flex-wrap justify-center items-start border-b border-gray-100 pb-2 mb-2">
+                        <div class="text-base font-bold text-gray-900">
+                            {{ $plan->materia->nombre_materia }}
+                        </div>
+                        <div class="text-sm font-medium text-gray-500 mt-0.5 ml-1"> 
+                            ({{ $plan->materia->codigo_materia }})
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <div class="text-sm text-gray-700">
+                            <span class="font-semibold">Profesor:</span> 
+                            {{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}
+                        </div>
+                        <div class="text-sm text-gray-700">
+                            <span class="font-semibold">Año:</span> {{ $plan->anio }}
+                        </div>
+
+                        <div class="flex items-center pt-1 justify-center">
+                            <span class="text-sm font-semibold text-gray-700 mr-2">Estado:</span>
+                            <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
+                                @if(str_contains($plan->estado, 'Completo') || str_contains($plan->estado, 'Aprobado'))
+                                bg-green-100 text-green-800
+                                @elseif(str_contains($plan->estado, 'Rechazado'))
+                                bg-red-100 text-red-800
+                                @elseif(str_contains($plan->estado, 'Incompleto'))
+                                bg-yellow-100 text-yellow-800
+                                @else
+                                bg-gray-100 text-gray-800
+                                @endif">
+                                {{ $plan->estado }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row gap-2 pt-4 justify-center border-t border-gray-100 mt-4">
+                        <a href="{{ route('comision.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-full sm:w-28 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            VER
+                        </a>
+                        <a href="{{ route('comision.generarPdf', ['id' => $plan->id]) }}" target="_blank" class="inline-flex items-center justify-center w-full sm:w-28 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            GENERAR PDF
+                        </a>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+
         </div>
     </div>
 </div>
