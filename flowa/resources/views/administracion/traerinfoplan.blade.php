@@ -59,28 +59,56 @@
                         </div>
                     </div>
 
+                    <!-- DTE, RTF y Créditos académicos (solo lectura con tooltip) -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">DTE</label>
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                DTE
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                                <span class="tooltip-content">
+                                    <b>Dedicación Total del Estudiante (DTE)</b><br>
+                                    DTE = CHT × (K + 1)<br>
+                                    Factor K:<br>
+                                    • Ciencias Básicas = FB (1,25)<br>
+                                    • Tecnolog. Básicas = FA (1,5)<br>
+                                    • Tecnolog. Aplicadas = FP (2)<br>
+                                    • Complementarias = FC (1)
+                                </span>
+                            </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->DTE }}</p>
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">RTF</label>
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                RTF
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                                <span class="tooltip-content">
+                                    <b>Reconocimiento De Trayecto Formativo (RTF)</b><br>
+                                    RTF = DTE / 30
+                                </span>
+                            </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->RTF }}</p>
                             </div>
                         </div>
 
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                Créditos académicos
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                                <span class="tooltip-content">
+                                    <b>Créditos académicos</b><br>
+                                    Cantidad de créditos asignados según la carga horaria total y el trayecto formativo.
+                                </span>
+                            </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->creditos_academicos }}</p>
                             </div>
-                        </div>                            
+                        </div>
                     </div>
+
 
                     <div>
                         <div class="border border-gray-300 rounded-lg p-4">
@@ -90,11 +118,11 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas fuertes</label>
                                     <div class="bg-gray-50 p-3 rounded-md border">
                                         @if($plan->materia->correlativasFuertes->count() > 0)
-                                            @foreach($plan->materia->correlativasFuertes as $correlativa)
-                                                <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
-                                            @endforeach
+                                        @foreach($plan->materia->correlativasFuertes as $correlativa)
+                                        <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                                        @endforeach
                                         @else
-                                            <p class="text-sm text-gray-500">No posee correlativas fuertes.</p>
+                                        <p class="text-sm text-gray-500">No posee correlativas fuertes.</p>
                                         @endif
                                     </div>
                                 </div>
@@ -102,11 +130,11 @@
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas débiles</label>
                                     <div class="bg-gray-50 p-3 rounded-md border">
                                         @if($plan->materia->correlativasDebiles->count() > 0)
-                                            @foreach($plan->materia->correlativasDebiles as $correlativa)
-                                                <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
-                                            @endforeach
+                                        @foreach($plan->materia->correlativasDebiles as $correlativa)
+                                        <p class="text-sm text-gray-900 mb-1">{{ $correlativa->nombre_materia }} ({{ $correlativa->codigo_materia }})</p>
+                                        @endforeach
                                         @else
-                                            <p class="text-sm text-gray-500">No posee correlativas débiles.</p>
+                                        <p class="text-sm text-gray-500">No posee correlativas débiles.</p>
                                         @endif
                                     </div>
                                 </div>
@@ -220,12 +248,12 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    @if ($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor responsable.' || $plan->estado === 'Rechazado para administración por secretaría académica.') 
-                        <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200">
-                            EDITAR
-                        </a>
+                    @if ($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría académica.')
+                    <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200">
+                        EDITAR
+                    </a>
                     @endif
-                    
+
                     <a href="/administracion/verplanes" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                         VOLVER
                     </a>
@@ -234,4 +262,56 @@
         </div>
     </div>
 </div>
+
+<style>
+    /* Tooltip estilo neutro gris/blanco */
+    .tooltip-trigger {
+        position: relative;
+        display: inline-block;
+        width: 1.25rem;
+        height: 1.25rem;
+        text-align: center;
+        line-height: 1.25rem;
+        border-radius: 9999px;
+        background-color: #f3f4f6;
+        /* gris claro */
+        color: #6b7280;
+        /* gris medio */
+        font-weight: bold;
+        transition: background-color 0.2s, color 0.2s;
+    }
+
+    .tooltip-trigger:hover {
+        background-color: #e5e7eb;
+        /* un poco más oscuro */
+        color: #374151;
+        /* gris más oscuro */
+    }
+
+    .tooltip-content {
+        visibility: hidden;
+        opacity: 0;
+        width: 240px;
+        background-color: #fff;
+        color: #374151;
+        text-align: left;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        position: absolute;
+        z-index: 10;
+        top: 100%;
+        left: 0;
+        transform: translateY(4px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+
+    .tooltip-trigger:hover+.tooltip-content {
+        visibility: visible;
+        opacity: 1;
+    }
+</style>
 @endsection
