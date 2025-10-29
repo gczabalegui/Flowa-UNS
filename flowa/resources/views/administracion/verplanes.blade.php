@@ -71,7 +71,7 @@
 
                                     {{-- Editar --}}
                                     @if($plan->estado === 'Incompleto por administración.' ||
-                                    $plan->estado === 'Rechazado para administración por profesor.' ||
+                                    $plan->estado === 'Rechazado para administración por profesor responsable.' ||
                                     $plan->estado === 'Rechazado para administración por secretaría académica.')
                                     <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="w-28 inline-flex items-center justify-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md 
                        text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 

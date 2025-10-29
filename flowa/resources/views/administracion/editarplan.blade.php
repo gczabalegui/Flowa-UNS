@@ -113,7 +113,7 @@
 
                     <!-- Campos de texto del plan -->
                     @if($plan->estado === 'Incompleto por administración.' ||
-                    $plan->estado === 'Rechazado para administración por profesor.' ||
+                    $plan->estado === 'Rechazado para administración por profesor responsable.' ||
                     $plan->estado === 'Rechazado para administración por secretaría académica.')
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

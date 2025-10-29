@@ -33,7 +33,7 @@
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-700 mb-2">Profesor responsable</label>
                         <select id="profesor_id" name="profesor_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required>
-                            <option value="">Seleccione un profesor</option>
+                            <option value="">Seleccione un profesor responsable</option>
                             @foreach($profesores as $profesor)
                             <option value="{{ $profesor->id }}">{{ $profesor->apellido_profesor }}, {{ $profesor->nombre_profesor }} ({{ $profesor->legajo_profesor}})</option>
                             @endforeach

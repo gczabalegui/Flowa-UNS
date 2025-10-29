@@ -247,8 +247,8 @@
                     @php
                     $estadosRechazados = [
                     'Rechazado para administración por secretaría académica.',
-                    'Rechazado para profesor por secretaría académica.',
-                    'Rechazado para administración por profesor.'
+                    'Rechazado para profesor responsable por secretaría académica.',
+                    'Rechazado para administración por profesor responsable.'
                     ];
                     $esPlanRechazado = in_array($plan->estado, $estadosRechazados);
                     @endphp

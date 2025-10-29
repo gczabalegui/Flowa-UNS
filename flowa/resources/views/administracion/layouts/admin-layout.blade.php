@@ -145,8 +145,8 @@
                         <div class="ml-8 space-y-1 mb-4">
                             <a href="/administracion/crearsecretaria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Secretaría académica</a>
                             <a href="/administracion/crearadministrativo" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Administración</a>
-                            <a href="/administracion/crearprofesor" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Profesor</a>
-                            <a href="/administracion/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Coordinador comisión académica</a>
+                            <a href="/administracion/crearprofesor" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Profesor responsable</a>
+                            <a href="/administracion/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Coordinador comisión curricular</a>
                         </div>
                     </div>
 

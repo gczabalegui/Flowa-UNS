@@ -61,9 +61,9 @@
                                         <!-- Botón Editar -->
                                         @if(in_array($plan->estado, [
                                         'Completo por administración.',
-                                        'Rechazado para profesor por secretaría académica.',
-                                        'Incompleto por profesor.',
-                                        'Rectificado por administración para profesor.',
+                                        'Rechazado para profesor responsable por secretaría académica.',
+                                        'Incompleto por profesor responsable.',
+                                        'Rectificado por administración para profesor responsable.',
                                         'Aprobado por secretaría académica.'
                                         ]))
                                         <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 

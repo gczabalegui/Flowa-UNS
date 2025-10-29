@@ -1,12 +1,12 @@
 @extends('secretaria.layouts.secretaria-layout')
 
-@section('title', 'Crear Profesor')
+@section('title', 'Crear profesor responsable')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo usuario profesor</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Crear nuevo usuario profesor responsable</h1>
             <p class="text-gray-600 mt-2">Complete el formulario para registrar un nuevo usuario</p>
         </div>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Flowa</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <meta name="description" content="Panel de profesor de Flowa para la gestión de usuarios, materias, carreras y programas de materia.">
+    <meta name="description" content="Panel de profesor responsable de Flowa para la gestión de usuarios, materias, carreras y programas de materia.">
     <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
