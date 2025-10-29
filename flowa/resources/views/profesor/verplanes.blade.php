@@ -10,7 +10,7 @@
             <p class="text-gray-600 mt-2">Listado de todos tus programas de materia</p>
         </div>
 
-        <div class="bg-white rounded-lg shadow border border-gray-200">
+        <div class="bg-white rounded-lg shadow border border-gray-200 lg:block hidden">
             <div class="p-6">
                 <div class="overflow-x-auto">
                     <table class="w-full border-collapse">
@@ -52,22 +52,20 @@
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium text-center">
                                     <div class="flex flex-col items-center gap-2 w-full">
-                                        <!-- Botón Vista previa -->
                                         <a href="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
-                                           hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                            hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                             VISTA PREVIA
                                         </a>
 
-                                        <!-- Botón Editar -->
                                         @if(in_array($plan->estado, [
                                         'Completo por administración.',
-                                        'Rechazado para profesor por secretaría académica.',
-                                        'Incompleto por profesor.',
-                                        'Rectificado por administración para profesor.',
+                                        'Rechazado para profesor responsable por secretaría académica.',
+                                        'Incompleto por profesor responsable.',
+                                        'Rectificado por administración para profesor responsable.',
                                         'Aprobado por secretaría académica.'
                                         ]))
                                         <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
-                                           hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                                            hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
                                             EDITAR
                                         </a>
                                         @else
@@ -84,9 +82,77 @@
                 </div>
             </div>
         </div>
+
+        <div class="lg:hidden space-y-4">
+            @foreach($planes as $plan)
+            <div class="p-4 bg-white rounded-lg shadow border border-gray-200 hover:shadow-md transition duration-200 text-center
+                        w-full sm:max-w-md sm:mx-auto">
+                
+                <div class="flex flex-wrap justify-center items-start border-b border-gray-100 pb-2 mb-2">
+                    <div class="text-base font-bold text-gray-900">
+                        {{ $plan->materia->nombre_materia }}
+                    </div>
+                    <div class="text-sm font-medium text-gray-500 mt-0.5 ml-1">
+                        ({{ $plan->materia->codigo_materia }})
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <div class="text-sm text-gray-700">
+                        <span class="font-semibold">Profesor:</span> 
+                        {{ $plan->materia->profesor->apellido_profesor }}, {{ $plan->materia->profesor->nombre_profesor }}
+                    </div>
+                    <div class="text-sm text-gray-700">
+                        <span class="font-semibold">Año:</span> {{ $plan->anio }}
+                    </div>
+
+                    <div class="flex items-center pt-1 justify-center">
+                        <span class="text-sm font-semibold text-gray-700 mr-2">Estado:</span>
+                        <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
+                            @if(str_contains($plan->estado, 'Aprobado'))
+                            bg-green-100 text-green-800
+                            @elseif(str_contains($plan->estado, 'Rechazado'))
+                            bg-red-100 text-red-800
+                            @elseif(str_contains($plan->estado, 'Incompleto'))
+                            bg-yellow-100 text-yellow-800
+                            @else
+                            bg-gray-100 text-gray-800
+                            @endif">
+                            {{ $plan->estado }}
+                        </span>
+                    </div>
+                </div>
+
+
+                <div class="flex flex-col sm:flex-row gap-2 pt-4 justify-center border-t border-gray-100 mt-4">
+                    <a href="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-full sm:w-36 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                        hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                        VISTA PREVIA
+                    </a>
+
+                    @if(in_array($plan->estado, [
+                    'Completo por administración.',
+                    'Rechazado para profesor responsable por secretaría académica.',
+                    'Incompleto por profesor responsable.',
+                    'Rectificado por administración para profesor responsable.',
+                    'Aprobado por secretaría académica.'
+                    ]))
+                    <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-full sm:w-36 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                        hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                        EDITAR
+                    </a>
+                    @else
+                    <span class="inline-flex items-center justify-center w-full sm:w-36 px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70">
+                        EDITAR
+                    </span>
+                    @endif
+                </div>
+            </div>
+            @endforeach
+        </div>
+
     </div>
 </div>
 
-<!-- Espacio adicional al final de la página -->
 <div class="h-16"></div>
 @endsection

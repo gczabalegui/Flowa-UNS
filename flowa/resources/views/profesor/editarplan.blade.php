@@ -61,20 +61,48 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">DTE</label>
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                DTE
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                                <span class="tooltip-content">
+                                    <b>Dedicación Total del Estudiante (DTE)</b><br>
+                                    DTE = CHT × (K + 1)<br>
+                                    Factor K:<br>
+                                    • Ciencias Básicas = FB (1,25)<br>
+                                    • Tecnolog. Básicas = FA (1,5)<br>
+                                    • Tecnolog. Aplicadas = FP (2)<br>
+                                    • Complementarias = FC (1)
+                                </span>
+                            </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->DTE }}</p>
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">RTF</label>
+
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                RTF
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                                <span class="tooltip-content">
+                                    <b>Reconocimiento De Trayecto Formativo (RTF)</b><br>
+                                    RTF = DTE / 30
+                                </span>
+                            </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->RTF }}</p>
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
+
+                        <div class="relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                Créditos académicos
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                                <span class="tooltip-content">
+                                    <b>Créditos académicos</b><br>
+                                    Cantidad de créditos asignados según la carga horaria total y el trayecto formativo.
+                                </span>
+                            </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
                                 <p class="text-lg text-gray-900">{{ $plan->creditos_academicos }}</p>
                             </div>
@@ -247,8 +275,8 @@
                     @php
                     $estadosRechazados = [
                     'Rechazado para administración por secretaría académica.',
-                    'Rechazado para profesor por secretaría académica.',
-                    'Rechazado para administración por profesor.'
+                    'Rechazado para profesor responsable por secretaría académica.',
+                    'Rechazado para administración por profesor responsable.'
                     ];
                     $esPlanRechazado = in_array($plan->estado, $estadosRechazados);
                     @endphp
@@ -685,5 +713,57 @@
             });
         });
     </script>
+
+    <style>
+        /* Tooltip estilo neutro gris/blanco */
+        .tooltip-trigger {
+            position: relative;
+            display: inline-block;
+            width: 1.25rem;
+            height: 1.25rem;
+            text-align: center;
+            line-height: 1.25rem;
+            border-radius: 9999px;
+            background-color: #f3f4f6;
+            /* gris claro */
+            color: #6b7280;
+            /* gris medio */
+            font-weight: bold;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .tooltip-trigger:hover {
+            background-color: #e5e7eb;
+            /* un poco más oscuro */
+            color: #374151;
+            /* gris más oscuro */
+        }
+
+        .tooltip-content {
+            visibility: hidden;
+            opacity: 0;
+            width: 240px;
+            background-color: #fff;
+            color: #374151;
+            text-align: left;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            position: absolute;
+            z-index: 10;
+            top: 100%;
+            left: 0;
+            transform: translateY(4px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+            font-size: 0.75rem;
+            line-height: 1rem;
+        }
+
+        .tooltip-trigger:hover+.tooltip-content {
+            visibility: visible;
+            opacity: 1;
+        }
+    </style>
 
     @endsection

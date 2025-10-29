@@ -15,8 +15,8 @@
                         <li><a href="/administracion/crearplan">Crear programa de materia</a></li>
                         <li><a href="/administracion/crearsecretaria">Crear usuario Secretaría Académica</a></li>
                         <li><a href="/administracion/crearadministrativo">Crear usuario Administración</a></li>
-                        <li><a href="/administracion/crearprofesor">Crear usuario Profesor</a></li>
-                        <li><a href="/administracion/crearcomision">Crear usuario Coordinador Comisión Curricular</a></li>
+                        <li><a href="/administracion/crearprofesor">Crear usuario profesor responsable</a></li>
+                        <li><a href="/administracion/crearcomision">Crear usuario coordinador comisión curricular</a></li>
                         <li><a href="/administracion/modificarplan">Modificar programa de materia</a></li>
                         <li><a href="/administracion/eliminarplan">Eliminar programa de materia</a></li>
                         <li><a href="/administracion/creardepartamento">Crear departamento</a></li>

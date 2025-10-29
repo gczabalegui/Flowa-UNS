@@ -8,14 +8,14 @@
 
     <link href="https://cdn.jsdelivr.net/npm/daisyui@2.31.0/dist/full.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Login Comisión Académica</title>
+    <title>Login comisión curricular</title>
 </head>
 
 <body>
     <div class="hero bg-white-200 h-screen text-center">
         <div class="hero-content flex-col lg:flex-row">
             <div>
-                <h1 class="text-5xl font-bold">Login Comisión Académica</h1>
+                <h1 class="text-5xl font-bold">Login comisión curricular</h1>
                 <form method="POST" action="{{ route('comision.login') }}">
                     @csrf
                     <div class="py-6">

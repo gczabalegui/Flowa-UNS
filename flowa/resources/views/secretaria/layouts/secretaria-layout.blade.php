@@ -6,20 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title') - Flowa</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <meta name="description" content="Panel de secretaría académica de Flowa para la gestión de usuarios, materias, carreras y programas de materia.">
+    <script src="//unpkg.com/alpinejs" defer></script>
 </head>
 
 <body class="bg-gray-50">
-    <div x-data="{ sidebarOpen: true }" class="flex h-screen">
-        <!-- Barra superior -->
+    <div x-data="{ sidebarOpen: true }" x-init="if (window.innerWidth < 1024) sidebarOpen = false" class="flex h-screen">
+
+        <div x-show="sidebarOpen" x-transition.opacity.duration.300ms class="fixed inset-0 bg-black bg-opacity-50 z-20 lg:hidden" @click="sidebarOpen = false"></div>
+
         <div class="fixed top-0 left-0 right-0 z-40 bg-white shadow-sm border-b border-gray-200">
             <div class="flex items-center justify-between h-16 px-4">
-                <!-- Lado izquierdo -->
                 <div class="flex items-center">
-                    <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Alternar menú lateral">
-                        <svg x-show="!sidebarOpen" x-transition class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button @click="sidebarOpen = !sidebarOpen" class="p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Toggle Sidebar" title="Mostrar/Ocultar menú lateral">
+                        <svg x-show="!sidebarOpen" x-transition.opacity class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                         </svg>
-                        <svg x-show="sidebarOpen" x-transition class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg x-show="sidebarOpen" x-transition.opacity class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
                         </svg>
                     </button>
@@ -56,8 +59,8 @@
                 <!-- Menú de perfil -->
                 <div class="flex items-center space-x-4">
                     <div x-data="{ profileOpen: false }" class="relative">
-                        <button @click="profileOpen = !profileOpen" class="flex items-center p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                        <button @click="profileOpen = !profileOpen" class="flex items-center p-2 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500" aria-label="Alternar menú lateral">
+                            <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center" aria-label="Abrir menú de usuario" title="Abrir menú de usuario">
                                 <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
@@ -108,7 +111,10 @@
         </div>
 
         <!-- Sidebar -->
-        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'" class="fixed left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
+        <div :class="{ 
+        'translate-x-0': sidebarOpen, 
+        '-translate-x-64': !sidebarOpen  /* desplazamiento más leve que full (-full mueve demasiado) */
+     }" class="fixed left-0 top-0 w-64 h-full bg-white shadow-xl transform transition-transform duration-500 ease-in-out z-30">
             <div class="flex flex-col h-full pt-16">
                 <nav class="flex-1 px-4 py-6 overflow-y-auto">
                     <a href="/secretaria" class="flex items-center px-4 py-3 mb-6 text-gray-700 bg-blue-50 rounded-lg hover:bg-blue-100">
@@ -132,39 +138,32 @@
                                 Secretaría académica
                             </a>
                             <a href="/secretaria/crearprofesor" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
-                                Profesor
+                                Profesor responsable
                             </a>
                             <a href="/secretaria/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
-                                Coordinador comisión académica
+                                Coordinador comisión curricular
                             </a>
                         </div>
                     </div>
 
                     <div class="mb-6">
-                        <div class="flex items-center px-4 py-2 mb-3">
+                        <a href="/secretaria/verplanes" class="flex items-center px-4 py-2 mb-3 text-gray-700 hover:bg-gray-100 rounded-lg">
                             <svg class="w-5 h-5 mr-3 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                             </svg>
-                            <span class="text-sm font-semibold text-gray-800">GESTIONAR PROGRAMAS</span>
-                        </div>
-
-                        <div class="ml-8 space-y-1">
-                            <a href="/secretaria/verplanes" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
-                                <svg class="w-4 h-4 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
-                                </svg>
-                                Listar programas existentes
-                            </a>
-                        </div>
+                            <span class="text-sm font-semibold text-gray-800">LISTAR PROGRAMAS</span>
+                        </a>
                     </div>
                 </nav>
             </div>
         </div>
 
         <!-- Contenido principal -->
-        <div :class="sidebarOpen ? 'ml-64' : 'ml-0'" class="flex-1 min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
+        <div :class="{ 
+        'lg:ml-64': sidebarOpen, 
+        'lg:ml-16': !sidebarOpen  /* margen reducido cuando se oculta */
+    }" class="flex-1 w-full min-w-0 overflow-auto transition-all duration-500 ease-in-out pt-16 bg-gray-50">
             <main class="p-6">
                 @yield('content')
             </main>

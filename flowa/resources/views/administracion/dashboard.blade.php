@@ -7,7 +7,7 @@
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Dashboard administración</h1>
-            <p class="text-gray-600 mt-2">Resumen general de planes, profesores y materias</p>
+            <p class="text-gray-600 mt-2">Resumen general de programas, profesores y materias</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
@@ -27,7 +27,7 @@
                 
                 <div class="bg-white p-6 rounded-lg shadow border">
                     <h2 class="text-4xl font-bold text-purple-600">{{ $totalProfesores }}</h2>
-                    <p class="text-gray-600 mt-1">Profesores</p>
+                    <p class="text-gray-600 mt-1">Profesores responsable</p>
                 </div>
             </div>
 

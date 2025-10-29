@@ -1,13 +1,13 @@
 @extends('profesor.layouts.profesor-layout')
 
-@section('title', 'Dashboard Profesor')
+@section('title', 'Dashboard profesor responsable')
 
 @section('content')
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <!-- Encabezado -->
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Dashboard profesor</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Dashboard profesor responsable</h1>
             <p class="text-gray-600 mt-2">Resumen de tus programas de materia</p>
         </div>
 
@@ -17,7 +17,7 @@
             <!-- Card 1: Datos Numéricos -->
             <div class="bg-white p-6 rounded-lg shadow border flex flex-col space-y-4">
                 <h3 class="text-lg font-semibold text-gray-800">Datos de gestión</h3>
-                <div class="flex justify-between items-center">
+                <div class="flex justify-between items-center text-center">
                     <div>
                         <p class="text-gray-600">Total de planes asignados</p>
                         <h2 class="text-3xl font-bold text-blue-600">{{ $totalPlanes }}</h2>

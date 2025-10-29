@@ -16,8 +16,8 @@ class SecretariaController extends Controller
     public function dashboard()
     {
         $totalPlanes = Plan::count();
-        $planesPendientes = Plan::where('estado', 'Completo por profesor.')->count();
-        $planesObservados = Plan::where('estado', 'Rectificado por administración para secretaría académica.', 'Rectificado por profesor para secretaría académica.')->count();
+        $planesPendientes = Plan::where('estado', 'Completo por profesor responsable.')->count();
+        $planesObservados = Plan::where('estado', 'Rectificado por administración para secretaría académica.', 'Rectificado por profesor responsable para secretaría académica.')->count();
 
         // Conteo por estado para gráfico
         $planesPorEstado = Plan::select('estado', DB::raw('count(*) as total'))

@@ -32,9 +32,9 @@ class PlanController extends Controller
             ->where(function ($query) {
                 $query->where('estado', 'Completo por administración.')
                     ->orWhere('estado', 'Rechazado por secretaría académica.')
-                    ->orWhere('estado', 'Incompleto por profesor.')
+                    ->orWhere('estado', 'Incompleto por profesor responsable.')
                     ->orWhere('estado', 'Rechazado para profesor por secretaría académica.')
-                    ->orWhere('estado', 'Rectificado por administración para profesor.')
+                    ->orWhere('estado', 'Rectificado por administración para profesor responsable.')
                     ->orWhere('estado', 'Aprobado por secretaría académica.');
             });
 
@@ -57,14 +57,14 @@ class PlanController extends Controller
     {
         $planes = Plan::with(['materia.profesor'])
             ->where(function ($query) {
-                $query->where('estado', 'Completo por profesor.')
-                    ->orWhere('estado', 'Rectificado por profesor para secretaría académica.')
+                $query->where('estado', 'Completo por profesor responsable.')
+                    ->orWhere('estado', 'Rectificado por profesor responsable para secretaría académica.')
                     ->orWhere('estado', 'Rectificado por administración para secretaría académica.')
                     ->orWhere('estado', 'Aprobado por secretaría académica.');
             })
             ->orderByRaw("FIELD(estado, 
-            'Completo por profesor.',
-            'Rectificado por profesor para secretaría académica.',
+            'Completo por profesor resposable.',
+            'Rectificado por profesor responsable para secretaría académica.',
             'Rectificado por administración para secretaría académica.',
             'Aprobado por secretaría académica.'
         )")
@@ -136,8 +136,8 @@ class PlanController extends Controller
 
             $estadosRechazados = [
                 'Rechazado para administración por secretaría académica.',
-                'Rechazado para profesor por secretaría académica.',
-                'Rechazado para administración por profesor.'
+                'Rechazado para profesor resposable por secretaría académica.',
+                'Rechazado para administración por profesor responsable.'
             ];
 
             if ($request->input('action') == 'guardar_borrador') {
@@ -150,8 +150,8 @@ class PlanController extends Controller
                 // Determinar el nuevo estado según el estado actual
                 if ($plan->estado == 'Rechazado para administración por secretaría académica.') {
                     $plan->estado = 'Rectificado por administración para secretaría académica.';
-                } else if ($plan->estado == 'Rechazado para administración por profesor.') {
-                    $plan->estado = 'Rectificado por administración para profesor.';
+                } else if ($plan->estado == 'Rechazado para administración por profesor responsable.') {
+                    $plan->estado = 'Rectificado por administración para profesor responsable.';
                 } else {
                     $plan->estado = 'Completo por administración.';
                 }
@@ -395,13 +395,13 @@ class PlanController extends Controller
                         $plan->save();
                         return redirect('/secretaria')->with('estado', 'Plan rechazado para administración.');
                     } elseif ($type == 'profesor') {
-                        $plan->estado = 'Rechazado para profesor por secretaría académica.';
+                        $plan->estado = 'Rechazado para profesor responsable por secretaría académica.';
                         $plan->save();
-                        return redirect('/secretaria')->with('estado', 'Plan rechazado para profesor.');
+                        return redirect('/secretaria')->with('estado', 'Plan rechazado para profesor responsable.');
                     }
                 } elseif ($role == 'profesor') {
                     if ($type == 'administracion') {
-                        $plan->estado = 'Rechazado para administración por profesor.';
+                        $plan->estado = 'Rechazado para administración por profesor responsable.';
                         $plan->save();
                         return redirect('/profesor')->with('estado', 'Plan rechazado para administración.');
                     }
@@ -430,13 +430,13 @@ class PlanController extends Controller
 
             $estadosRechazados = [
                 'Rechazado para administración por secretaría académica.',
-                'Rechazado para profesor por secretaría académica.',
-                'Rechazado para administración por profesor.'
+                'Rechazado para profesor responsable por secretaría académica.',
+                'Rechazado para administración por profesor responsable.'
             ];
 
             // Manejar diferentes acciones
             if ($request->input('action') == 'rechazar') {
-                $plan->estado = 'Rechazado para administración por profesor.';
+                $plan->estado = 'Rechazado para administración por profesor responsable.';
                 $validatedData = $request->validate([
                     'area_tematica' => 'nullable|in:Formación básica,Formación aplicada,Formación profesional',
                     'fundamentacion' => 'nullable|string',
@@ -455,7 +455,7 @@ class PlanController extends Controller
                 if (in_array($plan->estado, $estadosRechazados)) {
                     return redirect()->back()->with('warning', 'No se puede guardar como borrador. El plan debe ser rectificado y enviado.');
                 }
-                $plan->estado = 'Incompleto por profesor.';
+                $plan->estado = 'Incompleto por profesor responsable.';
                 // Para borrador, no validamos campos requeridos
                 $validatedData = $request->only([
                     'area_tematica',
@@ -472,12 +472,12 @@ class PlanController extends Controller
                 ]);
             } else if ($request->input('action') == 'guardar') {
                 // Determinar el nuevo estado según el estado actual
-                if ($plan->estado == 'Rechazado para profesor por secretaría académica.') {
-                    $plan->estado = 'Rectificado por profesor para secretaría académica.';
-                } else if ($plan->estado == 'Rechazado para administración por profesor.') {
-                    $plan->estado = 'Rectificado por profesor para administración.';
+                if ($plan->estado == 'Rechazado para profesor responsable por secretaría académica.') {
+                    $plan->estado = 'Rectificado por profesor responsable para secretaría académica.';
+                } else if ($plan->estado == 'Rechazado para administración por profesor responsable.') {
+                    $plan->estado = 'Rectificado por profesor responsable para administración.';
                 } else {
-                    $plan->estado = 'Completo por profesor.';
+                    $plan->estado = 'Completo por profesor responsable.';
                 }
 
                 $validatedData = $request->validate([

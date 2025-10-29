@@ -34,13 +34,13 @@ class ProfesorController extends Controller
         // Datos numéricos
         $totalPlanes = (clone $planesQuery)->count();
         $planesPendientes = (clone $planesQuery)
-            ->whereIn('estado', ['Incompleto por profesor.', 'Rectificado por administración para profesor.', 'Completo por administración.'])
+            ->whereIn('estado', ['Incompleto por profesor responsable.', 'Rectificado por administración para profesor responsable.', 'Completo por administración.'])
             ->count();
         $planesAprobados = (clone $planesQuery)
             ->where('estado', 'Aprobado por secretaría académica.')
             ->count();
         $planesRechazados = (clone $planesQuery)
-            ->where('estado', 'Rechazado para profesor por secretaría académica.')
+            ->where('estado', 'Rechazado para profesor responsable por secretaría académica.')
             ->count();
 
         // Gráfico por estado
@@ -48,9 +48,9 @@ class ProfesorController extends Controller
             ->select('estado', DB::raw('count(*) as total'))
             ->whereIn('estado', [
                 'Completo por administración.',
-                'Rechazado para profesor por secretaría académica.',
-                'Incompleto por profesor.',
-                'Rectificado por administración para profesor.',
+                'Rechazado para profesor responsable por secretaría académica.',
+                'Incompleto por profesor responsable.',
+                'Rectificado por administración para profesor responsable.',
                 'Aprobado por secretaría académica.'
             ])
             ->groupBy('estado')
@@ -134,9 +134,9 @@ class ProfesorController extends Controller
             $user->save();
 
             if (auth()->user()->role === 'secretaria') {
-                return redirect('/secretaria')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
+                return redirect('/secretaria')->with('estado', 'Nuevo usuario profesor responsable creado exitosamente.');
             } else {
-                return redirect('/administracion')->with('estado', 'Nuevo usuario Profesor creado exitosamente.');
+                return redirect('/administracion')->with('estado', 'Nuevo usuario profesor responsable creado exitosamente.');
             }
         } catch (\Exception $e) {
             if (auth()->user()->role === 'secretaria') {
