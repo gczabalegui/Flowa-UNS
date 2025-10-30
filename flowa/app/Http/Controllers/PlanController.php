@@ -33,7 +33,7 @@ class PlanController extends Controller
                 $query->where('estado', 'Completo por administración.')
                     ->orWhere('estado', 'Rechazado por secretaría académica.')
                     ->orWhere('estado', 'Incompleto por profesor responsable.')
-                    ->orWhere('estado', 'Rechazado para profesor por secretaría académica.')
+                    ->orWhere('estado', 'Rechazado para profesor responsable por secretaría académica.')
                     ->orWhere('estado', 'Rectificado por administración para profesor responsable.')
                     ->orWhere('estado', 'Aprobado por secretaría académica.');
             });

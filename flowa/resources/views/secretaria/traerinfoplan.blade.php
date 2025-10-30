@@ -249,7 +249,7 @@
 
                     {{-- Botón Aprobar plan (verde) --}}
                     @if($plan->estado === 'Aprobado por secretaría académica.')
-                    <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-44 border border-green-600 text-sm font-medium rounded-md text-green-600 bg-white opacity-60 cursor-not-allowed" disabled title="El programa ya fue aprobado por secretaría académica.">
+                    <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-600 bg-white opacity-60 cursor-not-allowed" disabled title="El programa ya fue aprobado por secretaría académica.">
                         APROBAR PROGRAMA
                     </button>
                     @else

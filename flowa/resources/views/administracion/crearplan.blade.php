@@ -200,13 +200,13 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="tooltip tooltip-top" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
+                    <div class="custom-tooltip" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
                         <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="9" id="borradorBtn" disabled>
                             GUARDAR BORRADOR
                         </button>
                     </div>
 
-                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
+                    <div class="custom-tooltip" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
                         <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
                    hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="10" id="guardarBtn" disabled>
                             GUARDAR
@@ -303,6 +303,12 @@
     .tooltip-trigger:hover+.tooltip-content {
         visibility: visible;
         opacity: 1;
+    }
+
+    /* Atenuar visualmente los botones deshabilitados */
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 </style>
 
