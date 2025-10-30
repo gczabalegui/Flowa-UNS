@@ -43,7 +43,13 @@
                 <ul class="space-y-2 flex-grow overflow-y-auto" style="max-height: 400px;">
                     @foreach($ultimasModificaciones as $plan)
                         <li class="flex justify-between border-b py-2 items-start">
-                            <span class="flex-1 mr-2 break-words">{{ $plan->materia->nombre_materia ?? 'Sin materia' }}</span>
+                            <span class="flex-1 mr-2 break-words">
+                                @if($plan->materia)
+                                    {{ $plan->materia->nombre_materia }} ({{ $plan->materia->codigo_materia }})
+                                @else
+                                    Sin materia
+                                @endif
+                            </span>
                             <span class="text-gray-500 flex-shrink-0">{{ $plan->updated_at->format('d/m/Y H:i') }}</span>
                         </li>
                     @endforeach
