@@ -15,7 +15,8 @@ use App\Http\Controllers\{
     DepartamentoController,
     PDFController,
     AuthController,
-    IAController
+    IAController,
+    SessionRoleController
 };
 
 // ------------------------------
@@ -198,6 +199,16 @@ Route::middleware('auth')->group(function () {
 
     // 4. Ruta para ELIMINAR la cuenta
     Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Cambiar de rol (solo si sos admin)
+    Route::get('/cambiar-rol/{rol}', [SessionRoleController::class, 'cambiarRol'])
+        ->name('cambiar.rol');
+
+    // Volver al dashboard (y resetear el rol activo)
+    Route::get('/dashboard', [SessionRoleController::class, 'dashboard'])
+        ->name('dashboard');
 });
 
 

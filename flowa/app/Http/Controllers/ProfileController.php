@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Log;              // <<< NUEVO
 class ProfileController extends Controller
 {
 
-    public function dashboard(){
+    public function dashboard()
+    {
         // Lógica para la página principal del profesor
         return view('welcome');
 
@@ -26,22 +27,23 @@ class ProfileController extends Controller
      * Display the user's profile form.
      */
     public function edit(Request $request): View
-{
-    $role = $request->user()->role;
-    
-    // Mapea el rol a la carpeta de vistas. Asumimos que 'admin' y 'secretaria' usan 'profesor' o tienen sus propias carpetas.
-    $viewPath = match ($role) {
-        'comision' => 'comision.profile.profile', // Buscará views/comision/profile/profile.blade.php
-        'administracion' => 'administracion.profile.profile', // Buscará views/administracion/profile/profile.blade.php
-        'secretaria' => 'secretaria.profile.profile', // Buscará views/secretaria/profile/profile.blade.php
-        'profesor' => 'profesor.profile.profile', // Buscará views/profesor/profile/profile.blade.php
-        default => 'comision.profile.profile', // Default (Profesor, Admin)
-    };
-    
-    return view($viewPath, [
-        'user' => $request->user(),
-    ]);
-}
+    {
+        $user = $request->user();
+
+        // Usa el rol en sesión si existe (admin actuando como otro rol)
+        $role = session('impersonate_role', $user->role);
+
+        $viewPath = match ($role) {
+            'comision' => 'comision.profile.profile',
+            'administracion' => 'administracion.profile.profile',
+            'secretaria' => 'secretaria.profile.profile',
+            'profesor' => 'profesor.profile.profile',
+            'admin' => 'admin.profile.profile',
+            default => 'comision.profile.profile',
+        };
+
+        return view($viewPath, compact('user', 'role'));
+    }
 
     /**
      * Update the user's profile information.
@@ -65,8 +67,8 @@ class ProfileController extends Controller
         // 1. Validar la contraseña actual y la nueva contraseña
         $validated = $request->validate([
             // current_password verifica automáticamente contra la contraseña hasheada del usuario autenticado
-            'current_password' => ['required', 'string', 'current_password'], 
-            
+            'current_password' => ['required', 'string', 'current_password'],
+
             // La nueva contraseña debe cumplir las reglas (al menos 8 caracteres, etc.) y ser confirmada (campo password_confirmation)
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
@@ -79,7 +81,7 @@ class ProfileController extends Controller
         // 3. Redirigir con mensaje de éxito
         return Redirect::route('profile.edit')->with('success', '¡Contraseña actualizada exitosamente!');
     }
-    
+
     /**
      * Delete the user's account.
      */
