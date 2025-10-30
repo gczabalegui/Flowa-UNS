@@ -90,7 +90,7 @@ class PlanController extends Controller
             $profesores = Profesor::all();
 
             if ($materias->isEmpty()) {
-                return redirect('/administracion')->with('warning', 'No hay materias creadas. Por favor, cree una materia antes de crear un plan de materia.');
+                return redirect('/administracion')->with('warning', 'No hay materias creadas. Por favor, cree una materia antes de crear un programa de materia.');
             }
 
             $currentYear = date('Y');
@@ -118,7 +118,7 @@ class PlanController extends Controller
 
             return view('administracion.editarplan', compact('plan', 'materias', 'years'));
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'No se pudo cargar el plan para editar.');
+            return redirect()->back()->with('error', 'No se pudo cargar el programa para editar.');
         }
     }
 
@@ -143,7 +143,7 @@ class PlanController extends Controller
             if ($request->input('action') == 'guardar_borrador') {
                 // No permitir guardar como borrador si fue rechazado, tiene que enviar rectificado
                 if (in_array($plan->estado, $estadosRechazados)) {
-                    return redirect()->back()->with('warning', 'No se puede guardar como borrador. El plan debe ser rectificado y enviado.');
+                    return redirect()->back()->with('warning', 'No se puede guardar como borrador. El programa debe ser rectificado y enviado.');
                 }
                 $plan->estado = 'Incompleto por administración.';
             } else if ($request->input('action') == 'guardar') {
@@ -213,12 +213,12 @@ class PlanController extends Controller
             }
 
             if ($request->input('action') == 'guardar_borrador') {
-                return redirect('/administracion/verplanes')->with('estado', 'El plan de materia ha sido actualizado y guardado como borrador.');
+                return redirect('/administracion/verplanes')->with('estado', 'El programa de materia ha sido actualizado y guardado como borrador.');
             } else if ($request->input('action') == 'guardar') {
-                return redirect('/administracion/verplanes')->with('estado', 'El plan de materia ha sido actualizado y enviado para revisión exitosamente.');
+                return redirect('/administracion/verplanes')->with('estado', 'El programa de materia ha sido actualizado y enviado para revisión exitosamente.');
             }
         } catch (\Exception $e) {
-            return redirect('/administracion/verplanes')->with('warning', 'No se ha podido actualizar el plan.');
+            return redirect('/administracion/verplanes')->with('warning', 'No se ha podido actualizar el programa.');
         }
     }
 
@@ -232,7 +232,7 @@ class PlanController extends Controller
 
             return view('profesor.editarplan', compact('plan'));
         } catch (Exception $e) {
-            return redirect()->back()->with('error', 'No se pudo cargar el plan para editar.');
+            return redirect()->back()->with('error', 'No se pudo cargar el programa para editar.');
         }
     }
 
@@ -319,13 +319,13 @@ class PlanController extends Controller
             $planes->save();
     */
             if ($request->input('action') == 'guardar_borrador') {
-                return redirect('/administracion')->with('estado', 'El nuevo plan de materia ha sido guardado como borrador exitosamente.');
+                return redirect('/administracion')->with('estado', 'El nuevo programa de materia ha sido guardado como borrador exitosamente.');
             } else if ($request->input('action') == 'guardar') {
-                return redirect('/administracion')->with('estado', 'El nuevo plan de materia ha sido guardado y enviado para revisión exitosamente.');
+                return redirect('/administracion')->with('estado', 'El nuevo programa de materia ha sido guardado y enviado para revisión exitosamente.');
             }
         } catch (\Exception $e) {
             dd($e);
-            return redirect('/administracion')->with('warning', 'No se ha podido crear el plan.');
+            return redirect('/administracion')->with('warning', 'No se ha podido crear el programa.');
         }
     }
 
@@ -371,13 +371,13 @@ class PlanController extends Controller
             if ($plan) {
                 $plan->estado = 'Aprobado por secretaría académica.';
                 $plan->save();
-                return redirect('/secretaria')->with('estado', 'Plan aprobado.');
+                return redirect('/secretaria')->with('estado', 'Programa aprobado.');
             } else {
-                return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
+                return redirect('/secretaria')->with('warning', 'No se ha encontrado el programa.');
             }
         } catch (Exception $e) {
             dd($e);
-            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
+            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del programa.');
         }
     }
 
@@ -393,24 +393,24 @@ class PlanController extends Controller
                     if ($type == 'administracion') {
                         $plan->estado = 'Rechazado para administración por secretaría académica.';
                         $plan->save();
-                        return redirect('/secretaria')->with('estado', 'Plan rechazado para administración.');
+                        return redirect('/secretaria')->with('estado', 'Programa rechazado para administración.');
                     } elseif ($type == 'profesor') {
                         $plan->estado = 'Rechazado para profesor responsable por secretaría académica.';
                         $plan->save();
-                        return redirect('/secretaria')->with('estado', 'Plan rechazado para profesor responsable.');
+                        return redirect('/secretaria')->with('estado', 'Programa rechazado para profesor responsable.');
                     }
                 } elseif ($role == 'profesor') {
                     if ($type == 'administracion') {
                         $plan->estado = 'Rechazado para administración por profesor responsable.';
                         $plan->save();
-                        return redirect('/profesor')->with('estado', 'Plan rechazado para administración.');
+                        return redirect('/profesor')->with('estado', 'Programa rechazado para administración.');
                     }
                 }
             }
-            return redirect('/secretaria')->with('warning', 'No se ha encontrado el plan.');
+            return redirect('/secretaria')->with('warning', 'No se ha encontrado el programa.');
         } catch (Exception $e) {
             dd($e);
-            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del plan.');
+            return redirect('/secretaria')->with('warning', 'No se ha podido procesar el nuevo estado del programa.');
         }
     }
     /**
@@ -453,7 +453,7 @@ class PlanController extends Controller
             } else if ($request->input('action') == 'guardar_borrador') {
                 // No permitir guardar como borrador si está en estado de rechazo
                 if (in_array($plan->estado, $estadosRechazados)) {
-                    return redirect()->back()->with('warning', 'No se puede guardar como borrador. El plan debe ser rectificado y enviado.');
+                    return redirect()->back()->with('warning', 'No se puede guardar como borrador. El programa debe ser rectificado y enviado.');
                 }
                 $plan->estado = 'Incompleto por profesor responsable.';
                 // Para borrador, no validamos campos requeridos
@@ -506,14 +506,14 @@ class PlanController extends Controller
 
             // Redireccionar según la acción
             if ($request->input('action') == 'guardar_borrador') {
-                return redirect('/profesor')->with('estado', 'Plan actualizado como borrador.');
+                return redirect('/profesor')->with('estado', 'Programa actualizado como borrador.');
             } else if ($request->input('action') == 'guardar') {
-                return redirect('/profesor')->with('estado', 'Plan actualizado exitosamente.');
+                return redirect('/profesor')->with('estado', 'Programa actualizado exitosamente.');
             } else if ($request->input('action') == 'rechazar') {
-                return redirect('/profesor')->with('estado', 'Plan rechazado exitosamente.');
+                return redirect('/profesor')->with('estado', 'Programa rechazado exitosamente.');
             }
         } catch (\Exception $e) {
-            return redirect('/profesor')->with('warning', 'No se ha podido actualizar el plan.');
+            return redirect('/profesor')->with('warning', 'No se ha podido actualizar el programa.');
         }
     }
     /**
@@ -532,12 +532,12 @@ class PlanController extends Controller
             $plan = Plan::find($id);
             if ($plan) {
                 $plan->delete();
-                return redirect()->route('administracion.verplanes')->with('estado', 'Plan eliminado correctamente.');
+                return redirect()->route('administracion.verplanes')->with('estado', 'Programa eliminado correctamente.');
             } else {
-                return redirect()->route('administracion.verplanes')->with('warning', 'No se encontró el plan a eliminar.');
+                return redirect()->route('administracion.verplanes')->with('warning', 'No se encontró el programa a eliminar.');
             }
         } catch (\Exception $e) {
-            return redirect()->route('administracion.verplanes')->with('warning', 'No se pudo eliminar el plan.');
+            return redirect()->route('administracion.verplanes')->with('warning', 'No se pudo eliminar el programa.');
         }
     }
 

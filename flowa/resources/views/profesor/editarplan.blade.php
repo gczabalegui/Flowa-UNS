@@ -287,7 +287,7 @@
                         <!-- Rechazar plan -->
                         <button type="submit" name="action" value="rechazar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
                hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="12">
-                            RECHAZAR PROGRAMA
+                            RECHAZAR
                         </button>
 
                         <!-- Guardar borrador -->
@@ -308,7 +308,7 @@
                         <div class="custom-tooltip" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
                             <button type="submit" name="action" value="guardar" id="guardarBtn" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
                    hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="14" disabled>
-                                GUARDAR PROGRAMA
+                                GUARDAR
                             </button>
                         </div>
 
