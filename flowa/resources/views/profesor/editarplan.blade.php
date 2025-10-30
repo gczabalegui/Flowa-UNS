@@ -61,18 +61,21 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+                        {{-- DTE --}}
                         <div class="relative">
                             <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
                                 DTE
-                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
-                                <span class="tooltip-content">
-                                    <b>Dedicación Total del Estudiante (DTE)</b><br>
-                                    DTE = CHT × (K + 1)<br>
-                                    Factor K:<br>
-                                    • Ciencias Básicas = FB (1,25)<br>
-                                    • Tecnolog. Básicas = FA (1,5)<br>
-                                    • Tecnolog. Aplicadas = FP (2)<br>
-                                    • Complementarias = FC (1)
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?
+                                    <span class="tooltip-content">
+                                        <b>Dedicación Total del Estudiante (DTE)</b><br>
+                                        DTE = CHT × (K + 1)<br>
+                                        Factor K:<br>
+                                        • Ciencias Básicas = FB (1,25)<br>
+                                        • Tecnolog. Básicas = FA (1,5)<br>
+                                        • Tecnolog. Aplicadas = FP (2)<br>
+                                        • Complementarias = FC (1)
+                                    </span>
                                 </span>
                             </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
@@ -80,13 +83,15 @@
                             </div>
                         </div>
 
+                        {{-- RTF --}}
                         <div class="relative">
                             <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
                                 RTF
-                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
-                                <span class="tooltip-content">
-                                    <b>Reconocimiento De Trayecto Formativo (RTF)</b><br>
-                                    RTF = DTE / 30
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?
+                                    <span class="tooltip-content">
+                                        <b>Reconocimiento De Trayecto Formativo (RTF)</b><br>
+                                        RTF = DTE / 30
+                                    </span>
                                 </span>
                             </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
@@ -94,13 +99,15 @@
                             </div>
                         </div>
 
+                        {{-- Créditos académicos --}}
                         <div class="relative">
                             <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
                                 Créditos académicos
-                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
-                                <span class="tooltip-content">
-                                    <b>Créditos académicos</b><br>
-                                    Cantidad de créditos asignados según la carga horaria total y el trayecto formativo.
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?
+                                    <span class="tooltip-content">
+                                        <b>Créditos académicos</b><br>
+                                        Cantidad de créditos asignados según la carga horaria total y el trayecto formativo.
+                                    </span>
                                 </span>
                             </label>
                             <div class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50">
@@ -182,13 +189,17 @@
                         </div>
 
                         <!-- Fundamentación -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Fundamentación</label>
-                            <p class="text-sm text-gray-600 mb-2">
-                                ❓ Redacte un párrafo de <strong>hasta 200 palabras</strong> teniendo como guía la siguiente pregunta:
-                                <em>¿por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em>
-                            </p>
-                            <textarea id="fundamentacion" name="fundamentacion" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 200px; resize: vertical;" tabindex="2" oninput="limitarPalabras(this)" placeholder="Ingrese una fundamentación">{{ $plan->fundamentacion }}</textarea>
+                        <div class="mb-4 relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                Fundamentación
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?
+                                    <span class="tooltip-content">
+                                        Redacte un párrafo de <b>hasta 200 palabras</b> teniendo como guía la siguiente pregunta:<br>
+                                        <em>¿Por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em>
+                                    </span>
+                                </span>
+                            </label>
+                            <textarea id="fundamentacion" name="fundamentacion" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="2" oninput="limitarPalabras(this)" placeholder="Ingrese una fundamentación">{{ $plan->fundamentacion }}</textarea>
                         </div>
 
                         <!-- Objetivos generales -->
@@ -220,13 +231,16 @@
                         </div>
 
                         <!-- Contenidos mínimos -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Contenidos mínimos</label>
-                            <p class="text-sm text-gray-600 mb-2">
-                                ❓ Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la Resolución 1537/21, Anexo I para asegurar la inclusión de aquellos allí definidos y aquellos que se agreguen al Plan de Estudio en función de los alcances del título.
-                                <br><strong>Aclaración.</strong> Los descriptores de conocimiento correspondientes a la Formación Profesional incluyen enunciados multidimensionales y transversales. Los mismos requieren la articulación de conocimientos y de prácticas y fundamentan el ejercicio profesional. No involucran una referencia directa a una disciplina o asignatura del plan de estudios.
-                            </p>
-                            <textarea id="cont_minimos" name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="7" placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
+                        <div class="mb-4 relative">
+                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                Contenidos mínimos
+                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?
+                                    <span class="tooltip-content">
+                                        Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la <b>Resolución 1537/21, Anexo I</b> para asegurar la inclusión de aquellos allí definidos y los que se agreguen al Plan de Estudio según los alcances del título.
+                                    </span>
+                                </span>
+                            </label>
+                            <textarea id="contenidos_minimos" name="contenidos_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="3" placeholder="Ingrese los contenidos mínimos">{{ $plan->contenidos_minimos }}</textarea>
                         </div>
 
                         <!-- Programa analítico -->
@@ -718,6 +732,7 @@
         /* Tooltip estilo neutro gris/blanco */
         .tooltip-trigger {
             position: relative;
+            /* CLAVE: Ahora el trigger es el contenedor de referencia */
             display: inline-block;
             width: 1.25rem;
             height: 1.25rem;
@@ -750,17 +765,27 @@
             border-radius: 0.5rem;
             padding: 0.75rem;
             position: absolute;
-            z-index: 10;
-            top: 100%;
-            left: 0;
-            transform: translateY(4px);
+            /* Sigue siendo absoluto, pero respecto al .tooltip-trigger */
+            z-index: 20;
+
+            /* --- CAMBIOS CLAVE AQUI --- */
+            top: 50%;
+            /* Centra verticalmente respecto al '?' */
+            left: 150%;
+            /* Coloca a la derecha del icono '?' (más allá del 100% de su ancho) */
+            transform: translate(0, -50%);
+            /* Ajusta: 0px de separación horizontal, -50% para centrado vertical */
+            /* --------------------------- */
+
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
             font-size: 0.75rem;
             line-height: 1rem;
         }
 
-        .tooltip-trigger:hover+.tooltip-content {
+        /* Regla para activar el tooltip al pasar el ratón */
+        .tooltip-trigger:hover .tooltip-content {
+            /* CLAVE: El selector debe ser para un hijo del trigger */
             visibility: visible;
             opacity: 1;
         }
