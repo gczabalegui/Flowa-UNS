@@ -123,11 +123,11 @@
                             <span class="text-sm font-semibold text-gray-800">CREAR NUEVO</span>
                         </div>
                         <div class="ml-8 space-y-1 mb-4">
-                            <a href="/administracion/crearmateria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
-                                Materia
-                            </a>
                             <a href="/administracion/crearcarrera" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
                                 Carrera
+                            </a>
+                            <a href="/administracion/crearmateria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
+                                Materia
                             </a>
                             <a href="/administracion/crearplan" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
                                 Programa de materia
@@ -143,10 +143,10 @@
                             <span class="text-sm font-semibold text-gray-800">CREAR USUARIO</span>
                         </div>
                         <div class="ml-8 space-y-1 mb-4">
-                            <a href="/administracion/crearsecretaria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Secretaría académica</a>
-                            <a href="/administracion/crearadministrativo" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Administración</a>
-                            <a href="/administracion/crearprofesor" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Profesor responsable</a>
+                            <a href="/administracion/crearadministrativo" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Administración</a>                            
                             <a href="/administracion/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Comisión curricular</a>
+                            <a href="/administracion/crearprofesor" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Profesor responsable</a>
+                            <a href="/administracion/crearsecretaria" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">Secretaría académica</a>
                         </div>
                     </div>
 
