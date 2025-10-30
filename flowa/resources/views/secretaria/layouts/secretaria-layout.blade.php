@@ -141,7 +141,7 @@
                                 Profesor responsable
                             </a>
                             <a href="/secretaria/crearcomision" class="flex items-center px-3 py-2 text-sm text-gray-600 rounded-lg hover:bg-gray-100">
-                                Coordinador comisión curricular
+                                Comisión curricular
                             </a>
                         </div>
                     </div>

@@ -6,7 +6,7 @@
 <div class="min-h-screen px-4 sm:px-8 lg:px-12 xl:px-16">
     <div class="max-w-7xl mx-auto">
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Crear nueva Carrera</h1>
+            <h1 class="text-2xl font-bold text-gray-900">Crear nueva carrera</h1>
             <p class="text-gray-600 mt-2">Complete el formulario para registrar una nueva carrera</p>
         </div>
 

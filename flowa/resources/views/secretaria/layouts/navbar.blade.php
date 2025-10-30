@@ -12,7 +12,7 @@
                     <ul class="p-2 bg-base-100 z-50">
                         <li><a href="/secretaria/crearsecretaria">Crear usuario secretaría académica</a></li>
                         <li><a href="/secretaria/crearprofesor">Crear usuario profesor responsable</a></li>
-                        <li><a href="/secretaria/crearcomision">Crear usuario coordinador comisión curricular</a></li>
+                        <li><a href="/secretaria/crearcomision">Crear usuario comisión curricular</a></li>
                         <li><a href="/secretaria/verplanes">Crear usuario coordinador comisión curricular</a></li>
                     </ul>
                 </li>
