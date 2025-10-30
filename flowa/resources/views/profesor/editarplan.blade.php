@@ -246,7 +246,7 @@
                                         </span>
                                     </span>
                                 </label>
-                                <textarea id="contenidos_minimos" name="contenidos_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="3" placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
+                                <textarea id="cont_minimos" name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="3" placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
                             </div>
 
                             <!-- Programa analítico -->

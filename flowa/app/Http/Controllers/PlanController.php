@@ -513,7 +513,7 @@ class PlanController extends Controller
                 return redirect('/profesor')->with('estado', 'Programa rechazado exitosamente.');
             }
         } catch (\Exception $e) {
-            return redirect('/profesor')->with('warning', 'No se ha podido actualizar el programa.');
+            return redirect('/profesor')->with('warning', 'No se ha podido actualizar el programa.' . $e->getMessage());
         }
     }
     /**
