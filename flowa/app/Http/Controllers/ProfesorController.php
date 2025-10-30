@@ -24,12 +24,8 @@ class ProfesorController extends Controller
         $user = auth()->user();
 
         // Si es admin, mostramos todos los planes
-        if ($user->role === 'admin') {
-            $planesQuery = Plan::query();
-        } else {
-            // Si es profesor, solo sus planes
-            $planesQuery = Plan::where('profesor_id', $user->profesor->id);
-        }
+        $planesQuery = Plan::query();
+
 
         // Datos numéricos
         $totalPlanes = (clone $planesQuery)->count();
