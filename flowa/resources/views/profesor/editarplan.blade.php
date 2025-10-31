@@ -154,85 +154,91 @@
                     </div>
 
                     <!-- Sección: Campos editables por el profesor -->
+                    <form method="POST" action="{{ route('profesor.editarplan.update', $plan->id) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="action" id="formAction" value="">
+
+                    <!-- Sección: Campos editables por el profesor -->
                     <div class="border-b border-gray-200 pb-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">Contenido académico</h3>
 
-                        <!-- Área Temática + sugerencia IA -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Área Temática</label>
-                            <div class="flex flex-wrap items-center gap-2">
-                                <select id="area_tematica" name="area_tematica" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1">
-                                    <option value="">Seleccione un área temática</option>
-                                    @foreach(\App\Models\Plan::AREA_TEMATICA as $area)
-                                    <option value="{{ $area }}" {{ $plan->area_tematica == $area ? 'selected' : '' }}>
-                                        {{ ucfirst(str_replace('_', ' ', $area)) }}
-                                    </option>
-                                    @endforeach
-                                </select>
+                            <!-- Área Temática + sugerencia IA -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Área Temática</label>
+                                <div class="flex flex-wrap items-center gap-2">
+                                    <select id="area_tematica" name="area_tematica" class="flex-grow px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1">
+                                        <option value="">Seleccione un área temática</option>
+                                        @foreach(\App\Models\Plan::AREA_TEMATICA as $area)
+                                        <option value="{{ $area }}" {{ $plan->area_tematica == $area ? 'selected' : '' }}>
+                                            {{ ucfirst(str_replace('_', ' ', $area)) }}
+                                        </option>
+                                        @endforeach
+                                    </select>
 
-                                <button type="button" id="btnSugerirArea" class="inline-flex items-center px-4 py-2 border border-blue-600 text-sm font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 whitespace-nowrap flex-shrink-0">
-                                    💡 Sugerir con IA
-                                </button>
-                            </div>
+                                    <button type="button" id="btnSugerirArea" class="inline-flex items-center px-4 py-2 border border-blue-600 text-sm font-medium rounded-md text-blue-600 bg-white hover:bg-blue-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 whitespace-nowrap flex-shrink-0">
+                                        💡 Sugerir con IA
+                                    </button>
+                                </div>
 
-                            <!-- Resultado de la sugerencia -->
-                            <div id="sugerenciaAreaContainer" class="hidden mt-3">
-                                <div id="sugerenciaCard" class="border rounded-lg p-4 bg-blue-50 border-blue-200">
-                                    <div class="flex items-start justify-between gap-2 mb-2">
-                                        <div class="flex-grow min-w-0">
-                                            <p class="text-sm text-gray-700 mb-1">Sugerencia de la IA:</p>
-                                            <p id="sugerenciaArea" class="font-bold text-lg text-gray-900 break-words"></p>
+                                <!-- Resultado de la sugerencia -->
+                                <div id="sugerenciaAreaContainer" class="hidden mt-3">
+                                    <div id="sugerenciaCard" class="border rounded-lg p-4 bg-blue-50 border-blue-200">
+                                        <div class="flex items-start justify-between gap-2 mb-2">
+                                            <div class="flex-grow min-w-0">
+                                                <p class="text-sm text-gray-700 mb-1">Sugerencia de la IA:</p>
+                                                <p id="sugerenciaArea" class="font-bold text-lg text-gray-900 break-words"></p>
+                                            </div>
+                                            <button type="button" id="btnUsarSugerencia" class="hidden inline-flex items-center px-3 py-1.5 border border-blue-600 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 flex-shrink-0">
+                                                Usar sugerencia
+                                            </button>
                                         </div>
-                                        <button type="button" id="btnUsarSugerencia" class="hidden inline-flex items-center px-3 py-1.5 border border-blue-600 text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 flex-shrink-0">
-                                            Usar sugerencia
-                                        </button>
+                                        <p id="razonamientoArea" class="text-sm text-gray-600"></p>
                                     </div>
-                                    <p id="razonamientoArea" class="text-sm text-gray-600"></p>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Fundamentación -->
-                        <div class="mb-4 relative">
-                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
-                                Fundamentación
-                                <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?
-                                    <span class="tooltip-content">
-                                        Redacte un párrafo de <b>hasta 200 palabras</b> teniendo como guía la siguiente pregunta:<br>
-                                        <em>¿Por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em>
+                            <!-- Fundamentación -->
+                            <div class="mb-4 relative">
+                                <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                                    Fundamentación
+                                    <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?
+                                        <span class="tooltip-content">
+                                            Redacte un párrafo de <b>hasta 200 palabras</b> teniendo como guía la siguiente pregunta:<br>
+                                            <em>¿Por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em>
+                                        </span>
                                     </span>
-                                </span>
-                            </label>
-                            <textarea id="fundamentacion" name="fundamentacion" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="2" oninput="limitarPalabras(this)" placeholder="Ingrese una fundamentación">{{ $plan->fundamentacion }}</textarea>
-                        </div>
+                                </label>
+                                <textarea id="fundamentacion" name="fundamentacion" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="2" oninput="limitarPalabras(this)" placeholder="Ingrese una fundamentación">{{ $plan->fundamentacion }}</textarea>
+                            </div>
 
-                        <!-- Objetivos generales -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-3">Objetivos generales</label>
+                            <!-- Objetivos generales -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-3">Objetivos generales</label>
 
-                            <div class="space-y-4 ml-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos conceptuales</label>
-                                    <textarea id="obj_conceptuales" name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="3" placeholder="Ingrese los objetivos conceptuales">{{ $plan->obj_conceptuales }}</textarea>
-                                </div>
+                                <div class="space-y-4 ml-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos conceptuales</label>
+                                        <textarea id="obj_conceptuales" name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="3" placeholder="Ingrese los objetivos conceptuales">{{ $plan->obj_conceptuales }}</textarea>
+                                    </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos procedimentales</label>
-                                    <textarea id="obj_procedimentales" name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="4" placeholder="Ingrese los objetivos procedimentales">{{ $plan->obj_procedimentales }}</textarea>
-                                </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos procedimentales</label>
+                                        <textarea id="obj_procedimentales" name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="4" placeholder="Ingrese los objetivos procedimentales">{{ $plan->obj_procedimentales }}</textarea>
+                                    </div>
 
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos actitudinales</label>
-                                    <textarea id="obj_actitudinales" name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="5" placeholder="Ingrese los objetivos actitudinales">{{ $plan->obj_actitudinales }}</textarea>
+                                    <div>
+                                        <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos actitudinales</label>
+                                        <textarea id="obj_actitudinales" name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="5" placeholder="Ingrese los objetivos actitudinales">{{ $plan->obj_actitudinales }}</textarea>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Objetivos específicos -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos específicos</label>
-                            <textarea id="obj_especificos" name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="6" placeholder="Ingrese los objetivos específicos">{{ $plan->obj_especificos }}</textarea>
-                        </div>
+                            <!-- Objetivos específicos -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Objetivos específicos</label>
+                                <textarea id="obj_especificos" name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="6" placeholder="Ingrese los objetivos específicos">{{ $plan->obj_especificos }}</textarea>
+                            </div>
 
                         <!-- Contenidos mínimos -->
                         <div class="mb-4 relative">
@@ -247,48 +253,48 @@
                             <textarea id="cont_minimos" name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="3" placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
                         </div>
 
-                        <!-- Programa analítico -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Programa analítico</label>
-                            <textarea id="programa_analitico" name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="8" placeholder="Ingrese el programa analítico">{{ $plan->programa_analitico }}</textarea>
-                        </div>
+                            <!-- Programa analítico -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Programa analítico</label>
+                                <textarea id="programa_analitico" name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="8" placeholder="Ingrese el programa analítico">{{ $plan->programa_analitico }}</textarea>
+                            </div>
 
-                        <!-- Actividades prácticas -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Actividades prácticas</label>
-                            <textarea id="act_practicas" name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="9" placeholder="Ingrese las actividades prácticas">{{ $plan->act_practicas }}</textarea>
-                        </div>
+                            <!-- Actividades prácticas -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Actividades prácticas</label>
+                                <textarea id="act_practicas" name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="9" placeholder="Ingrese las actividades prácticas">{{ $plan->act_practicas }}</textarea>
+                            </div>
 
-                        <!-- Modalidad -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Modalidad</label>
-                            <textarea id="modalidad" name="modalidad" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="10" placeholder="Ingrese la modalidad">{{ $plan->modalidad }}</textarea>
-                        </div>
+                            <!-- Modalidad -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Modalidad</label>
+                                <textarea id="modalidad" name="modalidad" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="10" placeholder="Ingrese la modalidad">{{ $plan->modalidad }}</textarea>
+                            </div>
 
-                        <!-- Bibliografía -->
-                        <div class="mb-4">
-                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center justify-between">
-                                <span>Bibliografía</span>
-                                <button type="button" id="btnSugerirIA" class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
+                            <!-- Bibliografía -->
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center justify-between">
+                                    <span>Bibliografía</span>
+                                    <button type="button" id="btnSugerirIA" class="inline-flex items-center px-3 py-1.5 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
                hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" title="Formatear bibliografía en estilo APA con IA">
-                                    📚
-                                    <span class="ml-2">Formatear con IA</span>
-                                </button>
-                            </label>
+                                        📚
+                                        <span class="ml-2">Formatear con IA</span>
+                                    </button>
+                                </label>
 
 
-                            <textarea id="bibliografia" name="bibliografia" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="11" placeholder="Ingrese la bibliografía">{{ $plan->bibliografia }}</textarea>
+                                <textarea id="bibliografia" name="bibliografia" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height: 120px; resize: vertical;" tabindex="11" placeholder="Ingrese la bibliografía">{{ $plan->bibliografia }}</textarea>
 
-                            <div id="iaSugerencia" class="hidden bg-blue-50 border border-blue-200 p-4 rounded-lg mt-3">
-                                <p class="text-sm font-semibold mb-2">💡 Sugerencia de IA:</p>
-                                <pre id="iaTexto" class="whitespace-pre-wrap text-sm text-gray-700 bg-white p-3 rounded border border-blue-100"></pre>
-                                <div class="flex justify-end space-x-2 mt-3">
-                                    <button type="button" id="aceptarIA" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">Aceptar</button>
-                                    <button type="button" id="descartarIA" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">Descartar</button>
+                                <div id="iaSugerencia" class="hidden bg-blue-50 border border-blue-200 p-4 rounded-lg mt-3">
+                                    <p class="text-sm font-semibold mb-2">💡 Sugerencia de IA:</p>
+                                    <pre id="iaTexto" class="whitespace-pre-wrap text-sm text-gray-700 bg-white p-3 rounded border border-blue-100"></pre>
+                                    <div class="flex justify-end space-x-2 mt-3">
+                                        <button type="button" id="aceptarIA" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200">Aceptar</button>
+                                        <button type="button" id="descartarIA" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors duration-200">Descartar</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
                     @php
                     $estadosRechazados = [
@@ -372,9 +378,9 @@
                     <!-- Cancelar -->
                         <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
                hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="15" onclick="window.location.href='/profesor'">
-                            CANCELAR
-                        </button>
-                    </div>
+                                CANCELAR
+                            </button>
+                        </div>
 
                 </div>
                 </form>

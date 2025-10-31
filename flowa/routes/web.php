@@ -15,7 +15,8 @@ use App\Http\Controllers\{
     DepartamentoController,
     PDFController,
     AuthController,
-    IAController
+    IAController,
+    SessionRoleController
 };
 
 // ------------------------------
@@ -181,6 +182,34 @@ Route::post('/profesor/sugerencia-ia', [App\Http\Controllers\IAController::class
 
 Route::post('/ia/sugerir-area', [IAController::class, 'sugerirArea']);
 
+
+// ------------------------------
+// RUTAS PARA CAMBIO DE CONTRASEÑA
+// ------------------------------
+Route::middleware('auth')->group(function () {
+    // 1. Ruta para MOSTRAR el formulario de perfil/cambio de contraseña
+    Route::get('/perfil', [ProfileController::class, 'edit'])->name('profile.edit');
+    
+    // 2. Ruta para ACTUALIZAR la información general del usuario (si la tienes en la vista)
+    Route::patch('/perfil', [ProfileController::class, 'update'])->name('profile.update');
+
+    // 3. Ruta para ACTUALIZAR SOLO la contraseña
+    // Nota: Usamos POST o PUT para enviar el formulario de cambio de contraseña
+    Route::put('/perfil/password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+
+    // 4. Ruta para ELIMINAR la cuenta
+    Route::delete('/perfil', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::middleware(['auth'])->group(function () {
+    // Cambiar de rol (solo si sos admin)
+    Route::get('/cambiar-rol/{rol}', [SessionRoleController::class, 'cambiarRol'])
+        ->name('cambiar.rol');
+
+    // Volver al dashboard (y resetear el rol activo)
+    Route::get('/dashboard', [SessionRoleController::class, 'dashboard'])
+        ->name('dashboard');
+});
 
 
 
