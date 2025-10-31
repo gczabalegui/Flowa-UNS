@@ -2,8 +2,60 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+@import './tooltips.css';
+
 
 /* O DaisyUI con capas si lo deseas: */
 /* @import 'daisyui/src/base.css'; */
 /* @import 'daisyui/src/components/index.css'; */
 /* @import 'daisyui/src/utilities/index.css'; */
+
+/* --- TOOLTIP PERSONALIZADO GLOBAL --- */
+.custom-tooltip {
+    position: relative;
+    cursor: pointer;
+}
+
+/* Contenedor del texto del tooltip */
+.custom-tooltip::after {
+    content: attr(data-tip);
+    position: absolute;
+    bottom: 125%;
+    /* aparece arriba del elemento */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(55, 65, 81, 0.9);
+    /* gris oscuro */
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+    pointer-events: none;
+    z-index: 50;
+}
+
+/* Flechita del tooltip */
+.custom-tooltip::before {
+    content: '';
+    position: absolute;
+    bottom: 115%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(55, 65, 81, 0.9) transparent transparent transparent;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Mostrar tooltip al hacer hover */
+.custom-tooltip:hover::after,
+.custom-tooltip:hover::before {
+    opacity: 1;
+    visibility: visible;
+}

@@ -59,4 +59,9 @@ public function sendPasswordResetNotification($token)
 {
     $this->notify(new ResetPasswordNotification($token));
 }
+
+public function profesor()
+{
+    return $this->hasOne(Profesor::class);
+}
 }

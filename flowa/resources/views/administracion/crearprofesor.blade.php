@@ -53,26 +53,10 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
-
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
-                        <input id="contraseña_profesor" name="contraseña_profesor" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="6" required placeholder="Ingrese la contraseña">
-                        @error('contraseña_profesor')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Confirmar Contraseña</label>
-                        <input id="contraseña_profesor_confirmation" name="contraseña_profesor_confirmation" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="7" required placeholder="Confirme la contraseña">
-                        @error('contraseña_profesor_confirmation')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="tooltip tooltip-top" data-tip="Todos los campos son requeridos para guardar el usuario." id="guardarTooltip">
+                    <div class="custom-tooltip" data-tip="Todos los campos son requeridos para guardar el usuario." id="guardarTooltip">
                         <button type="submit" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
                    hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="8" id="guardarBtn" disabled>
                             GUARDAR
@@ -121,7 +105,7 @@
 
 <script>
     // Campos requeridos para el botón "Guardar"
-    const requiredFields = ['nombre_completo_profesor', 'email_profesor', 'contraseña_profesor', 'contraseña_profesor_confirmation'];
+    const requiredFields = ['nombre_completo_profesor', 'email_profesor'];
 
     // Referencias a elementos
     const guardarBtn = document.getElementById('guardarBtn');
@@ -137,13 +121,6 @@
                 allValid = false;
             }
         });
-
-        // Validación adicional: las contraseñas deben coincidir
-        const password = document.getElementById('contraseña_profesor').value;
-        const confirmPassword = document.getElementById('contraseña_profesor_confirmation').value;
-        if (password !== confirmPassword) {
-            allValid = false;
-        }
 
         if (allValid) {
             guardarBtn.disabled = false;

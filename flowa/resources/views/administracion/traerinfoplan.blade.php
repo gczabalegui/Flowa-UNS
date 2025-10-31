@@ -247,17 +247,32 @@
                     @endif
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    @if ($plan->estado === 'Incompleto por administración.' || $plan->estado === 'Rechazado para administración por profesor.' || $plan->estado === 'Rechazado para administración por secretaría académica.')
-                    <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 transition-colors duration-200">
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 pt-6">
+                    @if($plan->estado === 'Incompleto por administración.' ||
+                    $plan->estado === 'Rechazado para administración por profesor responsable.' ||
+                    $plan->estado === 'Rechazado para administración por secretaría académica.')
+                    <!-- EDITAR habilitado -->
+                    <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="w-36 h-12 flex items-center justify-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md 
+                  text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                  focus:ring-gray-400 transition-colors duration-200">
                         EDITAR
                     </a>
+                    @else
+                    <!-- EDITAR deshabilitado -->
+                    <button class="w-36 h-12 flex items-center justify-center px-3 py-2 text-sm font-medium rounded-md 
+                       text-gray-400 bg-gray-100 border border-gray-300 cursor-not-allowed opacity-70" disabled>
+                        EDITAR
+                    </button>
                     @endif
 
-                    <a href="/administracion/verplanes" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                    <!-- VOLVER -->
+                    <a href="/administracion/verplanes" class="w-36 h-12 flex items-center justify-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md 
+              text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 
+              focus:ring-blue-500 transition-colors duration-200">
                         VOLVER
                     </a>
                 </div>
+
             </div>
         </div>
     </div>

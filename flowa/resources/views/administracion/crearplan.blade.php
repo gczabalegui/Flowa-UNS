@@ -143,11 +143,18 @@
                         <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" name="area_tematica" readonly>
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Fundamentación</label>
-                        <p class="text-sm text-gray-600 mb-2">&#x2754; Redacte un párrafo de <b>hasta 200 palabras</b> teniendo como guía la siguiente pregunta: <em>¿por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em></p>
+                    <div class="md:col-span-2 relative">
+                        <label class="block text-sm font-medium text-gray-600 mb-2 flex items-center gap-1">
+                            Fundamentación
+                            <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                            <span class="tooltip-content">
+                                Redacte un párrafo de <b>hasta 200 palabras</b> teniendo como guía la siguiente pregunta:<br>
+                                <em>¿Por qué los estudiantes deben adquirir los conocimientos de esta asignatura en la carrera de Ingeniería Agronómica?</em>
+                            </span>
+                        </label>
                         <input type="text" id="fundamentacion" name="fundamentacion" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
+
 
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-600 mb-4">Objetivos generales</label>
@@ -172,9 +179,14 @@
                         <input type="text" id="obj_especificos" name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
 
-                    <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Contenidos mínimos</label>
-                        <p class="text-sm text-gray-600 mb-2">&#x2754; Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la Resolución 1537/21, Anexo I para asegurar la inclusión de aquellos allí definidos y aquellos que se agreguen al Plan de Estudio en función de los alcances del título.</p>
+                    <div class="md:col-span-2 relative">
+                        <label class="block text-sm font-medium text-gray-600 mb-2 flex items-center gap-1">
+                            Contenidos mínimos
+                            <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
+                            <span class="tooltip-content">
+                                Enunciar los contenidos curriculares básicos que se tratan en la asignatura siguiendo la <b>Resolución 1537/21, Anexo I</b> para asegurar la inclusión de aquellos allí definidos y los que se agreguen al Plan de Estudio según los alcances del título.
+                            </span>
+                        </label>
                         <input type="text" id="cont_minimos" name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
 
@@ -200,13 +212,13 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="tooltip tooltip-top" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
+                    <div class="custom-tooltip" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
                         <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="9" id="borradorBtn" disabled>
                             GUARDAR BORRADOR
                         </button>
                     </div>
 
-                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
+                    <div class="custom-tooltip" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
                         <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
                    hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="10" id="guardarBtn" disabled>
                             GUARDAR
@@ -304,6 +316,12 @@
         visibility: visible;
         opacity: 1;
     }
+
+    /* Atenuar visualmente los botones deshabilitados */
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 </style>
 
 <script>
@@ -340,10 +358,10 @@
 
         if (materiaField && materiaField.value.trim() !== '') {
             borradorBtn.disabled = false;
-            borradorTooltip.setAttribute('data-tip', 'Guardar como borrador');
+            borradorTooltip.setAttribute('data-tip', 'Guardar como borrador.');
         } else {
             borradorBtn.disabled = true;
-            borradorTooltip.setAttribute('data-tip', 'Debe seleccionar una materia para guardar como borrador');
+            borradorTooltip.setAttribute('data-tip', 'Debe seleccionar una materia para guardar como borrador.');
         }
     }
 

@@ -76,7 +76,7 @@
                                     • Complementarias = FC (1)
                                 </span>
                             </label>
-                            <input id="DTE" name="DTE" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="6" value="{{ old('DTE') }}" placeholder="Ingrese el DTE" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <input id="DTE" name="DTE" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="6" value="{{ old('DTE', $plan->DTE) }}" placeholder="Ingrese el DTE" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
 
                         <div class="relative">
@@ -88,12 +88,12 @@
                                     RTF = DTE / 30
                                 </span>
                             </label>
-                            <input id="RTF" name="RTF" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="7" value="{{ old('RTF') }}" placeholder="Ingrese el RTF" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <input id="RTF" name="RTF" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="7" value="{{ old('RTF', $plan->RTF) }}" placeholder="Ingrese el RTF" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
-                            <input id="creditos_academicos" name="creditos_academicos" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="8" value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <input id="creditos_academicos" name="creditos_academicos" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="8" value="{{ old('creditos_academicos', $plan->creditos_academicos) }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
                     </div>
 
@@ -243,15 +243,36 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="tooltip tooltip-top" data-tip="No se puede guardar como borrador al rectificar un plan. Solo puede guardar el plan." id="borradorTooltip">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="18" disabled>
-                            GUARDAR BORRADOR
-                        </button>
-                    </div>
+                    @php
+                        $estadosRechazados = [
+                            'Rechazado para administración por secretaría académica.',
+                            'Rechazado para administración por profesor responsable.',
+                        ];
+                        $esPlanRechazado = in_array($plan->estado, $estadosRechazados);
+                    @endphp
+                    @if($esPlanRechazado)
+                        <div class="custom-tooltip" data-tip="No se puede guardar como borrador. Debe rectificar y enviar." id="borradorTooltip">
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 opacity-70 cursor-not-allowed" tabindex="18" disabled>
+                                GUARDAR BORRADOR
+                            </button>
+                        </div>
+                    @elseif($plan->estado === 'Incompleto por administración.')
+                        <div class="custom-tooltip" id="borradorTooltip">
+                            <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="18">
+                                GUARDAR BORRADOR
+                            </button>
+                        </div>
+                    @else
+                        <div class="custom-tooltip" data-tip="No es posible guardar este programa como borrador." id="borradorTooltip">
+                            <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200 opacity-70 cursor-not-allowed" tabindex="18" disabled>
+                                GUARDAR BORRADOR
+                            </button>
+                        </div>
+                    @endif
 
-                    <div class="tooltip tooltip-top" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
-                        <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
-                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="19" id="guardarBtn">
+                    <div class="custom-tooltip" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
+                        <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-400 bg-white 
+                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 opacity-70 cursor-not-allowed" tabindex="19" id="guardarBtn" disabled>
                             GUARDAR
                         </button>
                     </div>
@@ -334,6 +355,12 @@
         visibility: visible;
         opacity: 1;
     }
+
+    /* Atenuar visualmente los botones deshabilitados */
+    button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
 </style>
 
 <script>
@@ -371,9 +398,9 @@
             if (guardarBtn && guardarTooltip) {
                 guardarBtn.disabled = !allFieldsValid;
                 if (!allFieldsValid) {
-                    guardarTooltip.setAttribute('data-tip', 'Verifique que todos los campos numéricos tengan valores válidos');
+                    guardarTooltip.setAttribute('data-tip', 'Debe completar todos los campos requeridos para poder guardar el programa.');
                 } else {
-                    guardarTooltip.setAttribute('data-tip', 'Guardar plan');
+                    guardarTooltip.setAttribute('data-tip', 'Guardar programa.');
                 }
             }
         }

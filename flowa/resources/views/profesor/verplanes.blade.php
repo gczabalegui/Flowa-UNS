@@ -54,7 +54,7 @@
                                     <div class="flex flex-col items-center gap-2 w-full">
                                         <a href="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
                                             hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                                            VISTA PREVIA
+                                            VER
                                         </a>
 
                                         @if(in_array($plan->estado, [
@@ -69,9 +69,9 @@
                                             EDITAR
                                         </a>
                                         @else
-                                        <span class="inline-flex items-center justify-center w-32 px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70">
+                                        <button class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded-md text-gray-400 bg-gray-100 border border-gray-300 cursor-not-allowed" disabled>
                                             EDITAR
-                                        </span>
+                                        </button>
                                         @endif
                                     </div>
                                 </td>
@@ -127,7 +127,7 @@
                 <div class="flex flex-col sm:flex-row gap-2 pt-4 justify-center border-t border-gray-100 mt-4">
                     <a href="{{ route('profesor.traerinfoplan', ['id' => $plan->id]) }}" class="inline-flex items-center justify-center w-full sm:w-36 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
                         hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                        VISTA PREVIA
+                        VER
                     </a>
 
                     @if(in_array($plan->estado, [
@@ -142,9 +142,9 @@
                         EDITAR
                     </a>
                     @else
-                    <span class="inline-flex items-center justify-center w-full sm:w-36 px-4 py-2 border border-gray-200 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70">
+                    <button class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded-md text-gray-400 bg-gray-100 border border-gray-300 cursor-not-allowed" disabled>
                         EDITAR
-                    </span>
+                    </button>
                     @endif
                 </div>
             </div>

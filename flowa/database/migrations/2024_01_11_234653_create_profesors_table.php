@@ -25,6 +25,9 @@ return new class extends Migration
             $table->unsignedBigInteger('carrera_id')->nullable(); //TODO
             $table->foreign('carrera_id')->references('id')->on('carreras')->onDelete('cascade');
 
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 

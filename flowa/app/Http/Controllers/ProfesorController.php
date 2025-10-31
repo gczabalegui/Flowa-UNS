@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Materia;
 use Illuminate\Http\Request;
 use App\Models\Profesor;
 use Illuminate\Support\Facades\Log;
@@ -26,9 +27,13 @@ class ProfesorController extends Controller
         // Si es admin, mostramos todos los planes
         if ($user->role === 'admin') {
             $planesQuery = Plan::query();
+            $materiasQuery = Materia::query();
         } else {
             // Si es profesor, solo sus planes
-            $planesQuery = Plan::where('profesor_id', $user->profesor->id);
+            $planesQuery = Plan::whereHas('materia', function ($q) use ($user) {
+                $q->where('profesor_id', $user->profesor->id);
+            });
+            $materiasQuery = Materia::where('profesor_id', $user->profesor->id);
         }
 
         // Datos numéricos
@@ -42,6 +47,8 @@ class ProfesorController extends Controller
         $planesRechazados = (clone $planesQuery)
             ->where('estado', 'Rechazado para profesor responsable por secretaría académica.')
             ->count();
+        $materiasQuery = (clone $materiasQuery);
+        $totalMaterias = $materiasQuery->count(); 
 
         // Gráfico por estado
         $planesPorEstado = (clone $planesQuery)
@@ -71,6 +78,7 @@ class ProfesorController extends Controller
             'planesAprobados',
             'planesRechazados',
             'planesPorEstado',
+            'totalMaterias',
             'ultimasModificaciones'
         ));
     }
@@ -108,28 +116,31 @@ class ProfesorController extends Controller
     public function store(Request $request)
     {
         try {
+            // Validación sin contraseña
             $request->validate([
                 'nombre_profesor' => 'required|max:255|string',
                 'apellido_profesor' => 'required|max:255|string',
                 'DNI_profesor' => 'required|digits_between:1,8|numeric|unique:profesors,DNI_profesor',
                 'email_profesor' => 'required|email|unique:profesors,email_profesor',
                 'legajo_profesor' => 'required|digits_between:1,5|numeric|unique:profesors,legajo_profesor',
-                'contraseña_profesor' => 'required|string|min:8|confirmed',
             ]);
 
+            // Crear Profesor
             $profesor = new Profesor();
             $profesor->nombre_profesor = $request->get('nombre_profesor');
             $profesor->apellido_profesor = $request->get('apellido_profesor');
             $profesor->DNI_profesor = $request->get('DNI_profesor');
             $profesor->email_profesor = $request->get('email_profesor');
             $profesor->legajo_profesor = $request->get('legajo_profesor');
-            $profesor->contraseña_profesor = bcrypt($request->contraseña_profesor);
+            // Contraseña por defecto = legajo
+            $profesor->contraseña_profesor = bcrypt($request->get('legajo_profesor'));
             $profesor->save();
 
+            // Crear usuario para login
             $user = new User();
             $user->legajo = $request->get('legajo_profesor');
             $user->email = $request->get('email_profesor');
-            $user->password = bcrypt($request->get('contraseña_profesor'));
+            $user->password = bcrypt($request->get('legajo_profesor')); // contraseña por defecto = legajo
             $user->role = 'profesor';
             $user->save();
 
