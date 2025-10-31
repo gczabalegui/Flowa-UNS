@@ -55,7 +55,6 @@ class AdministracionController extends Controller
                 'DNI' => 'required|numeric',
                 'legajo' => 'required|numeric',
                 'email' => 'required|max:255|string',
-                'contraseña' => 'required|string|min:8|confirmed',
             ]);
 
             $administraciones = new Administracion();
@@ -64,12 +63,12 @@ class AdministracionController extends Controller
             $administraciones->DNI = $request->get('DNI');
             $administraciones->legajo = $request->get('legajo');
             $administraciones->email = $request->get('email');
-            $administraciones->contraseña = bcrypt($request->contraseña);
+            $administraciones->contraseña = bcrypt($request->get('legajo'));
 
             $user = new User();
             $user->legajo = $request->get('legajo');
             $user->email = $request->get('email');
-            $user->password = bcrypt($request->get('contraseña'));
+            $user->password = bcrypt($request->get('legajo'));
             $user->role = 'administracion';
             $user->save();
 

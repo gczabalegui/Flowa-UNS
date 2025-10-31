@@ -54,22 +54,6 @@
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
-
-                    <div>
-                        <label for="contraseña" class="block text-sm font-medium text-gray-700 mb-2">Contraseña</label>
-                        <input id="contraseña" name="contraseña" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="6" required placeholder="Ingrese la contraseña">
-                        @error('contraseña')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
-
-                    <div>
-                        <label for="contraseña_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Confirmar Contraseña</label>
-                        <input id="contraseña_confirmation" name="contraseña_confirmation" type="password" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="8" required placeholder="Confirme la contraseña">
-                        @error('contraseña_confirmation')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                        @enderror
-                    </div>
                 </div>
 
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
@@ -121,44 +105,33 @@
 </style>
 
 <script>
-    // Campos requeridos para el botón "Guardar"
-    const requiredFields = ['nombre', 'apellido', 'DNI', 'legajo', 'email', 'contraseña', 'contraseña_confirmation'];
+    const requiredFields = ['nombre', 'apellido', 'DNI', 'legajo', 'email'];
 
-    // Referencias a elementos
     const guardarBtn = document.getElementById('guardarBtn');
     const guardarTooltip = document.getElementById('guardarTooltip');
 
-    // Función para validar el formulario
     function validateForm() {
         let allValid = true;
 
         requiredFields.forEach(fieldName => {
             const field = document.getElementById(fieldName);
-            if (field && field.value.trim() === '') {
+            if (!field || field.value.trim() === '') {
                 allValid = false;
             }
         });
 
-        // Validación adicional: las contraseñas deben coincidir
-        const password = document.getElementById('contraseña').value;
-        const confirmPassword = document.getElementById('contraseña_confirmation').value;
-        if (password !== confirmPassword) {
-            allValid = false;
-        }
-
         if (allValid) {
             guardarBtn.disabled = false;
-            guardarTooltip.setAttribute('data-tip', 'Listo para guardar.');
+            guardarTooltip.dataset.tip = "Usuario listo.";
         } else {
             guardarBtn.disabled = true;
-            guardarTooltip.setAttribute('data-tip', 'Todos los campos son requeridos para guardar el usuario.');
+            guardarTooltip.dataset.tip = "Todos los campos son requeridos para guardar el usuario.";
         }
     }
 
     // Validar al cargar la página
     validateForm();
 
-    // Agregar listeners a todos los campos requeridos
     requiredFields.forEach(fieldName => {
         const field = document.getElementById(fieldName);
         if (field) {
@@ -167,6 +140,7 @@
         }
     });
 </script>
+
 
 <!-- Espacio adicional al final de la página -->
 <div class="h-16"></div>
