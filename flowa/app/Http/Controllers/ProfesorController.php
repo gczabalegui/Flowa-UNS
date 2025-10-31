@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Materia;
 use Illuminate\Http\Request;
 use App\Models\Profesor;
 use Illuminate\Support\Facades\Log;
@@ -26,9 +27,13 @@ class ProfesorController extends Controller
         // Si es admin, mostramos todos los planes
         if ($user->role === 'admin') {
             $planesQuery = Plan::query();
+            $materiasQuery = Materia::query();
         } else {
             // Si es profesor, solo sus planes
-            $planesQuery = Plan::where('profesor_id', $user->profesor->id);
+            $planesQuery = Plan::whereHas('materia', function ($q) use ($user) {
+                $q->where('profesor_id', $user->profesor->id);
+            });
+            $materiasQuery = Materia::where('profesor_id', $user->profesor->id);
         }
 
         // Datos numéricos
@@ -42,6 +47,8 @@ class ProfesorController extends Controller
         $planesRechazados = (clone $planesQuery)
             ->where('estado', 'Rechazado para profesor responsable por secretaría académica.')
             ->count();
+        $materiasQuery = (clone $materiasQuery);
+        $totalMaterias = $materiasQuery->count(); 
 
         // Gráfico por estado
         $planesPorEstado = (clone $planesQuery)
@@ -71,6 +78,7 @@ class ProfesorController extends Controller
             'planesAprobados',
             'planesRechazados',
             'planesPorEstado',
+            'totalMaterias',
             'ultimasModificaciones'
         ));
     }

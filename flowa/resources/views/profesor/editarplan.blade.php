@@ -11,6 +11,10 @@
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
+            <form method="POST" action="{{ route('profesor.editarplan.update', $plan->id) }}">
+            @csrf
+            @method('PUT')
+            <input type="hidden" name="action" id="formAction" value="">
             <div class="p-6">
                 <div class="space-y-6">
 
@@ -240,7 +244,7 @@
                                     </span>
                                 </span>
                             </label>
-                            <textarea id="contenidos_minimos" name="contenidos_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="3" placeholder="Ingrese los contenidos mínimos">{{ $plan->contenidos_minimos }}</textarea>
+                            <textarea id="cont_minimos" name="cont_minimos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" style="height:200px; resize:vertical;" tabindex="3" placeholder="Ingrese los contenidos mínimos">{{ $plan->cont_minimos }}</textarea>
                         </div>
 
                         <!-- Programa analítico -->
@@ -290,43 +294,82 @@
                     $estadosRechazados = [
                     'Rechazado para administración por secretaría académica.',
                     'Rechazado para profesor responsable por secretaría académica.',
-                    'Rechazado para administración por profesor responsable.'
+                    'Rechazado para administración por profesor responsable.',
+                    'Rechazado para administración por profesor.',
                     ];
                     $esPlanRechazado = in_array($plan->estado, $estadosRechazados);
                     @endphp
 
                     <!-- Botones -->
                     <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 pt-6">
-
-                        <!-- Rechazar plan -->
-                        <button type="submit" name="action" value="rechazar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
-               hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="12">
-                            RECHAZAR
-                        </button>
-
-                        <!-- Guardar borrador -->
-                        @if($esPlanRechazado)
-                        <div class="custom-tooltip" data-tip="No se puede guardar como borrador. Debe rectificar y enviar.">
-                            <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-45 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70" disabled tabindex="13">
-                                GUARDAR BORRADOR
+                        <!-- Rechazar plan (traerinfoplan style) -->
+                        <form id="reject-plan-form" action="{{ route('profesor.rechazarplan', ['id' => $plan->id]) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="role" value="profesor">
+                            <input type="hidden" name="type" value="administracion">
+                            <button 
+                                type="button"
+                                class="w-36 h-12 flex items-center justify-center text-center px-3 py-2 text-sm font-medium rounded-md border 
+                                    @if(!in_array($plan->estado, ['Completo por administración.', 'Incompleto por profesor.', 'Rectificado por administración para profesor responsable.']))
+                                        border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-70
+                                    @else
+                                        border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 
+                                        focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200
+                                    @endif"
+                                data-form="reject-plan-form"
+                                data-message="¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá a administración."
+                                @if(!in_array($plan->estado, ['Completo por administración.', 'Incompleto por profesor.', 'Rectificado por administración para profesor responsable.'])) 
+                                    disabled 
+                                @endif>
+                                RECHAZAR PARA ADMINISTRACIÓN
                             </button>
-                        </div>
-                        @else
-                        <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
-                   hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="13">
+                        </form>
+
+                    <!-- Guardar borrador -->
+                    @if($esPlanRechazado)
+                    <div class="custom-tooltip" data-tip="No se puede guardar como borrador. Debe rectificar y enviar.">
+                        <button type="button" 
+                            class="inline-flex items-center justify-center px-5 py-2 w-70 border text-sm font-medium rounded-md 
+                                border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-70" 
+                            disabled 
+                            tabindex="13">
                             GUARDAR BORRADOR
                         </button>
-                        @endif
+                    </div>
+                    @else
+                    <button type="submit" name="action" value="guardar_borrador" 
+                        class="inline-flex items-center justify-center px-5 py-2 w-50 border text-sm font-medium rounded-md 
+                            text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200
+                            disabled:border-gray-300 disabled:text-gray-400 disabled:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-70" 
+                        tabindex="13">
+                        GUARDAR BORRADOR
+                    </button>
+                    @endif
 
-                        <!-- Guardar plan (resaltado con texto verde y fondo blanco) -->
-                        <div class="custom-tooltip" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
-                            <button type="submit" name="action" value="guardar" id="guardarBtn" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
-                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="14" disabled>
-                                GUARDAR
-                            </button>
-                        </div>
+                    <!-- Guardar plan -->
+                    <div class="custom-tooltip" data-tip="Complete todos los campos requeridos" id="guardarTooltip">
+                        <button 
+                            type="submit" 
+                            name="action" 
+                            value="guardar" 
+                            id="guardarBtn"
+                            class="inline-flex items-center justify-center px-5 py-2 w-50 text-sm font-medium rounded-md border transition-colors duration-200
+                                focus:outline-none focus:ring-2 focus:ring-offset-2
+                                @if(in_array($plan->estado, ['Completo por administración.', 'Incompleto por profesor.', 'Rectificado por administración para profesor responsable.']))
+                                    border-green-600 text-green-700 bg-white hover:bg-green-50 focus:ring-green-500
+                                @else
+                                    border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-70
+                                @endif"
+                            tabindex="14"
+                            @if(!in_array($plan->estado, ['Completo por administración.', 'Incompleto por profesor.', 'Rectificado por administración para profesor responsable.'])) 
+                                disabled 
+                            @endif>
+                            GUARDAR
+                        </button>
+                    </div>
 
-                        <!-- Cancelar -->
+
+                    <!-- Cancelar -->
                         <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-40 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white 
                hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200" tabindex="15" onclick="window.location.href='/profesor'">
                             CANCELAR
@@ -374,25 +417,40 @@
 
             function validateForm() {
                 let allValid = true;
-
+                let debug = {};
                 requiredFields.forEach(fieldName => {
                     const field = document.getElementById(fieldName);
-                    if (field && field.value.trim() === '') {
+                    debug[fieldName] = field ? field.value : 'NO FIELD';
+                    if (!field || field.value.trim() === '') {
                         allValid = false;
                     }
                 });
+                console.log('validateForm', debug, 'allValid:', allValid);
 
-                if (allValid) {
+                // Estado del plan
+                const estadosRechazados = [
+                    'Rechazado para administración por secretaría académica.',
+                    'Rechazado para profesor responsable por secretaría académica.',
+                    'Rechazado para administración por profesor responsable.',
+                    'Rechazado para administración por profesor.',
+                ];
+                const planEstado = "{{ $plan->estado }}";
+                const esPlanRechazado = estadosRechazados.includes(planEstado);
+
+                // Habilitar solo si todos los campos y no rechazado
+                if (allValid && !esPlanRechazado) {
                     guardarBtn.disabled = false;
+                    guardarBtn.classList.remove('opacity-70', 'cursor-not-allowed', 'text-green-400');
+                    guardarBtn.classList.add('text-green-700');
                     if (guardarTooltip) {
-                        guardarTooltip.classList.remove('tooltip');
-                        guardarTooltip.setAttribute('data-tip', 'Listo para guardar');
+                        guardarTooltip.setAttribute('data-tip', 'Guardar programa.');
                     }
                 } else {
                     guardarBtn.disabled = true;
+                    guardarBtn.classList.add('opacity-70', 'cursor-not-allowed', 'text-green-400');
+                    guardarBtn.classList.remove('text-green-700');
                     if (guardarTooltip) {
-                        guardarTooltip.classList.remove('tooltip');
-                        guardarTooltip.setAttribute('data-tip', 'Complete todos los campos requeridos');
+                        guardarTooltip.setAttribute('data-tip', esPlanRechazado ? 'No se puede guardar un programa rechazado.' : 'Complete todos los campos requeridos.');
                     }
                 }
             }
@@ -428,7 +486,7 @@
 
                     if (isEmpty) {
                         e.preventDefault();
-                        alert('Por favor complete todos los campos requeridos antes de guardar el programa.');
+                        alert('Por favor, complete todos los campos requeridos antes de guardar el programa.');
                         return false;
                     }
                 } else if (submitButton && submitButton.value === 'rechazar') {
@@ -437,7 +495,7 @@
 
                     if (typeof showConfirmModal === 'function') {
                         showConfirmModal(
-                            'Rechazar programa de materia',
+                            'Rechazar programa de materia.',
                             '¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá a administración.',
                             function() {
                                 // Remover validación required para rechazar
@@ -484,7 +542,7 @@
             const iaSugerenciaDiv = document.getElementById('iaSugerencia');
 
             if (!bib) {
-                alert('Por favor escriba la bibliografía antes de solicitar una sugerencia.');
+                alert('Por favor, escriba la bibliografía antes de solicitar una sugerencia.');
                 return;
             }
 
@@ -785,14 +843,14 @@
 
         /* Regla para activar el tooltip al pasar el ratón */
         .tooltip-trigger:hover .tooltip-content {
-            /* CLAVE: El selector debe ser para un hijo del trigger */
             visibility: visible;
             opacity: 1;
         }
 
-        /* Atenuar visualmente los botones deshabilitados */
+
         button:disabled {
-            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 

@@ -16,24 +16,23 @@
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Datos de gestión</h3>
                 
                 <div class="bg-white p-6 rounded-lg shadow border">
+                    <p class="text-gray-600 mt-1">Total de programas de materias</p>
                     <h2 class="text-4xl font-bold text-blue-600">{{ $totalPlanes }}</h2>
-                    <p class="text-gray-600 mt-1">Programas de materias totales</p>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow border">
-                    <h2 class="text-4xl font-bold text-green-600">{{ $totalMaterias }}</h2>
                     <p class="text-gray-600 mt-1">Materias</p>
+                    <h2 class="text-4xl font-bold text-green-600">{{ $totalMaterias }}</h2>
                 </div>
                 
                 <div class="bg-white p-6 rounded-lg shadow border">
+                    <p class="text-gray-600 mt-1">Profesores responsables</p>
                     <h2 class="text-4xl font-bold text-purple-600">{{ $totalProfesores }}</h2>
-                    <p class="text-gray-600 mt-1">Profesores responsable</p>
                 </div>
             </div>
 
             <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow border flex flex-col">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Programas de materias por estado</h3>
-                {{-- Contenedor con altura fija para evitar que el gráfico se estire --}}
+                <h3 class="text-lg font-semibold text-gray-800 mb-4 text-center">Programas de materias por estado</h3>
                 <div class="flex-grow flex items-center justify-center" style="max-height: 400px;">
                     <canvas id="chartEstado"></canvas>
                 </div>
@@ -41,7 +40,6 @@
 
             <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow border flex flex-col">
                 <h3 class="text-lg font-semibold text-gray-800 mb-4">Programas por año</h3>
-                 {{-- Contenedor con altura fija para evitar que el gráfico se estire --}}
                 <div class="flex-grow" style="max-height: 400px;">
                     <canvas id="chartAnio"></canvas>
                 </div>

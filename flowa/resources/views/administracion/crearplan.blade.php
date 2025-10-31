@@ -358,10 +358,10 @@
 
         if (materiaField && materiaField.value.trim() !== '') {
             borradorBtn.disabled = false;
-            borradorTooltip.setAttribute('data-tip', 'Guardar como borrador');
+            borradorTooltip.setAttribute('data-tip', 'Guardar como borrador.');
         } else {
             borradorBtn.disabled = true;
-            borradorTooltip.setAttribute('data-tip', 'Debe seleccionar una materia para guardar como borrador');
+            borradorTooltip.setAttribute('data-tip', 'Debe seleccionar una materia para guardar como borrador.');
         }
     }
 

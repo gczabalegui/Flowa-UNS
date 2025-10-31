@@ -136,7 +136,6 @@ class PlanController extends Controller
 
             $estadosRechazados = [
                 'Rechazado para administración por secretaría académica.',
-                'Rechazado para profesor resposable por secretaría académica.',
                 'Rechazado para administración por profesor responsable.'
             ];
 
@@ -429,9 +428,7 @@ class PlanController extends Controller
             $plan = Plan::findOrFail($id);
 
             $estadosRechazados = [
-                'Rechazado para administración por secretaría académica.',
-                'Rechazado para profesor responsable por secretaría académica.',
-                'Rechazado para administración por profesor responsable.'
+                'Rechazado para profesor responsable por secretaría académica.'
             ];
 
             // Manejar diferentes acciones

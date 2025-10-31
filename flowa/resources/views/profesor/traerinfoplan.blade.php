@@ -240,20 +240,35 @@
                     @endif
                 </div>
                 <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <form id="reject-plan-form" action="{{ route('profesor.rechazarplan', ['id' => $plan->id]) }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="role" value="profesor">
-                        <input type="hidden" name="type" value="administracion">
-                        <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" data-form="reject-plan-form" data-message="¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá a administración.">
-                            RECHAZAR
+                    <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 pt-6">
+                        <form id="reject-plan-form" action="{{ route('profesor.rechazarplan', ['id' => $plan->id]) }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="role" value="profesor">
+                            <input type="hidden" name="type" value="administracion">
+                        <button 
+                            type="button"
+                            class="w-36 h-12 flex items-center justify-center text-center px-3 py-2 text-sm font-medium rounded-md border 
+                                @if(!in_array($plan->estado, ['Completo por administración.', 'Incompleto por profesor.', 'Rectificado por administración para profesor responsable.']))
+                                    border-gray-300 text-gray-400 bg-gray-100 cursor-not-allowed opacity-70
+                                @else
+                                    border-gray-300 text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 
+                                    focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200
+                                @endif"
+                            data-form="reject-plan-form"
+                            data-message="¿Está seguro de que desea rechazar este programa? Esta acción lo devolverá a administración."
+                            @if(!in_array($plan->estado, ['Completo por administración.', 'Incompleto por profesor.', 'Rectificado por administración para profesor responsable.'])) 
+                                disabled 
+                            @endif>
+                            RECHAZAR PARA ADMINISTRACIÓN
                         </button>
-                    </form>
-                    <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                        EDITAR
-                    </a>
-                    <a href="/profesor/verplanes" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                        VOLVER
-                    </a>
+                        </form>
+                        <a href="{{ route('profesor.editarplan', ['id' => $plan->id]) }}" class="w-36 h-12 flex items-center justify-center text-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            EDITAR
+                        </a>
+                        <a href="/profesor/verplanes" class="w-36 h-12 flex items-center justify-center text-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            VOLVER
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

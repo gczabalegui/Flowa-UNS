@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Carrera;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -15,6 +16,10 @@ class ProfesorSeeder extends Seeder
      */
     public function run(): void
     {
+        $user1 = User::where('email', 'maria.garcia@uns.edu.ar')->first();
+        $user2 = User::where('email', 'daniel.pelaez@uns.edu.ar')->first();
+        $user3 = User::where('email', 'juan.perez@uns.edu.ar')->first();
+
         $data = [
             [
                 'nombre_profesor' => 'Daniel',
@@ -23,6 +28,7 @@ class ProfesorSeeder extends Seeder
                 'email_profesor' => 'daniel.pelaez@uns.edu.ar',
                 'legajo_profesor' => '9',
                 'carrera_id' => 1,
+                'user_id' => $user2->id,
                 'contraseña_profesor' => Hash::make('12345'),
              ],
              [
@@ -32,6 +38,7 @@ class ProfesorSeeder extends Seeder
                 'email_profesor' => 'maria.garcia@uns.edu.ar',
                 'legajo_profesor' => '5160',
                 'carrera_id' => 1,
+                'user_id' => $user1->id,
                 'contraseña_profesor' => Hash::make('12345'),
              ],
              [
@@ -41,6 +48,7 @@ class ProfesorSeeder extends Seeder
                 'email_profesor' => 'juan.perez@uns.edu.ar',
                 'legajo_profesor' => '5161',
                 'carrera_id' => 1,
+                'user_id' => $user3->id,
                 'contraseña_profesor' => Hash::make('12345'),
              ],
         ];

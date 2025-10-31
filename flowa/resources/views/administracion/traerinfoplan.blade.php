@@ -254,9 +254,22 @@
                     </a>
                     @endif
 
-                    <a href="/administracion/verplanes" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
-                        VOLVER
-                    </a>
+                    <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 pt-6">
+                        @if($plan->estado === 'Incompleto por administración.' ||
+                            $plan->estado === 'Rechazado para administración por profesor responsable.' ||
+                            $plan->estado === 'Rechazado para administración por secretaría académica.')
+                            <a href="{{ route('administracion.editarplan', ['id' => $plan->id]) }}" class="w-28 inline-flex items-center justify-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 transition-colors duration-200">
+                                EDITAR
+                            </a>
+                        @else
+                            <button class="w-28 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded-md text-gray-400 bg-gray-100 border border-gray-300 cursor-not-allowed" disabled>
+                                <span class="text-green-400 opacity-70">EDITAR</span>
+                            </button>
+                        @endif
+                        <a href="/administracion/verplanes" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200">
+                            VOLVER
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -224,8 +224,8 @@
                     {{-- Botón Rechazar para administración (gris) --}}
                     @if($plan->estado === 'Aprobado por secretaría académica.')
                     <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-70 border border-gray-300 text-sm font-medium rounded-md text-gray-400 bg-gray-100 cursor-not-allowed opacity-70" disabled title="Una vez aprobado, solo puede ser rechazado hacia el profesor asociado.">
-                        RECHAZAR PARA ADMINISTRACIÓN
-                    </button>
+                                    RECHAZAR PARA ADMINISTRACIÓN
+                                </button>
                     @else
                     <form id="reject-admin-form" action="{{ route('secretaria.rechazarplan', ['id' => $plan->id]) }}" method="POST">
                         @csrf
@@ -250,8 +250,8 @@
                     {{-- Botón Aprobar plan (verde) --}}
                     @if($plan->estado === 'Aprobado por secretaría académica.')
                     <button type="button" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-600 bg-white opacity-60 cursor-not-allowed" disabled title="El programa ya fue aprobado por secretaría académica.">
-                        APROBAR PROGRAMA
-                    </button>
+                                    APROBAR PROGRAMA
+                                </button>
                     @else
                     <form id="approve-form" action="{{ route('secretaria.aprobarplan', ['id' => $plan->id]) }}" method="POST">
                         @csrf
