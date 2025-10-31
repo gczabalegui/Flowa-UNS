@@ -7,7 +7,7 @@
     <div class="max-w-none mx-auto">
         <div class="mb-6">
             <h1 class="text-2xl font-bold text-gray-900">Información del programa</h1>
-            <p class="text-gray-600 mt-2">Revise los detalles completos del programa de materia</p>
+            <p class="text-gray-600 mt-2">Revise los detalles completos del programa de la materia</p>
         </div>
 
         <div class="bg-white rounded-lg shadow border border-gray-200">
