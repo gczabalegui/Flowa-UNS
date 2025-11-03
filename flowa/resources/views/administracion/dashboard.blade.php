@@ -13,7 +13,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
 
             <div class="lg:col-span-1 bg-white p-6 rounded-lg shadow border flex flex-col">
-                <h3 class="text-lg font-semibold text-gray-800 mb-4">Datos de gestión</h3>
+                <h2 class="text-lg font-semibold text-gray-800 mb-4">Datos de gestión</h2>
                 
                 <div class="bg-white p-6 rounded-lg shadow border">
                     <p class="text-gray-600 mt-1">Total de programas de materias</p>

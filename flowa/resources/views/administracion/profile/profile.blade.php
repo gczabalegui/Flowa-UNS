@@ -56,7 +56,7 @@
             <p class="text-sm text-gray-500 mt-1">Asegurate de que tu cuenta esté usando una contraseña segura.</p>
         </div>
 
-        <form action="{{ route('profile.updatePassword') }}" method="POST" class="p-6 space-y-6">
+        <form action="{{ route('profile.updatePassword') }}" method="POST" class="p-6 space-y-3">
             @csrf
             {{-- Usamos PUT para actualizar recursos --}}
             @method('PUT')
@@ -84,7 +84,7 @@
 
             {{-- 2. Nueva contraseña --}}
             <div>
-                <label for="password" class="block text-sm font-medium text-gray-700">Nueva Contraseña</label>
+                <label for="password" class="block text-sm font-medium text-gray-700">Nueva contraseña</label>
                 <div class="relative mt-1">
                     <input :type="showNew ? 'text' : 'password'" id="password" name="password" required class="block w-full border border-gray-300 rounded-lg shadow-sm p-3 pr-10 focus:ring-blue-500 focus:border-blue-500 @error('password') border-red-500 @enderror" placeholder="Nueva contraseña">
                     <button type="button" @click="showNew = !showNew" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700 focus:outline-none">

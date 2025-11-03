@@ -15,55 +15,55 @@
                 @csrf
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
-                        <input id="nombre_profesor" name="nombre_profesor" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1" required value="{{ old('nombre_profesor') }}" placeholder="Ingrese el nombre">
+                        <label for="nombre_profesor" class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
+                        <input id="nombre_profesor" name="nombre_profesor" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('nombre_profesor') }}" placeholder="Ingrese el nombre">
                         @error('nombre_profesor')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Apellido</label>
-                        <input id="apellido_profesor" name="apellido_profesor" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2" required value="{{ old('apellido_profesor') }}" placeholder="Ingrese el apellido">
+                        <label for="apellido_profesor" class="block text-sm font-medium text-gray-700 mb-2">Apellido</label>
+                        <input id="apellido_profesor" name="apellido_profesor" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('apellido_profesor') }}" placeholder="Ingrese el apellido">
                         @error('apellido_profesor')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">DNI</label>
-                        <input id="DNI_profesor" name="DNI_profesor" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('DNI_profesor') }}" placeholder="Ingrese el DNI" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <label for="DNI_profesor" class="block text-sm font-medium text-gray-700 mb-2">DNI</label>
+                        <input id="DNI_profesor" name="DNI_profesor" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('DNI_profesor') }}" placeholder="Ingrese el DNI" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('DNI_profesor')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Legajo</label>
-                        <input id="legajo_profesor" name="legajo_profesor" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('legajo_profesor') }}" placeholder="Ingrese el legajo" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <label for="legajo_profesor" class="block text-sm font-medium text-gray-700 mb-2">Legajo</label>
+                        <input id="legajo_profesor" name="legajo_profesor" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('legajo_profesor') }}" placeholder="Ingrese el legajo" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('legajo_profesor')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
-                        <input id="email_profesor" name="email_profesor" type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="5" required value="{{ old('email_profesor') }}" placeholder="Ingrese el email">
+                        <label for="email_profesor" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                        <input id="email_profesor" name="email_profesor" type="email" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('email_profesor') }}" placeholder="Ingrese el email">
                         @error('email_profesor')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
                     <div class="custom-tooltip" data-tip="Todos los campos son requeridos para guardar el usuario." id="guardarTooltip">
                         <button type="submit" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
-                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="8" id="guardarBtn" disabled>
+                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" id="guardarBtn" disabled>
                             GUARDAR
                         </button>
                     </div>
 
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="9" onclick="window.location.href='/administracion'">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" onclick="window.location.href='/administracion'">
                         CANCELAR
                     </button>
                 </div>

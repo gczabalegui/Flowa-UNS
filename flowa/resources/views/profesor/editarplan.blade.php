@@ -404,16 +404,22 @@
         const form = document.querySelector('form');
 
         function validateForm() {
+            // Revisa si el botón ya está permanentemente deshabilitado por estado del plan
+            const isPermanentlyDisabled = guardarBtn.classList.contains('border-gray-300') && guardarBtn.classList.contains('bg-gray-100') && guardarBtn.getAttribute('disabled') === '';
+
+            // Si el botón está permanentemente deshabilitado desde Blade, no lo modificamos con JS.
+            if (isPermanentlyDisabled && !requiredFields.some(id => document.getElementById(id)?.value.trim() !== '')) {
+                // Si está permanentemente deshabilitado Y no hay campos escritos, mantenemos el estado de Blade.
+                return;
+            }
+
             let allValid = true;
-            let debug = {};
             requiredFields.forEach(fieldName => {
                 const field = document.getElementById(fieldName);
-                debug[fieldName] = field ? field.value : 'NO FIELD';
                 if (!field || field.value.trim() === '') {
                     allValid = false;
                 }
             });
-            console.log('validateForm', debug, 'allValid:', allValid);
 
             // Estado del plan
             const estadosRechazados = [
@@ -425,20 +431,50 @@
             const planEstado = "{{ $plan->estado }}";
             const esPlanRechazado = estadosRechazados.includes(planEstado);
 
-            // Habilitar solo si todos los campos y no rechazado
-            if (allValid && !esPlanRechazado) {
+            // La condición para HABILITAR el botón es: 
+            // 1. Todos los campos están válidos.
+            // 2. El estado del plan es uno de los que permite guardar/enviar (se lee del HTML original).
+            // NOTA: Si `guardarBtn` fue deshabilitado en BLADE, la validación dinámica no lo debe re-habilitar.
+            // La condición de habilitación la mantenemos igual que en Blade.
+            const estadoPermiteGuardar = ['Completo por administración.', 'Incompleto por profesor.', 'Rectificado por administración para profesor responsable.', 'Aprobado por secretaría académica.'].includes(planEstado);
+
+
+            if (allValid && estadoPermiteGuardar) {
+                // *** SE HABILITA EL BOTÓN (ESTILO VERDE/BLANCO) ***
                 guardarBtn.disabled = false;
-                guardarBtn.classList.remove('opacity-70', 'cursor-not-allowed', 'text-green-400');
-                guardarBtn.classList.add('text-green-700');
+
+                // 1. Quitar clases de estilo 'deshabilitado' (gris)
+                guardarBtn.classList.remove('border-gray-300', 'text-gray-400', 'bg-gray-100', 'cursor-not-allowed', 'opacity-70');
+
+                // 2. Aplicar clases de estilo 'habilitado' (verde/blanco)
+                guardarBtn.classList.add('border-green-600', 'text-green-700', 'bg-white', 'hover:bg-green-50', 'focus:ring-green-500');
+
                 if (guardarTooltip) {
                     guardarTooltip.setAttribute('data-tip', 'Guardar programa.');
                 }
             } else {
+                // *** SE DESHABILITA EL BOTÓN (ESTILO GRIS) ***
+
+                // Si está deshabilitado permanentemente en Blade, no lo sobrescribimos.
+                if (isPermanentlyDisabled) return;
+
                 guardarBtn.disabled = true;
+
+                // 1. Quitar clases de estilo 'habilitado' (verde/blanco)
+                guardarBtn.classList.remove('border-green-600', 'text-green-700', 'bg-white', 'hover:bg-green-50', 'focus:ring-green-500');
+
+                // 2. Aplicar clases de estilo 'deshabilitado' (gris)
                 guardarBtn.classList.add('opacity-70', 'cursor-not-allowed', 'text-gray-400', 'border-gray-300', 'bg-gray-100');
-                guardarBtn.classList.remove('text-green-700', 'border-green-600', 'bg-white');
+
                 if (guardarTooltip) {
-                    guardarTooltip.setAttribute('data-tip', esPlanRechazado ? 'No se puede guardar un programa rechazado.' : 'Complete todos los campos requeridos.');
+                    // Mensaje de tooltip según el motivo de deshabilitación
+                    let tipMessage = 'Complete todos los campos requeridos.';
+                    if (!estadoPermiteGuardar) {
+                        tipMessage = 'El estado actual del plan no permite guardar (Solo: Completo, Incompleto o Rectificado).';
+                    } else if (esPlanRechazado) {
+                        tipMessage = 'No se puede guardar un programa rechazado.';
+                    }
+                    guardarTooltip.setAttribute('data-tip', tipMessage);
                 }
             }
         }
