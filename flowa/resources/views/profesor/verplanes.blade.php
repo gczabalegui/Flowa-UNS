@@ -38,7 +38,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-center">
                                     <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                                        @if(str_contains($plan->estado, 'Aprobado'))
+                                        @if(str_contains($plan->estado, 'Completo') || str_contains($plan->estado, 'Aprobado'))
                                             bg-green-100 text-green-800
                                         @elseif(str_contains($plan->estado, 'Rechazado'))
                                             bg-red-100 text-red-800
@@ -109,7 +109,7 @@
                     <div class="flex items-center pt-1 justify-center">
                         <span class="text-sm font-semibold text-gray-700 mr-2">Estado:</span>
                         <span class="inline-flex px-2 py-1 text-xs font-semibold rounded-full
-                            @if(str_contains($plan->estado, 'Aprobado'))
+                            @if(str_contains($plan->estado, 'Completo') || str_contains($plan->estado, 'Aprobado'))
                             bg-green-100 text-green-800
                             @elseif(str_contains($plan->estado, 'Rechazado'))
                             bg-red-100 text-red-800

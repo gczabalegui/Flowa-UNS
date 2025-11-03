@@ -112,7 +112,7 @@
 
                     <div>
                         <div class="border border-gray-300 rounded-lg p-4">
-                            <h3 class="text-lg font-bold mb-4 text-gray-900">Materias correlativas</h3>
+                            <h2 class="text-lg font-bold mb-4 text-gray-900">Materias correlativas</h2>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas fuertes</label>

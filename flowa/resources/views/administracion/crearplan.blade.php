@@ -16,8 +16,8 @@
                 <div class="space-y-6">
                     <!-- Materia (full width) -->
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Materia</label>
-                        <select name="materia_id" id="materia_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1">
+                        <label for="materia_id" class="block text-sm font-medium text-gray-700 mb-2">Materia</label>
+                        <select name="materia_id" id="materia_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                             <option value="">Seleccione una materia</option>
                             @foreach($materias as $materia)
                             <option value="{{ $materia->id }}" data-profesor="{{ $materia->profesor->apellido_profesor }}, {{ $materia->profesor->nombre_profesor }}">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</option>
@@ -28,7 +28,7 @@
                     <!-- Profesor y Año en la misma fila -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Profesor responsable</label>
+                            <label for="profesor" class="block text-sm font-medium text-gray-700 mb-2">Profesor responsable</label>
                             <select id="profesor" name="profesor_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">Seleccione un profesor</option>
                                 @foreach($profesores as $profesor)
@@ -40,8 +40,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Año</label>
-                            <select name="anio" id="anio" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2">
+                            <label for="anio" class="block text-sm font-medium text-gray-700 mb-2">Año</label>
+                            <select name="anio" id="anio" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                                 <option value="">Seleccione el año</option>
                                 @foreach($years as $year)
                                 <option value="{{ $year }}">{{ $year }}</option>
@@ -53,25 +53,25 @@
                     <!-- Todas las horas juntas en otra fila -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Horas teóricas</label>
-                            <input id="horas_teoricas" name="horas_teoricas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="3" value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <label for="horas_teoricas" class="block text-sm font-medium text-gray-700 mb-2">Horas teóricas</label>
+                            <input id="horas_teoricas" name="horas_teoricas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" value="{{ old('horas_teoricas') }}" placeholder="Ingrese las horas teoricas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Horas prácticas</label>
-                            <input id="horas_practicas" name="horas_practicas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="4" value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <label for="horas_practicas" class="block text-sm font-medium text-gray-700 mb-2">Horas prácticas</label>
+                            <input id="horas_practicas" name="horas_practicas" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" value="{{ old('horas_practicas') }}" placeholder="Ingrese las horas prácticas" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Horas totales</label>
-                            <input id="horas_totales" name="horas_totales" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600 no-spinners" tabindex="5" value="{{ old('horas_totales') }}" readonly>
+                            <label for="horas_totales" class="block text-sm font-medium text-gray-700 mb-2">Horas totales</label>
+                            <input id="horas_totales" name="horas_totales" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600 no-spinners" value="{{ old('horas_totales') }}" readonly>
                         </div>
                     </div>
 
                     <!-- DTE, RTF y Créditos académicos juntos -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="relative">
-                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                            <label for="DTE" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
                                 DTE
                                 <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
                                 <span class="tooltip-content">
@@ -84,11 +84,11 @@
                                     • Complementarias = FC (1)
                                 </span>
                             </label>
-                            <input id="DTE" name="DTE" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="6" value="{{ old('DTE') }}" placeholder="Ingrese el DTE" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <input id="DTE" name="DTE" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" value="{{ old('DTE') }}" placeholder="Ingrese el DTE" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
 
                         <div class="relative">
-                            <label class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
+                            <label for="RTF" class="block text-sm font-medium text-gray-700 mb-2 flex items-center gap-1">
                                 RTF
                                 <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
                                 <span class="tooltip-content">
@@ -96,27 +96,27 @@
                                     RTF = DTE / 30
                                 </span>
                             </label>
-                            <input id="RTF" name="RTF" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="7" value="{{ old('RTF') }}" placeholder="Ingrese el RTF" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <input id="RTF" name="RTF" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" value="{{ old('RTF') }}" placeholder="Ingrese el RTF" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
-                            <input id="creditos_academicos" name="creditos_academicos" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" tabindex="8" value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
+                            <label for="creditos_academicos" class="block text-sm font-medium text-gray-700 mb-2">Créditos académicos</label>
+                            <input id="creditos_academicos" name="creditos_academicos" type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 no-spinners" value="{{ old('creditos_academicos') }}" placeholder="Ingrese cantidad de créditos académicos" min="1" step="1" inputmode="numeric" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                         </div>
                     </div>
 
 
                     <div>
                         <div class="border border-gray-300 rounded-lg p-4">
-                            <h3 class="text-lg font-bold mb-4 text-gray-900">Materias correlativas</h3>
+                            <h2 class="text-lg font-bold mb-4 text-gray-900">Materias correlativas</h2>
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm font-medium text-gray-700 mb-2">Correlativas fuertes</label>
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas fuertes (obligatorias) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
-                                        <div class="flex items-center">
-                                            <input type="checkbox" name="correlativas_fuertes[]" value="{{ $materia->id }}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" data-materia-id="{{ $materia->id }}" id="fuerte_{{ $materia->id }}" {{ in_array($materia->id, old('correlativas_fuertes', [])) ? 'checked' : '' }}>
+                                        <div class="flex items-center gap-3 py-1">
+                                            <input type="checkbox" name="correlativas_fuertes[]" value="{{ $materia->id }}" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" data-materia-id="{{ $materia->id }}" id="fuerte_{{ $materia->id }}" {{ in_array($materia->id, old('correlativas_fuertes', [])) ? 'checked' : '' }}>
                                             <label for="fuerte_{{ $materia->id }}" class="text-sm text-gray-700 cursor-pointer">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
                                         </div>
                                         @endforeach
@@ -127,8 +127,8 @@
                                     <p class="text-sm text-gray-600 mb-2">Seleccione las materias que son correlativas débiles (recomendadas) para esta materia:</p>
                                     <div class="max-h-40 overflow-y-auto border border-gray-200 rounded p-2">
                                         @foreach($materias as $materia)
-                                        <div class="flex items-center">
-                                            <input type="checkbox" name="correlativas_debiles[]" value="{{ $materia->id }}" class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" data-materia-id="{{ $materia->id }}" id="debil_{{ $materia->id }}" {{ in_array($materia->id, old('correlativas_debiles', [])) ? 'checked' : '' }}>
+                                        <div class="flex items-center gap-3 py-1">
+                                            <input type="checkbox" name="correlativas_debiles[]" value="{{ $materia->id }}" class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded mr-2 correlativa-checkbox" data-materia-id="{{ $materia->id }}" id="debil_{{ $materia->id }}" {{ in_array($materia->id, old('correlativas_debiles', [])) ? 'checked' : '' }}>
                                             <label for="debil_{{ $materia->id }}" class="text-sm text-gray-700 cursor-pointer">{{ $materia->nombre_materia }} ({{ $materia->codigo_materia }})</label>
                                         </div>
                                         @endforeach
@@ -139,12 +139,12 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Área temática</label>
-                        <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" name="area_tematica" readonly>
+                        <label for="area_tematica" class="block text-sm font-medium text-gray-600 mb-2">Área temática</label>
+                        <input type="text" id="area_tematica" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" name="area_tematica" readonly>
                     </div>
 
                     <div class="md:col-span-2 relative">
-                        <label class="block text-sm font-medium text-gray-600 mb-2 flex items-center gap-1">
+                        <label for="fundamentacion" class="block text-sm font-medium text-gray-600 mb-2 flex items-center gap-1">
                             Fundamentación
                             <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
                             <span class="tooltip-content">
@@ -160,27 +160,27 @@
                         <label class="block text-sm font-medium text-gray-600 mb-4">Objetivos generales</label>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                             <div>
-                                <label class="block text-sm text-gray-600 mb-2">Objetivos conceptuales</label>
+                                <label for="obj_conceptuales" class="block text-sm text-gray-600 mb-2">Objetivos conceptuales</label>
                                 <input type="text" id="obj_conceptuales" name="obj_conceptuales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm text-gray-600 mb-2">Objetivos procedimentales</label>
+                                <label for="obj_procedimentales" class="block text-sm text-gray-600 mb-2">Objetivos procedimentales</label>
                                 <input type="text" id="obj_procedimentales" name="obj_procedimentales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                             </div>
                             <div>
-                                <label class="block text-sm text-gray-600 mb-2">Objetivos actitudinales</label>
+                                <label for="obj_actitudinales" class="block text-sm text-gray-600 mb-2">Objetivos actitudinales</label>
                                 <input type="text" id="obj_actitudinales" name="obj_actitudinales" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                             </div>
                         </div>
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Objetivos específicos</label>
+                        <label for="obj_especificos" class="block text-sm font-medium text-gray-600 mb-2">Objetivos específicos</label>
                         <input type="text" id="obj_especificos" name="obj_especificos" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
 
                     <div class="md:col-span-2 relative">
-                        <label class="block text-sm font-medium text-gray-600 mb-2 flex items-center gap-1">
+                        <label for="cont_minimos" class="block text-sm font-medium text-gray-600 mb-2 flex items-center gap-1">
                             Contenidos mínimos
                             <span class="tooltip-trigger text-gray-400 cursor-pointer font-semibold text-base leading-none">?</span>
                             <span class="tooltip-content">
@@ -191,41 +191,46 @@
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Programa analítico</label>
+                        <label for="programa_analitico" class="block text-sm font-medium text-gray-600 mb-2">Programa analítico</label>
                         <input type="text" id="programa_analitico" name="programa_analitico" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Actividades prácticas</label>
+                        <label for="act_practicas" class="block text-sm font-medium text-gray-600 mb-2">Actividades prácticas</label>
                         <input type="text" id="act_practicas" name="act_practicas" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Modalidad</label>
+                        <label for="modalidad" class="block text-sm font-medium text-gray-600 mb-2">Modalidad</label>
                         <input type="text" id="modalidad" name="modalidad" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
 
                     <div class="md:col-span-2">
-                        <label class="block text-sm font-medium text-gray-600 mb-2">Bibliografía</label>
+                        <label for="bibliografia" class="block text-sm font-medium text-gray-600 mb-2">Bibliografía</label>
                         <input type="text" id="bibliografia" name="bibliografia" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-gray-50 text-gray-600" readonly>
                     </div>
                 </div>
 
-                <div class="flex flex-col sm:flex-row justify-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
-                    <div class="custom-tooltip" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
-                        <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="9" id="borradorBtn" disabled>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
+
+                    {{-- Botón GUARDAR BORRADOR (Ancho fijo w-40) --}}
+                    <div class="custom-tooltip w-50" data-tip="Debe seleccionar una materia para guardar como borrador" id="borradorTooltip">
+                        <button type="submit" name="action" value="guardar_borrador" class="inline-flex items-center justify-center w-full px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" id="borradorBtn" disabled>
                             GUARDAR BORRADOR
                         </button>
                     </div>
 
-                    <div class="custom-tooltip" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
-                        <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
-                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="10" id="guardarBtn" disabled>
+                    {{-- Botón GUARDAR (Ancho fijo w-40) --}}
+                    <div class="custom-tooltip w-40" data-tip="Complete todos los campos requeridos." id="guardarTooltip">
+                        {{-- Quitamos el w-50 anterior y usamos w-full dentro del w-40 del contenedor --}}
+                        <button type="submit" name="action" value="guardar" class="inline-flex items-center justify-center w-full px-5 py-2 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
+            hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" id="guardarBtn" disabled>
                             GUARDAR
                         </button>
                     </div>
 
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="11" onclick="window.location.href='/administracion'">
+                    {{-- Botón CANCELAR (Ancho fijo w-40) --}}
+                    <button type="button" class="inline-flex items-center justify-center w-40 px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" onclick="window.location.href='/administracion'">
                         CANCELAR
                     </button>
                 </div>

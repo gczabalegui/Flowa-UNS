@@ -16,17 +16,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Nombre</label>
-                        <input id="nombre_carrera" name="nombre_carrera" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="1" required value="{{ old('nombre_carrera') }}" placeholder="Ingrese el nombre de la carrera">
+                        <input id="nombre_carrera" name="nombre_carrera" type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('nombre_carrera') }}" placeholder="Ingrese el nombre de la carrera">
                         @error('nombre_carrera')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Departamento</label>
-                        <select id="departamento_id" name="departamento_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="2" required readonly>
+                        <label for="departamento_id" class="block text-sm font-medium text-gray-700 mb-2">
+                            Departamento
+                        </label>
+                        <select id="departamento_id" name="departamento_id" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required readonly aria-label="Departamento">
                             <option value="1" selected>Departamento de Agronomía</option>
                         </select>
+
                         @error('departamento_id')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -34,7 +37,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Código</label>
-                        <input id="codigo_carrera" name="codigo_carrera" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="3" required value="{{ old('codigo_carrera') }}" placeholder="Código" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input id="codigo_carrera" name="codigo_carrera" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('codigo_carrera') }}" placeholder="Código" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('codigo_carrera')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -42,7 +45,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">N° versión del programa</label>
-                        <input id="plan_version" name="plan_version" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="4" required value="{{ old('plan_version') }}" placeholder="Versión" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input id="plan_version" name="plan_version" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('plan_version') }}" placeholder="Versión" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('plan_version')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -50,7 +53,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Duración (cuatrimestres)</label>
-                        <input id="duracion" name="duracion" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="5" required value="{{ old('duracion') }}" placeholder="Duración" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input id="duracion" name="duracion" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('duracion') }}" placeholder="Duración" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('duracion')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -58,7 +61,7 @@
 
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Cantidad materias</label>
-                        <input id="cant_materias" name="cant_materias" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" tabindex="6" required value="{{ old('cant_materias') }}" placeholder="Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
+                        <input id="cant_materias" name="cant_materias" type="number" min="1" step="1" inputmode="numeric" class="no-spinners w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" required value="{{ old('cant_materias') }}" placeholder="Cantidad" oninput="this.value = this.value.replace(/[^0-9]/g, '')">
                         @error('cant_materias')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                         @enderror
@@ -68,12 +71,12 @@
                 <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4 mt-8 pt-6 border-t border-gray-200">
                     <div class="custom-tooltip" data-tip="Todos los campos son requeridos para guardar la carrera." id="guardarTooltip">
                         <button type="submit" class="inline-flex items-center justify-center px-5 py-2 w-50 border border-green-600 text-sm font-medium rounded-md text-green-700 bg-white 
-                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" tabindex="7" id="guardarBtn" disabled>
+                   hover:bg-green-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed" id="guardarBtn" disabled>
                             GUARDAR
                         </button>
                     </div>
 
-                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" tabindex="8" onclick="window.location.href='/administracion'">
+                    <button type="button" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200" onclick="window.location.href='/administracion'">
                         CANCELAR
                     </button>
                 </div>
