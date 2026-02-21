@@ -1,55 +1,55 @@
-[EN] | [ES](README_ES.md)
+🌍 Read this project in: [English](https://github.com/gczabalegui/Flowa-UNS/tree/readme-en)
 
 # Flowa-UNS
 
-Final university project developed for the Information Systems Engineering degree.
+Proyecto final desarrollado para la carrera de Ingeniería en Sistemas de Información.
 
-## Overview
-Flowa-UNS is a web-based system designed to manage the creation, review, and approval workflow of academic course syllabi. The application supports multiple user roles and enforces a structured validation process from draft creation to final approval.
+## Descripción general
+Flowa-UNS es un sistema web diseñado para gestionar el circuito de elaboración, revisión y aprobación de programas de materias. La aplicación soporta múltiples perfiles de usuario y establece un flujo de validación estructurado desde la creación del borrador hasta su aprobación final.
 
-## User Roles & Workflow
+## Perfiles de usuario y flujo del sistema
 
-### Administration
-- Creates and manages user roles involved in the workflow
-- Manages core entities such as degrees, courses, and syllabi
-- Completes administrative data including course workload, credits, and prerequisites
-- Creates, edits, and submits syllabus drafts to the responsible professor
-- Handles corrections when a syllabus is rejected and resubmits it into the workflow
+### Administración
+- Crea y gestiona los perfiles de usuario involucrados en el circuito (administración, secretaría académica, comisión curricular y profesor responsable)
+- Administra las entidades necesarias para la creación de programas de materia, tales como carreras, materias y programas
+- Completa datos administrativos del programa (año, cargas horarias, créditos académicos, correlativas y métricas institucionales)
+- Crea, edita y envía programas al profesor responsable para su revisión
+- Rectifica programas rechazados y los reenvía para continuar el circuito de aprobación
 
-### Responsible Professor
-- Completes academic content such as objectives, syllabus structure, learning outcomes, activities, and bibliography
-- Reviews and edits syllabi received from administration
-- Saves syllabi as drafts or submits them for academic approval
-- Can reuse approved syllabi for future academic years
+### Profesor responsable
+- Completa los contenidos académicos del programa (área temática, fundamentación, objetivos, contenidos, actividades y bibliografía)
+- Revisa, edita y guarda programas como borrador o de forma definitiva
+- Envía los programas a secretaría académica para su evaluación
+- Puede reutilizar programas aprobados para nuevos períodos académicos
 
-### Academic Office
-- Reviews completed syllabi and decides whether to approve or reject them
-- Returns rejected syllabi for correction and resubmission
-- Final approval completes the workflow
+### Secretaría académica
+- Revisa los programas completos y decide su aprobación o desaprobación
+- Devuelve programas rechazados a administración o al profesor responsable para su corrección
+- La aprobación finaliza el circuito del programa de materia
 
-### Curriculum Committee
-- Accesses approved syllabi
-- Generates official PDF documents following institutional formatting standards
-- Downloads, prints, or shares generated documents
+### Comisión curricular
+- Accede a los programas aprobados por secretaría académica
+- Genera archivos PDF con el formato institucional definido
+- Descarga, imprime o comparte los documentos generados
 
-## Main Features
-- Role-based access control
-- Multi-step approval workflow
-- Draft and revision management
-- PDF generation for approved syllabi
-- Structured academic and administrative data handling
+## Funcionalidades principales
+- Control de acceso basado en roles
+- Flujo de aprobación en múltiples etapas
+- Gestión de borradores y revisiones
+- Generación de documentos PDF
+- Manejo estructurado de datos académicos y administrativos
 
-## Technologies Used
+## Tecnologías utilizadas
 - PHP
-- Laravel Blade Templates
+- Laravel Blade
 - JavaScript
-- HTML & CSS
+- HTML y CSS
 - SQL
 - Git
 
-## Purpose
-This project was developed to simulate a real-world academic management system, applying software engineering principles such as role separation, workflow validation, and maintainable system design.
+## Objetivo del proyecto
+Este proyecto fue desarrollado para simular un sistema académico real, aplicando principios de ingeniería de software como separación de responsabilidades, validación de flujos de trabajo y diseño mantenible.
 
-## Contributors
+## Autores
 - Guadalupe Carreño Zabalegui
 - Florencia Loustaunau
