@@ -47,6 +47,28 @@ Flowa-UNS is a web-based system designed to manage the creation, review, and app
 - SQL
 - Git
 
+## How to run
+
+Follow these steps to run the project locally:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/guadacz/Flowa-UNS.git
+2. Install PHP and JavaScript dependencies:
+    ```bash
+   composer install
+   npm install
+3. Configure the .env file with your database credentials.
+4. Run database migrations:
+    ```bash
+    php artisan migrate
+5. Serve the application locally:
+   ```bash
+   php artisan serve
+6. Open your browser and go to:
+    ```bash
+   http://localhost:8000
+    
 ## Purpose
 This project was developed to simulate a real-world academic management system, applying software engineering principles such as role separation, workflow validation, and maintainable system design.
 
