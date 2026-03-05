@@ -47,6 +47,27 @@ Flowa-UNS es un sistema web diseñado para gestionar el circuito de elaboración
 - SQL
 - Git
 
+## Cómo ejecutar
+Sigue estos pasos para ejecutar el proyecto localmente:
+
+1. Clonar el repositorio:
+   ```bash
+   git clone https://github.com/guadacz/Flowa-UNS.git
+2. Instalar dependencias de PHP y JavaScript:
+   ```bash
+    composer install
+    npm install
+3. Configurar el archivo .env con los datos de tu base de datos.
+4. Ejecutar las migraciones de la base de datos:
+   ```bash
+   php artisan migrate
+5. Levantar la aplicación localmente:
+   ```bash
+   php artisan serve
+6. Abrir el navegador y acceder a:
+   ```bash
+   http://localhost:8000
+   
 ## Objetivo del proyecto
 Este proyecto fue desarrollado para simular un sistema académico real, aplicando principios de ingeniería de software como separación de responsabilidades, validación de flujos de trabajo y diseño mantenible.
 
